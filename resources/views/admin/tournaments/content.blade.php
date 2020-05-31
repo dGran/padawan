@@ -29,28 +29,45 @@
     </div>
 
     <div class="selected-regs hidden animated fast">
-        <div class="text-xs p-3 bg-gray-200 text-center">
+        <div class="wrap">
             <div class="selected-regs-count"></div>
-            <div class="inline-flex mt-5 border">
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4 rounded-l">
-                    <img src="https://image.flaticon.com/icons/svg/411/411085.svg" alt="" width="24">
-                </button>
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4">
-                    <img src="https://image.flaticon.com/icons/svg/1828/1828843.svg" alt="" width="24">
-                </button>
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4">
-                    <img src="https://image.flaticon.com/icons/svg/1387/1387647.svg" alt="" width="24">
-                </button>
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4">
-                    <img src="https://image.flaticon.com/icons/svg/29/29070.svg" alt="" width="24">
-                </button>
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4">
-                    <img src="https://image.flaticon.com/icons/svg/28/28841.svg" alt="" width="24">
-                </button>
-                <button class="bg-gray-100 hover:bg-white text-gray-800 font-bold p-2 md:px-4 rounded-r">
-                    <img src="https://image.flaticon.com/icons/svg/28/28842.svg" alt="" width="24">
-
-                </button>
+            <div class="elements">
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'support-table')" onmouseleave="openPopover(event,'support-table')">
+                        <img src="https://image.flaticon.com/icons/svg/411/411085.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="support-table">Agregar a tabla de apoyo</label>
+                </div>
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'delete')" onmouseleave="openPopover(event,'delete')">
+                        <img src="https://image.flaticon.com/icons/svg/1828/1828843.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="delete">Eliminar</label>
+                </div>
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'duplicate')" onmouseleave="openPopover(event,'duplicate')">
+                        <img src="https://image.flaticon.com/icons/svg/1387/1387647.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="duplicate">Duplicar</label>
+                </div>
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'export_xls')" onmouseleave="openPopover(event,'export_xls')">
+                        <img src="https://image.flaticon.com/icons/svg/29/29070.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="export_xls">Exportar (.xls)</label>
+                </div>
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'export_xlsx')" onmouseleave="openPopover(event,'export_xlsx')">
+                        <img src="https://image.flaticon.com/icons/svg/28/28841.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="export_xlsx">Exportar (.xslx)</label>
+                </div>
+                <div class="element">
+                    <button type="button" onmouseenter="openPopover(event,'export_csv')" onmouseleave="openPopover(event,'export_csv')">
+                        <img src="https://image.flaticon.com/icons/svg/28/28842.svg" alt="" width="24">
+                    </button>
+                    <label class="hidden" id="export_csv">Exportar (.csv)</label>
+                </div>
             </div>
         </div>
     </div>

@@ -58,7 +58,40 @@
 	@screen md {
 		@apply ml-64;
 	}
-	.selected-regs-count {
-		@apply flex-col text-xs absolute top-0 left-0 right-0 mt-2 text-gray-800;
+	.wrap {
+		@apply text-xs px-3 pb-6 bg-gray-200 text-center border-t border-gray-400;
+		@screen md {
+			@apply py-3;
+		}
+		.selected-regs-count {
+			@apply flex-col text-xs absolute top-0 left-0 right-0 mt-3 text-gray-800;
+		}
+		.elements {
+			@apply inline-flex mt-10 border;
+			@screen md {
+				@apply mt-6;
+			}
+			.element {
+				button {
+					@apply bg-gray-100 text-gray-800 font-bold p-2 rounded-l;
+					transition: all .15s ease;
+					&:hover {
+						@apply bg-white;
+					}
+					&:focus {
+						@apply outline-none;
+					}
+					@screen md {
+						@apply px-4;
+					}
+				}
+				label {
+					@apply bg-pink-600 border-0 mb-2 z-50 font-normal leading-normal text-xs max-w-xs text-left no-underline break-words rounded-lg text-white px-3 py-2;
+					@screen md {
+						@apply text-sm;
+					}
+				}
+			}
+		}
 	}
 }

@@ -1,4 +1,17 @@
 <script>
+    //popOver
+    function openPopover(event,popoverID) {
+        let element = event.target;
+        while(element.nodeName !== "BUTTON") {
+            element = element.parentNode;
+        }
+        var popper = new Popper(element, document.getElementById(popoverID), {
+            placement: 'top'
+        });
+        document.getElementById(popoverID).classList.toggle("hidden");
+    }
+
+    //Search focus by press "/"
     $(function() {
         Mousetrap.bind(['/'], function() {
             $('.search-input').focus();
@@ -6,7 +19,7 @@
         });
     });
 
-
+    //Table RowSelect
     function rowSelect(element) {
         $(element).siblings('.select').find('.mark').trigger('click');
     }
@@ -35,22 +48,6 @@
         }
     }
 
-    function changeSort(field, direction) {
-    	$("#sortField").val(field);
-    	if (!direction) {
-    		$("#sortDirection").val('asc');
-    	} else if (direction == 'asc') {
-    		$("#sortDirection").val('desc');
-    	} else {
-    		$("#sortDirection").val('asc');
-    	}
-    	applyFilters();
-    }
-
-    function applyFilters() {
-    	$("#frmFilter").submit();
-    }
-
     function showHideAllRowOptions() {
         if ($("#allMark").is(':checked')) {
             $(".mark").prop('checked', true);
@@ -62,6 +59,23 @@
         showHideRowOptions();
     }
 
+    function changeSort(field, direction) {
+        $("#sortField").val(field);
+        if (!direction) {
+            $("#sortDirection").val('asc');
+        } else if (direction == 'asc') {
+            $("#sortDirection").val('desc');
+        } else {
+            $("#sortDirection").val('asc');
+        }
+        applyFilters();
+    }
+
+    function applyFilters() {
+        $("#frmFilter").submit();
+    }
+
+    //disable buttons
     function disabledActionsButtons() {
         $('a').addClass('disabled');
         $('button').attr("disabled", "disabled");
