@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+	<head>
+		<meta charset="UTF-8">
+		{{-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> --}}
+		{{-- <meta name="viewport" content="initial-scale=1, viewport-fit=cover"> --}}
+        <meta name="viewport" content="width=device-width,minimum-scale=1.0,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="...">
+		<meta name="keywords" content="...">
+		<link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
+		@yield('styles')
+
+        {{-- Sweet Alert --}}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+		<title>
+			{{ env('APP_NAME') }}
+			@isset($title)
+			- {{ $title }}
+			@endisset
+		</title>
+	</head>
+
+	<body class="font-roboto bg-gray-900 text-gray-200">
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+
+		<div class="wrap flex flex-col h-screen justify-between {{ isset($wrap_bg) ? $wrap_bg : '' }}">
+			<header class="bg-gray-900 ">
+				@include('layouts.partials.app.header')
+			</header>
+
+			<main class="mb-auto {{ isset($wrap_bg) ? $wrap_bg : '' }}">
+				@isset($breadcrumb)
+					@if($breadcrumb == 'dark')
+						@include('layouts.partials.app.breadcrumb_dark')
+					@elseif ($breadcrumb == 'light')
+						@include('layouts.partials.app.breadcrumb')
+					@endif
+				@endisset
+		        @if (flash()->message)
+		            @include('layouts.partials.flash_message')
+		        @endif
+				@yield('content')
+			</main>
+
+			<footer class="bg-gray-900">
+				@include('layouts.partials.app.footer')
+			</footer>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+		@include('layouts.partials.app.javascript')
+		@yield('modals')
+		@yield('js')
+	</body>
+
+</html>

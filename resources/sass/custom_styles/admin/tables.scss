@@ -1,0 +1,64 @@
+.table-wrap {
+	@apply inline-block min-w-full shadow rounded-lg overflow-hidden border border-gray-400;
+
+	.admin-tables {
+		@apply min-w-full leading-normal bg-white;
+		th {
+			@apply px-1 py-3 border-b border-gray-300 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wide;
+			&:first-child {
+				@apply pl-3
+			}
+			&:last-child {
+				@apply pr-3
+			}
+		}
+		tr {
+			&.selected {
+				@apply bg-yellow-100;
+			}
+			&:hover {
+				@apply bg-gray-100;
+				&.selected {
+					@apply bg-yellow-100;
+				}
+				td {
+					.name {
+						@apply text-pink-600;
+					}
+				}
+				.actions {
+					button {
+						@apply border bg-white;
+					}
+				}
+			}
+		}
+		td {
+			@apply px-1 py-2 border-b border-gray-200 text-xs;
+			&:first-child {
+				@apply pl-3
+			}
+			&:last-child {
+				@apply pr-3
+			}
+		}
+		.actions {
+			@apply text-right w-12;
+			button {
+				@apply rounded p-2 w-10;
+				@hover bg-gray-200;
+			}
+		}
+	}
+}
+
+.selected-regs {
+	@apply fixed bottom-0 left-0 right-0;
+	z-index: 9999;
+	@screen md {
+		@apply ml-64;
+	}
+	.selected-regs-count {
+		@apply flex-col text-xs absolute top-0 left-0 right-0 mt-2 text-gray-800;
+	}
+}

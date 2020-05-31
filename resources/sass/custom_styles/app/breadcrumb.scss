@@ -1,0 +1,40 @@
+.breadcrumb-nav {
+	@apply max-w-screen-xl px-4 mx-auto mt-2 text-gray-700;
+	.breadcrumb-list {
+		@apply flex text-xs py-4;
+		.breadcrumb-link {
+			@apply font-bold text-gray-700;
+		}
+		.breadcrumb-link:hover {
+			@apply text-orange-400;
+		}
+		.breadcrumb-separator {
+			@apply mx-2 text-orange-400;
+		}
+	}
+}
+
+.breadcrumb-nav-dark {
+	@apply max-w-screen-xl px-4 mx-auto mt-2 text-white;
+	.breadcrumb-list {
+		@apply flex text-xs py-4;
+		.breadcrumb-link {
+			@apply font-bold text-white;
+		}
+		.breadcrumb-link:hover {
+			@apply text-orange-400;
+		}
+		.breadcrumb-separator {
+			@apply mx-2 text-orange-400;
+		}
+	}
+}
+
+@screen md {
+	.breadcrumb-nav, .breadcrumb-nav-dark {
+		@apply px-10;
+	}
+	.breadcrumb-list {
+		@apply text-sm;
+	}
+}

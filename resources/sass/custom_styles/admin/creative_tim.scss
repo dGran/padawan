@@ -1,0 +1,39 @@
+.bg-brand-white {
+    background-color: #ecf4f3;
+}
+
+.bg-brand {
+    background-color: #3b7977;
+}
+
+.scroll {
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.bounce-in-right {
+    -webkit-animation: bounce-in-right .8s both;
+    animation: bounce-in-right .8s both;
+}
+
+@media (min-width: 768px) {
+	.bounce-in-right {
+	    -webkit-animation: none;
+	    animation: none;
+	    animation-duration: 0s;
+	    animation-timing-function: ease;
+	    animation-delay: 0s;
+	    animation-iteration-count: 1;
+	    animation-direction: normal;
+	    animation-fill-mode: none;
+	    animation-play-state: running;
+	    animation-name: none;
+	}
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+    border: 0 solid #e2e8f0;
+}

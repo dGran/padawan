@@ -1,0 +1,16 @@
+.custom-label {
+	// @apply flex;
+	div {
+		@apply bg-white w-5 h-5 flex justify-center items-center border border-gray-400 rounded;
+		input {
+			@apply hidden;
+		}
+		svg {
+			@apply hidden w-3 h-3 text-pink-600 pointer-events-none;
+		}
+	}
+}
+
+.custom-label input:checked + svg {
+    display: block !important;
+}
