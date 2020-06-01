@@ -93,3 +93,20 @@
 		}
 	}
 }
+
+.filter-tags {
+	@apply pb-2;
+	button {
+		@apply text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-gray-700 bg-white border border-gray-400 uppercase mr-1 cursor-pointer;
+		font-size: .7em;
+		&:hover {
+			@apply bg-gray-200;
+		}
+		&:focus {
+			@apply outline-none;
+		}
+		&:last {
+			@apply mr-0;
+		}
+	}
+}

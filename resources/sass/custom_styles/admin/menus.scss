@@ -1,0 +1,50 @@
+.menu {
+	ul {
+		@apply flex flex-col list-none;
+		@screen md {
+			@apply flex-col min-w-full;
+		}
+		li {
+			a {
+				@apply text-gray-800 text-xs uppercase py-2 font-bold block;
+				&:hover {
+					@apply text-gray-600;
+				}
+				i {
+					@apply text-gray-500 mr-2 text-sm w-5;
+				}
+			}
+			&.current {
+				a {
+					@apply text-pink-500;
+					&:hover {
+						@apply text-pink-600;
+					}
+					i {
+						@apply opacity-75 text-pink-500;
+					}
+				}
+			}
+			&.disabled {
+				a {
+					@apply text-gray-400;
+					i {
+						@apply text-gray-400;
+					}
+				}
+			}
+		}
+	}
+	.divider {
+		@apply my-4;
+		@screen md {
+			@apply min-w-full;
+		}
+	}
+	.section {
+		@apply text-gray-600 text-xs uppercase font-bold block pt-1 pb-4 no-underline;
+		@screen md {
+			@apply min-w-full;
+		}
+	}
+}

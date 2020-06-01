@@ -55,11 +55,9 @@
 </div>
 
 @if ($filterName)
-    <div class="filter-tags pb-2">
+    <div class="filter-tags">
         @if ($filterName)
-            <button class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-gray-700 bg-gray-400 uppercase last:mr-0 mr-1 cursor-pointer focus:outline-none" style="font-size: .7em" onclick="cancelFilterName()">
-                Nombre<i class="fas fa-times pl-1"></i>
-            </button>
+            <button onclick="cancelFilterName()">Nombre<i class="fas fa-times pl-1"></i></button>
         @endif
     </div>
 @endif
