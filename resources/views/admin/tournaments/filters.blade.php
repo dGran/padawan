@@ -48,7 +48,7 @@
                 </path>
             </svg>
         </span>
-        <input placeholder='Buscar...(Presiona "/")' name="filterName"
+        <input placeholder='Buscar...(Presiona "/")' name="filterName" id="filterName"
             class="search-input appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" value="{{ $filterName }}"/>
     </div>
 
@@ -57,9 +57,9 @@
 @if ($filterName)
     <div class="filter-tags pb-2">
         @if ($filterName)
-            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200 uppercase last:mr-0 mr-1">
-                Nombre
-            </span>
+            <button class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded text-gray-700 bg-gray-400 uppercase last:mr-0 mr-1 cursor-pointer focus:outline-none" style="font-size: .7em" onclick="cancelFilterName()">
+                Nombre<i class="fas fa-times pl-1"></i>
+            </button>
         @endif
     </div>
 @endif

@@ -10,14 +10,16 @@
 		<meta name="keywords" content="...">
 		<meta name="theme-color" content="#000000" />
 
-
 		<link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
 		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}"/>
 
-		{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"/> --}}
+		{{-- Tooltips --}}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css">
+		{{-- Iconmoon --}}
+		<link rel="stylesheet" href="{{ asset('fonts/vendor/iconmoon.css') }}"/>
 	    {{-- Font Awesome --}}
-		{{-- <link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/> --}}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+		{{-- <link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/> --}}
 		{{-- Custom --}}
 		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 		@yield('styles')

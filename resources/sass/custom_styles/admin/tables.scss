@@ -59,37 +59,35 @@
 		@apply ml-64;
 	}
 	.wrap {
-		@apply text-xs px-3 pb-6 bg-gray-200 text-center border-t border-gray-400;
-		@screen md {
-			@apply py-3;
-		}
+		@apply flex justify-center text-xs px-3 pb-6 bg-gray-200 border-t border-gray-400;
 		.selected-regs-count {
-			@apply flex-col text-xs absolute top-0 left-0 right-0 mt-3 text-gray-800;
-		}
-		.elements {
-			@apply inline-flex mt-10 border;
+			@apply text-xs absolute top-0 m-auto mt-4 text-gray-800 font-semibold;
 			@screen md {
-				@apply mt-6;
+				@apply text-sm;
 			}
-			.element {
-				button {
-					@apply bg-gray-100 text-gray-800 font-bold p-2 rounded-l;
-					transition: all .15s ease;
-					&:hover {
-						@apply bg-white;
-					}
-					&:focus {
-						@apply outline-none;
-					}
-					@screen md {
-						@apply px-4;
-					}
+		}
+		button {
+			@apply text-gray-600 p-3 bg-white shadow rounded border border-gray-300;
+			transition: all .15s ease;
+			&.danger {
+				@apply text-red-400;
+				&:hover {
+					@apply text-red-600 border-red-500 bg-red-100;
 				}
-				label {
-					@apply bg-pink-600 border-0 mb-2 z-50 font-normal leading-normal text-xs max-w-xs text-left no-underline break-words rounded-lg text-white px-3 py-2;
-					@screen md {
-						@apply text-sm;
-					}
+			}
+			&:hover {
+				@apply text-gray-800 border-gray-500 bg-gray-100;
+			}
+			@screen md {
+				@apply px-4;
+			}
+			&:focus {
+				@apply outline-none;
+			}
+			i {
+				font-size: 24px;
+				@screen md {
+					font-size: 32px;
 				}
 			}
 		}

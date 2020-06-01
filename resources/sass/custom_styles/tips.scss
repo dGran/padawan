@@ -16,19 +16,28 @@ input, textarea {
 
 .custom-container {
 	@apply max-w-screen-xl px-4 mx-auto;
+	@screen md {
+		@apply px-10;
+	}
 }
 .below-fixed-header {
 	margin-top: 65px;
-}
-@screen md {
-	.custom-container {
-		@apply px-10;
-	}
-	.below-fixed-header {
+	@screen md {
 		margin-top: 72px;
 	}
 }
 
 .iphone-x-landscape {
 	padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.scroll {
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	-ms-overflow-style: -ms-autohiding-scrollbar;
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }

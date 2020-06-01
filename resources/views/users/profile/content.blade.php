@@ -20,24 +20,23 @@
 	        		</div>
 	        	</div>
 		        <div class="overflow-x-auto cursor-pointer">
-
-						<ul class="flex mb-0 list-none pt-3 pb-4 flex-row">
-							<li class="flex-auto text-center mr-2">
-								<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-gray-600" onclick="changeAtiveTab(event,'tab-general')">
-									<i class="fas fa-id-badge text-base mx-1"></i><span class="mx-1">General</span>
-								</a>
-							</li>
-							<li class="flex-auto text-center mr-2">
-								<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-gray-600 bg-white" onclick="changeAtiveTab(event,'tab-gamer')">
-									<i class="fas fa-gamepad text-base mx-1"></i><span class="mx-1">Gamer</span>
-								</a>
-							</li>
-							<li class="flex-auto text-center">
-								<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-gray-600 bg-white" onclick="changeAtiveTab(event,'tab-social')">
-									<i class="fas fa-thumbs-up text-base mx-1"></i><span class="mx-1">Social</span>
-								</a>
-							</li>
-						</ul>
+					<ul class="flex mb-0 list-none pt-3 pb-4 flex-row">
+						<li class="flex-auto text-center mr-2">
+							<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-gray-600" onclick="changeAtiveTab(event,'tab-general')">
+								<i class="fas fa-id-badge text-base mx-1"></i><span class="mx-1">General</span>
+							</a>
+						</li>
+						<li class="flex-auto text-center mr-2">
+							<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-gray-600 bg-white" onclick="changeAtiveTab(event,'tab-gamer')">
+								<i class="fas fa-gamepad text-base mx-1"></i><span class="mx-1">Gamer</span>
+							</a>
+						</li>
+						<li class="flex-auto text-center">
+							<a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-gray-600 bg-white" onclick="changeAtiveTab(event,'tab-social')">
+								<i class="fas fa-thumbs-up text-base mx-1"></i><span class="mx-1">Social</span>
+							</a>
+						</li>
+					</ul>
 		        </div>
                 <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf

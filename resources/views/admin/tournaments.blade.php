@@ -14,4 +14,5 @@
 
 @section('js')
     @include('admin.partials.javascript')
+    @include('admin.tournaments.js')
 @endsection

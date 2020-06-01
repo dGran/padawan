@@ -9,7 +9,10 @@
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="description" content="...">
 		<meta name="keywords" content="...">
+		{{-- Tooltips --}}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css">
 		<link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/>
+		<link rel="stylesheet" href="{{ asset('fonts/vendor/iconmoon.css') }}"/>
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		@yield('styles')
 

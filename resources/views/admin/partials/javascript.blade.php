@@ -1,16 +1,4 @@
 <script>
-    //popOver
-    function openPopover(event,popoverID) {
-        let element = event.target;
-        while(element.nodeName !== "BUTTON") {
-            element = element.parentNode;
-        }
-        var popper = new Popper(element, document.getElementById(popoverID), {
-            placement: 'top'
-        });
-        document.getElementById(popoverID).classList.toggle("hidden");
-    }
-
     //Search focus by press "/"
     $(function() {
         Mousetrap.bind(['/'], function() {
@@ -39,7 +27,7 @@
         	if (elements == 1) {
         		$(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
         	} else {
-        		$(".selected-regs-count").text(elements + ' registros');
+        		$(".selected-regs-count").text(elements + ' registros seleccionados');
         	}
         } else {
         	$(".table-wrap").removeClass('mb-20');
