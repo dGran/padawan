@@ -8,6 +8,13 @@ input, textarea {
   appearance: none;
 }
 
+a {
+	&.disabled {
+		pointer-events: none;
+		cursor: not-allowed;
+	}
+}
+
 .autoHide5s {
     -webkit-animation: fadeOutUp .8s forwards;
     animation: fadeOutUp .8s forwards;

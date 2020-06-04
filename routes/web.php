@@ -37,8 +37,12 @@ Route::prefix('/torneos')->group(function () {
 });
 
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {
-	Route::get('/', 'AdminController@dashboard')->name('admin');
-	Route::get('/torneos', 'AdminController@tournaments')->name('admin.tournaments');
+	Route::get('/', 'Admin\AdminController@dashboard')->name('admin');
+	Route::get('/usuarios', 'Admin\UserController@list')->name('admin.users');
+	Route::get('/usuarios/editar/{id}', 'Admin\UserController@edit')->name('admin.users.edit');
+	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
+	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
+	Route::get('/usuarios/exportar/{format}/{ids}/{filename}', 'Admin\UserController@export')->name('admin.users.export');
 });
 
 Auth::routes(['verify' => true]);

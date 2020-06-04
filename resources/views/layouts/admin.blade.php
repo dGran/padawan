@@ -24,6 +24,9 @@
 		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 		@yield('styles')
 
+        {{-- Sweet Alert --}}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 		<title>
 			Admin Panel
 			@isset($title)
@@ -45,6 +48,9 @@
 					@include('layouts.partials.admin.breadcrumb')
 				</div>
 			@endisset
+	        @if (flash()->message)
+	            @include('layouts.partials.flash_message')
+	        @endif
 			@yield('content')
 		</div>
 
@@ -54,6 +60,8 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js"></script>
 	    {{-- Popper --}}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
+		{{-- Alpine --}}
+		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 		@include('layouts.partials.admin.javascript')
 		@yield('modals')

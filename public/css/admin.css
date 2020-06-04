@@ -19062,6 +19062,11 @@ input, textarea {
   appearance: none;
 }
 
+a.disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
 .autoHide5s {
   -webkit-animation: fadeOutUp 0.8s forwards;
   animation: fadeOutUp 0.8s forwards;
@@ -19111,18 +19116,23 @@ input, textarea {
 }
 
 .swal-footer {
-  background-color: #f5f8fa;
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+  border-top-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
   margin-top: 32px;
-  border-top: 1px solid #E9EEF1;
   overflow: hidden;
 }
 
 .swal-title {
-  font-size: 18px;
+  font-size: 1.2rem;
 }
 
 .swal-text {
-  font-size: 14px;
+  font-size: 0.9rem;
   text-align: center;
 }
 
@@ -19132,6 +19142,40 @@ input, textarea {
 
 .swal-text:last-child {
   margin-bottom: 25px;
+}
+
+.swal-button-container .swal-btn:focus {
+  outline: 0;
+}
+
+.swal-button-container .swal-btn.danger {
+  --bg-opacity: 1;
+  background-color: #f56565;
+  background-color: rgba(245, 101, 101, var(--bg-opacity));
+}
+
+.swal-button-container .swal-btn.danger:hover {
+  background: #e53e3e !important;
+}
+
+.swal-button-container .swal-btn.success {
+  --bg-opacity: 1;
+  background-color: #48bb78;
+  background-color: rgba(72, 187, 120, var(--bg-opacity));
+}
+
+.swal-button-container .swal-btn.success:hover {
+  background: #38a169 !important;
+}
+
+.swal-button-container .swal-btn.default {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+}
+
+.swal-button-container .swal-btn.default:hover {
+  background: #e2e8f0 !important;
 }
 
 .swal-success {
@@ -19271,7 +19315,6 @@ input, textarea {
 }
 
 .breadcrumb-nav {
-  max-width: 1280px;
   padding-left: 1rem;
   padding-right: 1rem;
   margin-left: auto;
@@ -19335,8 +19378,8 @@ input, textarea {
 
 .menu ul li a {
   --text-opacity: 1;
-  color: #2d3748;
-  color: rgba(45, 55, 72, var(--text-opacity));
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
   font-size: 0.75rem;
   text-transform: uppercase;
   padding-top: 0.5rem;
@@ -19347,48 +19390,36 @@ input, textarea {
 
 .menu ul li a:hover {
   --text-opacity: 1;
-  color: #718096;
-  color: rgba(113, 128, 150, var(--text-opacity));
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
 }
 
 .menu ul li a i {
-  --text-opacity: 1;
-  color: #a0aec0;
-  color: rgba(160, 174, 192, var(--text-opacity));
   margin-right: 0.5rem;
   font-size: 0.875rem;
   width: 1.25rem;
 }
 
-.menu ul li.current a {
-  --text-opacity: 1;
-  color: #ed64a6;
-  color: rgba(237, 100, 166, var(--text-opacity));
+.menu ul li.current {
+  cursor: not-allowed;
 }
 
-.menu ul li.current a:hover {
+.menu ul li.current a {
   --text-opacity: 1;
   color: #d53f8c;
   color: rgba(213, 63, 140, var(--text-opacity));
+  pointer-events: none;
 }
 
-.menu ul li.current a i {
-  opacity: 0.75;
-  --text-opacity: 1;
-  color: #ed64a6;
-  color: rgba(237, 100, 166, var(--text-opacity));
+.menu ul li.disabled {
+  cursor: not-allowed;
 }
 
 .menu ul li.disabled a {
   --text-opacity: 1;
   color: #cbd5e0;
   color: rgba(203, 213, 224, var(--text-opacity));
-}
-
-.menu ul li.disabled a i {
-  --text-opacity: 1;
-  color: #cbd5e0;
-  color: rgba(203, 213, 224, var(--text-opacity));
+  pointer-events: none;
 }
 
 .menu .divider {
@@ -19431,6 +19462,13 @@ input, textarea {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
+  font-size: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .table-wrap {
+    font-size: 0.875rem;
+  }
 }
 
 .table-wrap .admin-tables {
@@ -19454,7 +19492,6 @@ input, textarea {
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
   text-align: left;
-  font-size: 0.75rem;
   font-weight: 600;
   --text-opacity: 1;
   color: #718096;
@@ -19495,13 +19532,6 @@ input, textarea {
   color: rgba(213, 63, 140, var(--text-opacity));
 }
 
-.table-wrap .admin-tables tr:hover .actions button {
-  border-width: 1px;
-  --bg-opacity: 1;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, var(--bg-opacity));
-}
-
 .table-wrap .admin-tables td {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -19511,7 +19541,6 @@ input, textarea {
   --border-opacity: 1;
   border-color: #edf2f7;
   border-color: rgba(237, 242, 247, var(--border-opacity));
-  font-size: 0.75rem;
 }
 
 .table-wrap .admin-tables td:first-child {
@@ -19522,23 +19551,19 @@ input, textarea {
   padding-right: 0.75rem;
 }
 
-.table-wrap .admin-tables .actions {
-  text-align: right;
-  width: 3rem;
-}
-
-.table-wrap .admin-tables .actions button {
-  border-radius: 0.25rem;
-  padding: 0.5rem;
-  width: 2.5rem;
-  @hover bg-gray-200;
-}
-
 .selected-regs {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  font-size: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+  border-top-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
   z-index: 9999;
 }
 
@@ -19548,41 +19573,79 @@ input, textarea {
   }
 }
 
-.selected-regs .wrap {
-  display: flex;
-  justify-content: center;
-  font-size: 0.75rem;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-  padding-bottom: 1.5rem;
-  --bg-opacity: 1;
-  background-color: #edf2f7;
-  background-color: rgba(237, 242, 247, var(--bg-opacity));
-  border-top-width: 1px;
-  --border-opacity: 1;
-  border-color: #cbd5e0;
-  border-color: rgba(203, 213, 224, var(--border-opacity));
+.selected-regs .info {
+  display: block;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+  padding-top: 1rem;
 }
 
-.selected-regs .wrap .selected-regs-count {
-  font-size: 0.75rem;
-  position: absolute;
-  top: 0;
-  margin: auto;
-  margin-top: 1rem;
+@media (min-width: 768px) {
+  .selected-regs .info {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+.selected-regs .info .selected-regs-count {
   --text-opacity: 1;
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
   font-weight: 600;
+  --text-opacity: 1;
+  color: #ed64a6;
+  color: rgba(237, 100, 166, var(--text-opacity));
+  cursor: pointer;
+  font-size: 0.8rem;
 }
 
 @media (min-width: 768px) {
-  .selected-regs .wrap .selected-regs-count {
-    font-size: 0.875rem;
+  .selected-regs .info .selected-regs-count {
+    font-size: 1rem;
   }
 }
 
-.selected-regs .wrap button {
+.selected-regs .info #cancel-selection {
+  position: absolute;
+  --text-opacity: 1;
+  color: #ed64a6;
+  color: rgba(237, 100, 166, var(--text-opacity));
+  cursor: pointer;
+  top: 0.5em;
+  right: 1rem;
+  font-size: 1.75em;
+}
+
+.selected-regs .info #cancel-selection:hover {
+  --text-opacity: 1;
+  color: #d53f8c;
+  color: rgba(213, 63, 140, var(--text-opacity));
+}
+
+@media (min-width: 768px) {
+  .selected-regs .info #cancel-selection {
+    right: 2rem;
+    font-size: 2.25em;
+  }
+}
+
+.selected-regs .elements {
+  display: flex;
+  justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
+  .selected-regs .elements {
+    margin-left: 2rem;
+    margin-right: 2rem;
+  }
+}
+
+.selected-regs .elements button {
   --text-opacity: 1;
   color: #718096;
   color: rgba(113, 128, 150, var(--text-opacity));
@@ -19599,13 +19662,13 @@ input, textarea {
   transition: all 0.15s ease;
 }
 
-.selected-regs .wrap button.danger {
+.selected-regs .elements button.danger {
   --text-opacity: 1;
   color: #fc8181;
   color: rgba(252, 129, 129, var(--text-opacity));
 }
 
-.selected-regs .wrap button.danger:hover {
+.selected-regs .elements button.danger:hover {
   --text-opacity: 1;
   color: #e53e3e;
   color: rgba(229, 62, 62, var(--text-opacity));
@@ -19617,7 +19680,7 @@ input, textarea {
   background-color: rgba(255, 245, 245, var(--bg-opacity));
 }
 
-.selected-regs .wrap button:hover {
+.selected-regs .elements button:hover {
   --text-opacity: 1;
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
@@ -19630,24 +19693,41 @@ input, textarea {
 }
 
 @media (min-width: 768px) {
-  .selected-regs .wrap button {
+  .selected-regs .elements button {
     padding-left: 1rem;
     padding-right: 1rem;
   }
 }
 
-.selected-regs .wrap button:focus {
+.selected-regs .elements button:focus {
   outline: 0;
 }
 
-.selected-regs .wrap button i {
+.selected-regs .elements button i {
   font-size: 24px;
 }
 
 @media (min-width: 768px) {
-  .selected-regs .wrap button i {
+  .selected-regs .elements button i {
     font-size: 32px;
   }
+}
+
+.selected-regs .elements [class*=hint--]:after {
+  padding: 5px 8px;
+  font-size: 11px;
+}
+
+.selected-regs .elements .hint--top-right:after, .selected-regs .elements .hint--top-right:before {
+  bottom: 70%;
+}
+
+.selected-regs .elements .hint--top:after, .selected-regs .elements .hint--top:before {
+  bottom: 70%;
+}
+
+.selected-regs .elements .hint--top-left:after, .selected-regs .elements .hint--top-left:before {
+  bottom: 70%;
 }
 
 .filter-tags {
@@ -19662,7 +19742,6 @@ input, textarea {
   padding-bottom: 0.25rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  text-transform: uppercase;
   border-radius: 0.25rem;
   --text-opacity: 1;
   color: #4a5568;
@@ -19674,7 +19753,6 @@ input, textarea {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
-  text-transform: uppercase;
   margin-right: 0.25rem;
   cursor: pointer;
   font-size: 0.7em;
@@ -19694,7 +19772,7 @@ input, textarea {
   margin-right: 0;
 }
 
-.custom-label div {
+.custom-check div {
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
@@ -19710,11 +19788,11 @@ input, textarea {
   border-radius: 0.25rem;
 }
 
-.custom-label div input {
+.custom-check div input {
   display: none;
 }
 
-.custom-label div svg {
+.custom-check div svg {
   display: none;
   width: 0.75rem;
   height: 0.75rem;
@@ -19724,7 +19802,7 @@ input, textarea {
   pointer-events: none;
 }
 
-.custom-label input:checked + svg {
+.custom-check input:checked + svg {
   display: block !important;
 }
 

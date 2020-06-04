@@ -1,21 +1,48 @@
 .swal-footer {
-	background-color: rgb(245, 248, 250);
+	@apply bg-gray-200 border-t border-gray-400;
 	margin-top: 32px;
-	border-top: 1px solid #E9EEF1;
 	overflow: hidden;
 }
-
 .swal-title {
-	font-size: 18px;
+	font-size: 1.2rem;
 }
 .swal-text {
-	font-size: 14px;
+	font-size: .9rem;
 	text-align: center;
 	&:first-child {
 		margin-top: 25px;
 	}
 	&:last-child {
 		margin-bottom: 25px;
+	}
+}
+
+.swal-button-container {
+	.swal-btn {
+		&:focus {
+			@apply outline-none;
+		}
+		&.danger {
+			@apply bg-red-500;
+			&:hover {
+				// bg-red-600
+				background: #e53e3e !important;
+			}
+		}
+		&.success {
+			@apply bg-green-500;
+			&:hover {
+				// bg-green-600
+				background: #38a169 !important;
+			}
+		}
+		&.default {
+			@apply bg-gray-100;
+			&:hover {
+				// bg-gray-300
+				background: #e2e8f0 !important;
+			}
+		}
 	}
 }
 
@@ -89,22 +116,4 @@
 			margin-bottom: 25px;
 		}
 	}
-}
-
-
-
-// Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) {
-}
-
-// Medium devices (tablets, 768px and up)
-@media (min-width: 768px) {
-}
-
-// Large devices (desktops, 992px and up)
-@media (min-width: 992px) {
-}
-
-// Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
 }

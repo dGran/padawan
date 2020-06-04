@@ -1,4 +1,4 @@
-.custom-label {
+.custom-check {
 	// @apply flex;
 	div {
 		@apply bg-white w-5 h-5 flex justify-center items-center border border-gray-400 rounded;
@@ -11,6 +11,6 @@
 	}
 }
 
-.custom-label input:checked + svg {
+.custom-check input:checked + svg {
     display: block !important;
 }

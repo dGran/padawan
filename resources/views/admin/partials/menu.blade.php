@@ -3,8 +3,8 @@
 		<li class="items-center {{ \Request::is('admin') ? 'current' : '' }}">
 			<a href="{{ route('admin') }}"><i class="fas fa-tv"></i>Dashboard</a>
 		</li>
-		<li class="items-center {{ \Request::is('admin/torneos*') ? 'current' : '' }}">
-			<a href="{{ route('admin.tournaments') }}"><i class="fas fa-newspaper"></i>Torneos</a>
+		<li class="items-center {{ \Request::is('admin/usuarios*') ? 'current' : '' }}">
+			<a href="{{ route('admin.users') }}"><i class="fas fa-users"></i>Usuarios</a>
 		</li>
 		<li class="disabled items-center">
 			<a href="#"><i class="fas fa-tools"></i>Settings (soon)</a>

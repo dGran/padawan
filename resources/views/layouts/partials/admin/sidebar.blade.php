@@ -20,16 +20,13 @@
 			</li>
 			{{-- user --}}
 			<li class="inline-block relative">
-				<a class="text-gray-600 block cursor-pointer" onclick="openDropdown(event,'user-responsive-dropdown')">
-					<div class="items-center flex">
-						<span class="w-10 h-10 text-sm text-white bg-gray-300 inline-flex items-center justify-center rounded-full">
-							<img alt="avatar" class="w-full rounded-full align-middle border-none shadow-lg bg-gray-600" style="padding: 1px" src="{{ auth()->user()->profile->avatar() }}"/>
-						</span>
+				<div @click.away="open = false" class="relative" x-data="{ open: false }">
+					<button @click="open = !open" class="focus:outline-none align-middle md:pl-4">
+						<img src="{{ auth()->user()->profile->avatar() }}" class="rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 hover:bg-white" style="padding: 1px">
+					</button>
+					<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 origin-top-right rounded-md shadow-lg w-48 z-50">
+						@include('layouts.partials.admin.user_menu')
 					</div>
-				</a>
-				{{-- user-menu --}}
-				<div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width: 12rem;" id="user-responsive-dropdown">
-					@include('layouts.partials.admin.user_menu')
 				</div>
 			</li>
 		</ul>
