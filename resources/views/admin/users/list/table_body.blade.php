@@ -1,4 +1,4 @@
-<tr data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-slug="{{ $user->slug }}" url-edit="{{ route('admin.users.edit', ':ID') }}" url-destroy="{{ route('admin.users.destroy', ':IDS') }}" url-duplicate="{{ route('admin.users.duplicate', ':IDS') }}" url-export="{{ route('admin.users.export', [':FORMAT', ':IDS', ':FILENAME']) }}">
+<tr data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-slug="{{ $user->slug }}" url-edit="{{ route('admin.users.edit', ':ID') }}" url-destroy="{{ route('admin.users.destroy', ':IDS') }}" url-duplicate="{{ route('admin.users.duplicate', ':IDS') }}" url-export="{{ route('admin.users.export', [':FORMAT', ':IDS', ':FILENAME', $sortField, $sortDirection]) }}">
     <td class="select text-center">
         <label class="custom-check">
             <div>

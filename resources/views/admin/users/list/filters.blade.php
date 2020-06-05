@@ -51,4 +51,8 @@
         <input placeholder='Buscar...(Presiona "/")' name="filterName" id="filterName"
             class="search-input appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" value="{{ $filterName }}"/>
     </div>
+    <div class="flex flex-row mb-1 sm:mb-0">
+        <button class="bg-pink-500 text-white h-full rounded px-3 border border-pink-700 mx-1">Filtros</button>
+        <button class="bg-pink-500 text-white h-full rounded px-3 border border-pink-700" onclick="showHideGlobalOptions()">Opciones gloables</button>
+    </div>
 </div>

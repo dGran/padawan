@@ -5,9 +5,13 @@
             $('.search-input').focus();
             return false;
         });
+        Mousetrap.bind(['esc'], function() {
+            cancelSelection();
+            return false;
+        });
     });
 
-    //disable buttons
+    //disable buttons - REVIEW CLASSES
     function disabledActionsButtons() {
         $('a').addClass('disabled');
         $('button').attr("disabled", "disabled");
@@ -18,7 +22,7 @@
         $('button').removeAttr("disabled");
     }
 
-    //Table RowSelect
+    //Selected regs
     function rowSelect(element) {
         $(element).siblings('.select').find('.mark').trigger('click');
     }
@@ -51,7 +55,7 @@
         } else {
             $("#allMark").prop("checked", false);
             $(".table-wrap").removeClass('mb-24');
-            $(".selected-regs").removeClass('fadeInUp hidden');
+            $(".selected-regs").removeClass('fadeInUp');
             $(".selected-regs").addClass('fadeOutDown');
         }
     }
@@ -74,6 +78,21 @@
         $(".mark").parents('tr').removeClass('selected');
         $("#allMark").prop('checked', false);
         showHideRowOptions();
+    }
+
+    //Global Options
+    function showHideGlobalOptions() {
+        window.event.preventDefault();
+        cancelSelection();
+        if ($('.global-options').hasClass('hidden') || $('.global-options').hasClass('fadeOutDown')) {
+            $(".table-wrap").addClass('mb-24');
+            $(".global-options").addClass('fadeInUp');
+            $(".global-options").removeClass('fadeOutDown hidden');
+        } else {
+            $(".table-wrap").removeClass('mb-24');
+            $(".global-options").removeClass('fadeInUp');
+            $(".global-options").addClass('fadeOutDown');
+        }
     }
 
     //Filters
@@ -108,18 +127,18 @@
         // window.event.preventDefault();
         disabledActionsButtons();
         swal({
-            title: "¿Estás seguro?",
+            title: "Confirmación de borrado",
             text: 'Se van a eliminar los registros seleccionados. No se podrán deshacer los cambios!',
             buttons: {
                 confirm: {
-                    text: "Sí, estoy seguro",
+                    text: "Eliminar",
                     value: true,
                     visible: true,
                     className: "swal-btn danger",
                     closeModal: true
                 },
                 cancel: {
-                    text: "No, cancelar",
+                    text: "Cancelar",
                     value: null,
                     visible: true,
                     className: "swal-btn default",
@@ -163,7 +182,7 @@
         });
 
         swal({
-            title: "Exportar los registros seleccionados",
+            title: "Exportar registros seleccionados (." + fileType + ")",
             text: 'Introduce nombre del archivo (opcional)',
             content: "input",
             buttons: {
@@ -205,4 +224,83 @@
             }
         });
     }
+
+    function exportFileGlobal(default_name, fileType) {
+        swal({
+            title: "Exportar tabla completa (." + fileType + ")",
+            text: 'Introduce nombre del archivo (opcional)',
+            content: "input",
+            buttons: {
+                confirm: {
+                    text: "Continuar",
+                    value: true,
+                    visible: true,
+                    className: "swal-btn success",
+                    closeModal: true
+                },
+                cancel: {
+                    text: "Cancelar",
+                    value: null,
+                    visible: true,
+                    className: "swal-btn default",
+                    closeModal: true,
+                }
+            },
+        })
+        .then((value) => {
+            if (value != null) {
+                var filename = `${value}`;
+                if (!filename ) {
+                    var time = Math.floor(new Date().getTime() / 1000);
+                    var filename = default_name + time;
+                }
+
+                var route = $(".mark:checked").parents('tr').attr('url-export');
+                var ids = [];
+                $(".mark:checked").each(function() {
+                    ids.push($(this).val());
+                });
+                var url = route.replace(':IDS', ids);
+                url = url.replace(':FORMAT', fileType);
+                url = url.replace(':FILENAME', filename);
+                window.location.href=url;
+
+                // $(location).attr('href', 'equipos/exportar/' + filename + '/' + type + '/' + filterName + '/' + filterCategory + '/' + order + '/' + ids);
+            }
+        });
+    }
+
+    //import
+    function importFile() {
+        swal({
+            title: "Importar datos",
+            text: 'Se van a importar los datos del archivo seleccionado, pulsa continuar y selecciona el archivo que contiene los datos (.xls, .xlsx, .csv).',
+            buttons: {
+                confirm: {
+                    text: "Continuar",
+                    value: true,
+                    visible: true,
+                    className: "swal-btn success",
+                    closeModal: true
+                },
+                cancel: {
+                    text: "Cancelar",
+                    value: null,
+                    visible: true,
+                    className: "swal-btn default",
+                    closeModal: true,
+                }
+            },
+            closeOnClickOutside: false,
+        })
+        .then((value) => {
+            if (value) {
+                $("#fileImport").trigger('click');
+            }
+        });
+    }
+
+    $('#fileImport').change(function(){
+        $("#frmImport").submit();
+    });
 </script>

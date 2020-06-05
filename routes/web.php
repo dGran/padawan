@@ -42,7 +42,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/editar/{id}', 'Admin\UserController@edit')->name('admin.users.edit');
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
-	Route::get('/usuarios/exportar/{format}/{ids}/{filename}', 'Admin\UserController@export')->name('admin.users.export');
+	Route::get('/usuarios/exportar/{format}/{ids}/{filename}/{sortField}/{sortDirection}', 'Admin\UserController@export')->name('admin.users.export');
+	Route::post('/usuarios/importar', 'Admin\UserController@import')->name('admin.users.import');
 });
 
 Auth::routes(['verify' => true]);

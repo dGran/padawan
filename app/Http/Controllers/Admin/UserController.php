@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
@@ -63,8 +64,8 @@ class UserController extends Controller
             if ($original) {
                 $counter++;
                 $user = $original->replicate();
-                $user->name .= " (copia_" . rand ( 100 , 999 ) . ")";
-                $user->email .= " (copia_" . rand ( 100 , 999 ) . ")";
+                $user->name .= " (copia_" . rand(100,999) . ")";
+                $user->email .= " (copia_" . rand(100,999) . ")";
                 $user->save();
                 $user->profile()->save(new \App\Profile);
             }
@@ -82,9 +83,9 @@ class UserController extends Controller
         }
     }
 
-    public function export($format, $ids, $filename) {
+    public function export($format, $ids, $filename, $sortField, $sortDirection) {
         $ids=explode(",",$ids);
-        $users = \App\User::whereIn('id', $ids)->get();
+        $users = \App\User::whereIn('id', $ids)->orderBy($sortField, $sortDirection)->get();
 
         switch ($format) {
             case 'xls':
@@ -100,5 +101,13 @@ class UserController extends Controller
                 return back();
                 break;
         }
+    }
+
+    public function import() {
+        if (request()->hasFile('fileImport')) {
+            Excel::import(new UsersImport, request()->file('fileImport'));
+            flash()->success('Registros importados correctamente');
+        }
+        return back();
     }
 }

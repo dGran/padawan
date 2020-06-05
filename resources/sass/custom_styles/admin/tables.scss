@@ -43,7 +43,7 @@
 	}
 }
 
-.selected-regs {
+.selected-regs, .global-options {
 	@apply fixed bottom-0 left-0 right-0 text-xs bg-gray-200 border-t border-gray-400;
 	z-index: 9999;
 	@screen md {
@@ -54,7 +54,7 @@
 		@screen md {
 			@apply mx-8;
 		}
-		.selected-regs-count {
+		.selected-regs-count, .title {
 			@apply text-gray-800 font-semibold;
 			@apply text-pink-500 cursor-pointer;
 			font-size: .8rem;

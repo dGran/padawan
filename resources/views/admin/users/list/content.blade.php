@@ -76,7 +76,41 @@
         <li>eliminar las variables de rutas en el TR y usar variables en el js (no en el general)</li>
         <li>falta aplicar los filtros y orden al exportar</li>
         <li>falta el importar</li>
+        <li>opciones del controller globales para todas las tablas</li>
+        <li class="animated flash text-pink-500">animación o progressbar al importar</li>
     </ul>
+
+    <div class="global-options hidden animated fast">
+        <div class="info">
+            <div class="title">Opciones globales de tabla</div>
+            <button class="hint--left hint--rounded hint--bounce" id="cancel-selection" onclick="cancelSelection()" aria-label="Cancelar selección">
+                <i class="fas fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="elements">
+            <div class="scroll pt-4">
+                <form id="frmImport" role="form"
+                    method="POST"
+                    action="{{ route('admin.users.import') }}"
+                    enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="file" name="fileImport" id="fileImport" class="hidden">
+                    <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="Importar" onclick="importFile()">
+                        <i class="fas fa-file-upload"></i>
+                    </button>
+                </form>
+                <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFileGlobal('users', 'xls')">
+                    <i class="icon-xls"></i>
+                </button>
+                <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFileGlobal('users', 'xlsx')">
+                    <i class="icon-xlsx"></i>
+                </button>
+                <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFileGlobal('users', 'csv')">
+                    <i class="icon-csv"></i>
+                </button>
+            </div>
+        </div>
+    </div>
 
 
 </div>
