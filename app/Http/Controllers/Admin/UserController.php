@@ -18,10 +18,12 @@ class UserController extends Controller
         $sortDirection = request()->sortDirection ? request()->sortDirection : 'asc';
         $filterName = request()->filterName;
 
-    	$users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage);
-        // if ($page > $users->lastPage()) {
-        //     $page = $users->lastPage();
-        // }
+        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage);
+        if ($page > $users->lastPage()) {
+            $page = $users->lastPage();
+        }
+        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage, ['*'], 'page', $page);
+
 
     	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'sortField' => $sortField, 'sortDirection' => $sortDirection]);
     }
@@ -39,6 +41,7 @@ class UserController extends Controller
             $user = \App\User::find($ids[$i]);
             if ($user) {
                 $counter++;
+                $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
                 $user->delete();
             }
         }
@@ -103,10 +106,29 @@ class UserController extends Controller
         }
     }
 
+    public function exportGlobal($format, $filename, $sortField, $sortDirection, $filterName = null) {
+        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->get();
+
+        switch ($format) {
+            case 'xls':
+                return (new UsersExport($users))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                break;
+            case 'xlsx':
+                return (new UsersExport($users))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                break;
+            case 'csv':
+                return (new UsersExport($users))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+            default:
+                flash()->error('Formato de archivo no válido.');
+                return back();
+                break;
+        }
+    }
+
     public function import() {
         if (request()->hasFile('fileImport')) {
             Excel::import(new UsersImport, request()->file('fileImport'));
-            flash()->success('Registros importados correctamente');
+            flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();
     }

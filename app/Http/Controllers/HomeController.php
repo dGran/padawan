@@ -36,12 +36,7 @@ class HomeController extends Controller
         $profile->notifications = is_null($request->notifications) ? 0 : 1;
 
         if ($request->deleteAvatar) {
-            \Storage::disk('avatars')->delete('avatar_' . $user->id . '.jpeg');
-            \Storage::disk('avatars')->delete('avatar_' . $user->id . '.png');
-            \Storage::disk('avatars')->delete('avatar_' . $user->id . '.jpg');
-            \Storage::disk('avatars')->delete('avatar_' . $user->id . '.gif');
-            \Storage::disk('avatars')->delete('avatar_' . $user->id . '.svg');
-
+            $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
             $profile->avatar = null;
         } else {
             if ($request->hasFile('avatar')) {

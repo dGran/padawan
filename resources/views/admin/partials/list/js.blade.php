@@ -7,6 +7,7 @@
         });
         Mousetrap.bind(['esc'], function() {
             cancelSelection();
+            hideGlobalOptions();
             return false;
         });
     });
@@ -36,9 +37,8 @@
 
         elements = $(".mark:checked").length;
         if (elements > 0) {
-            $(".table-wrap").addClass('mb-24');
-            $(".selected-regs").addClass('fadeInUp');
-            $(".selected-regs").removeClass('fadeOutDown hidden');
+            hideGlobalOptions();
+            showRowOptions();
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
@@ -53,11 +53,20 @@
                 $("#destroy").addClass('hint--top-right');
             }
         } else {
-            $("#allMark").prop("checked", false);
-            $(".table-wrap").removeClass('mb-24');
-            $(".selected-regs").removeClass('fadeInUp');
-            $(".selected-regs").addClass('fadeOutDown');
+            hideRowOptions();
         }
+    }
+
+    function showRowOptions() {
+        $(".table-wrap").addClass('mb-24');
+        $(".selected-options").addClass('fadeInUp');
+        $(".selected-options").removeClass('fadeOutDown hidden');
+    }
+    function hideRowOptions() {
+        $("#allMark").prop("checked", false);
+        $(".table-wrap").removeClass('mb-24');
+        $(".selected-options").removeClass('fadeInUp');
+        $(".selected-options").addClass('fadeOutDown');
     }
 
     function showHideAllRowOptions() {
@@ -72,8 +81,6 @@
     }
 
     function cancelSelection() {
-        // $(".hint--").css('visibility', 'visble');
-        // $(".hint--").css('opacity', '1');
         $(".mark").prop('checked', false);
         $(".mark").parents('tr').removeClass('selected');
         $("#allMark").prop('checked', false);
@@ -85,14 +92,20 @@
         window.event.preventDefault();
         cancelSelection();
         if ($('.global-options').hasClass('hidden') || $('.global-options').hasClass('fadeOutDown')) {
-            $(".table-wrap").addClass('mb-24');
-            $(".global-options").addClass('fadeInUp');
-            $(".global-options").removeClass('fadeOutDown hidden');
+            showGlobalOptions();
         } else {
-            $(".table-wrap").removeClass('mb-24');
-            $(".global-options").removeClass('fadeInUp');
-            $(".global-options").addClass('fadeOutDown');
+            hideGlobalOptions();
         }
+    }
+    function showGlobalOptions() {
+        $(".table-wrap").addClass('mb-24');
+        $(".global-options").addClass('fadeInUp');
+        $(".global-options").removeClass('fadeOutDown hidden');
+    }
+    function hideGlobalOptions() {
+        $(".table-wrap").removeClass('mb-24');
+        $(".global-options").removeClass('fadeInUp');
+        $(".global-options").addClass('fadeOutDown');
     }
 
     //Filters
@@ -117,7 +130,7 @@
     function edit() {
         var element = $(".mark:checked");
         var id = $(element).parents('tr').attr('data-id');
-        var route = $(element).parents('tr').attr('url-edit');
+        var route = "{{ route('admin.users.edit', ':ID') }}";
         var url = route.replace(':ID', id);
         window.location.href=url;
     }
@@ -149,7 +162,7 @@
         })
         .then((value) => {
             if (value) {
-                var route = $(".mark:checked").parents('tr').attr('url-destroy');
+                var route = "{{ route('admin.users.destroy', ':IDS') }}"
                 var ids = [];
                 $(".mark:checked").each(function() {
                     ids.push($(this).val());
@@ -165,7 +178,7 @@
     //destroy
     function duplicate() {
         disabledActionsButtons();
-        var route = $(".mark:checked").parents('tr').attr('url-duplicate');
+        var route = "{{ route('admin.users.duplicate', ':IDS') }}"
         var ids = [];
         $(".mark:checked").each(function() {
             ids.push($(this).val());
@@ -209,8 +222,7 @@
                     var time = Math.floor(new Date().getTime() / 1000);
                     var filename = default_name + time;
                 }
-
-                var route = $(".mark:checked").parents('tr').attr('url-export');
+                var route = "{{ route('admin.users.export', [':FORMAT', ':IDS', ':FILENAME', $sortField, $sortDirection]) }}";
                 var ids = [];
                 $(".mark:checked").each(function() {
                     ids.push($(this).val());
@@ -219,8 +231,6 @@
                 url = url.replace(':FORMAT', fileType);
                 url = url.replace(':FILENAME', filename);
                 window.location.href=url;
-
-                // $(location).attr('href', 'equipos/exportar/' + filename + '/' + type + '/' + filterName + '/' + filterCategory + '/' + order + '/' + ids);
             }
         });
     }
@@ -254,18 +264,10 @@
                     var time = Math.floor(new Date().getTime() / 1000);
                     var filename = default_name + time;
                 }
-
-                var route = $(".mark:checked").parents('tr').attr('url-export');
-                var ids = [];
-                $(".mark:checked").each(function() {
-                    ids.push($(this).val());
-                });
-                var url = route.replace(':IDS', ids);
-                url = url.replace(':FORMAT', fileType);
+                var route = "{{ route('admin.users.export.global', [':FORMAT', ':FILENAME', $sortField, $sortDirection, $filterName]) }}";
+                var url = route.replace(':FORMAT', fileType);
                 url = url.replace(':FILENAME', filename);
                 window.location.href=url;
-
-                // $(location).attr('href', 'equipos/exportar/' + filename + '/' + type + '/' + filterName + '/' + filterCategory + '/' + order + '/' + ids);
             }
         });
     }
@@ -302,5 +304,11 @@
 
     $('#fileImport').change(function(){
         $("#frmImport").submit();
+    });
+
+    $("#frmImport").submit(function(event) {
+        swal("Importando datos, por favor espere...", {
+            button: false,
+        });
     });
 </script>

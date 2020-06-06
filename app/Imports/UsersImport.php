@@ -4,28 +4,42 @@ namespace App\Imports;
 
 use App\User;
 use App\Profile;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Illuminate\Support\Facades\Hash;
 
-class UsersImport implements ToModel
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\Importable;
+// use Maatwebsite\Excel\Concerns\WithValidation;
+
+
+class UsersImport implements ToModel, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
+    use Importable;
+
+    // public function rules(): array
+    // {
+    //     return [
+    //         'name' => 'required'
+    //         // 'email' => 'unique:users,email',
+    //     ];
+    // }
+
     public function model(array $row)
     {
-        $user = User::create([
-           'name'     => $row[1] . '_import_' . rand(100,999),
-           'email'    => $row[2] . '_import_' . rand(100,999),
-           'email_verified_at' => $row[5],
-           'is_admin' => $row[4],
-           'created_at' => $row[5],
-           'updated_at' => $row[6],
-           'password' => Hash::make('secret'),
-        ]);
-        $user->profile()->save(new Profile);
-        return $user;
+        // use manual validations because not working WithValidation
+        if (!User::where('email', $row['email'])->where('name', $row['name'])->exists()) {
+            $user = User::create([
+               'name'     => $row['name'],
+               'email'    => $row['email'],
+               'email_verified_at' => $row['email_verified_at'],
+               'is_admin' => $row['is_admin'] ?: 0,
+               'created_at' => $row['created_at'],
+               'updated_at' => $row['updated_at'],
+               'password' => Hash::make('secret'),
+            ]);
+            $user->profile()->save(new Profile);
+            return $user;
+        }
+
     }
 }

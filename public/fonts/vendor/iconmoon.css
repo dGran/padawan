@@ -25,6 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-table:before {
+  content: "\e907";
+}
+.icon-filter:before {
+  content: "\e908";
+}
+.icon-view:before {
+  content: "\e909";
+}
+.icon-edit:before {
+  content: "\e90a";
+}
+.icon-import:before {
+  content: "\e906";
+}
 .icon-xls:before {
   content: "\e900";
 }

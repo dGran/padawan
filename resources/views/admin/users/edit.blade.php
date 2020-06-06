@@ -13,6 +13,6 @@
 @endsection
 
 @section('js')
-    {{-- @include('admin.partials.javascript') --}}
+    {{-- @include('admin.partials.edit.js') --}}
     {{-- @include('admin.users.edit.js') --}}
 @endsection

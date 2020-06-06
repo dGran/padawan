@@ -43,6 +43,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
 	Route::get('/usuarios/exportar/{format}/{ids}/{filename}/{sortField}/{sortDirection}', 'Admin\UserController@export')->name('admin.users.export');
+	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{sortField}/{sortDirection}/{filterName?}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
 	Route::post('/usuarios/importar', 'Admin\UserController@import')->name('admin.users.import');
 });
 

@@ -13,6 +13,6 @@
 @endsection
 
 @section('js')
-    @include('admin.partials.javascript')
+    @include('admin.partials.list.js')
     @include('admin.users.list.js')
 @endsection
