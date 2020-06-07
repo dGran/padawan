@@ -4,9 +4,12 @@
 		@apply flex text-xs py-4;
 		.breadcrumb-link {
 			@apply font-bold text-gray-700;
-		}
-		.breadcrumb-link:hover {
-			@apply text-orange-400;
+			&:hover {
+				@apply text-orange-400;
+			}
+			&:focus {
+				@apply text-orange-400;
+			}
 		}
 		.breadcrumb-separator {
 			@apply mx-2 text-orange-400;
@@ -20,9 +23,12 @@
 		@apply flex text-xs py-4;
 		.breadcrumb-link {
 			@apply font-bold text-white;
-		}
-		.breadcrumb-link:hover {
-			@apply text-orange-400;
+			&:hover {
+				@apply text-orange-400;
+			}
+			&:focus {
+				@apply text-orange-400;
+			}
 		}
 		.breadcrumb-separator {
 			@apply mx-2 text-orange-400;

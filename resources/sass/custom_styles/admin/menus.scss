@@ -10,6 +10,9 @@
 				&:hover {
 					@apply text-gray-800;
 				}
+				&:focus {
+					@apply text-gray-800;
+				}
 				i {
 					@apply mr-2 text-sm w-5;
 				}

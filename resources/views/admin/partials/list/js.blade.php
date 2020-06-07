@@ -3,6 +3,7 @@
     $(function() {
         Mousetrap.bind(['/'], function() {
             $('.search-input').focus();
+            $('.search-input').select();
             return false;
         });
         Mousetrap.bind(['esc'], function() {
@@ -10,7 +11,47 @@
             hideGlobalOptions();
             return false;
         });
+        Mousetrap.bind(['alt+f'], function() {
+            showHideFilters()
+            return false;
+        });
+        Mousetrap.bind(['alt+t'], function() {
+            showHideGlobalOptions();
+            return false;
+        });
     });
+
+
+    // //Filters
+    // function showHideFilters() {
+    //     window.event.preventDefault();
+    //     const element = document.querySelector('#filters');
+    //     if ($(element).hasClass('hidden')) {
+    //         element.classList.remove('hidden');
+    //         element.classList.replace('fadeOutUp', 'fadeInDown');
+    //         element.addEventListener('animationend', () => {
+    //             element.classList.remove('hidden');
+    //         });
+    //     } else {
+    //         element.classList.replace('fadeInDown', 'fadeOutUp');
+    //         element.addEventListener('animationend', () => {
+    //             element.classList.add('hidden');
+    //         });
+    //     }
+    // }
+
+
+    // Modals
+    function showHideFilters() {
+        const filters = document.querySelector('#filters');
+        const backdrop = document.querySelector('#filters-backdrop');
+        filters.classList.toggle("hidden");
+        filters.classList.toggle("animated");
+        filters.classList.toggle("fadeIn");
+        backdrop.classList.toggle("hidden");
+        filters.classList.toggle("flex");
+        backdrop.classList.toggle("flex");
+    }
 
     //disable buttons - REVIEW CLASSES
     function disabledActionsButtons() {
@@ -108,7 +149,6 @@
         $(".global-options").addClass('fadeOutDown');
     }
 
-    //Filters
     function changeSort(field, direction) {
         $("#sortField").val(field);
         if (!direction) {

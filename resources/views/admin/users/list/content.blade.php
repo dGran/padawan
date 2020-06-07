@@ -1,26 +1,33 @@
 <div class="antialiased font-sans w-full px-4 md:px-8">
-    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pt-4">
+    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pt-4 pb-2">
         <form id="frmFilter" role="search" method="get" action="{{ route('admin.users') }}">
             @include('admin.users.list.filters')
         </form>
         @include('admin.users.list.filter_tags')
     </div>
     <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pb-4 overflow-x-auto">
-        <div class="table-wrap mt-4">
+        <div class="table-wrap">
             <table class="admin-tables">
-                <thead>
-                    @include('admin.users.list.table_header')
-                </thead>
+                @if ($users->count() > 0)
+                    <thead>
+                        @include('admin.users.list.table_header')
+                    </thead>
+                @endif
                 <tbody>
-                    @foreach ($users as $user)
-                        @include('admin.users.list.table_body')
-                    @endforeach
+                    @if ($users->count() > 0)
+                        @foreach ($users as $user)
+                            @include('admin.users.list.table_body')
+                        @endforeach
+                    @else
+                        @include('admin.partials.list.table_body_empty')
+                    @endif
                 </tbody>
             </table>
-
-            <div class="px-5 py-4 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
-                @include('admin.users.list.table_footer')
-            </div>
+            @if ($users->count() > 0)
+                <div class="px-5 py-4 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between">
+                    @include('admin.users.list.table_footer')
+                </div>
+            @endif
         </div>
     </div>
 </div>

@@ -1,46 +1,7 @@
-<h4 class="text-bold pb-1">
-    Filtros
-</h4>
-<div class="flex sm:flex-row flex-col pb-2">
-    <div class="flex flex-row mb-1 sm:mb-0">
-        <div class="relative">
-            <input type="hidden" id="sortField" name="sortField" value="{{ $sortField }}">
-            <input type="hidden" id="sortDirection" name="sortDirection" value="{{ $sortDirection }}">
-            <select name="perPage" class="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" onchange="applyFilters()">
-                <option {{ $perPage == 3 ? 'selected' : '' }}>3</option>
-                <option {{ $perPage == 5 ? 'selected' : '' }}>5</option>
-                <option {{ $perPage == 8 ? 'selected' : '' }}>8</option>
-                <option {{ $perPage == 10 ? 'selected' : '' }}>10</option>
-                <option {{ $perPage == 12 ? 'selected' : '' }}>12</option>
-                <option {{ $perPage == 15 ? 'selected' : '' }}>15</option>
-                <option {{ $perPage == 20 ? 'selected' : '' }}>20</option>
-                <option {{ $perPage == 25 ? 'selected' : '' }}>25</option>
-                <option {{ $perPage == 50 ? 'selected' : '' }}>50</option>
-                <option {{ $perPage == 100 ? 'selected' : '' }}>100</option>
-            </select>
-            <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-            </div>
-        </div>
-        <div class="relative">
-            <select
-                class="appearance-none h-full rounded-r border-t sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
-                <option>All</option>
-                <option>Active</option>
-                <option>Inactive</option>
-            </select>
-            <div
-                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                </svg>
-            </div>
-        </div>
-    </div>
-    <div class="block relative">
+@include('admin.users.list.filters_modal')
+
+<div class="clearfix w-full">
+    <div class="relative float-left w-2/3">
         <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
             <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current text-gray-500">
                 <path
@@ -48,15 +9,17 @@
                 </path>
             </svg>
         </span>
-        <input placeholder='Buscar...(Presiona "/")' name="filterName" id="filterName"
-            class="search-input appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" value="{{ $filterName }}"/>
+        <input placeholder='Buscar...("/")' name="filterName" id="filterName"
+    class="search-input rounded border border-gray-400 border-b block pl-8 pr-2 py-2 bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:border-gray-500 focus:text-gray-700 focus:outline-none w-full" value="{{ $filterName }}"/>
     </div>
-    <div class="flex flex-row mb-1 sm:mb-0">
-        <button class="bg-pink-500 text-white h-full rounded px-3 border border-pink-700 mx-1">
-            <i class="icon-filter"></i>
+    <div class="float-right w-auto text-right pl-2">
+        <button class="inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2 focus:outline-none focus:bg-white hover:bg-white hover:text-gray-900" type="button" onclick="showHideFilters()">
+            <i class="icon-filter lg:mr-1"></i>
+            <span class="hidden lg:inline-block">Filtros</span>
         </button>
-        <button class="bg-pink-500 text-white h-full rounded px-3 border border-pink-700" onclick="showHideGlobalOptions()">
-            <i class="icon-table"></i>
+        <button class="inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2 focus:outline-none focus:bg-white hover:bg-white hover:text-gray-900" onclick="showHideGlobalOptions()">
+            <i class="icon-table lg:mr-1"></i>
+            <span class="hidden lg:inline-block">Tabla</span>
         </button>
     </div>
 </div>

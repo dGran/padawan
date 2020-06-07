@@ -4,9 +4,9 @@
 		<button class="cursor-pointer text-black opacity-50 md:hidden py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent focus:outline-none" type="button" onclick="toggleNavbar('collapse-sidebar')">
 	    	<i class="fas fa-bars"></i>
 	    </button>
-		<a class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0" href="javascript:void(0)">
+		<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 cursor-default">
 			Admin Panel
-		</a>
+		</span>
 		<ul class="md:hidden items-center flex flex-wrap list-none">
 			{{-- notifications --}}
 			<li class="inline-block relative">
@@ -36,7 +36,7 @@
 			<div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-gray-300">
 				<div class="flex flex-wrap">
 					<div class="w-6/12">
-						<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0">
+						<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 cursor-default">
 							Admin Panel
 						</span>
 					</div>

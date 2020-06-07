@@ -4,9 +4,12 @@
 		@apply flex text-xs py-4;
 		.breadcrumb-link {
 			@apply font-bold text-gray-700;
-		}
-		.breadcrumb-link:hover {
-			@apply text-pink-500;
+			&:hover {
+				@apply text-pink-500;
+			}
+			&:focus {
+				@apply text-pink-500;
+			}
 		}
 		.breadcrumb-separator {
 			@apply mx-2 text-pink-500;

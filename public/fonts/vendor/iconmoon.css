@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-nothing:before {
+  content: "\e90b";
+}
 .icon-table:before {
   content: "\e907";
 }

@@ -11,7 +11,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected function remove_img_from_storage($folder, $name) {
+    protected function remove_img_from_storage($folder, $name)
+    {
         \Storage::disk($folder)->delete($name . '.jpeg');
         \Storage::disk($folder)->delete($name . '.png');
         \Storage::disk($folder)->delete($name . '.jpg');

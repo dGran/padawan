@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -23,7 +24,6 @@ class UserController extends Controller
             $page = $users->lastPage();
         }
         $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage, ['*'], 'page', $page);
-
 
     	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'sortField' => $sortField, 'sortDirection' => $sortDirection]);
     }
@@ -118,6 +118,7 @@ class UserController extends Controller
                 break;
             case 'csv':
                 return (new UsersExport($users))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                break;
             default:
                 flash()->error('Formato de archivo no válido.');
                 return back();

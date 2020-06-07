@@ -6,38 +6,48 @@
 
 	.admin-tables {
 		@apply min-w-full leading-normal bg-white;
-		th {
-			@apply px-1 py-3 border-b border-gray-300 bg-gray-100 text-left font-semibold text-gray-600 uppercase tracking-wide;
-			&:first-child {
-				@apply pl-3
-			}
-			&:last-child {
-				@apply pr-3
+		thead {
+			th {
+				@apply px-1 py-3 border-b border-gray-300 bg-gray-100 text-left font-semibold text-gray-600 uppercase tracking-wide;
+				&:first-child {
+					@apply pl-3;
+				}
+				&:last-child {
+					@apply pr-3;
+				}
 			}
 		}
-		tr {
-			&.selected {
-				@apply bg-yellow-100;
-			}
-			&:hover {
-				@apply bg-gray-100;
+		tbody {
+			tr {
 				&.selected {
 					@apply bg-yellow-100;
 				}
-				td {
-					.name {
-						@apply text-pink-600;
+				&:hover {
+					@apply bg-gray-100;
+					&.selected {
+						@apply bg-yellow-100;
+					}
+					td {
+						.name {
+							@apply text-pink-600;
+						}
 					}
 				}
-			}
-		}
-		td {
-			@apply px-1 py-2 border-b border-gray-200;
-			&:first-child {
-				@apply pl-3
-			}
-			&:last-child {
-				@apply pr-3
+				td {
+					@apply px-1 py-2 border-b border-gray-200;
+					&:first-child {
+						@apply pl-3;
+					}
+					&:last-child {
+						@apply pr-3;
+					}
+				}
+				.empty {
+					@apply text-center py-4 h-32 bg-gray-100;
+					i {
+						@apply block text-3xl pb-3;
+					}
+				}
 			}
 		}
 	}
@@ -84,15 +94,15 @@
 			@apply mx-8;
 		}
 		button {
-			@apply text-gray-600 p-3 bg-white shadow rounded border border-gray-300;
+			@apply text-gray-600 p-3 bg-white shadow rounded border border-gray-400;
 			transition: all .15s ease;
 			&.danger {
 				@apply text-red-400;
-				&:hover {
+				&:hover, :focus {
 					@apply text-red-600 border-red-500 bg-red-100;
 				}
 			}
-			&:hover {
+			&:hover, :focus {
 				@apply text-gray-800 border-gray-500 bg-gray-100;
 			}
 			@screen md {
@@ -141,18 +151,29 @@
 }
 
 .filter-tags {
-	@apply pb-2;
+	@apply pt-2;
 	button {
 		@apply text-xs font-semibold inline-block py-1 px-2 rounded text-gray-700 bg-white border border-gray-400 mr-1 cursor-pointer;
 		font-size: .7em;
 		&:hover {
-			@apply bg-gray-200;
+			@apply border-gray-600;
+			i {
+				@screen md {
+					@apply text-gray-700;
+				}
+			}
 		}
 		&:focus {
 			@apply outline-none;
 		}
 		&:last {
 			@apply mr-0;
+		}
+		i {
+			@apply pl-2;
+			@screen md {
+				@apply text-gray-400;
+			}
 		}
 	}
 }

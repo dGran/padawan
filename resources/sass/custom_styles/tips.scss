@@ -1,3 +1,7 @@
+*:focus {
+	@apply outline-none;
+}
+
 body {
 	font-size: 14px;
 }
