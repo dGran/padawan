@@ -1,8 +1,6 @@
 <div class="antialiased font-sans w-full px-4 md:px-8">
     <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pt-4 pb-2">
-        <form id="frmFilter" role="search" method="get" action="{{ route('admin.users') }}">
-            @include('admin.users.list.filters')
-        </form>
+        @include('admin.users.list.filters')
         @include('admin.users.list.filter_tags')
     </div>
     <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pb-4 overflow-x-auto">

@@ -9,6 +9,7 @@
         Mousetrap.bind(['esc'], function() {
             cancelSelection();
             hideGlobalOptions();
+            hideFilters();
             return false;
         });
         Mousetrap.bind(['alt+f'], function() {
@@ -20,38 +21,6 @@
             return false;
         });
     });
-
-
-    // //Filters
-    // function showHideFilters() {
-    //     window.event.preventDefault();
-    //     const element = document.querySelector('#filters');
-    //     if ($(element).hasClass('hidden')) {
-    //         element.classList.remove('hidden');
-    //         element.classList.replace('fadeOutUp', 'fadeInDown');
-    //         element.addEventListener('animationend', () => {
-    //             element.classList.remove('hidden');
-    //         });
-    //     } else {
-    //         element.classList.replace('fadeInDown', 'fadeOutUp');
-    //         element.addEventListener('animationend', () => {
-    //             element.classList.add('hidden');
-    //         });
-    //     }
-    // }
-
-
-    // Modals
-    function showHideFilters() {
-        const filters = document.querySelector('#filters');
-        const backdrop = document.querySelector('#filters-backdrop');
-        filters.classList.toggle("hidden");
-        filters.classList.toggle("animated");
-        filters.classList.toggle("fadeIn");
-        backdrop.classList.toggle("hidden");
-        filters.classList.toggle("flex");
-        backdrop.classList.toggle("flex");
-    }
 
     //disable buttons - REVIEW CLASSES
     function disabledActionsButtons() {
@@ -79,6 +48,7 @@
         elements = $(".mark:checked").length;
         if (elements > 0) {
             hideGlobalOptions();
+            hideFilters();
             showRowOptions();
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
@@ -139,6 +109,8 @@
         }
     }
     function showGlobalOptions() {
+        cancelSelection();
+        hideFilters();
         $(".table-wrap").addClass('mb-24');
         $(".global-options").addClass('fadeInUp');
         $(".global-options").removeClass('fadeOutDown hidden');
@@ -147,6 +119,33 @@
         $(".table-wrap").removeClass('mb-24');
         $(".global-options").removeClass('fadeInUp');
         $(".global-options").addClass('fadeOutDown');
+    }
+
+    //Filters
+    function showHideFilters() {
+        if ($('#filters').hasClass('hidden')) {
+            showFilters();
+        } else {
+            hideFilters();
+        }
+    }
+    function showFilters() {
+        cancelSelection();
+        hideGlobalOptions();
+        const filters = document.querySelector('#filters');
+        const backdrop = document.querySelector('#filters-backdrop');
+        filters.classList.remove("hidden");
+        filters.classList.add("animated", "fadeIn", "flex");
+        backdrop.classList.remove("hidden");
+        backdrop.classList.add("flex");
+    }
+    function hideFilters() {
+        const filters = document.querySelector('#filters');
+        const backdrop = document.querySelector('#filters-backdrop');
+        filters.classList.add("hidden");
+        filters.classList.remove("animated", "fadeIn", "flex");
+        backdrop.classList.add("hidden");
+        backdrop.classList.remove("flex");
     }
 
     function changeSort(field, direction) {

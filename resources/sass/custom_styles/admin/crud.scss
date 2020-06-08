@@ -54,8 +54,7 @@
 }
 
 .selected-options, .global-options {
-	@apply fixed bottom-0 left-0 right-0 text-xs bg-gray-100 border-t border-gray-400;
-	z-index: 9999;
+	@apply fixed z-40 bottom-0 left-0 right-0 text-xs bg-gray-100 border-t border-gray-400;
 	@screen md {
 		@apply ml-64 bg-gray-200 border-t border-gray-400;
 	}

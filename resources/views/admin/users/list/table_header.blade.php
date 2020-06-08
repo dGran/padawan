@@ -37,4 +37,7 @@
             @endif
         @endif
     </th>
+    <th class="hidden md:table-cell">
+        <span class="cursor-not-allowed"></span>
+    </th>
 </tr>

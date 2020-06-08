@@ -19619,6 +19619,7 @@ a.disabled {
 
 .selected-options, .global-options {
   position: fixed;
+  z-index: 40;
   bottom: 0;
   left: 0;
   right: 0;
@@ -19630,7 +19631,6 @@ a.disabled {
   --border-opacity: 1;
   border-color: #cbd5e0;
   border-color: rgba(203, 213, 224, var(--border-opacity));
-  z-index: 9999;
 }
 
 @media (min-width: 768px) {

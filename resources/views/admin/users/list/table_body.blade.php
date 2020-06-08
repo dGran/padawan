@@ -30,4 +30,48 @@
             {{ $user->created_at }}
         </p>
     </td>
+    <td class="hidden md:table-cell text-2xl text-right" onclick="rowSelect(this)">
+        <p class="text-gray-700 whitespace-no-wrap">
+            @if ($user->profile->ps_id)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->ps_id }}">
+                    <i class="fab fa-playstation"></i>
+                </button>
+            @endif
+            @if ($user->profile->xbox_id)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->xbox_id }}">
+                    <i class="fab fa-xbox"></i>
+                </button>
+            @endif
+            @if ($user->profile->steam_id)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->steam_id }}">
+                    <i class="fab fa-steam"></i>
+                </button>
+            @endif
+            @if ($user->profile->origin_id)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->origin_id }}">
+                    <i class="fab fa-steam"></i>
+                </button>
+            @endif
+            @if ($user->profile->whatsapp)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->whatsapp }}">
+                    <i class="fab fa-whatsapp"></i>
+                </button>
+            @endif
+            @if ($user->profile->facebook)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->facebook }}">
+                    <i class="fab fa-facebook"></i>
+                </button>
+            @endif
+            @if ($user->profile->instagram)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->instagram }}">
+                    <i class="fab fa-instagram"></i>
+                </button>
+            @endif
+            @if ($user->profile->twitter)
+                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->twitter }}">
+                    <i class="fab fa-twitter"></i>
+                </button>
+            @endif
+        </p>
+    </td>
 </tr>
