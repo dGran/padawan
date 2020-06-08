@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-add:before {
+  content: "\e90d";
+}
 .icon-shortcut:before {
   content: "\e90c";
 }

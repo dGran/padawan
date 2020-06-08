@@ -19901,6 +19901,183 @@ a.disabled {
   }
 }
 
+.search-bar .actions-1 {
+  width: 80%;
+}
+
+.search-bar .actions-1 .add {
+  float: left;
+}
+
+.search-bar .actions-1 .search {
+  position: relative;
+  float: left;
+  width: 8rem;
+}
+
+@media (min-width: 640px) {
+  .search-bar .actions-1 .search {
+    width: 8rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-bar .actions-1 .search {
+    width: 40%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .search-bar .actions-1 .search {
+    width: 60%;
+  }
+}
+
+@media (min-width: 1280px) {
+  .search-bar .actions-1 .search {
+    width: 80%;
+  }
+}
+
+.search-bar .actions-1 .search span {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5rem;
+}
+
+.search-bar .actions-1 .search input {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  border-bottom-width: 1px;
+  display: block;
+  padding-left: 2rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  font-size: 0.875rem;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  width: 100%;
+}
+
+.search-bar .actions-1 .search input:focus {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --border-opacity: 1;
+  border-color: #a0aec0;
+  border-color: rgba(160, 174, 192, var(--border-opacity));
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  outline: 0;
+}
+
+.search-bar .actions-2 {
+  float: right;
+  width: auto;
+  text-align: right;
+  padding-left: 0.5rem;
+}
+
+.search-bar .actions-2 .shortcuts {
+  display: none;
+  margin-right: 0.5rem;
+  --text-opacity: 1;
+  color: #4299e1;
+  color: rgba(66, 153, 225, var(--text-opacity));
+}
+
+@media (min-width: 768px) {
+  .search-bar .actions-2 .shortcuts {
+    display: inline-block;
+  }
+}
+
+.search-bar .actions-2 .filters {
+  display: inline-block;
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  height: 100%;
+  border-radius: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.search-bar .actions-2 .filters:focus {
+  outline: 0;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.search-bar .actions-2 .filters:hover {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
+}
+
+.search-bar .actions-2 .table {
+  display: inline-block;
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+  height: 100%;
+  border-radius: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.search-bar .actions-2 .table:focus {
+  outline: 0;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+}
+
+.search-bar .actions-2 .table:hover {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #1a202c;
+  color: rgba(26, 32, 44, var(--text-opacity));
+}
+
 @media (min-width: 420px){
   .xs\:space-y-0 > :not(template) ~ :not(template){
     --space-y-reverse: 0;
