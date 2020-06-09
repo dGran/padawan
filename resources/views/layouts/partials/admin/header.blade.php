@@ -4,7 +4,7 @@
 			@include('layouts.partials.admin.breadcrumb')
 		</div>
 	@endisset
-	<div class="w-full mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-8 px-4">
+	<div class="w-full mx-auto items-center flex justify-between md:flex-no-wrap flex-wrap md:px-8 px-4 {{ isset($breadcrumb) ? 'pt-1' : '' }}">
 		<span class="text-lg uppercase inline-block font-semibold text-pink-500 {{ isset($breadcrumb) ? 'pt-3' : '' }}">
 			{{ $title }}
 		</span>

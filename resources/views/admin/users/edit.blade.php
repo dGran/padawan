@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['title' => 'Usuarios', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => 'Editar usuario', 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')

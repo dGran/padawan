@@ -3,7 +3,7 @@
         @include('admin.users.list.filters')
         @include('admin.users.list.filter_tags')
     </div>
-    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pb-4 overflow-x-auto">
+    <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pb-4 overflow-x-auto mb-2">
         <div class="table-wrap">
             <table class="admin-tables">
                 @if ($users->count() > 0)

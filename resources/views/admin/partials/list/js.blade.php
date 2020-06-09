@@ -20,6 +20,10 @@
             showHideGlobalOptions();
             return false;
         });
+        Mousetrap.bind(['alt+n'], function() {
+            add();
+            return false;
+        });
     });
 
     //disable buttons - REVIEW CLASSES
@@ -69,13 +73,13 @@
     }
 
     function showRowOptions() {
-        $(".table-wrap").addClass('mb-24');
+        $(".table-wrap").addClass('mb-32');
         $(".selected-options").addClass('fadeInUp');
         $(".selected-options").removeClass('fadeOutDown hidden');
     }
     function hideRowOptions() {
         $("#allMark").prop("checked", false);
-        $(".table-wrap").removeClass('mb-24');
+        $(".table-wrap").removeClass('mb-32');
         $(".selected-options").removeClass('fadeInUp');
         $(".selected-options").addClass('fadeOutDown');
     }
@@ -111,12 +115,12 @@
     function showGlobalOptions() {
         cancelSelection();
         hideFilters();
-        $(".table-wrap").addClass('mb-24');
+        $(".table-wrap").addClass('mb-32');
         $(".global-options").addClass('fadeInUp');
         $(".global-options").removeClass('fadeOutDown hidden');
     }
     function hideGlobalOptions() {
-        $(".table-wrap").removeClass('mb-24');
+        $(".table-wrap").removeClass('mb-32');
         $(".global-options").removeClass('fadeInUp');
         $(".global-options").addClass('fadeOutDown');
     }
@@ -148,15 +152,8 @@
         backdrop.classList.remove("flex");
     }
 
-    function changeSort(field, direction) {
-        $("#sortField").val(field);
-        if (!direction) {
-            $("#sortDirection").val('asc');
-        } else if (direction == 'asc') {
-            $("#sortDirection").val('desc');
-        } else {
-            $("#sortDirection").val('asc');
-        }
+    function cancelFilterName() {
+        $("#filterName").val('');
         applyFilters();
     }
 
@@ -165,11 +162,16 @@
         $("#frmFilter").submit();
     }
 
+    //add
+    function add() {
+        window.location.href=routeAdd;
+    }
+
     //edit
     function edit() {
         var element = $(".mark:checked");
         var id = $(element).parents('tr').attr('data-id');
-        var route = "{{ route('admin.users.edit', ':ID') }}";
+        var route = routeEdit;
         var url = route.replace(':ID', id);
         window.location.href=url;
     }
@@ -201,7 +203,7 @@
         })
         .then((value) => {
             if (value) {
-                var route = "{{ route('admin.users.destroy', ':IDS') }}"
+                var route = routeDestroy;
                 var ids = [];
                 $(".mark:checked").each(function() {
                     ids.push($(this).val());
@@ -217,7 +219,7 @@
     //destroy
     function duplicate() {
         disabledActionsButtons();
-        var route = "{{ route('admin.users.duplicate', ':IDS') }}"
+        var route = routeDuplicate;
         var ids = [];
         $(".mark:checked").each(function() {
             ids.push($(this).val());
@@ -261,7 +263,7 @@
                     var time = Math.floor(new Date().getTime() / 1000);
                     var filename = default_name + time;
                 }
-                var route = "{{ route('admin.users.export', [':FORMAT', ':IDS', ':FILENAME', $sortField, $sortDirection]) }}";
+                var route = routeExport;
                 var ids = [];
                 $(".mark:checked").each(function() {
                     ids.push($(this).val());
@@ -303,7 +305,7 @@
                     var time = Math.floor(new Date().getTime() / 1000);
                     var filename = default_name + time;
                 }
-                var route = "{{ route('admin.users.export.global', [':FORMAT', ':FILENAME', $sortField, $sortDirection, $filterName]) }}";
+                var route = routeExportGlobal;
                 var url = route.replace(':FORMAT', fileType);
                 url = url.replace(':FILENAME', filename);
                 window.location.href=url;
@@ -350,4 +352,16 @@
             button: false,
         });
     });
+
+    function changeSort(field, direction) {
+        $("#sortField").val(field);
+        if (!direction) {
+            $("#sortDirection").val('asc');
+        } else if (direction == 'asc') {
+            $("#sortDirection").val('desc');
+        } else {
+            $("#sortDirection").val('asc');
+        }
+        applyFilters();
+    }
 </script>

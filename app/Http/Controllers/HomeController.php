@@ -44,11 +44,7 @@ class HomeController extends Controller
                     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 ]);
 
-                \Storage::disk('avatars')->delete('avatar_' . $user->id . '.jpeg');
-                \Storage::disk('avatars')->delete('avatar_' . $user->id . '.png');
-                \Storage::disk('avatars')->delete('avatar_' . $user->id . '.jpg');
-                \Storage::disk('avatars')->delete('avatar_' . $user->id . '.gif');
-                \Storage::disk('avatars')->delete('avatar_' . $user->id . '.svg');
+                $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
 
                 $avatar_name = 'avatar_' . $user->id . '.' . $request->avatar->extension();
                 \Storage::disk('avatars')->put($avatar_name, \File::get($request->file('avatar')));

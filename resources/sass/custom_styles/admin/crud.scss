@@ -1,5 +1,5 @@
 .table-wrap {
-	@apply inline-block min-w-full shadow rounded-lg overflow-hidden border border-gray-400 text-xs;
+	@apply inline-block min-w-full shadow rounded-lg overflow-hidden border border-gray-400 text-xs border;
 	@screen md {
 		@apply text-sm;
 	}
@@ -178,74 +178,71 @@
 }
 
 .search-bar {
-	.actions-1 {
-		@apply w-4/5;
-		.add {
-			@apply float-left;
+	@apply flex items-center;
+	.add {
+		@apply bg-green-500 text-green-100 border border-green-600 h-full rounded px-3 py-2;
+		&:focus {
+			@apply outline-none bg-green-600;
 		}
-		.search {
-			@apply relative float-left w-32;
-			@screen sm {
-				@apply w-32;
-			}
-			@screen md {
-				@apply w-2/5;
-			}
+		&:hover {
+			 @apply bg-green-600;
+		}
+		i {
+			@apply text-xl;
 			@screen lg {
-				@apply w-3/5;
+				@apply text-base;
 			}
-			@screen xl {
-				@apply w-4/5;
-			}
-			span {
-				@apply h-full absolute inset-y-0 left-0 flex items-center pl-2;
+		}
+		span {
 
-			}
-			input {
-				@apply rounded border border-gray-400 border-b block pl-8 pr-2 py-2 bg-white text-sm text-gray-700 w-full;
-				&:focus {
-					@apply bg-white border-gray-500 text-gray-700 outline-none;
-				}
-				// @screen sm {
-				// 	@apply w-40;
-				// }
-				// @screen md {
-				// 	@apply w-48;
-				// }
-				// @screen lg {
-				// 	@apply w-56;
-				// }
-				// @screen xl {
-				// 	@apply w-3/5;
-				// }
+		}
+	}
+	.search {
+		@apply relative;
+		span {
+			@apply h-full absolute inset-y-0 left-0 flex items-center pl-2;
+		}
+		input {
+			@apply rounded border border-gray-400 border-b block pl-8 pr-2 py-2 bg-white text-sm text-gray-700 w-full;
+			&:focus {
+				@apply bg-white border-gray-500 text-gray-700 outline-none;
 			}
 		}
 	}
-	.actions-2 {
-		@apply float-right w-auto text-right pl-2;
-		.shortcuts {
-			@apply hidden mr-2 text-blue-500;
-			@screen md {
-				@apply inline-block;
-			}
+	.shortcuts {
+		@apply hidden text-blue-500;
+		@screen md {
+			@apply inline-block;
 		}
-		.filters {
-			@apply inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2;
-			&:focus {
-				@apply outline-none bg-white;
-			}
-			&:hover {
-				@apply bg-white text-gray-900;
-			}
+		@focus {
+			@apply outline-none;
 		}
-		.table {
-			@apply inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2;
-			&:focus {
-				@apply outline-none bg-white;
-			}
-			&:hover {
-				@apply bg-white text-gray-900;
-			}
+	}
+	.filters {
+		@apply inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2;
+		&:focus {
+			@apply outline-none bg-white;
+		}
+		&:hover {
+			@apply bg-white text-gray-900;
+		}
+	}
+	.table {
+		@apply inline-block bg-gray-100 text-gray-700 border border-gray-400 h-full rounded px-3 py-2;
+		&:focus {
+			@apply outline-none bg-white;
+		}
+		&:hover {
+			@apply bg-white text-gray-900;
+		}
+	}
+}
+
+.inputForm {
+	input {
+		@apply rounded border border-gray-400 border-b block px-2 py-2 bg-white text-sm text-gray-700 w-full mt-1;
+		&:focus {
+			@apply bg-white border-gray-500 text-gray-700 outline-none;
 		}
 	}
 }

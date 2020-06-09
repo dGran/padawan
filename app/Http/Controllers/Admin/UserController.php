@@ -9,6 +9,10 @@ use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use Illuminate\Support\Facades\Hash;
+use App\User;
+use App\Profile;
+
 class UserController extends Controller
 {
     public function list()
@@ -19,26 +23,66 @@ class UserController extends Controller
         $sortDirection = request()->sortDirection ? request()->sortDirection : 'asc';
         $filterName = request()->filterName;
 
-        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage);
+        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage);
         if ($page > $users->lastPage()) {
             $page = $users->lastPage();
         }
-        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage, ['*'], 'page', $page);
+        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage, ['*'], 'page', $page);
 
     	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'sortField' => $sortField, 'sortDirection' => $sortDirection]);
     }
 
-    public function edit($id) {
-        $user = \App\User::findOrFail($id);
+    public function add()
+    {
+        session(['current_list' => url()->previous()]);
+
+        return view('admin.users.add');
+    }
+
+    public function save()
+    {
+        $url = request()->session()->get('current_list');
+        request()->session()->forget('current_list');
+
+//FALTA EL VALIDATOR
+
+        $user = User::create([
+           'name'     => request()->name,
+           'email'    => request()->name,
+           'email_verified_at' => now(),
+           'password' => Hash::make('secret'),
+        ]);
+        $user->profile()->save(new Profile);
+
+        flash()->success('Registro creado correctamente');
+        return redirect($url);
+    }
+
+    public function edit($id)
+    {
+        session(['current_list' => url()->previous()]);
+
+        $user = User::findOrFail($id);
         return view('admin.users.edit', ['user' => $user]);
     }
 
-    public function destroy($ids) {
+    public function update($id) {
+        $url = request()->session()->get('current_list');
+        request()->session()->forget('current_list');
+
+        // content logic..
+
+        flash()->success('Registro editado correctamente');
+        return redirect($url);
+    }
+
+    public function destroy($ids)
+    {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $user = \App\User::find($ids[$i]);
+            $user = User::find($ids[$i]);
             if ($user) {
                 $counter++;
                 $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
@@ -58,12 +102,13 @@ class UserController extends Controller
         }
     }
 
-    public function duplicate($ids) {
+    public function duplicate($ids)
+    {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $original = \App\User::find($ids[$i]);
+            $original = User::find($ids[$i]);
             if ($original) {
                 $counter++;
                 $user = $original->replicate();
@@ -86,9 +131,10 @@ class UserController extends Controller
         }
     }
 
-    public function export($format, $ids, $filename, $sortField, $sortDirection) {
+    public function export($format, $ids, $filename, $sortField, $sortDirection)
+    {
         $ids=explode(",",$ids);
-        $users = \App\User::whereIn('id', $ids)->orderBy($sortField, $sortDirection)->get();
+        $users = User::whereIn('id', $ids)->orderBy($sortField, $sortDirection)->get();
 
         switch ($format) {
             case 'xls':
@@ -107,7 +153,7 @@ class UserController extends Controller
     }
 
     public function exportGlobal($format, $filename, $sortField, $sortDirection, $filterName = null) {
-        $users = \App\User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->get();
+        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->get();
 
         switch ($format) {
             case 'xls':
@@ -126,7 +172,8 @@ class UserController extends Controller
         }
     }
 
-    public function import() {
+    public function import()
+    {
         if (request()->hasFile('fileImport')) {
             Excel::import(new UsersImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');

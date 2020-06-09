@@ -39,6 +39,8 @@ Route::prefix('/torneos')->group(function () {
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {
 	Route::get('/', 'Admin\AdminController@dashboard')->name('admin');
 	Route::get('/usuarios', 'Admin\UserController@list')->name('admin.users');
+	Route::get('/usuarios/nuevo', 'Admin\UserController@add')->name('admin.users.add');
+	Route::post('/usuarios/nuevo', 'Admin\UserController@save')->name('admin.users.save');
 	Route::get('/usuarios/editar/{id}', 'Admin\UserController@edit')->name('admin.users.edit');
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
