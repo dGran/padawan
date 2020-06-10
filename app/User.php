@@ -40,4 +40,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $query->whereDate('created_at', \Carbon\Carbon::today());
     }
+
+    public function canDestroy()
+    {
+        // apply logic...
+        // defaults return true
+
+        return true;
+    }
 }

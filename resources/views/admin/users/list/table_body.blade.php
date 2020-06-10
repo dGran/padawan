@@ -15,63 +15,17 @@
                     alt="" />
             </div>
             <div class="ml-3">
-                <p class="text-gray-900 whitespace-no-wrap">
+                {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
                     <span class="name">{{ $user->name }}</span>
                     <span class="block text-gray-600" style="font-size: 9px">ID:{{ $user->id }}</span>
-                </p>
+                {{-- </p> --}}
             </div>
         </div>
     </td>
-    <td onclick="rowSelect(this)">
-        <p class="text-gray-900 whitespace-no-wrap">none</p>
-    </td>
     <td class="hidden md:table-cell" onclick="rowSelect(this)">
-        <p class="text-gray-900 whitespace-no-wrap">
-            {{ $user->created_at }}
-        </p>
-    </td>
-    <td class="hidden md:table-cell text-2xl text-right" onclick="rowSelect(this)">
-        <p class="text-gray-700 whitespace-no-wrap">
-            @if ($user->profile->ps_id)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->ps_id }}">
-                    <i class="fab fa-playstation"></i>
-                </button>
-            @endif
-            @if ($user->profile->xbox_id)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->xbox_id }}">
-                    <i class="fab fa-xbox"></i>
-                </button>
-            @endif
-            @if ($user->profile->steam_id)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->steam_id }}">
-                    <i class="fab fa-steam"></i>
-                </button>
-            @endif
-            @if ($user->profile->origin_id)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->origin_id }}">
-                    <i class="fab fa-steam"></i>
-                </button>
-            @endif
-            @if ($user->profile->whatsapp)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->whatsapp }}">
-                    <i class="fab fa-whatsapp"></i>
-                </button>
-            @endif
-            @if ($user->profile->facebook)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->facebook }}">
-                    <i class="fab fa-facebook"></i>
-                </button>
-            @endif
-            @if ($user->profile->instagram)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->instagram }}">
-                    <i class="fab fa-instagram"></i>
-                </button>
-            @endif
-            @if ($user->profile->twitter)
-                <button type="button" class="hint--top-left hint--rounded hint--bounce mr-2" aria-label="{{ $user->profile->twitter }}">
-                    <i class="fab fa-twitter"></i>
-                </button>
-            @endif
-        </p>
+        {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
+            <i class="far fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}
+            <i class="fas fa-clock mx-1"></i>{{ \Carbon\Carbon::parse($user->created_at)->format('h:s') }}
+        {{-- </p> --}}
     </td>
 </tr>

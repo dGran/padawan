@@ -176,6 +176,15 @@
         window.location.href=url;
     }
 
+    //view
+    function view() {
+        var element = $(".mark:checked");
+        var id = $(element).parents('tr').attr('data-id');
+        var route = routeView;
+        var url = route.replace(':ID', id);
+        window.location.href=url;
+    }
+
     //destroy
     function destroy() {
         // window.event.preventDefault();

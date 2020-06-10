@@ -32,6 +32,14 @@ class UserController extends Controller
     	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'sortField' => $sortField, 'sortDirection' => $sortDirection]);
     }
 
+    public function view($id)
+    {
+        session(['current_list' => url()->previous()]);
+
+        $user = User::findOrFail($id);
+        return view('admin.users.view', ['user' => $user]);
+    }
+
     public function add()
     {
         session(['current_list' => url()->previous()]);
@@ -44,18 +52,44 @@ class UserController extends Controller
         $url = request()->session()->get('current_list');
         request()->session()->forget('current_list');
 
-//FALTA EL VALIDATOR
-
-        $user = User::create([
-           'name'     => request()->name,
-           'email'    => request()->name,
-           'email_verified_at' => now(),
-           'password' => Hash::make('secret'),
+        $data = request()->validate([
+            'name' => 'required|unique:users,name',
+            'email' => 'required|unique:users,email',
+            'password' => 'required',
+        ],
+        [
+            'name.required' => 'El nombre es obligatorio',
+            'name.unique' => 'El nombre ya existe',
+            'email.required' => 'El email es obligatorio',
+            'email.unique' => 'El email ya existe',
+            'password.required' => 'El password es obligatorio',
         ]);
-        $user->profile()->save(new Profile);
 
-        flash()->success('Registro creado correctamente');
-        return redirect($url);
+        $data['email_verified_at'] = now();
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+
+        if ($user->save()) {
+            $user->profile()->save(new Profile);
+
+            $user->profile->twitter = request()->twitter;
+            $user->profile->save();
+
+            flash()->success('Registro creado correctamente');
+            return redirect($url);
+        }
+
+        // $user = User::create([
+        //    'name'     => request()->name,
+        //    'email'    => request()->name,
+        //    'email_verified_at' => now(),
+        //    'password' => Hash::make('secret'),
+        // ]);
+        // $user->profile()->save(new Profile);
+
+        // flash()->success('Registro creado correctamente');
+        // return redirect($url);
     }
 
     public function edit($id)
@@ -83,7 +117,7 @@ class UserController extends Controller
         for ($i=0; $i < count($ids); $i++)
         {
             $user = User::find($ids[$i]);
-            if ($user) {
+            if ($user && $user->canDestroy()) {
                 $counter++;
                 $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
                 $user->delete();
@@ -97,7 +131,7 @@ class UserController extends Controller
             }
             return back()->with('page', 1);
         } else {
-            flash()->error('Acción cancelada. Los registros que querías eliminar ya no existen. Se ha actualizado la lista.');
+            flash()->error('Acción cancelada. Los registros no han podido ser eliminados.');
             return back();
         }
     }

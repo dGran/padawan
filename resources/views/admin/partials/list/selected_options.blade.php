@@ -12,7 +12,7 @@
             </button>
         @endisset
         @isset($view)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
                 <i class="icon-view"></i>
             </button>
         @endisset

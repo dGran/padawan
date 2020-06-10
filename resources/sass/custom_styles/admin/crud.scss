@@ -240,7 +240,7 @@
 
 .inputForm {
 	input {
-		@apply rounded border border-gray-400 border-b block px-2 py-2 bg-white text-sm text-gray-700 w-full mt-1;
+		@apply rounded border border-gray-400 border-b block px-2 py-2 bg-gray-100 text-sm text-gray-700 w-full mt-1;
 		&:focus {
 			@apply bg-white border-gray-500 text-gray-700 outline-none;
 		}

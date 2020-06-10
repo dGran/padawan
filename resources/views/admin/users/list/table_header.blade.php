@@ -17,16 +17,6 @@
             @endif
         @endif
     </th>
-    <th>
-        <span class="cursor-not-allowed">Rol</span>
-        @if ($sortField == 'rol')
-            @if ($sortDirection == 'asc')
-                <i class="fas fa-sort-amount-up-alt"></i>
-            @else
-                <i class="fas fa-sort-amount-down"></i>
-            @endif
-        @endif
-    </th>
     <th class="hidden md:table-cell">
         <span class="cursor-pointer" onclick="changeSort('created_at', '{{ $sortField == 'created_at' ? $sortDirection : '' }}')">Fecha Registro</span>
         @if ($sortField == 'created_at')
@@ -36,8 +26,5 @@
                 <i class="fas fa-sort-amount-down"></i>
             @endif
         @endif
-    </th>
-    <th class="hidden md:table-cell">
-        <span class="cursor-not-allowed"></span>
     </th>
 </tr>
