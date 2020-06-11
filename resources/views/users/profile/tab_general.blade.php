@@ -15,7 +15,7 @@
 	</div>
 </div>
 <div class="flex flex-row mt-3 mb-1 justify-center">
-	<label for="avatar" type="button" class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-gray-100 hover:bg-gray-200 font-medium">
+	<label for="avatar" class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-gray-100 hover:bg-gray-200 font-medium">
 		<i class="fas fa-upload mr-2"></i>Cargar imagen
 	</label>
 </div>
@@ -32,7 +32,7 @@
     {{ __('Birthdate') }}
 </label>
 <div class="relative flex w-full flex-wrap items-stretch mb-4 mt-1">
-	<input type="date" placeholder="Birthdate" name="birthdate" id="birthdate" class="px-2 py-2 placeholder-gray-400 text-gray-700 relative {{ $profile->birthdate ? 'bg-white' : 'bg-gray-200' }} focus:bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:border-gray-600 w-full pr-10" value="{{ $profile->birthdate }}"/>
+	<input type="date" placeholder="Birthdate" name="birthdate" id="birthdate" class="px-2 py-2 placeholder-gray-400 text-gray-700 relative {{ $profile->birthdate ? 'bg-white' : 'bg-gray-200' }} focus:bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:border-gray-600 w-full pr-10" value="{{ $profile->birthdate }}"/ style="min-height: 39px">
 	<span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-500 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-2 py-2">
 		<i class="fas fa-birthday-cake"></i>
 	</span>

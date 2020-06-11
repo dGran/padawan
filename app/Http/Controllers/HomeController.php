@@ -42,6 +42,11 @@ class HomeController extends Controller
             if ($request->hasFile('avatar')) {
                 $this->validate($request,[
                     'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ],
+                [
+                    'avatar.image' => 'El avatar debe ser una imagen',
+                    'avatar.mimes' => 'El avatar debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                    'avatar.max' => 'El tamaño del avatar no puede ser mayor a 2048 bytes'
                 ]);
 
                 $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);

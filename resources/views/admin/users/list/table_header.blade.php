@@ -8,7 +8,7 @@
         </label>
     </th>
     <th>
-        <span class="cursor-pointer" onclick="changeSort('name', '{{ $sortField == 'name' ? $sortDirection : '' }}')">Usuario</span>
+        <span class="cursor-pointer" onclick="changeSort('name', '{{ $sortField == 'name' ? $sortDirection : '' }}')">Nombre</span>
         @if ($sortField == 'name')
             @if ($sortDirection == 'asc')
                 <i class="fas fa-sort-amount-up-alt"></i>

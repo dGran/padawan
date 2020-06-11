@@ -9,10 +9,10 @@
 @endsection
 
 @section('content')
+	@include('layouts.partials.flash_errors')
     @include('admin.users.edit.content')
 @endsection
 
 @section('js')
-    {{-- @include('admin.partials.edit.js') --}}
-    {{-- @include('admin.users.edit.js') --}}
+    @include('admin.users.edit.js')
 @endsection

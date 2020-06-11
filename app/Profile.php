@@ -7,6 +7,10 @@ use Carbon\Carbon;
 
 class Profile extends Model
 {
+    protected $fillable = [
+        'avatar', 'birthdate', 'location', 'ps_id', 'xbox_id', 'steam_id', 'origin_id', 'whatsapp', 'twitter', 'facebook', 'instagram'
+    ];
+
     public function User()
     {
         return $this->belongsTo('App\User');

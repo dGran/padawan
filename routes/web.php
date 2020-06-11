@@ -18,7 +18,7 @@ Route::get('/', 'HomeController@home')->name('home');
 // password confirm middleware example
 // Route::get('/', 'HomeController@home')->name('home')->middleware('password.confirm');
 Route::get('/usuarios/perfil', 'HomeController@profile')->name('profile')->middleware('auth', 'verified');
-Route::post('/usuarios/perfil', 'HomeController@profileUpdate')->name('profile.update')->middleware('auth', 'verified');
+Route::put('/usuarios/perfil', 'HomeController@profileUpdate')->name('profile.update')->middleware('auth', 'verified');
 
 Route::get('/contacto', 'ContactController@index')->name('contact');
 Route::post('/contacto', 'ContactController@send')->name('contact.send')->middleware(ProtectAgainstSpam::class);
@@ -42,6 +42,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/nuevo', 'Admin\UserController@add')->name('admin.users.add');
 	Route::post('/usuarios/nuevo', 'Admin\UserController@save')->name('admin.users.save');
 	Route::get('/usuarios/editar/{id}', 'Admin\UserController@edit')->name('admin.users.edit');
+	Route::put('/usuarios/editar/{id}', 'Admin\UserController@update')->name('admin.users.update');
 	Route::get('/usuarios/ver/{id}', 'Admin\UserController@view')->name('admin.users.view');
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');

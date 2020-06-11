@@ -12,3 +12,7 @@
 	@include('layouts.partials.flash_errors')
     @include('admin.users.add.content')
 @endsection
+
+@section('js')
+    @include('admin.users.add.js')
+@endsection

@@ -1,54 +1,102 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
-    <div class="bg-white shadow-md rounded-lg p-6 mb-4 flex flex-col my-4 flex-1 md:flex-initial">
-        <form method="POST" role="form" action="{{ route('admin.users.save') }}" lang="{{ app()->getLocale() }}">
+    <div class="form">
+        <form method="POST" role="form" action="{{ route('admin.users.save') }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
             @csrf
-            <div class="-mx-3 md:flex mb-6">
-                <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="name">
-                        Nombre
-                    </label>
-                    <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-red rounded py-3 px-4 mb-3" id="name" name="name" type="text" placeholder="Nombre" autofocus value="{{ old('name') }}">
-                    {{-- <p class="text-red text-xs italic">Please fill out this field.</p> --}}
-                </div>
-                <div class="md:w-1/2 px-3">
-                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="email">
-                        EMail
-                    </label>
-                    <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="email" name="email" type="email" placeholder="Dirección email" value="{{ old('email') }}">
+
+            <input type="file" name="avatar" id="avatar" onchange="showImage(this)" style="display:none"/>
+            <div class="flex flex-row mb-3 rounded justify-center">
+                <div class="relative">
+                    <img id="thumbnail" src="{{ asset('img/avatars/default.png') }}" alt="avatar" class="w-20 h-20 rounded-full border border-gray-500 bg-white p-1">
+                    <a id="delete_avatar" class="hidden absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
+                        <i class="fas fa-times"></i>
+                    </a>
                 </div>
             </div>
-            <div class="-mx-3 md:flex mb-6">
-                <div class="md:w-full px-3">
-                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="password">
-                        Password
-                    </label>
-                    <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4 mb-3" id="password" name="password" type="password" placeholder="******************">
-                    {{-- <p class="text-grey-dark text-xs italic">Make it as long and as crazy as you'd like</p> --}}
-                </div>
+            <div class="flex flex-row mt-3 mb-1 justify-center">
+                <label for="avatar" class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4 rounded-lg shadow-sm text-left text-gray-600 bg-gray-100 hover:bg-gray-200 font-medium">
+                    <i class="fas fa-upload mr-2"></i>Cargar imagen
+                </label>
             </div>
-            <div class="-mx-3 md:flex mb-2">
-                <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="whatsapp">
-                        Whatsapp
-                    </label>
-                    <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="whatsapp" name="whatsapp" type="text" placeholder="Número Whatsapp">
+            <div class="flex flex-row mt-2 mb-6 text-gray-500 text-xs justify-center">
+                <span class="">
+                    Archivos válidos: .jpeg, .png, .jpg, .gif, .svg
+                </span>
+            </div>
+
+            <div class="field-group">
+                <div class="element">
+                    <label for="name">*Nombre</label>
+                    <input type="text" class="placeholder-gray-400" id="name" name="name" placeholder="Nombre" autofocus value="{{ old('name') }}">
                 </div>
-                <div class="md:w-1/2 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-grey-darker text-xs font-bold mb-2" for="twitter">
-                        Twitter
-                    </label>
-                    <input class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="twitter" name="twitter" type="text" placeholder="Twitter">
+                <div class="element">
+                    <label for="password">*Password</label>
+                    <input type="password" class="placeholder-gray-400" id="password" name="password" placeholder="Password (mínimo 8 caracteres)">
                 </div>
             </div>
 
-            <div class="mt-8 mb-4">
-                <button type="submit" class="bg-green-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
-                    Guardar cambios
+            <div class="field-group">
+                <div class="element">
+                    <label for="email">*E-mail</label>
+                    <input type="email" class="placeholder-gray-400" id="email" name="email" placeholder="Dirección E-Mail" value="{{ old('email') }}">
+                </div>
+                <div class="element">
+                    <label for="location">Localización</label>
+                    <input type="text" class="placeholder-gray-400" id="location" name="location" placeholder="Localización" value="{{ old('location') }}">
+                </div>
+                <div class="element">
+                    <label for="birthdate">Fecha nacimiento</label>
+                    <input type="date" class="placeholder-gray-400" id="birthdate" name="birthdate" placeholder="Fecha de nacimiento" value="{{ old('birthdate') }}" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="element">
+                    <label for="ps_id">PlayStation ID</label>
+                    <input type="text" class="placeholder-gray-400" id="ps_id" name="ps_id" placeholder="Cuenta de PlayStation" value="{{ old('ps_id') }}">
+                </div>
+                <div class="element">
+                    <label for="xbox_id">Xbox ID</label>
+                    <input type="text" class="placeholder-gray-400" id="xbox_id" name="xbox_id" placeholder="Cuenta de Xbox" value="{{ old('xbox_id') }}">
+                </div>
+                <div class="element">
+                    <label for="steam_id">Steam ID</label>
+                    <input type="text" class="placeholder-gray-400" id="steam_id" name="steam_id" placeholder="Cuenta de Steam" value="{{ old('steam_id') }}">
+                </div>
+                <div class="element">
+                    <label for="origin_id">Origin ID</label>
+                    <input type="text" class="placeholder-gray-400" id="origin_id" name="origin_id" placeholder="Cuenta de Origin" value="{{ old('origin_id') }}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="element">
+                    <label for="whatsapp">Whatsapp</label>
+                    <input type="number" class="placeholder-gray-400" id="whatsapp" name="whatsapp" placeholder="Número de teléfono de Whatsapp" value="{{ old('whatsapp') }}">
+                </div>
+                <div class="element">
+                    <label for="twitter">Twitter</label>
+                    <input type="text" class="placeholder-gray-400" id="twitter" name="twitter" placeholder="Cuenta de twitter" value="{{ old('twitter') }}">
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div class="element">
+                    <label for="facebook">Facebook</label>
+                    <input type="text" class="placeholder-gray-400" id="facebook" name="facebook" placeholder="Cuenta de Facebook" value="{{ old('facebook') }}">
+                </div>
+                <div class="element">
+                    <label for="instagram">Instagram</label>
+                    <input type="text" class="placeholder-gray-400" id="instagram" name="instagram" placeholder="Cuenta de Instagram" value="{{ old('instagram') }}">
+                </div>
+            </div>
+
+            <div class="my-4">
+                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
+                    Guardar
                 </button>
             </div>
         </form>
     </div>
-
 
 </div>

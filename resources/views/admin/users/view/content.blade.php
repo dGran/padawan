@@ -20,6 +20,15 @@
 			<dl>
 				<div class="bg-gray-50 px-4 py-5 lg:grid lg:grid-cols-2 lg:gap-8 lg:px-6 border-t border-gray-200 text-center lg:text-left">
 					<dt class="text-sm leading-5 font-medium text-gray-500 lg:text-right">
+						Fecha registro
+					</dt>
+					<dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0">
+						{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d-m-Y / h:s') : 'N/D' }}
+					</dd>
+				</div>
+
+				<div class="bg-gray-50 px-4 py-5 lg:grid lg:grid-cols-2 lg:gap-8 lg:px-6 border-t border-gray-200 text-center lg:text-left">
+					<dt class="text-sm leading-5 font-medium text-gray-500 lg:text-right">
 						Fecha nacimiento
 					</dt>
 					<dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0">
