@@ -35,7 +35,7 @@
 		</title>
 	</head>
 
-	<body class="text-gray-800 antialiased bg-gray-200">
+	<body class="text-gray-800 antialiased bg-gray-200 md:mx-4">
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 
 		{{-- <div id="root"> --}}

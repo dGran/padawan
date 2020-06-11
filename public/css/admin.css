@@ -19637,6 +19637,8 @@ a.disabled {
 @media (min-width: 768px) {
   .selected-options, .global-options {
     margin-left: 16rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     --bg-opacity: 1;
     background-color: #edf2f7;
     background-color: rgba(237, 242, 247, var(--bg-opacity));
@@ -19699,7 +19701,7 @@ a.disabled {
 
 @media (min-width: 768px) {
   .selected-options .info #hideOptions, .global-options .info #hideOptions {
-    right: 2rem;
+    right: 3rem;
     font-size: 2.25em;
   }
 }
@@ -20088,42 +20090,6 @@ a.disabled {
   --text-opacity: 1;
   color: #1a202c;
   color: rgba(26, 32, 44, var(--text-opacity));
-}
-
-.inputForm input {
-  border-radius: 0.25rem;
-  border-width: 1px;
-  --border-opacity: 1;
-  border-color: #cbd5e0;
-  border-color: rgba(203, 213, 224, var(--border-opacity));
-  border-bottom-width: 1px;
-  display: block;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
-  font-size: 0.875rem;
-  --text-opacity: 1;
-  color: #4a5568;
-  color: rgba(74, 85, 104, var(--text-opacity));
-  width: 100%;
-  margin-top: 0.25rem;
-}
-
-.inputForm input:focus {
-  --bg-opacity: 1;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, var(--bg-opacity));
-  --border-opacity: 1;
-  border-color: #a0aec0;
-  border-color: rgba(160, 174, 192, var(--border-opacity));
-  --text-opacity: 1;
-  color: #4a5568;
-  color: rgba(74, 85, 104, var(--text-opacity));
-  outline: 0;
 }
 
 .form {

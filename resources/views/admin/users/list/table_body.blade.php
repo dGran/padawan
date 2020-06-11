@@ -22,7 +22,7 @@
             </div>
         </div>
     </td>
-    <td class="hidden md:table-cell" onclick="rowSelect(this)">
+    <td class="hidden lg:table-cell" onclick="rowSelect(this)">
         {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
             <i class="far fa-calendar-alt mr-1"></i>{{ \Carbon\Carbon::parse($user->created_at)->format('d-m-Y') }}
             <i class="fas fa-clock mx-1"></i>{{ \Carbon\Carbon::parse($user->created_at)->format('h:i') }}

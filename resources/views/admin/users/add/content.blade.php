@@ -5,6 +5,7 @@
             @csrf
 
             <input type="file" name="avatar" id="avatar" onchange="showImage(this)" style="display:none"/>
+            <input type="hidden" name="deleteAvatar" id="deleteAvatar" value=0>
             <div class="flex flex-row mb-3 rounded justify-center">
                 <div class="relative">
                     <img id="thumbnail" src="{{ asset('img/avatars/default.png') }}" alt="avatar" class="w-20 h-20 rounded-full border border-gray-500 bg-white p-1">

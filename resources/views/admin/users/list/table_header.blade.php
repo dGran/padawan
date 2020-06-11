@@ -17,7 +17,7 @@
             @endif
         @endif
     </th>
-    <th class="hidden md:table-cell">
+    <th class="hidden lg:table-cell">
         <span class="cursor-pointer" onclick="changeSort('created_at', '{{ $sortField == 'created_at' ? $sortDirection : '' }}')">Fecha Registro</span>
         @if ($sortField == 'created_at')
             @if ($sortDirection == 'asc')
