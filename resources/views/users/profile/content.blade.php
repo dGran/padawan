@@ -7,7 +7,7 @@
 		        </h1>
 	        	<div class="flex flex-row items-center my-3">
 	        		<div class="flex-col mr-3">
-	        			<img src="{{ $profile->avatar() }}" alt="" class="w-20 h-20 rounded-full border border-gray-500 bg-white p-1">
+	        			<img src="{{ $profile->avatar() }}" alt="" class="object-cover w-20 h-20 rounded-full border border-gray-500 bg-white p-1">
 	        		</div>
 	        		<div class="flex-col text-gray-700">
 			        	<h3 class="text-xl font-bold">{{ $profile->user->name }}</h3>
@@ -40,6 +40,7 @@
 		        </div>
                 <form method="POST" action="{{ route('profile.update') }}" enctype="multipart/form-data">
                     @csrf
+                    {{ method_field('PUT') }}
 	        		<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded p-2">
 	        			<div class="px-4 py-5 flex-auto">
 	        				<div class="tab-content tab-space">

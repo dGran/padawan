@@ -114,7 +114,7 @@ class UserController extends Controller
                     'avatar.max' => 'El tamaño del avatar no puede ser mayor a 2048 bytes'
                 ]);
 
-                $avatar_name = 'avatar_' . $user->id . '.' . $request->avatar->extension();
+                $avatar_name = 'avatar_' . $user->id .'&' . time() . '.' . $request->avatar->extension();
                 \Storage::disk('avatars')->put($avatar_name, \File::get($request->file('avatar')));
 
                 $user->profile->avatar = $avatar_name;
@@ -156,8 +156,9 @@ class UserController extends Controller
         }
 
         if ($request->deleteAvatar) {
-            $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
-            $user->profile->avatar = null;
+            // remove image from Storage
+            \Storage::disk('avatars')->delete($user->profile->avatar);
+            $data['avatar'] = null;
         } else {
             if ($request->hasFile('avatar')) {
                 $this->validate($request,[
@@ -169,12 +170,13 @@ class UserController extends Controller
                     'avatar.max' => 'El tamaño del avatar no puede ser mayor a 2048 bytes'
                 ]);
 
-                $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
+                // remove image from Storage
+                \Storage::disk('avatars')->delete($user->profile->avatar);
 
-                $avatar_name = 'avatar_' . $user->id . '.' . $request->avatar->extension();
+                $avatar_name = 'avatar_' . $user->id .'&' . time() . '.' . $request->avatar->extension();
                 \Storage::disk('avatars')->put($avatar_name, \File::get($request->file('avatar')));
 
-                $user->profile->avatar = $avatar_name;
+                $data['avatar'] = $avatar_name;
             }
         }
         $data['birthdate'] = $request->birthdate;
@@ -216,7 +218,8 @@ class UserController extends Controller
             $user = User::find($ids[$i]);
             if ($user && $user->canDestroy()) {
                 $counter++;
-                $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
+                // remove image from Storage
+                \Storage::disk('avatars')->delete($user->profile->avatar);
                 $user->delete();
             }
         }

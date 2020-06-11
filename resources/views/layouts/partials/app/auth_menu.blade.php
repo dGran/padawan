@@ -1,6 +1,6 @@
 <div @click.away="open = false" class="relative" x-data="{ open: false }">
 	<button @click="open = !open" class="focus:outline-none align-middle md:pl-4">
-		<img src="{{ auth()->user()->profile->avatar() }}" class="rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 hover:bg-white" style="padding: 1px">
+		<img src="{{ auth()->user()->profile->avatar() }}" class="object-cover rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 hover:bg-white" style="padding: 1px">
 	</button>
 	<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 origin-top-right rounded-md shadow-lg w-48 z-50">
 		<ul class="bg-white rounded-md shadow mt-1 text-sm font-semibold">

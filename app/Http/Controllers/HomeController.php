@@ -36,7 +36,8 @@ class HomeController extends Controller
         $profile->notifications = is_null($request->notifications) ? 0 : 1;
 
         if ($request->deleteAvatar) {
-            $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
+            // remove image from Storage
+            \Storage::disk('avatars')->delete($profile->avatar);
             $profile->avatar = null;
         } else {
             if ($request->hasFile('avatar')) {
@@ -49,19 +50,24 @@ class HomeController extends Controller
                     'avatar.max' => 'El tamaño del avatar no puede ser mayor a 2048 bytes'
                 ]);
 
-                $this->remove_img_from_storage('avatars', 'avatar_' . $user->id);
+                // remove image from Storage
+                \Storage::disk('avatars')->delete($profile->avatar);
 
-                $avatar_name = 'avatar_' . $user->id . '.' . $request->avatar->extension();
+                $avatar_name = 'avatar_' . $user->id .'&' . time() . '.' . $request->avatar->extension();
                 \Storage::disk('avatars')->put($avatar_name, \File::get($request->file('avatar')));
 
                 $profile->avatar = $avatar_name;
             }
         }
 
-        if ($profile->save()) {
-            flash()->success('Profile updated!');
+        if ($profile->isDirty()) {
+            if ($profile->save()) {
+                flash()->success('Perfil actualizado correctamente');
+            } else {
+                flash()->error('El perfil no se ha actualizado, se ha producido un error en el servidor');
+            }
         } else {
-            flash()->error('Profile not updated!');
+            flash()->info('No se han detectado cambios');
         }
         return back();
     }

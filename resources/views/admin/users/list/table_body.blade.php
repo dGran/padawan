@@ -10,7 +10,7 @@
     <td onclick="rowSelect(this)">
         <div class="flex items-center">
             <div class="flex-shrink-0 w-10 h-10">
-                <img class="w-full h-full rounded-full"
+                <img class="object-cover w-full h-full rounded-full"
                     src="{{ $user->profile->avatar() }}"
                     alt="" />
             </div>
