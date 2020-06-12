@@ -24,6 +24,7 @@
             add();
             return false;
         });
+        checkRowSelected();
     });
 
     //disable buttons - REVIEW CLASSES
@@ -38,17 +39,7 @@
     }
 
     //Selected regs
-    function rowSelect(element) {
-        $(element).siblings('.select').find('.mark').trigger('click');
-    }
-
-    function showHideRowOptions(element) {
-        if ($(element).is(':checked')) {
-            $(element).parents('tr').addClass('selected');
-        } else {
-            $(element).parents('tr').removeClass('selected');
-        }
-
+    function checkRowSelected() {
         elements = $(".mark:checked").length;
         if (elements > 0) {
             hideGlobalOptions();
@@ -70,6 +61,19 @@
         } else {
             hideRowOptions();
         }
+    }
+
+    function rowSelect(element) {
+        $(element).siblings('.select').find('.mark').trigger('click');
+    }
+
+    function showHideRowOptions(element) {
+        if ($(element).is(':checked')) {
+            $(element).parents('tr').addClass('selected');
+        } else {
+            $(element).parents('tr').removeClass('selected');
+        }
+        checkRowSelected();
     }
 
     function showRowOptions() {
@@ -187,7 +191,6 @@
 
     //destroy
     function destroy() {
-        // window.event.preventDefault();
         disabledActionsButtons();
         swal({
             title: "Confirmación de borrado",
@@ -225,7 +228,7 @@
         });
     }
 
-    //destroy
+    //duplicate
     function duplicate() {
         disabledActionsButtons();
         var route = routeDuplicate;
@@ -362,15 +365,8 @@
         });
     });
 
-    function changeSort(field, direction) {
-        $("#sortField").val(field);
-        if (!direction) {
-            $("#sortDirection").val('asc');
-        } else if (direction == 'asc') {
-            $("#sortDirection").val('desc');
-        } else {
-            $("#sortDirection").val('asc');
-        }
+    function changeSort(order) {
+        $("#order").val(order);
         applyFilters();
     }
 </script>

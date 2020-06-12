@@ -3,23 +3,15 @@
 	<div class="view">
 
 		<div class="image">
-        	<img src="{{ $user->profile->avatar() }}">
+        	<img src="{{ $platform->img() }}">
 		</div>
 		<div class="title">
 			<h1 class="text-lg font-semibold">
-				{{ $user->name }}
+				{{ $platform->name }}
 			</h1>
-			<p class="text-sm text-gray-600">
-				{{ $user->email }}
-			</p>
-	    	@if ($user->is_admin)
-				<p class="text-sm font-medium pt-2 pb-4 text-red-500">
-					ADMIN
-				</p>
-	    	@endif
 		</div>
 
-		<dl>
+{{-- 		<dl>
 			<div>
 				<dt>Fecha registro</dt>
 				<dd>{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d-m-Y / H:i') : 'N/D' }}</dd>
@@ -64,7 +56,7 @@
 				<dt>Instagram</dt>
 				<dd>{{ $user->profile->instagram ?: 'N/D' }}</dd>
 			</div>
-	    </dl>
+	    </dl> --}}
 
 	</div>
 </div>

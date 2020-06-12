@@ -36,9 +36,22 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    public function scopeToday($query)
+    public function scopeOnlyAdmin($query, $value)
     {
-        return $query->whereDate('created_at', \Carbon\Carbon::today());
+        if ($value) {
+            return $query->where('is_Admin', $value);
+        } else {
+            return $query;
+        }
+    }
+
+    public function scopeOnlyVerified($query, $value)
+    {
+        if ($value) {
+            return $query->whereNotNull('email_verified_at');
+        } else {
+            return $query;
+        }
     }
 
     public function canDestroy()

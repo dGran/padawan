@@ -16,13 +16,4 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden lg:table-cell">
-        <span class="cursor-pointer" onclick="changeSort('{{ $order == 'register_date' ? 'register_date_desc' : 'register_date' }}')">Fecha Registro</span>
-        @if ($order == 'register_date')
-            <i class="fas fa-sort-amount-up-alt"></i>
-        @endif
-        @if ($order == 'register_date_desc')
-            <i class="fas fa-sort-amount-down"></i>
-        @endif
-    </th>
 </tr>

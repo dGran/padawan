@@ -261,3 +261,36 @@
 		}
 	}
 }
+
+.view {
+	@apply bg-white shadow overflow-hidden rounded-lg my-4 flex-1;
+	.image {
+		@apply shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4 mt-4;
+		img {
+			@apply object-cover w-full h-full;
+		}
+	}
+	.title {
+		@apply mt-16 text-center;
+	}
+	dl {
+		div {
+			@apply px-4 py-5 border-t border-gray-200 text-center;
+			@screen lg {
+				@apply grid grid-cols-2 gap-8 px-6 text-left;
+			}
+			dt {
+				@apply text-sm leading-5 font-medium text-gray-500;
+				@screen lg {
+					@apply text-right;
+				}
+			}
+			dd {
+				@apply mt-1 text-sm leading-5 text-gray-900;
+				@screen sm {
+					@apply mt-0;
+				}
+			}
+		}
+	}
+}

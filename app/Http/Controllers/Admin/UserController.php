@@ -19,9 +19,10 @@ class UserController extends Controller
     {
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
-        $sortField = request()->sortField ? request()->sortField : 'created_at';
-        $sortDirection = request()->sortDirection ? request()->sortDirection : 'asc';
+        $order = request()->order ? request()->order : 'register_date';
         $filterName = request()->filterName;
+        $filterOnlyAdmin = request()->filterOnlyAdmin == "on" ? 1 : '';
+        $filterOnlyVerified = request()->filterOnlyVerified == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('user_page')) {
@@ -33,30 +34,36 @@ class UserController extends Controller
             if (request()->session()->get('user_perPage')) {
                 $perPage = request()->session()->get('user_perPage');
             }
-            if (request()->session()->get('user_sortField')) {
-                $sortField = request()->session()->get('user_sortField');
-            }
-            if (request()->session()->get('user_sortDirection')) {
-                $sortDirection = request()->session()->get('user_sortDirection');
+            if (request()->session()->get('user_order')) {
+                $order = request()->session()->get('user_order');
             }
             if (request()->session()->get('user_filterName')) {
                 $filterName = request()->session()->get('user_filterName');
             }
+            if (request()->session()->get('user_filterOnlyAdmin')) {
+                $filterOnlyAdmin = request()->session()->get('user_filterOnlyAdmin');
+            }
+            if (request()->session()->get('user_filterOnlyVerified')) {
+                $filterOnlyVerified = request()->session()->get('user_filterOnlyVerified');
+            }
         }
 
-        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage);
+        $order_ext = $this->getOrder($order);
+
+        $users = User::name($filterName)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $users->lastPage()) {
             $page = $users->lastPage();
         }
-        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->Paginate($perPage, ['*'], 'page', $page);
+        $users = User::name($filterName)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['user_perPage' => $perPage]);
         session(['user_page' => $page]);
-        session(['user_sortField' => $sortField]);
-        session(['user_sortDirection' => $sortDirection]);
+        session(['user_order' => $order]);
         session(['user_filterName' => $filterName]);
+        session(['user_filterOnlyAdmin' => $filterOnlyAdmin]);
+        session(['user_filterOnlyVerified' => $filterOnlyVerified]);
 
-    	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'sortField' => $sortField, 'sortDirection' => $sortDirection]);
+    	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterOnlyAdmin' => $filterOnlyAdmin, 'filterOnlyVerified' => $filterOnlyVerified, 'order' => $order]);
     }
 
     public function view($id)
@@ -249,7 +256,15 @@ class UserController extends Controller
                 $user->name .= " (copia_" . rand(100,999) . ")";
                 $user->email .= " (copia_" . rand(100,999) . ")";
                 $user->save();
-                $user->profile()->save(new \App\Profile);
+
+                $user->profile = $original->profile->replicate();
+                $user->profile->user_id = $user->id;
+                if ($original->profile->avatar) {
+                    $avatar_name = "copy_" . $original->profile->avatar;
+                    \Storage::disk('avatars')->copy($original->profile->avatar, $avatar_name);
+                    $user->profile->avatar = $avatar_name;
+                }
+                $user->profile->save();
             }
         }
         if ($counter > 0) {
@@ -265,10 +280,11 @@ class UserController extends Controller
         }
     }
 
-    public function export($format, $ids, $filename, $sortField, $sortDirection)
+    public function export($format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
-        $users = User::whereIn('id', $ids)->orderBy($sortField, $sortDirection)->get();
+        $order_ext = $this->getOrder($order);
+        $users = User::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
@@ -286,8 +302,9 @@ class UserController extends Controller
         }
     }
 
-    public function exportGlobal($format, $filename, $sortField, $sortDirection, $filterName = null) {
-        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($sortField, $sortDirection)->get();
+    public function exportGlobal($format, $filename, $order, $filterName = null) {
+        $order_ext = $this->getOrder($order);
+        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
@@ -313,5 +330,33 @@ class UserController extends Controller
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();
+    }
+
+
+
+    /*
+     * HELPERS FUNCTIONS
+     *
+     */
+    protected function getOrder($order) {
+        $order_ext = [
+            'register_date' => [
+                'sortField'     => 'created_at',
+                'sortDirection' => 'asc'
+            ],
+            'register_date_desc' => [
+                'sortField'     => 'created_at',
+                'sortDirection' => 'desc'
+            ],
+            'name' => [
+                'sortField'     => 'name',
+                'sortDirection' => 'asc'
+            ],
+            'name_desc' => [
+                'sortField'     => 'name',
+                'sortDirection' => 'desc'
+            ]
+        ];
+        return $order_ext[$order];
     }
 }

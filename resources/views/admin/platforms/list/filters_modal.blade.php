@@ -1,9 +1,3 @@
-<style>
-.custom-label input:checked + svg {
-    display: block !important;
-}
-</style>
-
 <div class="hidden overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none justify-center items-start" id="filters">
     <div class="relative w-auto my-6 mx-auto max-w-3xl">
         <!--content-->
@@ -21,22 +15,6 @@
 
             <!--body-->
             <div class="relative p-6 flex-auto">
-
-                <label class="custom-label flex pb-4">
-                      <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                        <input type="checkbox" class="hidden" id="filterOnlyAdmin" name="filterOnlyAdmin" {{ $filterOnlyAdmin == 1 ? 'checked' : '' }}>
-                        <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-                      </div>
-                      <span class="select-none"> Mostrar sólo Administradores</span>
-                </label>
-
-                <label class="custom-label flex pb-4">
-                      <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                        <input type="checkbox" class="hidden" id="filterOnlyVerified" name="filterOnlyVerified" {{ $filterOnlyVerified == 1 ? 'checked' : '' }}>
-                        <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-                      </div>
-                      <span class="select-none"> Mostrar sólo verificados</span>
-                </label>
 
                 <div class="text-bold pb-2">
                     <label for="perPage">Registros por página</label>
@@ -66,11 +44,11 @@
                 </div>
                 <div class="relative">
                     <select name="order" id="order" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option {{ $order == 'register_date' ? 'selected' : '' }} value="register_date">
-                            Fecha de registro (0..9)
+                        <option {{ $order == 'register_date' ? 'selected' : '' }} value="id">
+                            ID (0..9)
                         </option>
-                        <option {{ $order == 'register_date_desc' ? 'selected' : '' }} value="register_date_desc">
-                            Fecha de registro (9..0)
+                        <option {{ $order == 'register_date_desc' ? 'selected' : '' }} value="id_desc">
+                            ID (9..0)
                         </option>
                         <option {{ $order == 'name' ? 'selected' : '' }} value="name">
                             Nombre (A..Z)

@@ -46,9 +46,22 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/ver/{id}', 'Admin\UserController@view')->name('admin.users.view');
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
-	Route::get('/usuarios/exportar/{format}/{ids}/{filename}/{sortField}/{sortDirection}', 'Admin\UserController@export')->name('admin.users.export');
-	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{sortField}/{sortDirection}/{filterName?}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
+	Route::get('/usuarios/exportar/{format}/{ids}/{filename}/{order}', 'Admin\UserController@export')->name('admin.users.export');
+	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
 	Route::post('/usuarios/importar', 'Admin\UserController@import')->name('admin.users.import');
+
+	Route::get('/', 'Admin\AdminController@dashboard')->name('admin');
+	Route::get('/plataformas', 'Admin\PlatformController@list')->name('admin.platforms');
+	Route::get('/plataformas/nuevo', 'Admin\PlatformController@add')->name('admin.platforms.add');
+	Route::post('/plataformas/nuevo', 'Admin\PlatformController@save')->name('admin.platforms.save');
+	Route::get('/plataformas/editar/{id}', 'Admin\PlatformController@edit')->name('admin.platforms.edit');
+	Route::put('/plataformas/editar/{id}', 'Admin\PlatformController@update')->name('admin.platforms.update');
+	Route::get('/plataformas/ver/{id}', 'Admin\PlatformController@view')->name('admin.platforms.view');
+	Route::get('/plataformas/eliminar/{ids}', 'Admin\PlatformController@destroy')->name('admin.platforms.destroy');
+	Route::get('/plataformas/duplicar/{ids}', 'Admin\PlatformController@duplicate')->name('admin.platforms.duplicate');
+	Route::get('/plataformas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PlatformController@export')->name('admin.platforms.export');
+	Route::get('/plataformas/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\PlatformController@exportGlobal')->name('admin.platforms.export.global');
+	Route::post('/plataformas/importar', 'Admin\PlatformController@import')->name('admin.platforms.import');
 });
 
 Auth::routes(['verify' => true]);

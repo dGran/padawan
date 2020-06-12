@@ -15,11 +15,9 @@
 
 	<h6 class="section">Tablas generales</h6>
 	<ul class="menu md:mb-4">
-		<li class="disabled inline-flex">
-			<a href="#">
-				<i class="fas fa-tools"></i>
-				Plataformas (soon)
-			</a>
+
+		<li class="items-center {{ \Request::is('admin/plataformas*') ? 'current' : '' }}">
+			<a href="{{ route('admin.platforms') }}"><i class="fas fa-users"></i>Plataformas</a>
 		</li>
 		<li class="disabled inline-flex">
 			<a href="#">
