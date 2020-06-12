@@ -27,7 +27,7 @@
 		var thumbnail = document.getElementById("thumbnail");
 		var deleteImg = document.getElementById("deleteImg");
 
-		thumbnail.src = '{{ asset('img/avatars/default.png') }}';
+		thumbnail.src = '{{ asset('img/platforms/default.png') }}';
 		deleteImg.value = 1;
 
 		$('#delete_img').addClass('hidden');

@@ -1,7 +1,7 @@
 <script>
 	function showImage(fileInput) {
 		thumbnail.src = '{{ asset('img/platforms/default.png') }}';
-		deleteAvatar.value = 0;
+		deleteImage.value = 0;
 
 		var files = fileInput.files;
 		for (var i = 0; i < files.length; i++) {
@@ -27,7 +27,7 @@
 		var thumbnail = document.getElementById("thumbnail");
 		var deleteImg = document.getElementById("deleteImg");
 
-		thumbnail.src = '{{ asset('img/avatars/default.png') }}';
+		thumbnail.src = '{{ asset('img/platforms/default.png') }}';
 		deleteImg.value = 1;
 
 		$('#delete_img').addClass('hidden');

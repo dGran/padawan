@@ -25,7 +25,7 @@ class PlatformsImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // use manual validations because not working WithValidation
-        if (!Plaform::where('name', $row['name'])->exists()) {
+        if (!Platform::where('name', $row['name'])->exists()) {
             $platform = Platform::create([
                'name'     => $row['name'],
                'img'    => $row['img'],

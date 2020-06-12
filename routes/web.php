@@ -37,7 +37,10 @@ Route::prefix('/torneos')->group(function () {
 });
 
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {
+	//Dashboard
 	Route::get('/', 'Admin\AdminController@dashboard')->name('admin');
+
+	//Users
 	Route::get('/usuarios', 'Admin\UserController@list')->name('admin.users');
 	Route::get('/usuarios/nuevo', 'Admin\UserController@add')->name('admin.users.add');
 	Route::post('/usuarios/nuevo', 'Admin\UserController@save')->name('admin.users.save');
@@ -50,7 +53,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
 	Route::post('/usuarios/importar', 'Admin\UserController@import')->name('admin.users.import');
 
-	Route::get('/', 'Admin\AdminController@dashboard')->name('admin');
+	//Platforms
 	Route::get('/plataformas', 'Admin\PlatformController@list')->name('admin.platforms');
 	Route::get('/plataformas/nuevo', 'Admin\PlatformController@add')->name('admin.platforms.add');
 	Route::post('/plataformas/nuevo', 'Admin\PlatformController@save')->name('admin.platforms.save');
@@ -62,6 +65,19 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/plataformas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PlatformController@export')->name('admin.platforms.export');
 	Route::get('/plataformas/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\PlatformController@exportGlobal')->name('admin.platforms.export.global');
 	Route::post('/plataformas/importar', 'Admin\PlatformController@import')->name('admin.platforms.import');
+
+	//Games
+	Route::get('/juegos', 'Admin\GameController@list')->name('admin.games');
+	Route::get('/juegos/nuevo', 'Admin\GameController@add')->name('admin.games.add');
+	Route::post('/juegos/nuevo', 'Admin\GameController@save')->name('admin.games.save');
+	Route::get('/juegos/editar/{id}', 'Admin\GameController@edit')->name('admin.games.edit');
+	Route::put('/juegos/editar/{id}', 'Admin\GameController@update')->name('admin.games.update');
+	Route::get('/juegos/ver/{id}', 'Admin\GameController@view')->name('admin.games.view');
+	Route::get('/juegos/eliminar/{ids}', 'Admin\GameController@destroy')->name('admin.games.destroy');
+	Route::get('/juegos/duplicar/{ids}', 'Admin\GameController@duplicate')->name('admin.games.duplicate');
+	Route::get('/juegos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GameController@export')->name('admin.games.export');
+	Route::get('/juegos/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\GameController@exportGlobal')->name('admin.games.export.global');
+	Route::post('/juegos/importar', 'Admin\GameController@import')->name('admin.games.import');
 });
 
 Auth::routes(['verify' => true]);

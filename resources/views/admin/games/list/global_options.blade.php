@@ -9,7 +9,7 @@
         @isset($import)
             <form id="frmImport" role="form"
                 method="POST"
-                action="{{ route('admin.users.import') }}"
+                action="{{ route('admin.games.import') }}"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="file" name="fileImport" id="fileImport" class="hidden">
@@ -19,17 +19,14 @@
             </form>
         @endisset
 
-        {{-- Local Global Options --}}
-        @include('admin.users.list.global_options')
-
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFileGlobal('users_global', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFileGlobal('games_global', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFileGlobal('users_global', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFileGlobal('games_global', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFileGlobal('users_global', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFileGlobal('games_global', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

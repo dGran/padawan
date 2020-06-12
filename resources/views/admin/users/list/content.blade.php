@@ -33,7 +33,7 @@
 
 
 <div class="selected-options hidden animated fast">
-    @include('admin.partials.list.selected_options',
+    @include('admin.users.list.selected_options',
         [
             'edit'        => 1,
             'view'        => 1,
@@ -44,7 +44,7 @@
 </div>
 
 <div class="global-options hidden animated fast">
-    @include('admin.partials.list.global_options',
+    @include('admin.users.list.global_options',
         [
             'import'      => 1,
             'export'      => 1

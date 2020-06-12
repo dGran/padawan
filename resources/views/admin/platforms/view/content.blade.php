@@ -5,7 +5,7 @@
 		<div class="image">
         	<img src="{{ $platform->img() }}">
 		</div>
-		<div class="title">
+		<div class="title pb-4">
 			<h1 class="text-lg font-semibold">
 				{{ $platform->name }}
 			</h1>

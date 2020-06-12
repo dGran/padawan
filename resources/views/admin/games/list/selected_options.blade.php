@@ -26,23 +26,19 @@
                 <i class="icon-duplicate"></i>
             </button>
         @endisset
-
-        {{-- Local Selected Options --}}
-        @include('admin.users.list.selected_options')
-
         @isset($bookmarkAdd)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Agregar a tabla de apoyo">
                 <i class="icon-bookmark-add"></i>
             </button>
         @endisset
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('users', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('games', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('users', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('games', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('users', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('games', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

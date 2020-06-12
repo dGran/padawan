@@ -19,10 +19,13 @@
 		<li class="items-center {{ \Request::is('admin/plataformas*') ? 'current' : '' }}">
 			<a href="{{ route('admin.platforms') }}"><i class="fas fa-users"></i>Plataformas</a>
 		</li>
+		<li class="items-center {{ \Request::is('admin/juegos*') ? 'current' : '' }}">
+			<a href="{{ route('admin.games') }}"><i class="fas fa-users"></i>Juegos</a>
+		</li>
 		<li class="disabled inline-flex">
 			<a href="#">
 				<i class="fas fa-tools"></i>
-				Juegos (soon)
+				Equipos eSports (soon)
 			</a>
 		</li>
 	</ul>

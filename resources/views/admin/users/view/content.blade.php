@@ -9,7 +9,7 @@
 			<h1 class="text-lg font-semibold">
 				{{ $user->name }}
 			</h1>
-			<p class="text-sm text-gray-600">
+			<p class="text-sm text-gray-600 {{ !$user->is_admin ? 'pb-4' : '' }}">
 				{{ $user->email }}
 			</p>
 	    	@if ($user->is_admin)

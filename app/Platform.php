@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Platform extends Model
 {
 	protected $fillable = ['name', 'img'];
+    public $timestamps = false;
 
     public function scopeName($query, $name)
     {
@@ -32,5 +33,13 @@ class Platform extends Model
         if (!$image) return FALSE;
         $headers = get_headers($image);
         return stripos($headers[0], "200 OK") ? TRUE : FALSE;
+    }
+
+    public function canDestroy()
+    {
+        // apply logic...
+        // defaults return true
+
+        return true;
     }
 }

@@ -32,6 +32,12 @@
                 </div>
             </div>
 
+            <div class="my-4">
+                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
+                    Guardar
+                </button>
+            </div>
+
         </form>
     </div>
 

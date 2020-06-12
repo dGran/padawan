@@ -43,14 +43,21 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => storage_path('app'),
-        ],
-
         'avatars' => [
             'driver' => 'local',
             'root' => public_path('img/avatars'),
+            'visibility' => 'public',
+        ],
+
+        'platforms' => [
+            'driver' => 'local',
+            'root' => public_path('img/platforms'),
+            'visibility' => 'public',
+        ],
+
+        'games' => [
+            'driver' => 'local',
+            'root' => public_path('img/games'),
             'visibility' => 'public',
         ],
 
@@ -60,6 +67,12 @@ return [
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
+
+        'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app'),
+        ],
+
 
         's3' => [
             'driver' => 's3',

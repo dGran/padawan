@@ -5,12 +5,12 @@
     	    {{ method_field('PUT') }}
             @csrf
 
-			<input type="file" name="img" id="img" value="{{ $user->profile->img }}" onchange="showImage(this)" style="display:none"/>
-			<input type="hidden" name="deleteAvatar" id="deleteAvatar" value=0>
+			<input type="file" name="img" id="img" value="{{ $platform->img }}" onchange="showImage(this)" style="display:none"/>
+			<input type="hidden" name="deleteImg" id="deleteImg" value=0>
 			<div class="flex flex-row mb-3 rounded justify-center">
 				<div class="relative">
 					<img id="thumbnail" src="{{ $platform->img() }}" alt="img" class="object-cover w-20 h-20 rounded-full border border-gray-500 bg-white p-1">
-					<a id="delete_img" class="{{ is_null($user->img) ? 'hidden' : '' }} absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
+					<a id="delete_img" class="{{ is_null($platform->img) ? 'hidden' : '' }} absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
 						<i class="fas fa-times"></i>
 					</a>
 				</div>
@@ -31,6 +31,12 @@
                     <label for="name">*Nombre</label>
                     <input type="text" class="placeholder-gray-400" id="name" name="name" placeholder="Nombre" autofocus value="{{ old('name', $platform->name) }}">
                 </div>
+            </div>
+
+            <div class="my-4">
+                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
+                    Guardar
+                </button>
             </div>
 
         </form>

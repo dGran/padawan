@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Exports\PlatformExport;
-use App\Imports\PlatfomrImport;
+use App\Exports\PlatformsExport;
+use App\Imports\PlatformsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -85,7 +86,8 @@ class PlatformController extends Controller
                 'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
             ]);
 
-            $img_name = 'platform_' . $platform->id .'&' . time() . '.' . $request->img->extension();
+            $slug = Str::of($request->name)->slug('-');
+            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
             \Storage::disk('platforms')->put($img_name, \File::get($request->file('img')));
 
             $data['img'] = $img_name;
@@ -135,7 +137,8 @@ class PlatformController extends Controller
                 // remove image from Storage
                 \Storage::disk('platforms')->delete($platform->img);
 
-                $img_name = 'img_' . $platform->id .'&' . time() . '.' . $request->img->extension();
+	            $slug = Str::of($platform->name)->slug('-');
+	            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
                 \Storage::disk('platforms')->put($img_name, \File::get($request->file('img')));
 
                 $data['img'] = $img_name;
@@ -198,7 +201,7 @@ class PlatformController extends Controller
                 $platform->name .= " (copia_" . rand(100,999) . ")";
                 if ($original->img) {
                     $img_name = "copy_" . $original->img;
-                    \Storage::disk('avatars')->copy($original->img, $img_name);
+                    \Storage::disk('platforms')->copy($original->img, $img_name);
                     $platform->img = $img_name;
                 }
                 $platform->save();
@@ -245,13 +248,13 @@ class PlatformController extends Controller
 
         switch ($format) {
             case 'xls':
-                return (new platformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new PlatformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new platformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new PlatformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new platformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new PlatformsExport($platforms))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
