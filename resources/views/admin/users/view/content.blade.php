@@ -6,17 +6,25 @@
         	<img src="{{ $user->profile->avatar() }}">
 		</div>
 		<div class="title">
-			<h1 class="text-lg font-semibold">
+			<p class="text-lg font-semibold">
 				{{ $user->name }}
-			</h1>
-			<p class="text-sm text-gray-600 {{ !$user->is_admin ? 'pb-4' : '' }}">
+			</p>
+			<p class="text-sm text-gray-600">
 				{{ $user->email }}
 			</p>
 	    	@if ($user->is_admin)
-				<p class="text-sm font-medium pt-2 pb-4 text-red-500">
+				<p class="text-sm font-medium pt-2 text-red-500">
 					ADMIN
 				</p>
 	    	@endif
+	    	<div class="pt-3">
+				<a href="{{ route('admin.users.edit', $user->id) }}" class="edit">
+		  			Editar
+				</a>
+				<a href="{{ route('admin.users') }}" class="back">
+		  			Volver
+				</a>
+			</div>
 		</div>
 
 		<dl>

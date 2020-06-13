@@ -1,62 +1,68 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
 	<div class="view">
-
 		<div class="image">
         	<img src="{{ $game->img() }}">
 		</div>
-		<div class="title pb-4">
-			<h1 class="text-lg font-semibold">
+		<div class="title">
+			<p class="text-lg font-semibold">
 				{{ $game->name }}
-			</h1>
+			</p>
+			<p class="text-sm text-gray-600">
+				{{ $game->platform->name }}
+			</p>
+	    	<div class="pt-3">
+				<a href="{{ route('admin.games.edit', $game->id) }}" class="edit">
+		  			Editar
+				</a>
+				<a href="{{ route('admin.games') }}" class="back">
+		  			Volver
+				</a>
+			</div>
 		</div>
 
-{{-- 		<dl>
+		<dl>
 			<div>
-				<dt>Fecha registro</dt>
-				<dd>{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d-m-Y / H:i') : 'N/D' }}</dd>
+				<dt>Modo de juego: Liga</dt>
+				<dd>
+				@if ($game->mode_league)
+					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+				@else
+					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+				@endif
+				</dd>
 			</div>
 			<div>
-				<dt>Fecha nacimiento</dt>
-				<dd>{{ $user->profile->birthdate ? \Carbon\Carbon::parse($user->profile->birthdate)->format('d-m-Y') : 'N/D' }}</dd>
+				<dt>Modo de juego: Playoffs</dt>
+				<dd>
+				@if ($game->mode_playoffs)
+					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+				@else
+					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+				@endif
+				</dd>
 			</div>
 			<div>
-				<dt>Localización</dt>
-				<dd>{{ $user->profile->location ?: 'N/D' }}</dd>
+				<dt>Modo de juego: Carreras</dt>
+				<dd>
+				@if ($game->mode_races)
+					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+				@else
+					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+				@endif
+				</dd>
 			</div>
 			<div>
-				<dt>PlayStation ID</dt>
-				<dd>{{ $user->profile->ps_id ?: 'N/D' }}</dd>
+				<dt>Plantillas de jugadores</dt>
+				<dd>
+				@if ($game->rosters)
+					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+				@else
+					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+				@endif
+				</dd>
 			</div>
-			<div>
-				<dt>Xbox ID</dt>
-				<dd>{{ $user->profile->xbox_id ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Steam ID</dt>
-				<dd>{{ $user->profile->steam_id ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Origin ID</dt>
-				<dd>{{ $user->profile->origin_id ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Whatsapp</dt>
-				<dd>{{ $user->profile->whatsapp ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Facebook</dt>
-				<dd>{{ $user->profile->facebook ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Twitter</dt>
-				<dd>{{ $user->profile->twitter ?: 'N/D' }}</dd>
-			</div>
-			<div>
-				<dt>Instagram</dt>
-				<dd>{{ $user->profile->instagram ?: 'N/D' }}</dd>
-			</div>
-	    </dl> --}}
+	    </dl>
 
 	</div>
 </div>

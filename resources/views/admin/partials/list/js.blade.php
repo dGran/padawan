@@ -1,5 +1,4 @@
 <script>
-    //Search focus by press "/"
     $(function() {
         Mousetrap.bind(['/'], function() {
             $('.search-input').focus();

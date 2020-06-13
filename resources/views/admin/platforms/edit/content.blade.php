@@ -9,7 +9,7 @@
 			<input type="hidden" name="deleteImg" id="deleteImg" value=0>
 			<div class="flex flex-row mb-3 rounded justify-center">
 				<div class="relative">
-					<img id="thumbnail" src="{{ $platform->img() }}" alt="img" class="object-cover w-20 h-20 rounded-full border border-gray-500 bg-white p-1">
+					<img id="thumbnail" src="{{ $platform->img() }}" alt="img" class="object-cover w-24 h-24 rounded-full shadow overflow-hidden border-4 border-white">
 					<a id="delete_img" class="{{ is_null($platform->img) ? 'hidden' : '' }} absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
 						<i class="fas fa-times"></i>
 					</a>
@@ -33,10 +33,13 @@
                 </div>
             </div>
 
-            <div class="my-4">
-                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
+            <div class="mt-8">
+                <button type="submit" class="bg-green-500 text-white active:bg-green-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg hover:bg-green-600 outline-none focus:outline-none" style="transition: all .15s ease">
                     Guardar
                 </button>
+                <a href="{{ route('admin.platforms') }}" class="bg-transparent text-red-500 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease">
+                    Cancelar
+                </a>
             </div>
 
         </form>

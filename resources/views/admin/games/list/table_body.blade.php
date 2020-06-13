@@ -22,4 +22,9 @@
             </div>
         </div>
     </td>
+    <td>
+        <a href="{{ route('admin.platforms.view', $game->platform->id) }}">
+            {{ $game->platform->name }}
+        </a>
+    </td>
 </tr>

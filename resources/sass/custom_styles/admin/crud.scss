@@ -178,7 +178,10 @@
 }
 
 .search-bar {
-	@apply flex items-center;
+	@apply flex items-center mb-2;
+	@screen md {
+		@apply mb-4
+	}
 	.add {
 		@apply bg-green-500 text-green-100 border border-green-600 h-full rounded px-3 py-2;
 		&:focus {
@@ -250,7 +253,7 @@
 			label {
 				@apply block uppercase tracking-wide text-xs font-bold text-gray-500 mb-2;
 			}
-			input {
+			input, select {
 				@apply appearance-none block w-full border border-gray-300 rounded py-2 px-3;
 				// fix for null values in input date
 				min-height: 39px;
@@ -263,15 +266,35 @@
 }
 
 .view {
-	@apply bg-white shadow overflow-hidden rounded-lg my-4 flex-1;
+	@apply bg-white shadow overflow-hidden rounded-lg my-4 py-4 flex-1;
 	.image {
-		@apply shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4 mt-4;
+		@apply shadow mx-auto h-24 w-24 border-white rounded-full overflow-hidden border-4;
 		img {
 			@apply object-cover w-full h-full;
 		}
 	}
 	.title {
-		@apply mt-16 text-center;
+		@apply my-4 text-center;
+		.edit {
+			@apply bg-blue-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow outline-none mt-3;
+			transition: all .15s ease;
+			&:active {
+				@apply bg-blue-600;
+			}
+			&:hover {
+				@apply bg-blue-600 shadow-md;
+			}
+		}
+		.back {
+			@apply bg-gray-200 font-bold uppercase text-xs px-4 py-2 rounded shadow outline-none mt-3 ml-1;
+			transition: all .15s ease;
+			&:active {
+				@apply bg-gray-300;
+			}
+			&:hover {
+				@apply bg-gray-300 shadow-md;
+			}
+		}
 	}
 	dl {
 		div {
@@ -287,10 +310,15 @@
 			}
 			dd {
 				@apply mt-1 text-sm leading-5 text-gray-900;
-				@screen sm {
+				@screen lg {
 					@apply mt-0;
 				}
 			}
 		}
 	}
+}
+
+
+.custom-label input:checked + svg {
+    display: block !important;
 }

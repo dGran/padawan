@@ -6,4 +6,19 @@
     var routeDuplicate = "{{ route('admin.games.duplicate', ':IDS') }}";
     var routeExport = "{{ route('admin.games.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.games.export.global', [':FORMAT', ':FILENAME', $order, $filterName]) }}";
+
+    function cancelFilterOnlyModeLeague() {
+        $("#filterOnlyModeLeague").prop("checked", false);
+        applyFilters();
+    }
+
+    function cancelFilterOnlyModePlayoffs() {
+        $("#filterOnlyModePlayoffs").prop("checked", false);
+        applyFilters();
+    }
+
+    function cancelFilterOnlyModeRaces() {
+        $("#filterOnlyModeRaces").prop("checked", false);
+        applyFilters();
+    }
 </script>

@@ -76,6 +76,8 @@ class PlatformController extends Controller
             'name.unique' => 'El nombre ya existe',
         ]);
 
+        $data = $request->all();
+
         if ($request->hasFile('img')) {
             $this->validate($request,[
                 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',

@@ -9,10 +9,42 @@ class Game extends Model
 	protected $fillable = ['platform_id', 'name', 'img', 'banner', 'mode_league', 'mode_playoffs', 'mode_races', 'rosters'];
     public $timestamps = false;
 
+    public function platform()
+    {
+        return $this->belongsTo('App\Platform');
+    }
+
     public function scopeName($query, $name)
     {
         if (trim($name) !="") {
             $query->where("name", "LIKE", "%$name%");
+        }
+    }
+
+    public function scopeOnlyModeLeague($query, $value)
+    {
+        if ($value) {
+            return $query->where('mode_league', $value);
+        } else {
+            return $query;
+        }
+    }
+
+    public function scopeOnlyModePlayoffs($query, $value)
+    {
+        if ($value) {
+            return $query->where('mode_playoffs', $value);
+        } else {
+            return $query;
+        }
+    }
+
+    public function scopeOnlyModeRaces($query, $value)
+    {
+        if ($value) {
+            return $query->where('mode_races', $value);
+        } else {
+            return $query;
         }
     }
 

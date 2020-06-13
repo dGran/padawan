@@ -23,6 +23,7 @@ class UserController extends Controller
         $filterName = request()->filterName;
         $filterOnlyAdmin = request()->filterOnlyAdmin == "on" ? 1 : '';
         $filterOnlyVerified = request()->filterOnlyVerified == "on" ? 1 : '';
+        $filterOnlyNotVerified = request()->filterOnlyNotVerified == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('user_page')) {
@@ -46,15 +47,18 @@ class UserController extends Controller
             if (request()->session()->get('user_filterOnlyVerified')) {
                 $filterOnlyVerified = request()->session()->get('user_filterOnlyVerified');
             }
+            if (request()->session()->get('user_filterOnlyNotVerified')) {
+                $filterOnlyNotVerified = request()->session()->get('user_filterOnlyNotVerified');
+            }
         }
 
         $order_ext = $this->getOrder($order);
 
-        $users = User::name($filterName)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $users = User::name($filterName)->onlyNotVerified($filterOnlyNotVerified)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $users->lastPage()) {
             $page = $users->lastPage();
         }
-        $users = User::name($filterName)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $users = User::name($filterName)->onlyNotVerified($filterOnlyNotVerified)->onlyVerified($filterOnlyVerified)->onlyAdmin($filterOnlyAdmin)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['user_perPage' => $perPage]);
         session(['user_page' => $page]);
@@ -62,8 +66,9 @@ class UserController extends Controller
         session(['user_filterName' => $filterName]);
         session(['user_filterOnlyAdmin' => $filterOnlyAdmin]);
         session(['user_filterOnlyVerified' => $filterOnlyVerified]);
+        session(['user_filterOnlyNotVerified' => $filterOnlyNotVerified]);
 
-    	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterOnlyAdmin' => $filterOnlyAdmin, 'filterOnlyVerified' => $filterOnlyVerified, 'order' => $order]);
+    	return view('admin.users.list', ['users' => $users, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterOnlyAdmin' => $filterOnlyAdmin, 'filterOnlyVerified' => $filterOnlyVerified, 'filterOnlyNotVerified' => $filterOnlyNotVerified, 'order' => $order]);
     }
 
     public function view($id)
@@ -93,6 +98,7 @@ class UserController extends Controller
             'password.min' => 'El password tiene que tener mínimo 8 caracteres'
         ]);
 
+        $data = $request->all();
         $data['email_verified_at'] = now();
         $data['password'] = Hash::make($data['password']);
 

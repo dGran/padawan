@@ -11,6 +11,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Game;
+use App\Platform;
 
 class GameController extends Controller
 {
@@ -20,6 +21,9 @@ class GameController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
+        $filterOnlyModeLeague = request()->filterOnlyModeLeague == "on" ? 1 : '';
+        $filterOnlyModePlayoffs = request()->filterOnlyModePlayoffs == "on" ? 1 : '';
+        $filterOnlyModeRaces = request()->filterOnlyModeRaces == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('game_page')) {
@@ -37,22 +41,34 @@ class GameController extends Controller
             if (request()->session()->get('game_filterName')) {
                 $filterName = request()->session()->get('game_filterName');
             }
+            if (request()->session()->get('user_filterOnlyModeLeague')) {
+                $filterOnlyModeLeague = request()->session()->get('user_filterOnlyModeLeague');
+            }
+            if (request()->session()->get('user_filterOnlyModePlayoffs')) {
+                $filterOnlyModePlayoffs = request()->session()->get('user_filterOnlyModePlayoffs');
+            }
+            if (request()->session()->get('user_filterOnlyModeRaces')) {
+                $filterOnlyModeRaces = request()->session()->get('user_filterOnlyModeRaces');
+            }
         }
 
         $order_ext = $this->getOrder($order);
 
-        $games = Game::name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $games = Game::name($filterName)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $games->lastPage()) {
             $page = $games->lastPage();
         }
-        $games = Game::name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $games = Game::name($filterName)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['game_perPage' => $perPage]);
         session(['game_page' => $page]);
         session(['game_order' => $order]);
         session(['game_filterName' => $filterName]);
+        session(['user_filterOnlyModeLeague' => $filterOnlyModeLeague]);
+        session(['user_filterOnlyModePlayoffs' => $filterOnlyModePlayoffs]);
+        session(['user_filterOnlyModeRaces' => $filterOnlyModeRaces]);
 
-    	return view('admin.games.list', ['games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
+    	return view('admin.games.list', ['games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterOnlyModeLeague' => $filterOnlyModeLeague, 'filterOnlyModePlayoffs' => $filterOnlyModePlayoffs, 'filterOnlyModeRaces' => $filterOnlyModeRaces, 'order' => $order]);
     }
 
     public function view($id)
@@ -63,18 +79,20 @@ class GameController extends Controller
 
     public function add()
     {
-        return view('admin.games.add');
+        $platforms = Platform::orderBy('name')->get();
+        return view('admin.games.add', ['platforms' => $platforms]);
     }
 
     public function save(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|unique:games,name',
+            'name' => 'required',
         ],
         [
             'name.required' => 'El nombre es obligatorio',
-            'name.unique' => 'El nombre ya existe',
         ]);
+
+        $data = $request->all();
 
         if ($request->hasFile('img')) {
             $this->validate($request,[
@@ -92,6 +110,10 @@ class GameController extends Controller
 
             $data['img'] = $img_name;
         }
+        $data['mode_league'] = $request->mode_league == 'on' ? 1 : 0;
+        $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
+        $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
+        $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
 
         $game = Game::create($data);
 
@@ -104,7 +126,9 @@ class GameController extends Controller
     public function edit($id)
     {
         $game = Game::findOrFail($id);
-        return view('admin.games.edit', ['game' => $game]);
+        $platforms = Platform::orderBy('name')->get();
+
+        return view('admin.games.edit', ['game' => $game, 'platforms' => $platforms]);
     }
 
     public function update($id, Request $request)
@@ -112,12 +136,13 @@ class GameController extends Controller
         $game = Game::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|unique:games,name,' .$game->id,
+            'name' => 'required'
         ],
         [
             'name.required' => 'El nombre es obligatorio',
-            'name.unique' => 'El nombre ya existe',
         ]);
+
+        $data = $request->all();
 
         if ($request->deleteImg) {
             // remove image from Storage
@@ -144,6 +169,11 @@ class GameController extends Controller
                 $data['img'] = $img_name;
             }
         }
+        $data['mode_league'] = $request->mode_league == 'on' ? 1 : 0;
+        $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
+        $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
+        $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
+
         $game->fill($data);
 
         if ($game->isDirty()) {
@@ -198,9 +228,8 @@ class GameController extends Controller
             if ($original) {
                 $counter++;
                 $game = $original->replicate();
-                $game->name .= " (copia_" . rand(100,999) . ")";
                 if ($original->img) {
-                    $img_name = "copy_" . $original->img;
+                    $img_name = time() . $original->img;
                     \Storage::disk('games')->copy($original->img, $img_name);
                     $game->img = $img_name;
                 }
