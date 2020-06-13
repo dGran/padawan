@@ -40,7 +40,7 @@
                       <span class="select-none"> Sólo <ins>no</ins> verificados</span>
                 </label>
 
-                <div class="text-bold pb-2">
+                <div class="text-bold pb-2 pt-4">
                     <label for="perPage">Registros por página</label>
                 </div>
                 <div class="relative">

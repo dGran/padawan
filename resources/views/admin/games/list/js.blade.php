@@ -7,6 +7,11 @@
     var routeExport = "{{ route('admin.games.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.games.export.global', [':FORMAT', ':FILENAME', $order, $filterName]) }}";
 
+    function cancelFilterPlatform() {
+        $("#filterPlatform").val('0');
+        applyFilters();
+    }
+
     function cancelFilterOnlyModeLeague() {
         $("#filterOnlyModeLeague").prop("checked", false);
         applyFilters();

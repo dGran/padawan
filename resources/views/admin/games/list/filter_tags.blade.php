@@ -1,7 +1,10 @@
-@if ($filterName || $filterOnlyModeLeague || $filterOnlyModePlayoffs || $filterOnlyModeRaces)
+@if ($filterName || $filterPlatform || $filterOnlyModeLeague || $filterOnlyModePlayoffs || $filterOnlyModeRaces)
     <div class="filter-tags">
         @if ($filterName)
             <button onclick="cancelFilterName()">{{ $filterName }}<i class="fas fa-times"></i></button>
+        @endif
+        @if ($filterPlatform)
+            <button onclick="cancelFilterPlatform()">{{ $filterPlatformName }}<i class="fas fa-times"></i></button>
         @endif
         @if ($filterOnlyModeLeague)
             <button onclick="cancelFilterOnlyModeLeague()">Solo con modo juego Liga<i class="fas fa-times"></i></button>

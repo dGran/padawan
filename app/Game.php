@@ -21,6 +21,13 @@ class Game extends Model
         }
     }
 
+    public function scopePlatform($query, $platform)
+    {
+        if (!$platform == 0) {
+            $query->where("platform_id", "=", $platform);
+        }
+    }
+
     public function scopeOnlyModeLeague($query, $value)
     {
         if ($value) {

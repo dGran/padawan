@@ -21,6 +21,7 @@ class GameController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
+        $filterPlatform = request()->filterPlatform;
         $filterOnlyModeLeague = request()->filterOnlyModeLeague == "on" ? 1 : '';
         $filterOnlyModePlayoffs = request()->filterOnlyModePlayoffs == "on" ? 1 : '';
         $filterOnlyModeRaces = request()->filterOnlyModeRaces == "on" ? 1 : '';
@@ -41,6 +42,9 @@ class GameController extends Controller
             if (request()->session()->get('game_filterName')) {
                 $filterName = request()->session()->get('game_filterName');
             }
+            if (request()->session()->get('user_filterPlatform')) {
+                $filterPlatform = request()->session()->get('user_filterPlatform');
+            }
             if (request()->session()->get('user_filterOnlyModeLeague')) {
                 $filterOnlyModeLeague = request()->session()->get('user_filterOnlyModeLeague');
             }
@@ -54,21 +58,29 @@ class GameController extends Controller
 
         $order_ext = $this->getOrder($order);
 
-        $games = Game::name($filterName)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $games = Game::name($filterName)->platform($filterPlatform)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $games->lastPage()) {
             $page = $games->lastPage();
         }
-        $games = Game::name($filterName)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $games = Game::name($filterName)->platform($filterPlatform)->onlyModeLeague($filterOnlyModeLeague)->onlyModePlayoffs($filterOnlyModePlayoffs)->onlyModeRaces($filterOnlyModeRaces)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+
+        $platforms = Platform::orderBy('name')->get();
+        if (!$filterPlatform == 0) {
+            $filterPlatformName = Platform::find($filterPlatform)->name;
+        } else {
+            $filterPlatformName = null;
+        }
 
         session(['game_perPage' => $perPage]);
         session(['game_page' => $page]);
         session(['game_order' => $order]);
         session(['game_filterName' => $filterName]);
+        session(['game_filterPlatform' => $filterPlatform]);
         session(['user_filterOnlyModeLeague' => $filterOnlyModeLeague]);
         session(['user_filterOnlyModePlayoffs' => $filterOnlyModePlayoffs]);
         session(['user_filterOnlyModeRaces' => $filterOnlyModeRaces]);
 
-    	return view('admin.games.list', ['games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterOnlyModeLeague' => $filterOnlyModeLeague, 'filterOnlyModePlayoffs' => $filterOnlyModePlayoffs, 'filterOnlyModeRaces' => $filterOnlyModeRaces, 'order' => $order]);
+    	return view('admin.games.list', ['games' => $games, 'platforms' => $platforms, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterPlatform' => $filterPlatform, 'filterPlatformName' => $filterPlatformName, 'filterOnlyModeLeague' => $filterOnlyModeLeague, 'filterOnlyModePlayoffs' => $filterOnlyModePlayoffs, 'filterOnlyModeRaces' => $filterOnlyModeRaces, 'order' => $order]);
     }
 
     public function view($id)
