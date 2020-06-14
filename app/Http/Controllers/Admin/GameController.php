@@ -134,6 +134,7 @@ class GameController extends Controller
         $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
         $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
         $data['positions'] = $request->positions == 'on' ? 1 : 0;
+        $data['circuits'] = $request->circuits == 'on' ? 1 : 0;
 
         $game = Game::create($data);
 
@@ -198,6 +199,7 @@ class GameController extends Controller
         $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
         $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
         $data['positions'] = $request->positions == 'on' ? 1 : 0;
+        $data['circuits'] = $request->circuits == 'on' ? 1 : 0;
 
         $game->fill($data);
 

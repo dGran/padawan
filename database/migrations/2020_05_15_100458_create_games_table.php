@@ -27,6 +27,7 @@ class CreateGamesTable extends Migration
             $table->boolean('mode_races')->default(false);
             $table->boolean('rosters')->default(false);
             $table->boolean('positions')->default(false);
+            $table->boolean('circuits')->default(false);
             $table->string('slug')->unique();
         });
     }

@@ -68,9 +68,10 @@ class GameSeeder extends Seeder
 	    ]);
 	    DB::table('games')->insert([
 			'platform_id' => 1,
-			'name' => 'GT Rancing',
+			'name' => 'Gran Turismo Sport',
 			'mode_races' => true,
-			'slug' => Str::slug('GT Racing PlayStation 4', '-'),
+			'circuits' => true,
+			'slug' => Str::slug('Gran Turismo Sport PlayStation 4', '-'),
 	    ]);
     }
 }
