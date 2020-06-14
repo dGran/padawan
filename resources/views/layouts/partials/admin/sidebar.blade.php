@@ -4,25 +4,18 @@
 		<button class="cursor-pointer text-black opacity-50 md:hidden py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent focus:outline-none" type="button" onclick="toggleNavbar('collapse-sidebar')">
 	    	<i class="fas fa-bars"></i>
 	    </button>
-		<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 cursor-default">
+		<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-base uppercase font-bold p-4 px-0 cursor-default relative">
 			Admin Panel
+			<span class="absolute md:static text-center md:block text-teal-500" style="font-size: 9px; bottom: 5px; right: -23px; -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg);">
+				padawan sports
+			</span>
 		</span>
 		<ul class="md:hidden items-center flex flex-wrap list-none">
-			{{-- notifications --}}
-			<li class="inline-block relative">
-				<a class="text-gray-700 block py-1 px-3" href="#pablo" onclick="openDropdown(event,'notification-dropdown')">
-	        		<i class="fas fa-bell"></i>
-				</a>
-				{{-- notifications-manu --}}
-				<div class="hidden bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg mt-1" style="min-width: 12rem;" id="notification-dropdown">
-					@include('layouts.partials.admin.notifications_menu')
-				</div>
-			</li>
 			{{-- user --}}
 			<li class="inline-block relative">
 				<div @click.away="open = false" class="relative" x-data="{ open: false }">
 					<button @click="open = !open" class="focus:outline-none align-middle md:pl-4">
-						<img src="{{ auth()->user()->profile->avatar() }}" class="rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 hover:bg-white" style="padding: 1px">
+						<img src="{{ auth()->user()->profile->avatar() }}" class="rounded-full w-8 h-8 lg:w-10 lg:h-10 object-cover overflow-hidden">
 					</button>
 					<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 origin-top-right rounded-md shadow-lg w-48 z-50">
 						@include('layouts.partials.admin.user_menu')
@@ -32,17 +25,20 @@
 		</ul>
 
 
-		<div class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden" id="collapse-sidebar">
+		<div class="border border-gray-300 md:border-transparent md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-4 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded hidden pb-8" id="collapse-sidebar">
 			<div class="md:min-w-full md:hidden block pb-4 mb-4 border-b border-solid border-gray-300">
 				<div class="flex flex-wrap">
 					<div class="w-6/12">
-						<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 cursor-default">
+						<span class="md:block text-left md:pb-2 text-gray-700 mr-0 inline-block whitespace-no-wrap text-sm uppercase font-bold p-4 px-0 cursor-default relative">
 							Admin Panel
+							<span class="absolute md:static text-center md:block text-teal-500" style="font-size: 9px; bottom: 5px; right: -23px; -webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -ms-transform: rotate(360deg); -o-transform: rotate(360deg); transform: rotate(360deg);">
+								padawan sports
+							</span>
 						</span>
 					</div>
 					{{-- close-button --}}
 					<div class="w-6/12 flex justify-end">
-						<button type="button" class="cursor-pointer text-black opacity-50 md:hidden py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent focus:outline-none" onclick="toggleNavbar('collapse-sidebar')">
+						<button type="button" class="cursor-pointer text-black opacity-50 md:hidden py-1 text-base font-bold leading-none bg-transparent rounded border border-solid border-transparent focus:outline-none" onclick="toggleNavbar('collapse-sidebar')">
 							<i class="fas fa-times"></i>
 						</button>
 					</div>

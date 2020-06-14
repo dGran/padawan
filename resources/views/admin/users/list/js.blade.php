@@ -33,4 +33,8 @@
             $("#filterOnlyVerified").prop("checked", false);
         }
     });
+
+    $("#form-filter").submit(function(event) {
+        disabledActionsButtons();
+    });
 </script>

@@ -19275,54 +19275,6 @@ a.disable, button.disable {
   margin-bottom: 25px;
 }
 
-.bg-brand-white {
-  background-color: #ecf4f3;
-}
-
-.bg-brand {
-  background-color: #3b7977;
-}
-
-.scroll {
-  white-space: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
-}
-
-.bounce-in-right {
-  -webkit-animation: bounce-in-right 0.8s both;
-  animation: bounce-in-right 0.8s both;
-}
-
-@media (min-width: 768px) {
-  .bounce-in-right {
-    -webkit-animation: none;
-    animation: none;
-    -webkit-animation-duration: 0s;
-            animation-duration: 0s;
-    -webkit-animation-timing-function: ease;
-            animation-timing-function: ease;
-    -webkit-animation-delay: 0s;
-            animation-delay: 0s;
-    -webkit-animation-iteration-count: 1;
-            animation-iteration-count: 1;
-    -webkit-animation-direction: normal;
-            animation-direction: normal;
-    -webkit-animation-fill-mode: none;
-            animation-fill-mode: none;
-    -webkit-animation-play-state: running;
-            animation-play-state: running;
-    -webkit-animation-name: none;
-            animation-name: none;
-  }
-}
-
-*, :after, :before {
-  box-sizing: border-box;
-  border: 0 solid #e2e8f0;
-}
-
 .custom-check div {
   --bg-opacity: 1;
   background-color: #fff;

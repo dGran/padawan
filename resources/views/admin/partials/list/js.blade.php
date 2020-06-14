@@ -150,8 +150,7 @@
     }
 
     function applyFilters() {
-        disabledActionsButtons();
-        $("#frmFilter").submit();
+        $("#form-filter").submit();
     }
 
     //add

@@ -26,4 +26,8 @@
         $("#filterOnlyModeRaces").prop("checked", false);
         applyFilters();
     }
+
+    $("#form-filter").submit(function(event) {
+        disabledActionsButtons();
+    });
 </script>
