@@ -13,7 +13,7 @@
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'icomoon' !important;
-  speak: none;
+  speak: never;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -25,6 +25,48 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-players:before {
+  content: "\e917";
+}
+.icon-circuits:before {
+  content: "\e918";
+}
+.icon-settings:before {
+  content: "\e919";
+}
+.icon-tournaments:before {
+  content: "\e91a";
+}
+.icon-dashboard:before {
+  content: "\e91b";
+}
+.icon-categories:before {
+  content: "\e90e";
+}
+.icon-db:before {
+  content: "\e90f";
+}
+.icon-teams:before {
+  content: "\e910";
+}
+.icon-rosters:before {
+  content: "\e911";
+}
+.icon-eteams:before {
+  content: "\e912";
+}
+.icon-games:before {
+  content: "\e913";
+}
+.icon-platforms:before {
+  content: "\e914";
+}
+.icon-users:before {
+  content: "\e915";
+}
+.icon-positions:before {
+  content: "\e916";
+}
 .icon-add:before {
   content: "\e90d";
 }

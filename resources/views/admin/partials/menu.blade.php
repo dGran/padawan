@@ -1,32 +1,57 @@
 <div class="menu">
+
 	<ul class="menu">
-		<li class="items-center {{ \Request::is('admin') ? 'current' : '' }}">
+		<li class="{{ \Request::is('admin') ? 'current' : '' }}">
 			<a href="{{ route('admin') }}"><i class="fas fa-tv"></i>Dashboard</a>
 		</li>
-		<li class="disabled items-center">
-			<a href="#"><i class="fas fa-tools"></i>Settings (soon)</a>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-settings"></i>Settings</a>
 		</li>
 	</ul>
 
 	<hr class="divider"/>
-
-	<h6 class="section">Tablas generales</h6>
+	<h6 class="section">Torneos</h6>
 	<ul class="menu md:mb-4">
-
-		<li class="items-center {{ \Request::is('admin/usuarios*') ? 'current' : '' }}">
-			<a href="{{ route('admin.users') }}"><i class="fas fa-users"></i>Usuarios</a>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-eteams"></i>Torneos</a>
 		</li>
-		<li class="items-center {{ \Request::is('admin/plataformas*') ? 'current' : '' }}">
-			<a href="{{ route('admin.platforms') }}"><i class="fas fa-users"></i>Plataformas</a>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-teams"></i>Equipos</a>
 		</li>
-		<li class="items-center {{ \Request::is('admin/juegos*') ? 'current' : '' }}">
-			<a href="{{ route('admin.games') }}"><i class="fas fa-users"></i>Juegos</a>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-players"></i>Jugadores</a>
 		</li>
-		<li class="disabled inline-flex">
-			<a href="#">
-				<i class="fas fa-tools"></i>
-				Equipos eSports (soon)
-			</a>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-positions"></i>Posiciones</a>
+		</li>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-circuits"></i>Circuitos</a>
 		</li>
 	</ul>
+
+	<hr class="divider"/>
+	<h6 class="section">e-Sports</h6>
+	<ul class="menu md:mb-4">
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-eteams"></i>Equipos</a>
+		</li>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-rosters"></i>Jugadores</a>
+		</li>
+	</ul>
+
+	<hr class="divider"/>
+	<h6 class="section">Tablas generales</h6>
+	<ul class="menu md:mb-4">
+		<li class="{{ \Request::is('admin/usuarios*') ? 'current' : '' }}">
+			<a href="{{ route('admin.users') }}"><i class="icon-users"></i>Usuarios</a>
+		</li>
+		<li class="{{ \Request::is('admin/plataformas*') ? 'current' : '' }}">
+			<a href="{{ route('admin.platforms') }}"><i class="icon-platforms"></i>Plataformas</a>
+		</li>
+		<li class="{{ \Request::is('admin/juegos*') ? 'current' : '' }}">
+			<a href="{{ route('admin.games') }}"><i class="icon-games"></i>Juegos</a>
+		</li>
+	</ul>
+
 </div>
