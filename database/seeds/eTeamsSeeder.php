@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class eTeamsSeeder extends Seeder
 {
@@ -20,6 +21,7 @@ class eTeamsSeeder extends Seeder
 		    	'game_id' => 1,
 		        'name' => $name,
 		        'short_name' => $short_name,
+		        'slug' => Str::slug($name, '-'),
 		        'created_at' => now(),
 		        'updated_at' => now(),
 		    ]);

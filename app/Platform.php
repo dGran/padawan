@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Platform extends Model
 {
-	protected $fillable = ['name', 'img'];
+	protected $fillable = ['name', 'img', 'slug'];
     public $timestamps = false;
 
     public function scopeName($query, $name)

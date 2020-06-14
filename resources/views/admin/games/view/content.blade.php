@@ -62,6 +62,16 @@
 				@endif
 				</dd>
 			</div>
+			<div>
+				<dt>Posiciones</dt>
+				<dd>
+				@if ($game->positions)
+					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+				@else
+					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+				@endif
+				</dd>
+			</div>
 	    </dl>
 
 	</div>

@@ -19,8 +19,9 @@ class CreateEteamsTable extends Migration
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('short_name');
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

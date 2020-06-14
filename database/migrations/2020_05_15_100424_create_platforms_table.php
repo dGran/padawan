@@ -17,6 +17,7 @@ class CreatePlatformsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('img')->nullable();
+            $table->string('slug')->unique();
         });
     }
 

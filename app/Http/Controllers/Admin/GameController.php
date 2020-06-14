@@ -97,14 +97,22 @@ class GameController extends Controller
 
     public function save(Request $request)
     {
+        $platformName = Platform::find($request->platform_id)->name;
+        $request['slug'] = Str::slug($request->name . ' ' . $platformName, '-');
+
         $data = $request->validate([
             'name' => 'required',
+            'slug' => 'unique:games,slug',
         ],
         [
             'name.required' => 'El nombre es obligatorio',
+            'slug.unique'   => 'Ya existe ' . $request->name . ' en la plataforma ' . $platformName,
         ]);
 
         $data = $request->all();
+
+        $platformName = Platform::find($request->platform_id)->name;
+        $data['slug'] = Str::slug($request->name . ' ' . $platformName, '-');
 
         if ($request->hasFile('img')) {
             $this->validate($request,[
@@ -116,8 +124,7 @@ class GameController extends Controller
                 'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
             ]);
 
-            $slug = Str::of($request->name)->slug('-');
-            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
+            $img_name = $data['slug'] . '.' . $request->img->extension();
             \Storage::disk('games')->put($img_name, \File::get($request->file('img')));
 
             $data['img'] = $img_name;
@@ -126,6 +133,7 @@ class GameController extends Controller
         $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
         $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
         $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
+        $data['positions'] = $request->positions == 'on' ? 1 : 0;
 
         $game = Game::create($data);
 
@@ -147,11 +155,16 @@ class GameController extends Controller
     {
         $game = Game::findOrFail($id);
 
+        $platformName = Platform::find($request->platform_id)->name;
+        $request['slug'] = Str::slug($request->name . ' ' . $platformName, '-');
+
         $data = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'unique:games,slug,' . $game->id,
         ],
         [
             'name.required' => 'El nombre es obligatorio',
+            'slug.unique'   => 'Ya existe ' . $request->name . ' en la plataforma ' . $platformName,
         ]);
 
         $data = $request->all();
@@ -174,8 +187,7 @@ class GameController extends Controller
                 // remove image from Storage
                 \Storage::disk('games')->delete($game->img);
 
-	            $slug = Str::of($game->name)->slug('-');
-	            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
+	            $img_name = $data['slug'] . '.' . $request->img->extension();
                 \Storage::disk('games')->put($img_name, \File::get($request->file('img')));
 
                 $data['img'] = $img_name;
@@ -185,6 +197,7 @@ class GameController extends Controller
         $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
         $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
         $data['rosters'] = $request->rosters == 'on' ? 1 : 0;
+        $data['positions'] = $request->positions == 'on' ? 1 : 0;
 
         $game->fill($data);
 

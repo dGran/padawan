@@ -77,6 +77,7 @@ class PlatformController extends Controller
         ]);
 
         $data = $request->all();
+        $data['slug'] = Str::slug($request->name, '-');
 
         if ($request->hasFile('img')) {
             $this->validate($request,[
@@ -88,8 +89,7 @@ class PlatformController extends Controller
                 'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
             ]);
 
-            $slug = Str::of($request->name)->slug('-');
-            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
+            $img_name = $data['slug'] . '&' . time() . '.' . $request->img->extension();
             \Storage::disk('platforms')->put($img_name, \File::get($request->file('img')));
 
             $data['img'] = $img_name;
@@ -114,7 +114,7 @@ class PlatformController extends Controller
         $platform = Platform::findOrFail($id);
 
         $data = $request->validate([
-            'name' => 'required|unique:platforms,name,' .$platform->id,
+            'name' => 'required|unique:platforms,name,' . $platform->id,
         ],
         [
             'name.required' => 'El nombre es obligatorio',
@@ -146,6 +146,7 @@ class PlatformController extends Controller
                 $data['img'] = $img_name;
             }
         }
+        $data['slug'] = Str::slug($request->name, '-');
         $platform->fill($data);
 
         if ($platform->isDirty()) {

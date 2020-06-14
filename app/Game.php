@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-	protected $fillable = ['platform_id', 'name', 'img', 'banner', 'mode_league', 'mode_playoffs', 'mode_races', 'rosters'];
+	protected $fillable = ['platform_id', 'name', 'img', 'banner', 'mode_league', 'mode_playoffs', 'mode_races', 'rosters', 'positions', 'slug'];
     public $timestamps = false;
 
     public function platform()
