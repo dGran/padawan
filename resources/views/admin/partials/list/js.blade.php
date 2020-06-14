@@ -26,17 +26,6 @@
         checkRowSelected();
     });
 
-    //disable buttons
-    function disabledActionsButtons() {
-        $('a').addClass('disable');
-        $('button').addClass("disable");
-    }
-
-    function enabledActionsButtons() {
-        $('a').removeClass('disable');
-        $('button').removeClass("disable");
-    }
-
     //Selected regs
     function checkRowSelected() {
         elements = $(".mark:checked").length;
@@ -167,6 +156,7 @@
 
     //add
     function add() {
+        disabledActionsButtons();
         window.location.href=routeAdd;
     }
 
@@ -181,6 +171,7 @@
 
     //view
     function view() {
+        disabledActionsButtons();
         var element = $(".mark:checked");
         var id = $(element).parents('tr').attr('data-id');
         var route = routeView;

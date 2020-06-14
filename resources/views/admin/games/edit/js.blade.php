@@ -32,4 +32,8 @@
 
 		$('#delete_img').addClass('hidden');
 	}
+
+    $("#form-edit").submit(function(event) {
+        disabledActionsButtons();
+    });
 </script>

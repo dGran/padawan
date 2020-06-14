@@ -1,7 +1,7 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
     <div class="form">
-        <form method="POST" role="form" action="{{ route('admin.users.update', $user->id) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
+        <form id="form-edit" method="POST" role="form" action="{{ route('admin.users.update', $user->id) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
     	    {{ method_field('PUT') }}
             @csrf
 

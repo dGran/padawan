@@ -20,6 +20,16 @@
 		document.getElementById(dropdownID).classList.toggle("block");
 	}
 
+    //disable buttons
+    function disabledActionsButtons() {
+        $('a').addClass('disable');
+        $('button').addClass("disable");
+    }
+
+    function enabledActionsButtons() {
+        $('a').removeClass('disable');
+        $('button').removeClass("disable");
+    }
 
 	(function() {
 		/* Add current date to the footer */

@@ -32,4 +32,8 @@
 
 		$('#delete_avatar').addClass('hidden');
 	}
+
+    $("#form-edit").submit(function(event) {
+        disabledActionsButtons();
+    });
 </script>
