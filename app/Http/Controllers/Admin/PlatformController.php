@@ -113,6 +113,8 @@ class PlatformController extends Controller
     {
         $platform = Platform::findOrFail($id);
 
+        $data['slug'] = Str::slug($request->name, '-');
+
         $data = $request->validate([
             'name' => 'required|unique:platforms,name,' . $platform->id,
         ],
@@ -139,14 +141,12 @@ class PlatformController extends Controller
                 // remove image from Storage
                 \Storage::disk('platforms')->delete($platform->img);
 
-	            $slug = Str::of($platform->name)->slug('-');
-	            $img_name = $slug . '&' . time() . '.' . $request->img->extension();
+	            $img_name = $data['slug'] . '&' . time() . '.' . $request->img->extension();
                 \Storage::disk('platforms')->put($img_name, \File::get($request->file('img')));
 
                 $data['img'] = $img_name;
             }
         }
-        $data['slug'] = Str::slug($request->name, '-');
         $platform->fill($data);
 
         if ($platform->isDirty()) {
@@ -207,6 +207,7 @@ class PlatformController extends Controller
                     \Storage::disk('platforms')->copy($original->img, $img_name);
                     $platform->img = $img_name;
                 }
+                $platform->slug = Str::slug($platform->name, '-');
                 $platform->save();
             }
         }

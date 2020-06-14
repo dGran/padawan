@@ -255,11 +255,14 @@ class GameController extends Controller
             if ($original) {
                 $counter++;
                 $game = $original->replicate();
+                $random_numer = rand(100,999);
+                $game->name .= " (copia_" . $random_numer . ")";
                 if ($original->img) {
                     $img_name = time() . $original->img;
                     \Storage::disk('games')->copy($original->img, $img_name);
                     $game->img = $img_name;
                 }
+                $game->slug = Str::slug($game->name . ' ' . $original->platform->name, '-');
                 $game->save();
             }
         }
