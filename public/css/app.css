@@ -19189,9 +19189,14 @@ input, textarea {
   appearance: none;
 }
 
-a.disabled {
+a.disable, button.disable {
+  opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;
+}
+
+.custom-label input:checked + svg {
+  display: block !important;
 }
 
 .autoHide5s {

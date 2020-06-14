@@ -12,11 +12,16 @@ input, textarea {
   appearance: none;
 }
 
-a {
-	&.disabled {
+a, button {
+	&.disable {
+		opacity: .5;
 		pointer-events: none;
 		cursor: not-allowed;
 	}
+}
+
+.custom-label input:checked + svg {
+    display: block !important;
 }
 
 .autoHide5s {

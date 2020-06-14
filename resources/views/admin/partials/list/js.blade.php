@@ -26,15 +26,15 @@
         checkRowSelected();
     });
 
-    //disable buttons - REVIEW CLASSES
+    //disable buttons
     function disabledActionsButtons() {
-        $('a').addClass('disabled');
-        $('button').attr("disabled", "disabled");
+        $('a').addClass('disable');
+        $('button').addClass("disable");
     }
 
     function enabledActionsButtons() {
-        $('a').removeClass('disabled');
-        $('button').removeAttr("disabled");
+        $('a').removeClass('disable');
+        $('button').removeClass("disable");
     }
 
     //Selected regs
