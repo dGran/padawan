@@ -1,5 +1,13 @@
 <script>
+    //Prevent safari loading from cache when back button is clicked
+    $(window).bind("pageshow", function(event) {
+        if (event.originalEvent.persisted) {
+            window.location.reload()
+        }
+    });
+
     $(function() {
+        enabledActionsButtons();
         Mousetrap.bind(['/'], function() {
             $('.search-input').focus();
             $('.search-input').select();
@@ -131,7 +139,7 @@
         const filters = document.querySelector('#filters');
         const backdrop = document.querySelector('#filters-backdrop');
         filters.classList.remove("hidden");
-        filters.classList.add("animated", "fadeIn", "flex");
+        filters.classList.add("animated", "zoomIn", "faster", "flex");
         backdrop.classList.remove("hidden");
         backdrop.classList.add("flex");
     }
@@ -139,7 +147,7 @@
         const filters = document.querySelector('#filters');
         const backdrop = document.querySelector('#filters-backdrop');
         filters.classList.add("hidden");
-        filters.classList.remove("animated", "fadeIn", "flex");
+        filters.classList.remove("animated", "zoomIn", "faster", "flex");
         backdrop.classList.add("hidden");
         backdrop.classList.remove("flex");
     }
