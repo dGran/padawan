@@ -2,12 +2,12 @@
     //Prevent safari loading from cache when back button is clicked
     $(window).bind("pageshow", function(event) {
         if (event.originalEvent.persisted) {
-            window.location.reload()
+            enabledActionsButtons();
+            // window.location.reload()
         }
     });
 
     $(function() {
-        enabledActionsButtons();
         Mousetrap.bind(['/'], function() {
             $('.search-input').focus();
             $('.search-input').select();
