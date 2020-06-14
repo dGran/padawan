@@ -25,20 +25,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-players:before {
+.icon-pos-med:before {
   content: "\e917";
 }
-.icon-circuits:before {
+.icon-pos-del:before {
   content: "\e918";
 }
-.icon-settings:before {
+.icon-pos-def:before {
   content: "\e919";
 }
-.icon-tournaments:before {
+.icon-pos-por:before {
   content: "\e91a";
 }
-.icon-dashboard:before {
+.icon-players:before {
   content: "\e91b";
+}
+.icon-circuits:before {
+  content: "\e91c";
+}
+.icon-settings:before {
+  content: "\e91d";
+}
+.icon-tournaments:before {
+  content: "\e91e";
+}
+.icon-dashboard:before {
+  content: "\e91f";
 }
 .icon-categories:before {
   content: "\e90e";
