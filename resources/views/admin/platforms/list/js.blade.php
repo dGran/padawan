@@ -5,7 +5,7 @@
     var routeView = "{{ route('admin.platforms.view', ':ID') }}";
     var routeDuplicate = "{{ route('admin.platforms.duplicate', ':IDS') }}";
     var routeExport = "{{ route('admin.platforms.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.platforms.export.global', [':FORMAT', ':FILENAME', $order, $filterName]) }}";
+    var routeExportGlobal = "{{ route('admin.platforms.export.global', [':FORMAT', ':FILENAME', $order]) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();

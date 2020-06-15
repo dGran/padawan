@@ -308,9 +308,9 @@ class UserController extends Controller
         }
     }
 
-    public function exportGlobal($format, $filename, $order, $filterName = null) {
+    public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
-        $users = User::name($filterName)->whereNotNull('email_verified_at')->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $users = User::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':

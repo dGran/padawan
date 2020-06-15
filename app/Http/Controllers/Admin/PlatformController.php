@@ -246,9 +246,9 @@ class PlatformController extends Controller
         }
     }
 
-    public function exportGlobal($format, $filename, $order, $filterName = null) {
+    public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
-        $platforms = Platform::name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $platforms = Platform::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':

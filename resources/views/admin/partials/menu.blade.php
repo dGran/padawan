@@ -24,8 +24,8 @@
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-players"></i>Jugadores</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-positions"></i>Posiciones</a>
+		<li class="{{ \Request::is('admin/posiciones*') ? 'current' : '' }}">
+			<a href="{{ route('admin.positions') }}"><i class="icon-positions"></i>Posiciones</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-circuits"></i>Circuitos</a>

@@ -301,9 +301,9 @@ class GameController extends Controller
         }
     }
 
-    public function exportGlobal($format, $filename, $order, $filterName = null) {
+    public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
-        $games = Game::name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $games = Game::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':

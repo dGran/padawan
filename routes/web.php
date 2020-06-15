@@ -13,6 +13,8 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['verify' => true]);
+Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'HomeController@home')->name('home');
 // password confirm middleware example
@@ -50,7 +52,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/usuarios/eliminar/{ids}', 'Admin\UserController@destroy')->name('admin.users.destroy');
 	Route::get('/usuarios/duplicar/{ids}', 'Admin\UserController@duplicate')->name('admin.users.duplicate');
 	Route::get('/usuarios/exportar/{format}/{ids}/{filename}/{order}', 'Admin\UserController@export')->name('admin.users.export');
-	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
+	Route::get('/usuarios/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\UserController@exportGlobal')->name('admin.users.export.global');
 	Route::post('/usuarios/importar', 'Admin\UserController@import')->name('admin.users.import');
 
 	//Platforms
@@ -63,7 +65,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/plataformas/eliminar/{ids}', 'Admin\PlatformController@destroy')->name('admin.platforms.destroy');
 	Route::get('/plataformas/duplicar/{ids}', 'Admin\PlatformController@duplicate')->name('admin.platforms.duplicate');
 	Route::get('/plataformas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PlatformController@export')->name('admin.platforms.export');
-	Route::get('/plataformas/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\PlatformController@exportGlobal')->name('admin.platforms.export.global');
+	Route::get('/plataformas/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\PlatformController@exportGlobal')->name('admin.platforms.export.global');
 	Route::post('/plataformas/importar', 'Admin\PlatformController@import')->name('admin.platforms.import');
 
 	//Games
@@ -76,9 +78,19 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/juegos/eliminar/{ids}', 'Admin\GameController@destroy')->name('admin.games.destroy');
 	Route::get('/juegos/duplicar/{ids}', 'Admin\GameController@duplicate')->name('admin.games.duplicate');
 	Route::get('/juegos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GameController@export')->name('admin.games.export');
-	Route::get('/juegos/exportar-tabla-completa/{format}/{filename}/{order}/{filterName?}', 'Admin\GameController@exportGlobal')->name('admin.games.export.global');
+	Route::get('/juegos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GameController@exportGlobal')->name('admin.games.export.global');
 	Route::post('/juegos/importar', 'Admin\GameController@import')->name('admin.games.import');
-});
 
-Auth::routes(['verify' => true]);
-Route::get('/logout', 'Auth\LoginController@logout');
+	//Games Positions
+	Route::get('/posiciones', 'Admin\GamePositionController@list')->name('admin.positions');
+	Route::get('/posiciones/nuevo', 'Admin\GamePositionController@add')->name('admin.positions.add');
+	Route::post('/posiciones/nuevo', 'Admin\GamePositionController@save')->name('admin.positions.save');
+	Route::get('/posiciones/editar/{id}', 'Admin\GamePositionController@edit')->name('admin.positions.edit');
+	Route::put('/posiciones/editar/{id}', 'Admin\GamePositionController@update')->name('admin.positions.update');
+	Route::get('/posiciones/ver/{id}', 'Admin\GamePositionController@view')->name('admin.positions.view');
+	Route::get('/posiciones/eliminar/{ids}', 'Admin\GamePositionController@destroy')->name('admin.positions.destroy');
+	Route::get('/posiciones/duplicar/{ids}', 'Admin\GamePositionController@duplicate')->name('admin.positions.duplicate');
+	Route::get('/posiciones/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GamePositionController@export')->name('admin.positions.export');
+	Route::get('/posiciones/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GamePositionController@exportGlobal')->name('admin.positions.export.global');
+	Route::post('/posiciones/importar', 'Admin\GamePositionController@import')->name('admin.positions.import');
+});

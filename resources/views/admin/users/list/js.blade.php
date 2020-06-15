@@ -5,7 +5,7 @@
     var routeView = "{{ route('admin.users.view', ':ID') }}";
     var routeDuplicate = "{{ route('admin.users.duplicate', ':IDS') }}";
     var routeExport = "{{ route('admin.users.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.users.export.global', [':FORMAT', ':FILENAME', $order, $filterName]) }}";
+    var routeExportGlobal = "{{ route('admin.users.export.global', [':FORMAT', ':FILENAME', $order]) }}";
 
     function cancelFilterOnlyAdmin() {
         $("#filterOnlyAdmin").prop("checked", false);
