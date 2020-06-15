@@ -24,8 +24,10 @@
         {{ $position->category }}
         <span class="block text-gray-600" style="font-size: 9px">ORDEN:{{ $position->order }}</span>
     </td>
-    <td onclick="rowSelect(this)">
-        {{ $position->game->name }}
-        <span class="block text-gray-600" style="font-size: 9px">{{ $position->game->platform->name }}</span>
+    <td>
+        <a href="{{ route('admin.games.view', $position->game->id) }}" class="hover:text-blue-500">
+            {{ $position->game->name }}
+            <span class="block text-gray-600" style="font-size: 9px">{{ $position->game->platform->name }}</span>
+        </a>
     </td>
 </tr>

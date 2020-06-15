@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 // use Maatwebsite\Excel\Concerns\WithValidation;
 
 
-class PlatformsImport implements ToModel, WithHeadingRow
+class GamesImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
@@ -35,6 +35,11 @@ class PlatformsImport implements ToModel, WithHeadingRow
                'mode_playoffs' => $row['mode_playoffs'],
                'mode_races'    => $row['mode_races'],
                'rosters'       => $row['rosters'],
+               'rosters'       => $row['rosters'],
+               'rosters'       => $row['rosters'],
+               'positions'     => $row['positions'],
+               'circuits'      => $row['circuits'],
+               'slug'          => $row['slug'],
             ]);
             return $game;
         }

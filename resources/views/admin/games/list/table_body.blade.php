@@ -23,7 +23,7 @@
         </div>
     </td>
     <td>
-        <a href="{{ route('admin.platforms.view', $game->platform->id) }}">
+        <a href="{{ route('admin.platforms.view', $game->platform->id) }}" class="hover:text-blue-500">
             {{ $game->platform->name }}
         </a>
     </td>
