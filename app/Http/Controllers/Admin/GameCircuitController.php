@@ -281,7 +281,7 @@ class GameCircuitController extends Controller
     public function import()
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new circuitsImport, request()->file('fileImport'));
+            Excel::import(new CircuitsImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();

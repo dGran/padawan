@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 // use Maatwebsite\Excel\Concerns\WithValidation;
 
 
-class GamesImport implements ToModel, WithHeadingRow
+class CircuitsImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
@@ -25,13 +25,13 @@ class GamesImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         // use manual validations because not working WithValidation
-        if (!GameCircuit::where('name', $row['name'])->exists()) {
+        // if (!GameCircuit::where('name', $row['name'])->exists()) {
             $circuit = GameCircuit::create([
                'game_id'    => $row['game_id'],
                'name'       => $row['name'],
                'img'        => $row['img'],
             ]);
             return $circuit;
-        }
+        // }
     }
 }
