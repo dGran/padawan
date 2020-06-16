@@ -61,6 +61,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'circuits' => [
+            'driver' => 'local',
+            'root' => public_path('img/circuits'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

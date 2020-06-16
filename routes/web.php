@@ -93,4 +93,17 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/posiciones/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GamePositionController@export')->name('admin.positions.export');
 	Route::get('/posiciones/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GamePositionController@exportGlobal')->name('admin.positions.export.global');
 	Route::post('/posiciones/importar', 'Admin\GamePositionController@import')->name('admin.positions.import');
+
+	//Games Circuits
+	Route::get('/circuitos', 'Admin\GameCircuitController@list')->name('admin.circuits');
+	Route::get('/circuitos/nuevo', 'Admin\GameCircuitController@add')->name('admin.circuits.add');
+	Route::post('/circuitos/nuevo', 'Admin\GameCircuitController@save')->name('admin.circuits.save');
+	Route::get('/circuitos/editar/{id}', 'Admin\GameCircuitController@edit')->name('admin.circuits.edit');
+	Route::put('/circuitos/editar/{id}', 'Admin\GameCircuitController@update')->name('admin.circuits.update');
+	Route::get('/circuitos/ver/{id}', 'Admin\GameCircuitController@view')->name('admin.circuits.view');
+	Route::get('/circuitos/eliminar/{ids}', 'Admin\GameCircuitController@destroy')->name('admin.circuits.destroy');
+	Route::get('/circuitos/duplicar/{ids}', 'Admin\GameCircuitController@duplicate')->name('admin.circuits.duplicate');
+	Route::get('/circuitos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GameCircuitController@export')->name('admin.circuits.export');
+	Route::get('/circuitos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GameCircuitController@exportGlobal')->name('admin.circuits.export.global');
+	Route::post('/circuitos/importar', 'Admin\GameCircuitController@import')->name('admin.circuits.import');
 });
