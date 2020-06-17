@@ -106,4 +106,17 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/circuitos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GameCircuitController@export')->name('admin.circuits.export');
 	Route::get('/circuitos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GameCircuitController@exportGlobal')->name('admin.circuits.export.global');
 	Route::post('/circuitos/importar', 'Admin\GameCircuitController@import')->name('admin.circuits.import');
+
+	//Teams
+	Route::get('/equipos', 'Admin\TeamController@list')->name('admin.teams');
+	Route::get('/equipos/nuevo', 'Admin\TeamController@add')->name('admin.teams.add');
+	Route::post('/equipos/nuevo', 'Admin\TeamController@save')->name('admin.teams.save');
+	Route::get('/equipos/editar/{id}', 'Admin\TeamController@edit')->name('admin.teams.edit');
+	Route::put('/equipos/editar/{id}', 'Admin\TeamController@update')->name('admin.teams.update');
+	Route::get('/equipos/ver/{id}', 'Admin\TeamController@view')->name('admin.teams.view');
+	Route::get('/equipos/eliminar/{ids}', 'Admin\TeamController@destroy')->name('admin.teams.destroy');
+	Route::get('/equipos/duplicar/{ids}', 'Admin\TeamController@duplicate')->name('admin.teams.duplicate');
+	Route::get('/equipos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\TeamController@export')->name('admin.teams.export');
+	Route::get('/equipos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\TeamController@exportGlobal')->name('admin.teams.export.global');
+	Route::post('/equipos/importar', 'Admin\TeamController@import')->name('admin.teams.import');
 });

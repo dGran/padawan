@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateTournamentsParticipantsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('tournaments_participants', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('season_id')
+                ->references('id')
+                ->on('tournaments_seasons')
+                ->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->nullable();
+            $table->foreignId('eteam_id')
+                ->references('id')
+                ->on('eteams')
+                ->onDelete('cascade')
+                ->nullable();
+            $table->foreignId('team_id')
+                ->references('id')
+                ->on('teams')
+                ->onDelete('cascade')
+                ->nullable();
+            $table->boolean('reserve')->default(false);
+            $table->integer('clauses_paid')->nullable();
+            $table->integer('clauses_received')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('tournaments_participants');
+    }
+}

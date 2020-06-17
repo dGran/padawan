@@ -15,8 +15,8 @@
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-eteams"></i>Torneos</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-teams"></i>Equipos</a>
+		<li class="{{ \Request::is('admin/equipos*') ? 'current' : '' }}">
+			<a href="{{ route('admin.teams') }}"><i class="icon-teams"></i>Equipos</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-db"></i>DB Jugadores</a>
@@ -29,6 +29,9 @@
 		</li>
 		<li class="{{ \Request::is('admin/circuitos*') ? 'current' : '' }}">
 			<a href="{{ route('admin.circuits') }}"><i class="icon-circuits"></i>Circuitos</a>
+		</li>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-players"></i>Marcado de zonas</a>
 		</li>
 	</ul>
 

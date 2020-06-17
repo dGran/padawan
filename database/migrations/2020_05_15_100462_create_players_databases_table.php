@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEteamsTable extends Migration
+class CreatePlayersDatabasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,14 @@ class CreateEteamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('eteams', function (Blueprint $table) {
+        Schema::create('players_databases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('game_id')
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->foreignId('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-            $table->string('name')->unique();
-            $table->string('short_name');
-            $table->string('slug')->unique();
-            $table->timestamps();
+            $table->string('name');
+            $table->string('slug');
         });
     }
 
@@ -37,6 +31,6 @@ class CreateEteamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eteams');
+        Schema::dropIfExists('players_databases');
     }
 }
