@@ -24,9 +24,9 @@ class CreateTournamentsSeasonsTable extends Migration
             $table->integer('num_participants');
             $table->decimal('inscription_price', 5, 2)->nullable();
             $table->boolean('free_inscription')->default(false);
-            $table->foreignId('db_rosters_id')
+            $table->foreignId('players_databases_id')
                 ->references('id')
-                ->on('db_rosters')
+                ->on('players_databases')
                 ->onDelete('cascade');
             $table->integer('min_players')->nullable();
             $table->integer('max_players')->nullable();

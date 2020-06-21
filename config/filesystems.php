@@ -67,6 +67,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'teams' => [
+            'driver' => 'local',
+            'root' => public_path('img/teams'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

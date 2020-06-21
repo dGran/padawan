@@ -2,29 +2,35 @@
 
 	<div class="view">
 
-		<div class="image">
-        	<img src="{{ $position->img() }}">
-		</div>
+        <div class="image circle flex items-center justify-center">
+            <i class="text-5xl text-gray-600 {{ $position->font_icon }}"></i>
+        </div>
 		<div class="title">
 			<p class="text-lg font-semibold">
 				{{ $position->name }}
 			</p>
-	    	<div class="pt-3">
+			@if ($position->category)
+				<p class="text-sm text-gray-600">
+					{{ $position->category }}
+				</p>
+			@endif
+	    	<div class="pt-6 pb-3">
 				<a href="{{ route('admin.positions.edit', $position->id) }}" class="edit">
 		  			Editar
-				</a>
-				<a href="{{ route('admin.positions') }}" class="back">
-		  			Volver
 				</a>
 			</div>
 		</div>
 
-{{-- 		<dl>
+		<dl>
 			<div>
-				<dt>Fecha registro</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia sed hic fuga natus vel, aliquid, veniam autem numquam a est corporis nulla quis ex, adipisci impedit iusto voluptatum reiciendis quasi.</dd>
+				<dt>Juego</dt>
+				<dd>{{ $position->game->name }} ({{ $position->game->platform->name }})</dd>
 			</div>
-	    </dl> --}}
+			<div>
+				<dt>Orden</dt>
+				<dd>{{ $position->order }}</dd>
+			</div>
+	    </dl>
 
 	</div>
 </div>

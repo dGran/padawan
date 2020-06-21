@@ -15,7 +15,7 @@ class CreatePlayersTable extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('roster_db_id')
+            $table->foreignId('players_databases_id')
                 ->references('id')
                 ->on('players_databases')
                 ->onDelete('cascade');

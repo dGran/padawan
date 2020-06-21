@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Platform;
+use Illuminate\Support\Str;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -14,24 +15,15 @@ class PlatformsImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
-    // public function rules(): array
-    // {
-    //     return [
-    //         'name' => 'required'
-    //         // 'email' => 'unique:users,email',
-    //     ];
-    // }
-
     public function model(array $row)
     {
-        // use manual validations because not working WithValidation
         if (!Platform::where('name', $row['name'])->exists()) {
             $platform = Platform::create([
-               'name'     => $row['name'],
+               'name'   => $row['name'],
                'img'    => $row['img'],
+               'slug'   => Str::slug($row['name'], '-'),
             ]);
             return $platform;
         }
-
     }
 }

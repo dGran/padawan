@@ -268,31 +268,27 @@
 .view {
 	@apply bg-white shadow overflow-hidden rounded-lg my-4 py-4 flex-1;
 	.image {
-		@apply shadow mx-auto h-24 w-24 border-white rounded-full overflow-hidden border-4;
+		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 p-1;
 		img {
 			@apply object-cover w-full h-full;
+		}
+		&.circle {
+			@apply rounded-full p-0;
 		}
 	}
 	.title {
 		@apply my-4 text-center;
 		.edit {
-			@apply bg-blue-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow outline-none mt-3;
+			@apply text-blue-500 bg-transparent border border-solid border-blue-500 font-bold uppercase text-xs px-4 py-2 rounded outline-none mr-1 mb-1;
 			transition: all .15s ease;
 			&:active {
 				@apply bg-blue-600;
 			}
 			&:hover {
-				@apply bg-blue-600 shadow-md;
+				@apply bg-blue-500 text-white;
 			}
-		}
-		.back {
-			@apply bg-gray-200 font-bold uppercase text-xs px-4 py-2 rounded shadow outline-none mt-3 ml-1;
-			transition: all .15s ease;
-			&:active {
-				@apply bg-gray-300;
-			}
-			&:hover {
-				@apply bg-gray-300 shadow-md;
+			&:focus {
+				@apply outline-none;
 			}
 		}
 	}

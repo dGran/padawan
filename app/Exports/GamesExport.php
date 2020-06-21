@@ -29,7 +29,7 @@ class GamesExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'platform_id', 'name', 'img', 'banner', 'mode_league', 'mode_playoffs', 'mode_races', 'rosters', 'positions', 'circuits', 'slug'
+            'id', 'platform_id', 'name', 'img', 'banner', 'mode_league', 'mode_playoffs', 'mode_races', 'rosters', 'positions', 'circuits'
         ];
     }
 }

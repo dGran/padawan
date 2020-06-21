@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Position;
+use App\GamePosition as Position;
 
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -14,18 +14,10 @@ class PositionsImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
-    // public function rules(): array
-    // {
-    //     return [
-    //         'name' => 'required'
-    //         // 'email' => 'unique:users,email',
-    //     ];
-    // }
-
     public function model(array $row)
     {
         // use manual validations because not working WithValidation
-        if (!Position::where('name', $row['name'])->exists()) {
+        if (!Position::where('name', '=', $row['name'])->where('game_id', '=', $row['game_id'])->exists()) {
             $position = Position::create([
             	'name'       => $row['name'],
 				'game_id'    => $row['game_id'],

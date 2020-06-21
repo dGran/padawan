@@ -2,19 +2,16 @@
 
 	<div class="view">
 
-		<div class="image">
+		<div class="image circle">
         	<img src="{{ $platform->img() }}">
 		</div>
 		<div class="title">
 			<p class="text-lg font-semibold">
 				{{ $platform->name }}
 			</p>
-	    	<div class="pt-3">
+	    	<div class="pt-6 pb-3">
 				<a href="{{ route('admin.platforms.edit', $platform->id) }}" class="edit">
 		  			Editar
-				</a>
-				<a href="{{ route('admin.platforms') }}" class="back">
-		  			Volver
 				</a>
 			</div>
 		</div>

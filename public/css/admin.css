@@ -20154,9 +20154,9 @@ a.disable, button.disable {
   --border-opacity: 1;
   border-color: #fff;
   border-color: rgba(255, 255, 255, var(--border-opacity));
-  border-radius: 9999px;
   overflow: hidden;
   border-width: 4px;
+  padding: 0.25rem;
 }
 
 .view .image img {
@@ -20166,6 +20166,11 @@ a.disable, button.disable {
   height: 100%;
 }
 
+.view .image.circle {
+  border-radius: 9999px;
+  padding: 0;
+}
+
 .view .title {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -20173,12 +20178,15 @@ a.disable, button.disable {
 }
 
 .view .title .edit {
-  --bg-opacity: 1;
-  background-color: #4299e1;
-  background-color: rgba(66, 153, 225, var(--bg-opacity));
   --text-opacity: 1;
-  color: #fff;
-  color: rgba(255, 255, 255, var(--text-opacity));
+  color: #4299e1;
+  color: rgba(66, 153, 225, var(--text-opacity));
+  background-color: transparent;
+  border-width: 1px;
+  border-style: solid;
+  --border-opacity: 1;
+  border-color: #4299e1;
+  border-color: rgba(66, 153, 225, var(--border-opacity));
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.75rem;
@@ -20187,9 +20195,9 @@ a.disable, button.disable {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   outline: 0;
-  margin-top: 0.75rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
   transition: all 0.15s ease;
 }
 
@@ -20201,41 +20209,15 @@ a.disable, button.disable {
 
 .view .title .edit:hover {
   --bg-opacity: 1;
-  background-color: #3182ce;
-  background-color: rgba(49, 130, 206, var(--bg-opacity));
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  background-color: #4299e1;
+  background-color: rgba(66, 153, 225, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.view .title .back {
-  --bg-opacity: 1;
-  background-color: #edf2f7;
-  background-color: rgba(237, 242, 247, var(--bg-opacity));
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.75rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+.view .title .edit:focus {
   outline: 0;
-  margin-top: 0.75rem;
-  margin-left: 0.25rem;
-  transition: all 0.15s ease;
-}
-
-.view .title .back:active {
-  --bg-opacity: 1;
-  background-color: #e2e8f0;
-  background-color: rgba(226, 232, 240, var(--bg-opacity));
-}
-
-.view .title .back:hover {
-  --bg-opacity: 1;
-  background-color: #e2e8f0;
-  background-color: rgba(226, 232, 240, var(--bg-opacity));
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .view dl div {

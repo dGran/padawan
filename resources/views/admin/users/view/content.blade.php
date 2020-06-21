@@ -2,7 +2,7 @@
 
 	<div class="view">
 
-		<div class="image">
+		<div class="image circle">
         	<img src="{{ $user->profile->avatar() }}">
 		</div>
 		<div class="title">
@@ -17,12 +17,9 @@
 					ADMIN
 				</p>
 	    	@endif
-	    	<div class="pt-3">
+	    	<div class="pt-6 pb-3">
 				<a href="{{ route('admin.users.edit', $user->id) }}" class="edit">
 		  			Editar
-				</a>
-				<a href="{{ route('admin.users') }}" class="back">
-		  			Volver
 				</a>
 			</div>
 		</div>

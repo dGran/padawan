@@ -259,14 +259,15 @@ class UserController extends Controller
             if ($original) {
                 $counter++;
                 $user = $original->replicate();
-                $user->name .= " (copia_" . rand(100,999) . ")";
-                $user->email .= " (copia_" . rand(100,999) . ")";
+                $random_numer = rand(100,999);
+                $user->name .= " (copia_" . $random_numer . ")";
+                $user->email .= " (copia_" . $random_numer . ")";
                 $user->save();
 
                 $user->profile = $original->profile->replicate();
                 $user->profile->user_id = $user->id;
                 if ($original->profile->avatar) {
-                    $avatar_name = "copy_" . $original->profile->avatar;
+                    $avatar_name = "copy_" . $random_numer . "_" . $original->profile->avatar;
                     \Storage::disk('avatars')->copy($original->profile->avatar, $avatar_name);
                     $user->profile->avatar = $avatar_name;
                 }

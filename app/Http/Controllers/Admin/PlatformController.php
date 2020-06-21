@@ -113,7 +113,6 @@ class PlatformController extends Controller
     {
         $platform = Platform::findOrFail($id);
 
-        $data['slug'] = Str::slug($request->name, '-');
 
         $data = $request->validate([
             'name' => 'required|unique:platforms,name,' . $platform->id,
@@ -122,6 +121,9 @@ class PlatformController extends Controller
             'name.required' => 'El nombre es obligatorio',
             'name.unique' => 'El nombre ya existe',
         ]);
+
+        $data = $request->all();
+        $data['slug'] = Str::slug($request->name, '-');
 
         if ($request->deleteImg) {
             // remove image from Storage
@@ -201,9 +203,10 @@ class PlatformController extends Controller
             if ($original) {
                 $counter++;
                 $platform = $original->replicate();
-                $platform->name .= " (copia_" . rand(100,999) . ")";
+                $random_numer = rand(100,999);
+                $platform->name .= " (copia_" . $random_numer . ")";
                 if ($original->img) {
-                    $img_name = "copy_" . $original->img;
+                    $img_name = "copy_" . $random_numer . "_" . $original->img;
                     \Storage::disk('platforms')->copy($original->img, $img_name);
                     $platform->img = $img_name;
                 }

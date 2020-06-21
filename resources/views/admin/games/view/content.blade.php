@@ -8,20 +8,20 @@
 			<p class="text-lg font-semibold">
 				{{ $game->name }}
 			</p>
-			<p class="text-sm text-gray-600">
-				{{ $game->platform->name }}
-			</p>
-	    	<div class="pt-3">
+	    	<div class="pt-6 pb-3">
 				<a href="{{ route('admin.games.edit', $game->id) }}" class="edit">
 		  			Editar
-				</a>
-				<a href="{{ route('admin.games') }}" class="back">
-		  			Volver
 				</a>
 			</div>
 		</div>
 
 		<dl>
+			<div>
+				<dt>Plataforma</dt>
+				<dd>
+					{{ $game->platform->name }}
+				</dd>
+			</div>
 			<div>
 				<dt>Modo de juego: Liga</dt>
 				<dd>

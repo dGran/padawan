@@ -258,7 +258,7 @@ class GameController extends Controller
                 $random_numer = rand(100,999);
                 $game->name .= " (copia_" . $random_numer . ")";
                 if ($original->img) {
-                    $img_name = time() . $original->img;
+                    $img_name = "copy_" . $random_numer . "_" . $original->img;
                     \Storage::disk('games')->copy($original->img, $img_name);
                     $game->img = $img_name;
                 }

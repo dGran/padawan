@@ -22,7 +22,7 @@ class CreateTeamsTable extends Migration
             $table->string('name');
             $table->string('league_name')->nullable();
             $table->string('img')->nullable();
-            $table->string('slug');
+            $table->string('slug')->unique();
         });
     }
 

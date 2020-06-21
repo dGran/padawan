@@ -16,14 +16,6 @@ class UsersImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
-    // public function rules(): array
-    // {
-    //     return [
-    //         'name' => 'required'
-    //         // 'email' => 'unique:users,email',
-    //     ];
-    // }
-
     public function model(array $row)
     {
         // use manual validations because not working WithValidation

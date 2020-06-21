@@ -135,6 +135,8 @@ class GameCircuitController extends Controller
             'name.required' => 'El nombre es obligatorio',
         ]);
 
+        $data = $request->all();
+
         if ($request->deleteImg) {
             // remove image from Storage
             \Storage::disk('circuits')->delete($circuit->img);
@@ -213,9 +215,10 @@ class GameCircuitController extends Controller
             if ($original) {
                 $counter++;
                 $circuit = $original->replicate();
-                $circuit->name .= " (copia_" . rand(100,999) . ")";
+                $random_numer = rand(100,999);
+                $circuit->name .= " (copia_" . $random_numer . ")";
                 if ($original->img) {
-                    $img_name = "copy_" . $original->img;
+                    $img_name = "copy_" . $random_numer . "_" . $original->img;
                     \Storage::disk('circuits')->copy($original->img, $img_name);
                     $circuit->img = $img_name;
                 }

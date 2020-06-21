@@ -14,24 +14,15 @@ class CircuitsImport implements ToModel, WithHeadingRow
 {
     use Importable;
 
-    // public function rules(): array
-    // {
-    //     return [
-    //         'name' => 'required'
-    //         // 'email' => 'unique:users,email',
-    //     ];
-    // }
-
     public function model(array $row)
     {
-        // use manual validations because not working WithValidation
-        // if (!GameCircuit::where('name', $row['name'])->exists()) {
+        if (!GameCircuit::where('name', '=', $row['name'])->where('game_id', '=', $row['game_id'])->exists()) {
             $circuit = GameCircuit::create([
                'game_id'    => $row['game_id'],
                'name'       => $row['name'],
                'img'        => $row['img'],
             ]);
             return $circuit;
-        // }
+        }
     }
 }
