@@ -22,9 +22,7 @@
             </div>
         </div>
     </td>
-    <td>
-        <a href="{{ route('admin.platforms.view', $game->platform->id) }}" class="hover:text-blue-500">
-            {{ $game->platform->name }}
-        </a>
+    <td onclick="rowSelect(this)">
+        <span>{{ $game->platform->name }}</span>
     </td>
 </tr>

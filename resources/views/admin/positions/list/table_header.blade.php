@@ -7,7 +7,7 @@
             </div>
         </label>
     </th>
-    <th class="w-20">
+    <th class="w-20 md:w-24">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'name' ? 'name_desc' : 'name' }}')">Nombre</span>
         @if ($order == 'name')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -16,7 +16,7 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="md:w-32">
+    <th>
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'category' ? 'category_desc' : 'category' }}')">Categoría</span>
         @if ($order == 'category')
             <i class="fas fa-sort-amount-up-alt"></i>

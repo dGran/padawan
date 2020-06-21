@@ -22,10 +22,8 @@
             </div>
         </div>
     </td>
-    <td>
-        <a href="{{ route('admin.games.view', $circuit->game->id) }}" class="hover:text-blue-500">
-            {{ $circuit->game->name }}
-            <span class="block text-gray-600" style="font-size: 9px">{{ $circuit->game->platform->name }}</span>
-        </a>
+    <td onclick="rowSelect(this)">
+        <span>{{ $circuit->game->name }}</span>
+        <span class="block text-gray-600" style="font-size: 9px">{{ $circuit->game->platform->name }}</span>
     </td>
 </tr>
