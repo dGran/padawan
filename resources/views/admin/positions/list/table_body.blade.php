@@ -9,8 +9,8 @@
     </td>
     <td onclick="rowSelect(this)">
         <div class="flex items-center">
-            <div class="flex-shrink-0 w-8 text-center">
-                <i class="text-xl text-gray-600 {{ $position->font_icon }}"></i>
+            <div class="flex-shrink-0 w-8 text-center mr-2">
+                <i class="text-2xl text-gray-600 {{ $position->font_icon }}"></i>
             </div>
             <div class="ml-2">
                 {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
