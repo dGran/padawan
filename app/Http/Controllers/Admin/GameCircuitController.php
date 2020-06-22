@@ -54,7 +54,8 @@ class GameCircuitController extends Controller
 
         $games = Game::where('circuits', true)->orderBy('name')->get();
         if (!$filterGame == 0) {
-            $filterGameName = Game::find($filterGame)->name;
+            $game = Game::find($filterGame);
+            $filterGameName = $game->name . ' (' . $game->platform->name . ')';
         } else {
             $filterGameName = null;
         }

@@ -119,4 +119,17 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/equipos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\TeamController@export')->name('admin.teams.export');
 	Route::get('/equipos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\TeamController@exportGlobal')->name('admin.teams.export.global');
 	Route::post('/equipos/importar', 'Admin\TeamController@import')->name('admin.teams.import');
+
+	//Players Databases
+	Route::get('/base-datos-jugadores', 'Admin\PlayerDatabaseController@list')->name('admin.players_databases');
+	Route::get('/base-datos-jugadores/nuevo', 'Admin\PlayerDatabaseController@add')->name('admin.players_databases.add');
+	Route::post('/base-datos-jugadores/nuevo', 'Admin\PlayerDatabaseController@save')->name('admin.players_databases.save');
+	Route::get('/base-datos-jugadores/editar/{id}', 'Admin\PlayerDatabaseController@edit')->name('admin.players_databases.edit');
+	Route::put('/base-datos-jugadores/editar/{id}', 'Admin\PlayerDatabaseController@update')->name('admin.players_databases.update');
+	Route::get('/base-datos-jugadores/ver/{id}', 'Admin\PlayerDatabaseController@view')->name('admin.players_databases.view');
+	Route::get('/base-datos-jugadores/eliminar/{ids}', 'Admin\PlayerDatabaseController@destroy')->name('admin.players_databases.destroy');
+	Route::get('/base-datos-jugadores/duplicar/{ids}', 'Admin\PlayerDatabaseController@duplicate')->name('admin.players_databases.duplicate');
+	Route::get('/base-datos-jugadores/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PlayerDatabaseController@export')->name('admin.players_databases.export');
+	Route::get('/base-datos-jugadores/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\PlayerDatabaseController@exportGlobal')->name('admin.players_databases.export.global');
+	Route::post('/base-datos-jugadores/importar', 'Admin\PlayerDatabaseController@import')->name('admin.players_databases.import');
 });

@@ -58,7 +58,8 @@ class GamePositionController extends Controller
 
         $games = Game::where('positions', true)->orderBy('name')->get();
         if (!$filterGame == 0) {
-            $filterGameName = Game::find($filterGame)->name;
+            $game = Game::find($filterGame);
+            $filterGameName = $game->name . ' (' . $game->platform->name . ')';
         } else {
             $filterGameName = null;
         }

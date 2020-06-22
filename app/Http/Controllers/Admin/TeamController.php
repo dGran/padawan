@@ -54,7 +54,8 @@ class TeamController extends Controller
 
 		$games = Game::orderBy('name')->get();
         if (!$filterGame == 0) {
-            $filterGameName = Game::find($filterGame)->name;
+            $game = Game::find($filterGame);
+            $filterGameName = $game->name . ' (' . $game->platform->name . ')';
         } else {
             $filterGameName = null;
         }
@@ -238,7 +239,7 @@ class TeamController extends Controller
                     \Storage::disk('teams')->copy($original->img, $img_name);
                     $team->img = $img_name;
                 }
-                $team->slug = Str::slug($team->name . ' ' . $original->game->name, '-');
+                $team->slug = Str::slug($team->name . ' ' . $original->game->name  . ' ' . $original->game->platform->name, '-');
                 $team->save();
             }
         }
