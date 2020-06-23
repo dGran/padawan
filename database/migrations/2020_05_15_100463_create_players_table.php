@@ -32,7 +32,7 @@ class CreatePlayersTable extends Migration
             $table->integer('age')->nullable();
             $table->enum('foot', ['left', 'right'])->nullable();
             $table->integer('overall_rating')->nullable();
-            $table->string('slug');
+            $table->integer('game_id')->nullable();
         });
     }
 

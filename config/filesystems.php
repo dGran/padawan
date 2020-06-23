@@ -73,6 +73,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'players' => [
+            'driver' => 'local',
+            'root' => public_path('img/players'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
