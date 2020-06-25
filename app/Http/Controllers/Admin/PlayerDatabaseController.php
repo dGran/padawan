@@ -78,8 +78,12 @@ class PlayerDatabaseController extends Controller
     public function add()
     {
     	$games = Game::where('rosters', true)->orderBy('name')->get();
-
-        return view('admin.players_databases.add', ['games' => $games]);
+        if ($games->count() > 0) {
+            return view('admin.players_databases.add', ['games' => $games]);
+        } else {
+            flash()->error('No existen juegos que admitan plantillas de jugadores, debe existir al menos uno para poder crear una nueva database');
+            return back();
+        }
     }
 
     public function save(Request $request)

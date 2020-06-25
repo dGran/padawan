@@ -83,8 +83,12 @@ class GamePositionController extends Controller
     public function add()
     {
     	$games = Game::where('positions', true)->orderBy('name')->get();
-
-        return view('admin.positions.add', ['games' => $games]);
+        if ($games->count() > 0) {
+            return view('admin.positions.add', ['games' => $games]);
+        } else {
+            flash()->error('No existen juegos que admitan posiciones, debe existir al menos uno para poder crear una nueva posición');
+            return back();
+        }
     }
 
     public function save(Request $request)

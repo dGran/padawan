@@ -78,8 +78,12 @@ class GameCircuitController extends Controller
     public function add()
     {
     	$games = Game::where('circuits', true)->orderBy('name')->get();
-
-        return view('admin.circuits.add', ['games' => $games]);
+        if ($games->count() > 0) {
+            return view('admin.circuits.add', ['games' => $games]);
+        } else {
+            flash()->error('No existen juegos que admitan circuitos, debe existir al menos uno para poder crear un nuevo circuito');
+            return back();
+        }
     }
 
     public function save(Request $request)

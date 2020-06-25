@@ -78,7 +78,12 @@ class TeamController extends Controller
     public function add()
     {
     	$games = Game::orderBy('name')->get();
-        return view('admin.teams.add', ['games' => $games]);
+        if ($games->count() > 0) {
+            return view('admin.teams.add', ['games' => $games]);
+        } else {
+            flash()->error('No existen juegos, debe existir al menos uno para poder crear un nuevo equipo');
+            return back();
+        }
     }
 
     public function save(Request $request)

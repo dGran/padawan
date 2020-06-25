@@ -135,8 +135,9 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Players
 	Route::get('/jugadores', 'Admin\PlayerController@list')->name('admin.players');
-	Route::get('/jugadores/nuevo/{player_database_id}', 'Admin\PlayerController@add')->name('admin.players.add');
+	Route::get('/jugadores/nuevo', 'Admin\PlayerController@add')->name('admin.players.add');
 	Route::post('/jugadores/nuevo', 'Admin\PlayerController@save')->name('admin.players.save');
+	Route::get('/jugadores/cargar_posiciones/{player_database_id}/{mode}/{player_position_id?}', 'Admin\PlayerController@loadPositions')->name('admin.players.load_positions');
 	Route::get('/jugadores/editar/{id}', 'Admin\PlayerController@edit')->name('admin.players.edit');
 	Route::put('/jugadores/editar/{id}', 'Admin\PlayerController@update')->name('admin.players.update');
 	Route::get('/jugadores/ver/{id}', 'Admin\PlayerController@view')->name('admin.players.view');

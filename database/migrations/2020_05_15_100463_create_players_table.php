@@ -24,7 +24,7 @@ class CreatePlayersTable extends Migration
             $table->string('team_name')->nullable();
             $table->string('nation_name')->nullable();
             $table->string('league_name')->nullable();
-            $table->foreignId('position_id')
+            $table->foreignId('position_id')->nullable()
                 ->references('id')
                 ->on('games_positions')
                 ->onDelete('cascade');

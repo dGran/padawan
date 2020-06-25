@@ -18,13 +18,11 @@ class PlayerController extends Controller
 {
     public function list()
     {
-    	$players_databases_default = PlayerDatabase::orderBy('id', 'desc')->first()->id;
-
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
-        $filterPlayerDatabase = request()->filterPlayerDatabase ? request()->filterPlayerDatabase : $players_databases_default;
+        $filterPlayerDatabase = request()->filterPlayerDatabase;
         $filterTeam = request()->filterTeam;
         $filterNation = request()->filterNation;
         $filterLeague = request()->filterLeague;
@@ -74,12 +72,12 @@ class PlayerController extends Controller
 		$players_databases = PlayerDatabase::orderBy('name')->get();
 		$positions = GamePosition::orderBy('name')->get();
 
-        // if (!$filterPlayerDatabase == 0) {
+        if (!$filterPlayerDatabase == 0) {
             $player_database = PlayerDatabase::find($filterPlayerDatabase);
             $filterPlayerDatabaseName = $player_database->name . ' (' . $player_database->game->name . ' - ' . $player_database->game->platform->name . ')';
-        // } else {
-            // $filterPlayerDatabaseName = null;
-        // }
+        } else {
+            $filterPlayerDatabaseName = null;
+        }
         if (!$filterPosition == 0) {
             $position = Position::find($filterPosition);
             $filterPositionName = $position->name . ' (' . $position->game->name . ' - ' . $position->game->platform->name . ')';
@@ -105,12 +103,29 @@ class PlayerController extends Controller
         return view('admin.players.view', ['player' => $player]);
     }
 
-    public function add($player_database_id)
+    public function loadPositions($player_database_id, $mode, $player_position_id = null)
     {
 		$player_database = PlayerDatabase::find($player_database_id);
 		$positions = GamePosition::where('game_id', '=', $player_database->game->id)->orderBy('order')->get();
 
-        return view('admin.players.add', ['player_database' => $player_database, 'positions' => $positions ]);
+		if ($mode == 'add') {
+        	return view('admin.players.add.positions', ['positions' => $positions])->render();
+		}
+
+		if ($mode == 'edit') {
+        	return view('admin.players.edit.positions', ['positions' => $positions, 'player_position_id' => $player_position_id])->render();
+		}
+    }
+
+    public function add()
+    {
+    	$players_databases = PlayerDatabase::orderBy('name')->get();
+    	if ($players_databases->count() > 0) {
+        	return view('admin.players.add', ['players_databases' => $players_databases]);
+    	} else {
+    		flash()->error('No existen databases, debe existir al menos una para poder crear un nuevo jugador');
+    		return back();
+    	}
     }
 
     public function save(Request $request)
@@ -152,9 +167,8 @@ class PlayerController extends Controller
     {
         $player = Player::findOrFail($id);
 		$players_databases = PlayerDatabase::orderBy('name')->get();
-		$positions = GamePosition::orderBy('order')->get();
 
-        return view('admin.players.edit', ['player' => $player, 'players_databases' => $players_databases, 'positions' => $positions]);
+        return view('admin.players.edit', ['player' => $player, 'players_databases' => $players_databases]);
     }
 
     public function update($id, Request $request)

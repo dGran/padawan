@@ -27,9 +27,62 @@
 			<div>
 				<dt>Posición</dt>
 				<dd>
-					{{ $player->position->name }}
-					<br>
-					{{ $player->position->game->name }} ({{ $player->position->game->platform->name }})
+					@if ($player->position_id)
+						{{ $player->position->name }}
+					@endif
+				</dd>
+			</div>
+			<div>
+				<dt>Nacionalidad</dt>
+				<dd>
+					{{ $player->nation_name }}
+				</dd>
+			</div>
+			<div>
+				<dt>Altura</dt>
+				<dd>
+					{{ $player->height }} cm
+				</dd>
+			</div>
+			<div>
+				<dt>Edad</dt>
+				<dd>
+					{{ $player->age }} años
+				</dd>
+			</div>
+			<div>
+				<dt>Pie</dt>
+				<dd>
+					@if ($player->foot == 'left')
+						Izquierdo
+					@endif
+					@if ($player->foot == 'right')
+						Derecho
+					@endif
+				</dd>
+			</div>
+			<div>
+				<dt>Liga</dt>
+				<dd>
+					{{ $player->league_name }}
+				</dd>
+			</div>
+			<div>
+				<dt>Equipo</dt>
+				<dd>
+					{{ $player->team_name }}
+				</dd>
+			</div>
+			<div>
+				<dt>Media</dt>
+				<dd>
+					{{ $player->overall_rating }}
+				</dd>
+			</div>
+			<div>
+				<dt>{{ $player->player_database->game->name }} ID</dt>
+				<dd>
+					{{ $player->game_id }}
 				</dd>
 			</div>
 	    </dl>

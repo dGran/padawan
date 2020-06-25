@@ -16,15 +16,19 @@
             </div>
             <div class="ml-3">
                 {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
-                    <span class="name">{{ $player->name }}</span>
-                    <span class="block text-gray-600" style="font-size: 9px">ID:{{ $player->id }}</span>
+                    <span class="name block">{{ $player->name }}</span>
+                    <span class="text-gray-600" style="font-size: 9px">ID:{{ $player->id }}</span>
+                    @if ($player->game_id)
+                        <span class="text-gray-600" style="font-size: 9px">GAME_ID:{{ $player->game_id }}</span>
+                    @endif
                 {{-- </p> --}}
             </div>
         </div>
     </td>
     <td class="hidden xl:table-cell">
-        {{ $player->position->name }}
-        <span class="block text-gray-600" style="font-size: 9px">{{ $player->position->game->name }} ({{ $player->position->game->platform->name }})</span>
+        @if ($player->position)
+            {{ $player->position->name }}
+        @endif
     </td>
     <td>
         {{ $player->player_database->name }}

@@ -21,9 +21,9 @@
                 </div>
                 <div class="relative">
                     <select name="filterPlayerDatabase" id="filterPlayerDatabase" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-{{--                         <option {{ $filterPlayerDatabase == 0 ? 'selected' : '' }} value="0">
-                            Todos
-                        </option> --}}
+                        <option {{ $filterPlayerDatabase == 0 ? 'selected' : '' }} value="0">
+                            Todas
+                        </option>
                         @foreach ($players_databases as $player_database)
                             <option {{ $filterPlayerDatabase == $player_database->id ? 'selected' : '' }} value="{{ $player_database->id }}">
                                 {{ $player_database->name }} ({{ $player_database->game->name }} - {{ $player_database->game->platform->name }})

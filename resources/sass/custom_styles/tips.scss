@@ -12,7 +12,7 @@ input, textarea {
   appearance: none;
 }
 
-a, button {
+a, button, input, select {
 	&.disable {
 		opacity: .5;
 		pointer-events: none;

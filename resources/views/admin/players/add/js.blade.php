@@ -1,4 +1,6 @@
 <script>
+	loadPositions();
+
 	function showImage(fileInput) {
 		thumbnail.src = '{{ asset('img/players/default.png') }}';
 		deleteImage.value = 0;
@@ -36,4 +38,25 @@
     $("#form-add").submit(function(event) {
         disabledActionsButtons();
     });
+
+    function loadPositions() {
+        $('#loading').removeClass("hidden");
+        var route = "{{ route('admin.players.load_positions', [':ID', 'add']) }}";
+        var id = $("#players_databases_id option:selected").val();
+        var url = route.replace(':ID', id);
+        if (id == 0) {
+        	$('#position_id').find('option').remove().end().append('<option>Database no seleccionada</option>');
+        	$('#position_id').addClass("disable");
+        } else {
+	        $.ajax({
+	            url         : url,
+	            type        : 'GET',
+	            datatype    : 'html',
+	        }).done(function(data){
+	            $('#position_id').html(data);
+	            $('#position_id').removeClass("disable");
+	        });
+        }
+        $('#loading').addClass("hidden");
+    }
 </script>

@@ -19189,7 +19189,7 @@ input, textarea {
   appearance: none;
 }
 
-a.disable, button.disable {
+a.disable, button.disable, input.disable, select.disable {
   opacity: 0.5;
   pointer-events: none;
   cursor: not-allowed;

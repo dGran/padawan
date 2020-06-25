@@ -7,10 +7,10 @@
     var routeExport = "{{ route('admin.players.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.players.export.global', [':FORMAT', ':FILENAME', $order]) }}";
 
-    // function cancelFilterPlayerDatabase() {
-    //     $("#filterPlayerDatabase").val('0');
-    //     applyFilters();
-    // }
+    function cancelFilterPlayerDatabase() {
+        $("#filterPlayerDatabase").val('0');
+        applyFilters();
+    }
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();

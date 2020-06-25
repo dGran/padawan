@@ -23,5 +23,13 @@ class PlatformSeeder extends Seeder
 	        'name' => 'Origin',
 	        'slug' => Str::slug('Origin', '-'),
 	    ]);
+	    DB::table('platforms')->insert([
+	        'name' => 'PlayStation 5',
+	        'slug' => Str::slug('PlayStation 5', '-'),
+	    ]);
+	    DB::table('platforms')->insert([
+	        'name' => 'Xbox Series X',
+	        'slug' => Str::slug('Xbox Series X', '-'),
+	    ]);
     }
 }

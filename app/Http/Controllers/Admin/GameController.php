@@ -92,7 +92,12 @@ class GameController extends Controller
     public function add()
     {
         $platforms = Platform::orderBy('name')->get();
-        return view('admin.games.add', ['platforms' => $platforms]);
+        if ($platforms->count() > 0) {
+            return view('admin.games.add', ['platforms' => $platforms]);
+        } else {
+            flash()->error('No existen plataformas, debe existir al menos una para poder crear un nuevo juego');
+            return back();
+        }
     }
 
     public function save(Request $request)
