@@ -23,7 +23,7 @@ class TeamsExport implements FromCollection, WithHeadings
     */
     public function collection()
     {
-        return $this->teams ?: Platform::all();
+        return $this->teams ?: Team::all();
     }
 
     public function headings(): array

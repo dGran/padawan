@@ -17,7 +17,40 @@
         @endif
     </th>
     <th class="hidden xl:table-cell">
+        <span>Nacionalidad</span>
+    </th>
+    <th class="hidden xl:table-cell" style="text-align: center">
         <span>Posición</span>
+    </th>
+    <th class="hidden xl:table-cell" style="text-align: center">
+        <span class="cursor-pointer" onclick="changeSort('{{ $order == 'overall' ? 'overall_desc' : 'overall' }}')">Media</span>
+        @if ($order == 'overall')
+            <i class="fas fa-sort-amount-up-alt"></i>
+        @endif
+        @if ($order == 'overall_desc')
+            <i class="fas fa-sort-amount-down"></i>
+        @endif
+    </th>
+    <th class="hidden xl:table-cell" style="text-align: center">
+        <span class="cursor-pointer" onclick="changeSort('{{ $order == 'age' ? 'age_desc' : 'age' }}')">Edad</span>
+        @if ($order == 'age')
+            <i class="fas fa-sort-amount-up-alt"></i>
+        @endif
+        @if ($order == 'age_desc')
+            <i class="fas fa-sort-amount-down"></i>
+        @endif
+    </th>
+    <th class="hidden xl:table-cell" style="text-align: center">
+        <span class="cursor-pointer" onclick="changeSort('{{ $order == 'height' ? 'height_desc' : 'height' }}')">Altura</span>
+        @if ($order == 'height')
+            <i class="fas fa-sort-amount-up-alt"></i>
+        @endif
+        @if ($order == 'height_desc')
+            <i class="fas fa-sort-amount-down"></i>
+        @endif
+    </th>
+    <th class="hidden xl:table-cell" style="text-align: center">
+        <span>Pie</span>
     </th>
     <th>
         <span>Database</span>

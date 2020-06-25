@@ -19503,13 +19503,13 @@ a.disable, button.disable, input.disable, select.disable {
   --bg-opacity: 1;
   background-color: #f7fafc;
   background-color: rgba(247, 250, 252, var(--bg-opacity));
-  text-align: left;
   font-weight: 600;
   --text-opacity: 1;
   color: #718096;
   color: rgba(113, 128, 150, var(--text-opacity));
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  text-align: left;
 }
 
 .table-wrap .admin-tables thead th:first-child {

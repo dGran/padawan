@@ -76,6 +76,9 @@
 .icon-users:before {
   content: "\e915";
 }
+.icon-tools:before {
+  content: "\e920";
+}
 .icon-positions:before {
   content: "\e916";
 }

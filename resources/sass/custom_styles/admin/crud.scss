@@ -8,7 +8,7 @@
 		@apply min-w-full leading-normal bg-white;
 		thead {
 			th {
-				@apply px-1 py-3 border-b border-gray-300 bg-gray-100 text-left font-semibold text-gray-600 uppercase tracking-wide;
+				@apply px-1 py-3 border-b border-gray-300 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wide text-left;
 				&:first-child {
 					@apply pl-3;
 				}

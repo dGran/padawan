@@ -15,12 +15,11 @@
 
             <!--body-->
             <div class="relative p-6 flex-auto">
-
                 <div class="text-bold pb-2">
                     <label for="filterPlayerDatabase">Database</label>
                 </div>
                 <div class="relative">
-                    <select name="filterPlayerDatabase" id="filterPlayerDatabase" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                    <select name="filterPlayerDatabase" id="filterPlayerDatabase" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" onchange="loadPositions()">
                         <option {{ $filterPlayerDatabase == 0 ? 'selected' : '' }} value="0">
                             Todas
                         </option>
@@ -35,6 +34,88 @@
                             <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
                         </svg>
                     </div>
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterPosition">
+                        Posición
+                        <img id="loading" class="inline-block float-right hidden" src="{{ asset('img/loading.gif') }}" alt="" width="18">
+                    </label>
+                </div>
+                <div class="relative">
+                    <select name="filterPosition" id="filterPosition" class="disable appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option value="0">Todas</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterOverallRange" class="col-form-label d-block">Valoración general</label>
+                </div>
+                <div class="relative">
+                    <input type="text" class="js-range-slider" name="filterOverallRange" id="filterOverallRange" value="" />
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterAgeRange" class="col-form-label d-block">Edad</label>
+                </div>
+                <div class="relative">
+                    <input type="text" class="js-range-slider" name="filterAgeRange" id="filterAgeRange" value="" />
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterHeightRange" class="col-form-label d-block">Altura</label>
+                </div>
+                <div class="relative">
+                    <input type="text" class="js-range-slider" name="filterHeightRange" id="filterHeightRange" value="" />
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterNation">Nacionalidad</label>
+                </div>
+                <div class="relative">
+                    <input type="text" name="filterNation" id="filterNation" class="rounded border border-gray-400 border-b block px-4 py-2 bg-white text-sm text-gray-700 w-full focus:bg-white focus:border-gray-500 focus:text-gray-700 focus:outline-none" placeholder="Nacionalidad" value="{{ $filterNation }}">
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterTeam">Equipo</label>
+                </div>
+                <div class="relative">
+                    <input type="text" name="filterTeam" id="filterTeam" class="rounded border border-gray-400 border-b block px-4 py-2 bg-white text-sm text-gray-700 w-full focus:bg-white focus:border-gray-500 focus:text-gray-700 focus:outline-none" placeholder="Equipo" value="{{ $filterTeam }}">
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterLeague">Liga</label>
+                </div>
+                <div class="relative">
+                    <input type="text" name="filterLeague" id="filterLeague" class="rounded border border-gray-400 border-b block px-4 py-2 bg-white text-sm text-gray-700 w-full focus:bg-white focus:border-gray-500 focus:text-gray-700 focus:outline-none" placeholder="Liga" value="{{ $filterLeague }}">
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterFoot">Pie</label>
+                </div>
+                <div class="relative">
+                    <select name="filterFoot" id="filterFoot" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <option {{ $filterFoot == null ? 'selected' : '' }} value="">Todos</option>
+                        <option {{ $filterFoot == 'right' ? 'selected' : '' }} value="right">Derecho</option>
+                        <option {{ $filterFoot == 'left' ? 'selected' : '' }} value="left">Izquierdo</option>
+                    </select>
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="text-bold pb-2 pt-4">
+                    <label for="filterGameID">Game ID</label>
+                </div>
+                <div class="relative">
+                    <input type="text" name="filterGameID" id="filterGameID" class="rounded border border-gray-400 border-b block px-4 py-2 bg-white text-sm text-gray-700 w-full focus:bg-white focus:border-gray-500 focus:text-gray-700 focus:outline-none" placeholder="Liga" value="{{ $filterGameID }}">
                 </div>
 
                 <div class="text-bold pb-2 pt-4">
@@ -76,6 +157,24 @@
                         </option>
                         <option {{ $order == 'name_desc' ? 'selected' : '' }} value="name_desc">
                             Nombre (Z..A)
+                        </option>
+                        <option {{ $order == 'overall' ? 'selected' : '' }} value="overall">
+                            Media (0..9)
+                        </option>
+                        <option {{ $order == 'overall_desc' ? 'selected' : '' }} value="overall_desc">
+                            Media (9..0)
+                        </option>
+                        <option {{ $order == 'age' ? 'selected' : '' }} value="age">
+                            Edad (0..9)
+                        </option>
+                        <option {{ $order == 'age_desc' ? 'selected' : '' }} value="age_desc">
+                            Edad (9..0)
+                        </option>
+                        <option {{ $order == 'height' ? 'selected' : '' }} value="height">
+                            Altura (0..9)
+                        </option>
+                        <option {{ $order == 'height_desc' ? 'selected' : '' }} value="height_desc">
+                            Altura (9..0)
                         </option>
                     </select>
                     <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">

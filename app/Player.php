@@ -33,24 +33,24 @@ class Player extends Model
         }
     }
 
-    public function scopeTeam($query, $name)
+    public function scopeTeam($query, $team_name)
     {
-        if (trim($name) !="") {
-            $query->where("team_name", "LIKE", "%$name%");
+        if (trim($team_name) !="") {
+            $query->where("team_name", "LIKE", "%$team_name%");
         }
     }
 
-    public function scopeNation($query, $name)
+    public function scopeNation($query, $nation_name)
     {
-        if (trim($name) !="") {
-            $query->where("nation_name", "LIKE", "%$name%");
+        if (trim($nation_name) !="") {
+            $query->where("nation_name", "LIKE", "%$nation_name%");
         }
     }
 
-    public function scopeLeague($query, $name)
+    public function scopeLeague($query, $league_name)
     {
-        if (trim($name) !="") {
-            $query->where("league_name", "LIKE", "%$name%");
+        if (trim($league_name) !="") {
+            $query->where("league_name", "LIKE", "%$league_name%");
         }
     }
 
@@ -61,8 +61,42 @@ class Player extends Model
         }
     }
 
-    // pending scopes: height, age, foot, overall_rating
-    // logic with between
+    public function scopeOverallRange($query, $from, $to)
+    {
+        if ($from && $to) {
+            $query->where("overall_rating", ">=", $from)->where("overall_rating", "<=", $to);
+        }
+    }
+
+    public function scopeAgeRange($query, $from, $to)
+    {
+        if ($from && $to) {
+            $query->where("age", ">=", $from)->where("age", "<=", $to);
+        }
+    }
+
+    public function scopeHeightRange($query, $from, $to)
+    {
+        if ($from && $to) {
+            $query->where("height", ">=", $from)->where("height", "<=", $to);
+        }
+    }
+
+    public function scopeGameID($query, $game_id)
+    {
+        if (trim($game_id) !="") {
+            $query->where("game_id", "=", $game_id);
+        }
+    }
+
+    public function scopeFoot($query, $foot)
+    {
+        if (!is_null($foot)) {
+            $query->where("foot", "=", $foot);
+        }
+    }
+
+    // pending scopes: foot, game_id
 
 
     public function img()

@@ -20,6 +20,9 @@
 	    {{-- Font Awesome --}}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
 		{{-- <link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/> --}}
+
+ 		<!--ION Range Silder -->
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
 		{{-- Custom --}}
 		<link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 		@yield('styles')
@@ -60,6 +63,8 @@
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.3/mousetrap.min.js"></script>
 		{{-- Alpine --}}
 		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    	<!--ION Range Silder -->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
 
 		@include('layouts.partials.admin.javascript')
 		@yield('modals')

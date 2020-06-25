@@ -6,6 +6,9 @@
 </div>
 <div class="elements">
     <div class="scroll pt-4">
+{{--         <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Utilidades" onclick="">
+            <i class="icon-tools"></i>
+        </button> --}}
         @isset($import)
             <form id="frmImport" role="form"
                 method="POST"
@@ -18,11 +21,6 @@
                 </button>
             </form>
         @endisset
-
-        <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Duplicar jugadores en otra database" onclick="">
-            <i class="icon-xls"></i>
-        </button>
-
         @isset($export)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFileGlobal('players_global', 'xls')">
                 <i class="icon-xls"></i>

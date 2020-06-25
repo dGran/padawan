@@ -23,10 +23,39 @@ class PlayerController extends Controller
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
         $filterPlayerDatabase = request()->filterPlayerDatabase;
-        $filterTeam = request()->filterTeam;
         $filterNation = request()->filterNation;
+        $filterTeam = request()->filterTeam;
         $filterLeague = request()->filterLeague;
+        $filterGameID = request()->filterGameID;
+        $filterFoot = request()->filterFoot;
         $filterPosition = request()->filterPosition;
+		$filterOverallRangeFrom = null;
+    	$filterOverallRangeTo = null;
+    	if (request()->filterOverallRange) {
+    		if (request()->filterOverallRange != "50;50") {
+		    	$overall_rating = (explode( ';', request()->filterOverallRange));
+		    	$filterOverallRangeFrom = $overall_rating[0];
+		    	$filterOverallRangeTo = $overall_rating[1];
+    		}
+    	}
+		$filterAgeRangeFrom = null;
+    	$filterAgeRangeTo = null;
+    	if (request()->filterAgeRange) {
+    		if (request()->filterAgeRange != "15;15") {
+		    	$age_rating = (explode( ';', request()->filterAgeRange));
+		    	$filterAgeRangeFrom = $age_rating[0];
+		    	$filterAgeRangeTo = $age_rating[1];
+    		}
+    	}
+		$filterHeightRangeFrom = null;
+    	$filterHeightRangeTo = null;
+    	if (request()->filterHeightRange) {
+    		if (request()->filterHeightRange != "150;150") {
+		    	$height_rating = (explode( ';', request()->filterHeightRange));
+		    	$filterHeightRangeFrom = $height_rating[0];
+		    	$filterHeightRangeTo = $height_rating[1];
+    		}
+    	}
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('player_page')) {
@@ -56,18 +85,42 @@ class PlayerController extends Controller
             if (request()->session()->get('player_filterLeague')) {
                 $filterLeague = request()->session()->get('player_filterLeague');
             }
+            if (request()->session()->get('player_filterGameID')) {
+                $filterGameID = request()->session()->get('player_filterGameID');
+            }
+            if (request()->session()->get('player_filterFoot')) {
+                $filterFoot = request()->session()->get('player_filterFoot');
+            }
             if (request()->session()->get('player_filterPosition')) {
                 $filterPosition = request()->session()->get('player_filterPosition');
+            }
+            if (request()->session()->get('player_filterOverallRangeFrom')) {
+                $filterOverallRangeFrom = request()->session()->get('player_filterOverallRangeFrom');
+            }
+            if (request()->session()->get('player_filterOverallRangeTo')) {
+                $filterOverallRangeTo = request()->session()->get('player_filterOverallRangeTo');
+            }
+            if (request()->session()->get('player_filterAgeRangeFrom')) {
+                $filterAgeRangeFrom = request()->session()->get('player_filterAgeRangeFrom');
+            }
+            if (request()->session()->get('player_filterAgeRangeTo')) {
+                $filterAgeRangeTo = request()->session()->get('player_filterAgeRangeTo');
+            }
+            if (request()->session()->get('player_filterHeightRangeFrom')) {
+                $filterHeightRangeFrom = request()->session()->get('player_filterHeightRangeFrom');
+            }
+            if (request()->session()->get('player_filterHeightRangeTo')) {
+                $filterHeightRangeTo = request()->session()->get('player_filterHeightRangeTo');
             }
         }
 
         $order_ext = $this->getOrder($order);
 
-        $players = Player::name($filterName)->playerDatabase($filterPlayerDatabase)->team($filterTeam)->nation($filterNation)->league($filterLeague)->position($filterPosition)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $players = Player::name($filterName)->playerDatabase($filterPlayerDatabase)->team($filterTeam)->nation($filterNation)->league($filterLeague)->position($filterPosition)->overallRange($filterOverallRangeFrom, $filterOverallRangeTo)->ageRange($filterAgeRangeFrom, $filterAgeRangeTo)->heightRange($filterHeightRangeFrom, $filterHeightRangeTo)->gameID($filterGameID)->foot($filterFoot)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $players->lastPage()) {
             $page = $players->lastPage();
         }
-        $players = Player::name($filterName)->playerDatabase($filterPlayerDatabase)->team($filterTeam)->nation($filterNation)->league($filterLeague)->position($filterPosition)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $players = Player::name($filterName)->playerDatabase($filterPlayerDatabase)->team($filterTeam)->nation($filterNation)->league($filterLeague)->position($filterPosition)->overallRange($filterOverallRangeFrom, $filterOverallRangeTo)->ageRange($filterAgeRangeFrom, $filterAgeRangeTo)->heightRange($filterHeightRangeFrom, $filterHeightRangeTo)->gameID($filterGameID)->foot($filterFoot)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
 		$players_databases = PlayerDatabase::orderBy('name')->get();
 		$positions = GamePosition::orderBy('name')->get();
@@ -79,8 +132,8 @@ class PlayerController extends Controller
             $filterPlayerDatabaseName = null;
         }
         if (!$filterPosition == 0) {
-            $position = Position::find($filterPosition);
-            $filterPositionName = $position->name . ' (' . $position->game->name . ' - ' . $position->game->platform->name . ')';
+            $position = GamePosition::find($filterPosition);
+            $filterPositionName = $position->name;
         } else {
             $filterPositionName = null;
         }
@@ -88,13 +141,22 @@ class PlayerController extends Controller
         session(['player_perPage' => $perPage]);
         session(['player_page' => $page]);
         session(['player_order' => $order]);
+        session(['player_filterName' => $filterName]);
         session(['player_filterPlayerDatabase' => $filterPlayerDatabase]);
         session(['player_filterTeam' => $filterTeam]);
         session(['player_filterNation' => $filterNation]);
         session(['player_filterLeague' => $filterLeague]);
         session(['player_filterPosition' => $filterPosition]);
+        session(['player_filterGameID' => $filterGameID]);
+        session(['player_filterFoot' => $filterFoot]);
+        session(['player_filterOverallRangeFrom' => $filterOverallRangeFrom]);
+        session(['player_filterOverallRangeTo' => $filterOverallRangeTo]);
+		session(['player_filterAgeRangeFrom' => $filterAgeRangeFrom]);
+        session(['player_filterAgeRangeTo' => $filterAgeRangeTo]);
+		session(['player_filterHeightRangeFrom' => $filterHeightRangeFrom]);
+        session(['player_filterHeightRangeTo' => $filterHeightRangeTo]);
 
-    	return view('admin.players.list', ['players' => $players, 'players_databases' => $players_databases, 'positions' => $positions, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterPlayerDatabase' => $filterPlayerDatabase, 'filterTeam' => $filterTeam, 'filterNation' => $filterNation, 'filterLeague' => $filterLeague, 'filterPosition' => $filterPosition, 'filterPlayerDatabaseName' => $filterPlayerDatabaseName, 'filterPositionName' => $filterPositionName, 'order' => $order]);
+    	return view('admin.players.list', ['players' => $players, 'players_databases' => $players_databases, 'positions' => $positions, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterPlayerDatabase' => $filterPlayerDatabase, 'filterTeam' => $filterTeam, 'filterNation' => $filterNation, 'filterLeague' => $filterLeague, 'filterPosition' => $filterPosition, 'filterPlayerDatabaseName' => $filterPlayerDatabaseName, 'filterPositionName' => $filterPositionName, 'filterOverallRangeFrom' => $filterOverallRangeFrom, 'filterOverallRangeTo' => $filterOverallRangeTo, 'filterAgeRangeFrom' => $filterAgeRangeFrom, 'filterAgeRangeTo' => $filterAgeRangeTo, 'filterHeightRangeFrom' => $filterHeightRangeFrom, 'filterHeightRangeTo' => $filterHeightRangeTo, 'filterGameID' => $filterGameID, 'filterFoot' => $filterFoot, 'order' => $order]);
     }
 
     public function view($id)
@@ -114,6 +176,10 @@ class PlayerController extends Controller
 
 		if ($mode == 'edit') {
         	return view('admin.players.edit.positions', ['positions' => $positions, 'player_position_id' => $player_position_id])->render();
+		}
+
+		if ($mode == 'list') {
+        	return view('admin.players.list.positions', ['positions' => $positions, 'player_position_id' => $player_position_id])->render();
 		}
     }
 
@@ -338,9 +404,8 @@ class PlayerController extends Controller
     }
 
 
-
     /*
-     * HELPERS FUNCTIONS
+     * HELPERS FUNCTIONSS
      *
      */
     protected function getOrder($order) {
@@ -351,6 +416,30 @@ class PlayerController extends Controller
             ],
             'id_desc' => [
                 'sortField'     => 'id',
+                'sortDirection' => 'desc'
+            ],
+            'overall' => [
+                'sortField'     => 'overall_rating',
+                'sortDirection' => 'asc'
+            ],
+            'overall_desc' => [
+                'sortField'     => 'overall_rating',
+                'sortDirection' => 'desc'
+            ],
+            'age' => [
+                'sortField'     => 'age',
+                'sortDirection' => 'asc'
+            ],
+            'age_desc' => [
+                'sortField'     => 'age',
+                'sortDirection' => 'desc'
+            ],
+            'height' => [
+                'sortField'     => 'height',
+                'sortDirection' => 'asc'
+            ],
+            'height_desc' => [
+                'sortField'     => 'height',
                 'sortDirection' => 'desc'
             ],
             'name' => [

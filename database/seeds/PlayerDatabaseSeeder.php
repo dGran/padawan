@@ -16,5 +16,10 @@ class PlayerDatabaseSeeder extends Seeder
 	        'game_id' => 5,
 	        'slug' => 'dlc-8-efootball-pes-2020-xbox-one-x',
 	    ]);
+	    DB::table('players_databases')->insert([
+	        'name' => 'Octubre',
+	        'game_id' => 1,
+	        'slug' => 'octubre-fifa-20-playstation-4',
+	    ]);
     }
 }

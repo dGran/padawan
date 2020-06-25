@@ -20,8 +20,7 @@
 			<div>
 				<dt>Database</dt>
 				<dd>{{ $player->player_database->name }}
-					<br>
-					{{ $player->player_database->game->name }} ({{ $player->player_database->game->platform->name }})
+					<span class="block text-xs text-gray-600">{{ $player->player_database->game->name }} ({{ $player->player_database->game->platform->name }})</span>
 				</dd>
 			</div>
 			<div>
@@ -41,13 +40,17 @@
 			<div>
 				<dt>Altura</dt>
 				<dd>
-					{{ $player->height }} cm
+					@if ($player->height)
+						{{ $player->height }} cm
+					@endif
 				</dd>
 			</div>
 			<div>
 				<dt>Edad</dt>
 				<dd>
-					{{ $player->age }} años
+					@if ($player->age)
+						{{ $player->age }} años
+					@endif
 				</dd>
 			</div>
 			<div>
