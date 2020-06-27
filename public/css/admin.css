@@ -19072,8 +19072,26 @@ a.disable, button.disable, input.disable, select.disable {
   cursor: not-allowed;
 }
 
+.custom-label.disable svg {
+  --bg-opacity: 1;
+  background-color: #edf2f7;
+  background-color: rgba(237, 242, 247, var(--bg-opacity));
+}
+
+.custom-label.disable span {
+  --text-opacity: 1;
+  color: #cbd5e0;
+  color: rgba(203, 213, 224, var(--text-opacity));
+}
+
 .custom-label input:checked + svg {
   display: block !important;
+}
+
+.custom-label input:checked + svg.disable span {
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
 }
 
 .autoHide5s {
@@ -20107,7 +20125,7 @@ a.disable, button.disable, input.disable, select.disable {
   margin-bottom: 0.5rem;
 }
 
-.form .field-group .element input, .form .field-group .element select {
+.form .field-group .element input, .form .field-group .element select, .form .field-group .element textarea {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -20125,7 +20143,7 @@ a.disable, button.disable, input.disable, select.disable {
   min-height: 39px;
 }
 
-.form .field-group .element input:focus, .form .field-group .element select:focus {
+.form .field-group .element input:focus, .form .field-group .element select:focus, .form .field-group .element textarea:focus {
   --border-opacity: 1;
   border-color: #a0aec0;
   border-color: rgba(160, 174, 192, var(--border-opacity));

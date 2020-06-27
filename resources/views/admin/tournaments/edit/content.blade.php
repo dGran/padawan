@@ -120,6 +120,13 @@
                   <span class="select-none"> Usa Agentes Libres</span>
             </label>
 
+            <div class="field-group pt-4">
+                <div class="element">
+                    <label for="rules">Reglas</label>
+                    <textarea name="rules" id="rules" rows="10">{{ $tournament->rules }}</textarea>
+                </div>
+            </div>
+
             <div class="mt-8">
                 <button type="submit" class="bg-green-500 text-white active:bg-green-600 focus:bg-green-600 hover:bg-green-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
                     Guardar

@@ -63,61 +63,83 @@
                 </div>
             </div>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label flex pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_teams" name="use_teams" {{ old('use_teams') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Equipos</span>
+                  <span class="select-none"> Usa equipos</span>
             </label>
+            <p class="block text-blue-500 text-xs pb-4">Cada participante representa a un equipo</p>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label flex pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_rosters" name="use_rosters" {{ old('use_rosters') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Plantillas</span>
+                  <span class="select-none"> Usa plantillas de jugadores</span>
+            </label>
+            <p class="block text-blue-500 text-xs pb-4">Cada participante está compuesto por una lista de jugadores (en caso de e-Teams los jugadores serán los integrantes del equipo e-Team)</p>
+
+            <label class="custom-label flex pt-4 pb-4">
+                  <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
+                    <input type="checkbox" class="hidden" id="market" name="market" {{ old('market') == "on" ? 'checked' : '' }} onchange="check_market()">
+                    <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
+                  </div>
+                  <span class="select-none"> Mercado de fichajes</span>
             </label>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label disable flex pl-6 pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_economy" name="use_economy" {{ old('use_economy') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Economía</span>
+                  <span class="select-none"> Presupuestos</span>
             </label>
+            <p class="info_use_economy block text-blue-300 text-xs pl-6 pb-4">Cada participante tiene un presupuesto</p>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label disable flex pl-6 pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_salaries" name="use_salaries"  {{ old('use_salaries') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Salarios</span>
+                  <span class="select-none"> Salarios</span>
             </label>
+            <p class="info_use_salaries block text-blue-300 text-xs pl-6 pb-4">Los jugadores tienen salarios</p>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label disable flex pl-6 pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_transfers" name="use_transfers" {{ old('use_transfers') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Fichajes</span>
+                  <span class="select-none"> Fichajes</span>
             </label>
+            <p class="info_use_transfers block text-blue-300 text-xs pl-6 pb-4">Se permiten los intercambios de jugadores</p>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label disable flex pl-6 pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_clauses" name="use_clauses" {{ old('use_clauses') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Claúsulas</span>
+                  <span class="select-none"> Claúsulas</span>
             </label>
+              <p class="info_use_clauses block text-blue-300 text-xs pl-6 pb-4">Se permiten los fichajes mediante pago de claúsulas</p>
 
-            <label class="custom-label flex pb-4">
+            <label class="custom-label disable flex pl-6 pb-2">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="use_free_agents" name="use_free_agents" {{ old('use_free_agents') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Usa Agentes Libres</span>
+                  <span class="select-none"> Agentes Libres</span>
             </label>
+            <p class="info_use_free_agents block text-blue-300 text-xs pl-6 pb-4">Se permiten los despidos y los fichajes de agentes libres</p>
+
+            <div class="field-group pt-4">
+                <div class="element">
+                    <label for="rules">Reglas</label>
+                    <textarea name="rules" id="rules" rows="10">{{ old('rules') }}</textarea>
+                </div>
+            </div>
 
             <div class="mt-8">
                 <button type="submit" class="bg-green-500 text-white active:bg-green-600 focus:bg-green-600 hover:bg-green-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">

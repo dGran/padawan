@@ -20,8 +20,24 @@ a, button, input, select {
 	}
 }
 
+.custom-label {
+    &.disable {
+    	svg {
+    		@apply bg-gray-200;
+    	}
+    	span {
+    		@apply text-gray-400;
+    	}
+    }
+}
+
 .custom-label input:checked + svg {
     display: block !important;
+    &.disable {
+    	span {
+    		@apply text-gray-500;
+    	}
+    }
 }
 
 .autoHide5s {
