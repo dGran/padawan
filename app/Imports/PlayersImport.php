@@ -5,12 +5,9 @@ namespace App\Imports;
 use App\Player;
 use App\PlayerDatabase;
 use App\GamePosition;
-
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
-// use Maatwebsite\Excel\Concerns\WithValidation;
-
 
 class PlayersImport implements ToModel, WithHeadingRow
 {
@@ -27,7 +24,6 @@ class PlayersImport implements ToModel, WithHeadingRow
 		                'name'                 => $row['name'],
 		                'players_databases_id' => $row['players_databases_id'],
 		                'position_id' 		   => $row['position_id'],
-		                'img'                  => $row['img'],
 		                'nation_name'          => $row['nation_name'],
 		                'team_name'            => $row['team_name'],
 		                'league_name'          => $row['league_name'],
@@ -44,7 +40,6 @@ class PlayersImport implements ToModel, WithHeadingRow
 	                'name'                 => $row['name'],
 	                'players_databases_id' => $row['players_databases_id'],
 	                'position_id' 		   => $row['position_id'],
-	                'img'                  => $row['img'],
 	                'nation_name'          => $row['nation_name'],
 	                'team_name'            => $row['team_name'],
 	                'league_name'          => $row['league_name'],

@@ -37,6 +37,42 @@
 .icon-pos-por:before {
   content: "\e91a";
 }
+.icon-news:before {
+  content: "\e92c";
+}
+.icon-eplayers:before {
+  content: "\e920";
+}
+.icon-zones:before {
+  content: "\e92b";
+}
+.icon-seasons:before {
+  content: "\e921";
+}
+.icon-menus:before {
+  content: "\e922";
+}
+.icon-pages:before {
+  content: "\e923";
+}
+.icon-participants:before {
+  content: "\e924";
+}
+.icon-products:before {
+  content: "\e925";
+}
+.icon-economy:before {
+  content: "\e926";
+}
+.icon-competitions:before {
+  content: "\e927";
+}
+.icon-transfers:before {
+  content: "\e928";
+}
+.icon-roles:before {
+  content: "\e929";
+}
 .icon-players:before {
   content: "\e91b";
 }
@@ -77,7 +113,7 @@
   content: "\e915";
 }
 .icon-tools:before {
-  content: "\e920";
+  content: "\e92a";
 }
 .icon-positions:before {
   content: "\e916";

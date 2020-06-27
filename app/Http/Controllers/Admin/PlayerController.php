@@ -356,6 +356,7 @@ class PlayerController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $players = Player::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $players->makeHidden(['img']);
 
         switch ($format) {
             case 'xls':
@@ -376,6 +377,7 @@ class PlayerController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $players = Player::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $players->makeHidden(['img']);
 
         switch ($format) {
             case 'xls':

@@ -29,7 +29,7 @@ class TournamentsExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'game_id', 'name', 'img', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents', 'rules'
+            'id', 'game_id', 'name', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents'
         ];
     }
 }

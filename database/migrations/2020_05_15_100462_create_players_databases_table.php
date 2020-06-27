@@ -19,7 +19,7 @@ class CreatePlayersDatabasesTable extends Migration
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug')->unique();
         });
     }

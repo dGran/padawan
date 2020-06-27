@@ -248,6 +248,7 @@ class GameCircuitController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $circuits = GameCircuit::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $circuits->makeHidden(['img']);
 
         switch ($format) {
             case 'xls':
@@ -268,6 +269,7 @@ class GameCircuitController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $circuits = GameCircuit::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $circuits->makeHidden(['img']);
 
         switch ($format) {
             case 'xls':

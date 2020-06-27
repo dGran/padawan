@@ -29,7 +29,7 @@ class PlatformsExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'name', 'img'
+            'id', 'name'
         ];
     }
 }

@@ -5,12 +5,9 @@ namespace App\Imports;
 use App\User;
 use App\Profile;
 use Illuminate\Support\Facades\Hash;
-
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
-// use Maatwebsite\Excel\Concerns\WithValidation;
-
 
 class UsersImport implements ToModel, WithHeadingRow
 {
@@ -18,7 +15,6 @@ class UsersImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        // use manual validations because not working WithValidation
         if (!User::where('email', $row['email'])->where('name', $row['name'])->exists()) {
             $user = User::create([
                'name'     => $row['name'],

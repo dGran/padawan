@@ -57,8 +57,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Platforms
 	Route::get('/plataformas', 'Admin\PlatformController@list')->name('admin.platforms');
-	Route::get('/plataformas/nuevo', 'Admin\PlatformController@add')->name('admin.platforms.add');
-	Route::post('/plataformas/nuevo', 'Admin\PlatformController@save')->name('admin.platforms.save');
+	Route::get('/plataformas/nueva', 'Admin\PlatformController@add')->name('admin.platforms.add');
+	Route::post('/plataformas/nueva', 'Admin\PlatformController@save')->name('admin.platforms.save');
 	Route::get('/plataformas/editar/{id}', 'Admin\PlatformController@edit')->name('admin.platforms.edit');
 	Route::put('/plataformas/editar/{id}', 'Admin\PlatformController@update')->name('admin.platforms.update');
 	Route::get('/plataformas/ver/{id}', 'Admin\PlatformController@view')->name('admin.platforms.view');
@@ -83,8 +83,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Games Positions
 	Route::get('/posiciones', 'Admin\GamePositionController@list')->name('admin.positions');
-	Route::get('/posiciones/nuevo', 'Admin\GamePositionController@add')->name('admin.positions.add');
-	Route::post('/posiciones/nuevo', 'Admin\GamePositionController@save')->name('admin.positions.save');
+	Route::get('/posiciones/nueva', 'Admin\GamePositionController@add')->name('admin.positions.add');
+	Route::post('/posiciones/nueva', 'Admin\GamePositionController@save')->name('admin.positions.save');
 	Route::get('/posiciones/editar/{id}', 'Admin\GamePositionController@edit')->name('admin.positions.edit');
 	Route::put('/posiciones/editar/{id}', 'Admin\GamePositionController@update')->name('admin.positions.update');
 	Route::get('/posiciones/ver/{id}', 'Admin\GamePositionController@view')->name('admin.positions.view');
@@ -122,8 +122,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Players Databases
 	Route::get('/base-datos-jugadores', 'Admin\PlayerDatabaseController@list')->name('admin.players_databases');
-	Route::get('/base-datos-jugadores/nuevo', 'Admin\PlayerDatabaseController@add')->name('admin.players_databases.add');
-	Route::post('/base-datos-jugadores/nuevo', 'Admin\PlayerDatabaseController@save')->name('admin.players_databases.save');
+	Route::get('/base-datos-jugadores/nueva', 'Admin\PlayerDatabaseController@add')->name('admin.players_databases.add');
+	Route::post('/base-datos-jugadores/nueva', 'Admin\PlayerDatabaseController@save')->name('admin.players_databases.save');
 	Route::get('/base-datos-jugadores/editar/{id}', 'Admin\PlayerDatabaseController@edit')->name('admin.players_databases.edit');
 	Route::put('/base-datos-jugadores/editar/{id}', 'Admin\PlayerDatabaseController@update')->name('admin.players_databases.update');
 	Route::get('/base-datos-jugadores/ver/{id}', 'Admin\PlayerDatabaseController@view')->name('admin.players_databases.view');
@@ -159,4 +159,18 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\TournamentController@export')->name('admin.tournaments.export');
 	Route::get('/torneos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\TournamentController@exportGlobal')->name('admin.tournaments.export.global');
 	Route::post('/torneos/importar', 'Admin\TournamentController@import')->name('admin.tournaments.import');
+
+	//Seasons
+	Route::get('/torneos/temporadas/selector-de-torneo', 'Admin\SeasonController@selector')->name('admin.seasons.selector');
+	Route::get('/torneos/{slug}/temporadas/', 'Admin\SeasonController@list')->name('admin.seasons');
+	Route::get('/torneos/{slug}/temporadas/nueva', 'Admin\SeasonController@add')->name('admin.seasons.add');
+	Route::post('/torneos/{slug}/temporadas/nueva', 'Admin\SeasonController@save')->name('admin.seasons.save');
+	Route::get('/torneos/{slug}/temporadas/editar/{id}', 'Admin\SeasonController@edit')->name('admin.seasons.edit');
+	Route::put('/torneos/{slug}/temporadas/editar/{id}', 'Admin\SeasonController@update')->name('admin.seasons.update');
+	Route::get('/torneos/{slug}/temporadas/ver/{id}', 'Admin\SeasonController@view')->name('admin.seasons.view');
+	Route::get('/torneos/{slug}/temporadas/eliminar/{ids}', 'Admin\SeasonController@destroy')->name('admin.seasons.destroy');
+	Route::get('/torneos/{slug}/temporadas/duplicar/{ids}', 'Admin\SeasonController@duplicate')->name('admin.seasons.duplicate');
+	Route::get('/torneos/{slug}/temporadas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\SeasonController@export')->name('admin.seasons.export');
+	Route::get('/torneos/{slug}/temporadas/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\SeasonController@exportGlobal')->name('admin.seasons.export.global');
+	Route::post('/torneos/{slug}/temporadas/importar', 'Admin\SeasonController@import')->name('admin.seasons.import');
 });

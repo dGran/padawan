@@ -218,6 +218,7 @@ class PlayerDatabaseController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $players_databases = PlayerDatabase::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $players_databases->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':
@@ -238,6 +239,7 @@ class PlayerDatabaseController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $players_databases = PlayerDatabase::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $players_databases->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':

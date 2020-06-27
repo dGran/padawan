@@ -29,7 +29,7 @@ class PlayersExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'players_databases_id', 'name', 'img', 'team_name', 'nation_name', 'league_name', 'position_id', 'height', 'age', 'foot', 'overall_rating', 'game_id'
+            'id', 'players_databases_id', 'name', 'team_name', 'nation_name', 'league_name', 'position_id', 'height', 'age', 'foot', 'overall_rating', 'game_id'
         ];
     }
 }

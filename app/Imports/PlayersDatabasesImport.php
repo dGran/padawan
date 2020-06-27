@@ -5,12 +5,9 @@ namespace App\Imports;
 use App\PlayerDatabase;
 use App\Game;
 use Illuminate\Support\Str;
-
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
-// use Maatwebsite\Excel\Concerns\WithValidation;
-
 
 class PlayersDatabasesImport implements ToModel, WithHeadingRow
 {
@@ -22,14 +19,13 @@ class PlayersDatabasesImport implements ToModel, WithHeadingRow
         if ($game) {
             $gameName = $game->name;
             $platformName = $game->platform->name;
-            $row['slug'] = Str::slug($row['name'] . ' ' . $gameName . ' ' . $platformName, '-');
+            $slug = Str::slug($row['name'] . ' ' . $gameName . ' ' . $platformName, '-');
 
-            //check team
-            if (!PlayerDatabase::where('slug', '=', $row['slug'])->exists()) {
+            if (!PlayerDatabase::where('slug', '=', $slug)->exists()) {
                 $player_database = PlayerDatabase::create([
                     'game_id'      => $row['game_id'],
                     'name'         => $row['name'],
-                    'slug'         => $row['slug'],
+                    'slug'         => $slug,
                 ]);
                 return $player_database;
             }

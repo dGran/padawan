@@ -5,14 +5,14 @@
 @endsection
 
 @section('breadcrumb')
-    @include('admin.tournaments.breadcrumb')
+    @include('admin.tournaments.list.breadcrumb')
 @endsection
 
 @section('content')
-    @include('admin.tournaments.content')
+    @include('admin.tournaments.list.content')
 @endsection
 
 @section('js')
-    @include('admin.partials.javascript')
-    @include('admin.tournaments.js')
+    @include('admin.partials.list.js')
+    @include('admin.tournaments.list.js')
 @endsection

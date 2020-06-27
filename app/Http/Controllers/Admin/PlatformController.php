@@ -232,6 +232,7 @@ class PlatformController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $platforms = Platform::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $platforms->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
@@ -252,6 +253,7 @@ class PlatformController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $platforms = Platform::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $platforms->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':

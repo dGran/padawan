@@ -23,6 +23,7 @@ class TournamentController extends Controller
         $filterName = request()->filterName;
         $filterGame = request()->filterGame;
         $filterParticipantType = request()->filterParticipantType;
+        $filterMarket = request()->filterMarket == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('tournament_page')) {
@@ -46,15 +47,18 @@ class TournamentController extends Controller
             if (request()->session()->get('tournament_filterParticipantType')) {
                 $filterParticipantType = request()->session()->get('tournament_filterParticipantType');
             }
+            if (request()->session()->get('tournament_filterMarket')) {
+                $filterMarket = request()->session()->get('tournament_filterMarket');
+            }
         }
 
         $order_ext = $this->getOrder($order);
 
-        $tournaments = Tournament::name($filterName)->participantType($filterParticipantType)->game($filterGame)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $tournaments = Tournament::name($filterName)->participantType($filterParticipantType)->game($filterGame)->market($filterMarket)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $tournaments->lastPage()) {
             $page = $tournaments->lastPage();
         }
-        $tournaments = Tournament::name($filterName)->participantType($filterParticipantType)->game($filterGame)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $tournaments = Tournament::name($filterName)->participantType($filterParticipantType)->game($filterGame)->market($filterMarket)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         $games = Game::orderBy('name')->get();
         if (!$filterGame == 0) {
@@ -70,8 +74,9 @@ class TournamentController extends Controller
         session(['tournament_filterName' => $filterName]);
         session(['tournament_filterGame' => $filterGame]);
         session(['tournament_filterParticipantType' => $filterParticipantType]);
+        session(['tournament_filterMarket' => $filterMarket]);
 
-    	return view('admin.tournaments.list', ['tournaments' => $tournaments, 'games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterParticipantType' => $filterParticipantType, 'filterGame' => $filterGame, 'filterGameName' => $filterGameName, 'order' => $order]);
+    	return view('admin.tournaments.list', ['tournaments' => $tournaments, 'games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterParticipantType' => $filterParticipantType, 'filterGame' => $filterGame, 'filterGameName' => $filterGameName, 'filterMarket' => $filterMarket, 'order' => $order]);
     }
 
     public function view($id)
@@ -228,6 +233,8 @@ class TournamentController extends Controller
             $tournament = Tournament::find($ids[$i]);
             if ($tournament && $tournament->canDestroy()) {
                 $counter++;
+                // remove image from Storage
+                \Storage::disk('tournaments')->delete($tournament->img);
                 $tournament->delete();
             }
         }
@@ -254,7 +261,14 @@ class TournamentController extends Controller
             if ($original) {
                 $counter++;
                 $tournament = $original->replicate();
-                $tournament->name .= " (copia_" . rand(100,999) . ")";
+                $random_numer = rand(100,999);
+                $tournament->name .= " (copia_" . $random_numer . ")";
+                if ($original->img) {
+                    $img_name = Str::slug($tournament->name . ' ' . $original->game->name . ' ' . $original->game->platform->name, '-') . '_' . $original->img;
+                    \Storage::disk('tournaments')->copy($original->img, $img_name);
+                    $tournament->img = $img_name;
+                }
+                $tournament->slug = Str::slug($tournament->name . ' ' . $original->game->name . ' ' . $original->game->platform->name, '-');
                 $tournament->save();
             }
         }
@@ -276,6 +290,7 @@ class TournamentController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $tournaments = Tournament::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $tournaments->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':
@@ -296,6 +311,7 @@ class TournamentController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $tournaments = Tournament::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $tournaments->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':

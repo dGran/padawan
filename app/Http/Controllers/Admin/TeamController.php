@@ -266,6 +266,7 @@ class TeamController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $teams = Team::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $teams->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
@@ -286,6 +287,7 @@ class TeamController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $teams = Team::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $teams->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':

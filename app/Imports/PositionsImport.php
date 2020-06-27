@@ -3,12 +3,10 @@
 namespace App\Imports;
 
 use App\GamePosition as Position;
-
+use App\Game;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\Importable;
-// use Maatwebsite\Excel\Concerns\WithValidation;
-
 
 class PositionsImport implements ToModel, WithHeadingRow
 {
@@ -16,17 +14,18 @@ class PositionsImport implements ToModel, WithHeadingRow
 
     public function model(array $row)
     {
-        // use manual validations because not working WithValidation
-        if (!Position::where('name', '=', $row['name'])->where('game_id', '=', $row['game_id'])->exists()) {
-            $position = Position::create([
-            	'name'       => $row['name'],
-				'game_id'    => $row['game_id'],
-				'category'   => $row['category'],
-				'font_icon'  => $row['font_icon'],
-				'order'      => $row['order'],
-            ]);
-            return $position;
+        $game = Game::find($row['game_id']);
+        if ($game) {
+            if (!Position::where('name', '=', $row['name'])->where('game_id', '=', $row['game_id'])->exists()) {
+                $position = Position::create([
+                    'name'       => $row['name'],
+                    'game_id'    => $row['game_id'],
+                    'category'   => $row['category'],
+                    'font_icon'  => $row['font_icon'],
+                    'order'      => $row['order'],
+                ]);
+                return $position;
+            }
         }
-
     }
 }

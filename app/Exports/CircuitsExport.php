@@ -29,7 +29,7 @@ class CircuitsExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'game_id', 'name', 'img'
+            'id', 'game_id', 'name'
         ];
     }
 }

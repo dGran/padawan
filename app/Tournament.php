@@ -34,6 +34,17 @@ class Tournament extends Model
         }
     }
 
+    public function scopeMarket($query, $market)
+    {
+        if ($market) {
+            $query->where("use_economy", "=", 1)
+                  ->orWhere("use_salaries", "=", 1)
+                  ->orWhere("use_transfers", "=", 1)
+                  ->orWhere("use_clauses", "=", 1)
+                  ->orWhere("use_free_agents", "=", 1);
+        }
+    }
+
     public function img()
     {
         $default = asset('img/tournaments/default.png');

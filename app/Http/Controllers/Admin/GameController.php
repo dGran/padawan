@@ -289,6 +289,7 @@ class GameController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $games = Game::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $games->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
@@ -309,6 +310,7 @@ class GameController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $games = Game::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $games->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
