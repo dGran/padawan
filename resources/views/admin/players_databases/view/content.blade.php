@@ -20,8 +20,18 @@
 
 		<dl>
 			<div>
+				<dt>ID</dt>
+				<dd>{{ $player_database->id }}</dd>
+			</div>
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $player_database->name }}</dd>
+			</div>
+			<div>
 				<dt>Juego</dt>
-				<dd>{{ $player_database->game->name }} ({{ $player_database->game->platform->name }})</dd>
+				<dd>{{ $player_database->game->name }}
+				 	<span class="block text-xs text-gray-600">{{ $player_database->game->platform->name }}</span>
+				</dd>
 			</div>
 	    </dl>
 

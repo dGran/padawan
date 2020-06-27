@@ -26,6 +26,18 @@
 
 		<dl>
 			<div>
+				<dt>ID</dt>
+				<dd>{{ $user->id }}</dd>
+			</div>
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $user->name }}</dd>
+			</div>
+			<div>
+				<dt>E-Mail</dt>
+				<dd>{{ $user->email }}</dd>
+			</div>
+			<div>
 				<dt>Fecha registro</dt>
 				<dd>{{ $user->created_at ? \Carbon\Carbon::parse($user->created_at)->format('d-m-Y / H:i') : 'N/D' }}</dd>
 			</div>

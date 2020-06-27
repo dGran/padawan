@@ -146,4 +146,17 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/jugadores/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PlayerController@export')->name('admin.players.export');
 	Route::get('/jugadores/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\PlayerController@exportGlobal')->name('admin.players.export.global');
 	Route::post('/jugadores/importar', 'Admin\PlayerController@import')->name('admin.players.import');
+
+	//Tournaments
+	Route::get('/torneos', 'Admin\TournamentController@list')->name('admin.tournaments');
+	Route::get('/torneos/nuevo', 'Admin\TournamentController@add')->name('admin.tournaments.add');
+	Route::post('/torneos/nuevo', 'Admin\TournamentController@save')->name('admin.tournaments.save');
+	Route::get('/torneos/editar/{id}', 'Admin\TournamentController@edit')->name('admin.tournaments.edit');
+	Route::put('/torneos/editar/{id}', 'Admin\TournamentController@update')->name('admin.tournaments.update');
+	Route::get('/torneos/ver/{id}', 'Admin\TournamentController@view')->name('admin.tournaments.view');
+	Route::get('/torneos/eliminar/{ids}', 'Admin\TournamentController@destroy')->name('admin.tournaments.destroy');
+	Route::get('/torneos/duplicar/{ids}', 'Admin\TournamentController@duplicate')->name('admin.tournaments.duplicate');
+	Route::get('/torneos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\TournamentController@export')->name('admin.tournaments.export');
+	Route::get('/torneos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\TournamentController@exportGlobal')->name('admin.tournaments.export.global');
+	Route::post('/torneos/importar', 'Admin\TournamentController@import')->name('admin.tournaments.import');
 });

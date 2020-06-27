@@ -18,8 +18,18 @@
 
 		<dl>
 			<div>
+				<dt>ID</dt>
+				<dd>{{ $circuit->id }}</dd>
+			</div>
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $circuit->name }}</dd>
+			</div>
+			<div>
 				<dt>Juego</dt>
-				<dd>{{ $circuit->game->name }} ({{ $circuit->game->platform->name }})</dd>
+				<dd>{{ $circuit->game->name }}
+					<span class="block text-xs text-gray-600">{{ $circuit->game->platform->name }}</span>
+				</dd>
 			</div>
 	    </dl>
 

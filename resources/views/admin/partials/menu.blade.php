@@ -12,8 +12,8 @@
 	<hr class="divider"/>
 	<h6 class="section">Torneos</h6>
 	<ul class="menu md:mb-4">
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-eteams"></i>Torneos</a>
+		<li class="{{ \Request::is('admin/torneos*') ? 'current' : '' }}">
+			<a href="{{ route('admin.tournaments') }}"><i class="icon-eteams"></i>Torneos</a>
 		</li>
 		<li class="{{ \Request::is('admin/equipos*') ? 'current' : '' }}">
 			<a href="{{ route('admin.teams') }}"><i class="icon-teams"></i>Equipos</a>

@@ -19,7 +19,7 @@ class CreateTournamentsTable extends Migration
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('img')->nullable();
             $table->enum('participant_type', ['individual', 'eteam']);
             $table->boolean('use_teams')->default(false);

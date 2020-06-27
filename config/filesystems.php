@@ -79,6 +79,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'tournaments' => [
+            'driver' => 'local',
+            'root' => public_path('img/tournaments'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

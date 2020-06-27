@@ -35,7 +35,7 @@
                     <div class="relative">
                         <select name="platform_id" id="platform_id">
                             @foreach ($platforms as $platform)
-                                <option value="{{ $platform->id }}">
+                                <option {{ old('platform_id') == $platform->id ? 'selected' : '' }} value="{{ $platform->id }}">
                                     {{ $platform->name }}
                                 </option>
                             @endforeach
@@ -51,7 +51,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="mode_league" name="mode_league">
+                    <input type="checkbox" class="hidden" id="mode_league" name="mode_league" {{ old('mode_league') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Modo de juego: Liga</span>
@@ -59,7 +59,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="mode_playoffs" name="mode_playoffs">
+                    <input type="checkbox" class="hidden" id="mode_playoffs" name="mode_playoffs" {{ old('mode_playoffs') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Modo de juego: Eliminatorias</span>
@@ -67,7 +67,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="mode_races" name="mode_races">
+                    <input type="checkbox" class="hidden" id="mode_races" name="mode_races" {{ old('mode_races') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Modo de juego: Carreras</span>
@@ -75,7 +75,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="rosters" name="rosters">
+                    <input type="checkbox" class="hidden" id="rosters" name="rosters" {{ old('rosters') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Plantillas de jugadores</span>
@@ -83,7 +83,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="positions" name="positions">
+                    <input type="checkbox" class="hidden" id="positions" name="positions" {{ old('positions') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Posiciones</span>
@@ -91,7 +91,7 @@
 
             <label class="custom-label flex pb-4">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                    <input type="checkbox" class="hidden" id="circuits" name="circuits">
+                    <input type="checkbox" class="hidden" id="circuits" name="circuits" {{ old('circuits') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
                   <span class="select-none"> Circuitos</span>

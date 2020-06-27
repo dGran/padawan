@@ -16,12 +16,16 @@
 			</div>
 		</div>
 
-{{-- 		<dl>
+		<dl>
 			<div>
-				<dt>Fecha registro</dt>
-				<dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia sed hic fuga natus vel, aliquid, veniam autem numquam a est corporis nulla quis ex, adipisci impedit iusto voluptatum reiciendis quasi.</dd>
+				<dt>ID</dt>
+				<dd>{{ $platform->id }}</dd>
 			</div>
-	    </dl> --}}
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $platform->name }}</dd>
+			</div>
+	    </dl>
 
 	</div>
 </div>

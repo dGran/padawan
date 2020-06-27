@@ -18,6 +18,14 @@
 
 		<dl>
 			<div>
+				<dt>ID</dt>
+				<dd>{{ $player->id }}</dd>
+			</div>
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $player->name }}</dd>
+			</div>
+			<div>
 				<dt>Database</dt>
 				<dd>{{ $player->player_database->name }}
 					<span class="block text-xs text-gray-600">{{ $player->player_database->game->name }} ({{ $player->player_database->game->platform->name }})</span>

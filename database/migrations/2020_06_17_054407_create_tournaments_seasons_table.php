@@ -19,12 +19,13 @@ class CreateTournamentsSeasonsTable extends Migration
                 ->references('id')
                 ->on('tournaments')
                 ->onDelete('cascade');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->enum('state', ['inscriptions', 'active', 'finished']);
             $table->integer('num_participants');
             $table->decimal('inscription_price', 5, 2)->nullable();
             $table->boolean('free_inscription')->default(false);
             $table->foreignId('players_databases_id')
+                ->nullable()
                 ->references('id')
                 ->on('players_databases')
                 ->onDelete('cascade');
@@ -38,13 +39,13 @@ class CreateTournamentsSeasonsTable extends Migration
             $table->decimal('free_agents_new_remuneration', 5, 2)->nullable();
             $table->integer('clauses_max_paid')->nullable();
             $table->integer('clauses_max_received')->nullable();
-            $table->boolean('clause_tax')->default(false);
+            $table->boolean('clause_tax')->default(false)->nullable();
             $table->boolean('period_salaries')->nullable();
             $table->boolean('period_transfers')->nullable();
             $table->boolean('period_free_players')->nullable();
             $table->boolean('period_clauses')->nullable();
             $table->boolean('allow_cessions')->nullable();
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->timestamps();
         });
     }

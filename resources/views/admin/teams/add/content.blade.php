@@ -35,7 +35,7 @@
                     <div class="relative">
                         <select name="game_id" id="game_id">
                             @foreach ($games as $game)
-                                <option value="{{ $game->id }}">
+                                <option {{ old('game_id') == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
                                     {{ $game->name }} ({{ $game->platform->name }})
                                 </option>
                             @endforeach

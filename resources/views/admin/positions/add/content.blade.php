@@ -25,7 +25,7 @@
                     <div class="relative">
                         <select name="game_id" id="game_id">
                             @foreach ($games as $game)
-                                <option value="{{ $game->id }}">
+                                <option {{ old('game_id') == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
                                     {{ $game->name }} ({{ $game->platform->name }})
                                 </option>
                             @endforeach
@@ -41,10 +41,10 @@
                     <label for="font_icon">Icono</label>
                     <div class="relative">
                         <select name="font_icon" id="font_icon">
-                            <option value="icon-pos-por">Icono Portero</option>
-                            <option value="icon-pos-def">Icono Defensa</option>
-                            <option value="icon-pos-med">Icono Medio</option>
-                            <option value="icon-pos-del">Icono Delantero</option>
+                            <option {{ old('font_icon') == 'icon-pos-por' ? 'selected' : '' }} value="icon-pos-por">Icono Portero</option>
+                            <option {{ old('font_icon') == 'icon-pos-def' ? 'selected' : '' }} value="icon-pos-def">Icono Defensa</option>
+                            <option {{ old('font_icon') == 'icon-pos-med' ? 'selected' : '' }} value="icon-pos-med">Icono Medio</option>
+                            <option {{ old('font_icon') == 'icon-pos-del' ? 'selected' : '' }} value="icon-pos-del">Icono Delantero</option>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
                             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

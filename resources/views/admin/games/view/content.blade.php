@@ -17,6 +17,14 @@
 
 		<dl>
 			<div>
+				<dt>ID</dt>
+				<dd>{{ $game->id }}</dd>
+			</div>
+			<div>
+				<dt>Nombre</dt>
+				<dd>{{ $game->name }}</dd>
+			</div>
+			<div>
 				<dt>Plataforma</dt>
 				<dd>
 					{{ $game->platform->name }}
@@ -26,9 +34,9 @@
 				<dt>Modo de juego: Liga</dt>
 				<dd>
 				@if ($game->mode_league)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
@@ -36,9 +44,9 @@
 				<dt>Modo de juego: Playoffs</dt>
 				<dd>
 				@if ($game->mode_playoffs)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
@@ -46,9 +54,9 @@
 				<dt>Modo de juego: Carreras</dt>
 				<dd>
 				@if ($game->mode_races)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
@@ -56,9 +64,9 @@
 				<dt>Plantillas de jugadores</dt>
 				<dd>
 				@if ($game->rosters)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
@@ -66,9 +74,9 @@
 				<dt>Posiciones</dt>
 				<dd>
 				@if ($game->positions)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
@@ -76,9 +84,9 @@
 				<dt>Circuitos</dt>
 				<dd>
 				@if ($game->circuits)
-					<i class="fas fa-check text-green-500 text-xl mt-1"></i>
+					<i class="fas fa-check text-green-500 text mt-1"></i>
 				@else
-					<i class="fas fa-ban text-red-500 text-xl mt-1"></i>
+					<i class="fas fa-ban text-red-500 text mt-1"></i>
 				@endif
 				</dd>
 			</div>
