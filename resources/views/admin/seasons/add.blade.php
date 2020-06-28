@@ -1,18 +1,18 @@
-@extends('layouts.admin', ['title' => 'Nuevo torneo', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => 'Nueva temporada', 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')
 @endsection
 
 @section('breadcrumb')
-    @include('admin.tournaments.add.breadcrumb')
+    @include('admin.seasons.add.breadcrumb')
 @endsection
 
 @section('content')
 	@include('layouts.partials.flash_errors')
-    @include('admin.tournaments.add.content')
+    @include('admin.seasons.add.content')
 @endsection
 
 @section('js')
-    @include('admin.tournaments.add.js')
+    @include('admin.seasons.add.js')
 @endsection

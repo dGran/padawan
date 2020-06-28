@@ -79,18 +79,12 @@ class SeasonController extends Controller
         return view('admin.seasons.view', ['season' => $season, 'tournament' => $tournament]);
     }
 
-    public function add()
+    public function add(tournament $tournament)
     {
-    	$games = Game::orderBy('name')->get();
-        if ($games->count() > 0) {
-            return view('admin.seasons.add', ['games' => $games]);
-        } else {
-            flash()->error('No existen juegos, debe existir al menos uno para poder crear un nuevo torneo');
-            return back();
-        }
+        return view('admin.seasons.add', ['tournament' => $tournament]);
     }
 
-    public function save(Request $request)
+    public function save(tournament $tournament, Request $request)
     {
         $game = Game::find($request->game_id);
         $gameName = $game->name;
