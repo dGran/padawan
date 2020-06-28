@@ -11,16 +11,13 @@
                 <i class="icon-edit"></i>
             </button>
         @endisset
-        <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Temporadas" id="seasons" onclick="">
-            <span class="uppercase font-bold text-sm">Temporadas</span>
-        </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
                 <i class="icon-view"></i>
             </button>
         @endisset
         @isset($destroy)
-            <button class="hint--top-right hint--error hint--rounded hint--bounce danger mr-2" type="button" aria-label="Eliminar" id="destroy" onclick="destroy()">
+            <button class="hint--top-right hint--error hint--rounded hint--bounce danger-btn mr-2" type="button" aria-label="Eliminar" id="destroy" onclick="destroy()">
                 <i class="icon-trash"></i>
             </button>
         @endisset
@@ -34,6 +31,9 @@
                 <i class="icon-bookmark-add"></i>
             </button>
         @endisset
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Temporadas" id="seasons" onclick="seasons()">
+            <i class="icon-seasons"></i>
+        </button>
         @isset($export)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('tournaments', 'xls')">
                 <i class="icon-xls"></i>

@@ -1,18 +1,18 @@
-@extends('layouts.admin', ['title' => 'Torneos', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => 'Temporadas', 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')
 @endsection
 
 @section('breadcrumb')
-    @include('admin.tournaments.list.breadcrumb')
+    @include('admin.seasons.list.breadcrumb')
 @endsection
 
 @section('content')
-    @include('admin.tournaments.list.content')
+    @include('admin.seasons.list.content')
 @endsection
 
 @section('js')
     @include('admin.partials.list.js')
-    @include('admin.tournaments.list.js')
+    @include('admin.seasons.list.js')
 @endsection

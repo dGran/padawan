@@ -19717,13 +19717,13 @@ a.disable, button.disable, input.disable, select.disable {
   transition: all 0.15s ease;
 }
 
-.selected-options .elements button.danger, .global-options .elements button.danger {
+.selected-options .elements button.danger-btn, .global-options .elements button.danger-btn {
   --text-opacity: 1;
   color: #fc8181;
   color: rgba(252, 129, 129, var(--text-opacity));
 }
 
-.selected-options .elements button.danger:hover, .selected-options .elements button.danger :focus, .global-options .elements button.danger:hover, .global-options .elements button.danger :focus {
+.selected-options .elements button.danger-btn:hover, .selected-options .elements button.danger-btn :focus, .global-options .elements button.danger-btn:hover, .global-options .elements button.danger-btn :focus {
   --text-opacity: 1;
   color: #e53e3e;
   color: rgba(229, 62, 62, var(--text-opacity));
@@ -19733,6 +19733,24 @@ a.disable, button.disable, input.disable, select.disable {
   --bg-opacity: 1;
   background-color: #fff5f5;
   background-color: rgba(255, 245, 245, var(--bg-opacity));
+}
+
+.selected-options .elements button.info-btn, .global-options .elements button.info-btn {
+  --text-opacity: 1;
+  color: #4299e1;
+  color: rgba(66, 153, 225, var(--text-opacity));
+}
+
+.selected-options .elements button.info-btn:hover, .selected-options .elements button.info-btn :focus, .global-options .elements button.info-btn:hover, .global-options .elements button.info-btn :focus {
+  --text-opacity: 1;
+  color: #2b6cb0;
+  color: rgba(43, 108, 176, var(--text-opacity));
+  --border-opacity: 1;
+  border-color: #4299e1;
+  border-color: rgba(66, 153, 225, var(--border-opacity));
+  --bg-opacity: 1;
+  background-color: #ebf8ff;
+  background-color: rgba(235, 248, 255, var(--bg-opacity));
 }
 
 .selected-options .elements button:hover, .selected-options .elements button :focus, .global-options .elements button:hover, .global-options .elements button :focus {

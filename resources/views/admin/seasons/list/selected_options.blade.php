@@ -11,16 +11,13 @@
                 <i class="icon-edit"></i>
             </button>
         @endisset
-        <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Temporadas" id="seasons" onclick="">
-            <span class="uppercase font-bold text-sm">Temporadas</span>
-        </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
                 <i class="icon-view"></i>
             </button>
         @endisset
         @isset($destroy)
-            <button class="hint--top-right hint--error hint--rounded hint--bounce danger mr-2" type="button" aria-label="Eliminar" id="destroy" onclick="destroy()">
+            <button class="hint--top-right hint--error hint--rounded hint--bounce danger-btn mr-2" type="button" aria-label="Eliminar" id="destroy" onclick="destroy()">
                 <i class="icon-trash"></i>
             </button>
         @endisset
@@ -34,14 +31,23 @@
                 <i class="icon-bookmark-add"></i>
             </button>
         @endisset
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Competiciones" id="competitions" onclick="competitions()">
+            <i class="icon-competitions"></i>
+        </button>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Participantes" id="participants" onclick="participants()">
+            <i class="icon-participants"></i>
+        </button>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Noticias" id="news" onclick="news()">
+            <i class="icon-news"></i>
+        </button>
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('tournaments', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('seasons', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('tournaments', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('seasons', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('tournaments', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('seasons', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

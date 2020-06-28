@@ -1,13 +1,13 @@
-@extends('layouts.admin', ['title' => $tournament->name, 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => $season->name, 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')
 @endsection
 
 @section('breadcrumb')
-    @include('admin.tournaments.view.breadcrumb')
+    @include('admin.seasons.view.breadcrumb')
 @endsection
 
 @section('content')
-    @include('admin.tournaments.view.content')
+    @include('admin.seasons.view.content')
 @endsection

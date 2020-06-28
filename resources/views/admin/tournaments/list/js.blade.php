@@ -7,6 +7,8 @@
     var routeExport = "{{ route('admin.tournaments.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.tournaments.export.global', [':FORMAT', ':FILENAME', $order]) }}";
 
+    var routeSeasons = "{{ route('admin.seasons', ':SLUG') }}";
+
     function cancelFilterGame() {
         $("#filterGame").val('0');
         applyFilters();
@@ -64,5 +66,14 @@
             $(element).parents('tr').removeClass('selected');
         }
         checkRowSelectedCustom();
+    }
+
+    function seasons() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var route = routeSeasons;
+        var url = route.replace(':SLUG', slug);
+        window.location.href=url;
+        admin.seasons
     }
 </script>

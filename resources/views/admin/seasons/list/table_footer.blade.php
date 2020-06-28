@@ -1,6 +1,6 @@
 <span class="text-xs text-gray-900">
-    Registros: {{ $tournaments->firstItem() }}-{{ $tournaments->lastItem() }} de {{ $tournaments->total() }}
+    Registros: {{ $seasons->firstItem() }}-{{ $seasons->lastItem() }} de {{ $seasons->total() }}
 </span>
 <div class="inline-flex mt-2 xs:mt-0">
-    {{ $tournaments->appends(['perPage' => $perPage, 'filterName' => $filterName, 'filterParticipantType' => $filterParticipantType, 'filterGame' => $filterGame, 'filterMarket' => $filterMarket, 'order' => $order])->onEachSide(1)->links('layouts.partials.admin.paginator') }}
+    {{ $seasons->appends(['perPage' => $perPage, 'filterName' => $filterName, 'order' => $order])->onEachSide(1)->links('layouts.partials.admin.paginator') }}
 </div>

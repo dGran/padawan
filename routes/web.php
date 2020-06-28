@@ -162,15 +162,16 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Seasons
 	Route::get('/torneos/temporadas/selector-de-torneo', 'Admin\SeasonController@selector')->name('admin.seasons.selector');
-	Route::get('/torneos/{slug}/temporadas/', 'Admin\SeasonController@list')->name('admin.seasons');
-	Route::get('/torneos/{slug}/temporadas/nueva', 'Admin\SeasonController@add')->name('admin.seasons.add');
-	Route::post('/torneos/{slug}/temporadas/nueva', 'Admin\SeasonController@save')->name('admin.seasons.save');
-	Route::get('/torneos/{slug}/temporadas/editar/{id}', 'Admin\SeasonController@edit')->name('admin.seasons.edit');
-	Route::put('/torneos/{slug}/temporadas/editar/{id}', 'Admin\SeasonController@update')->name('admin.seasons.update');
-	Route::get('/torneos/{slug}/temporadas/ver/{id}', 'Admin\SeasonController@view')->name('admin.seasons.view');
-	Route::get('/torneos/{slug}/temporadas/eliminar/{ids}', 'Admin\SeasonController@destroy')->name('admin.seasons.destroy');
-	Route::get('/torneos/{slug}/temporadas/duplicar/{ids}', 'Admin\SeasonController@duplicate')->name('admin.seasons.duplicate');
-	Route::get('/torneos/{slug}/temporadas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\SeasonController@export')->name('admin.seasons.export');
-	Route::get('/torneos/{slug}/temporadas/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\SeasonController@exportGlobal')->name('admin.seasons.export.global');
-	Route::post('/torneos/{slug}/temporadas/importar', 'Admin\SeasonController@import')->name('admin.seasons.import');
+	Route::post('/torneos/temporadas/selector-de-torneo', 'Admin\SeasonController@selectorSelect')->name('admin.seasons.selector.select');
+	Route::get('/torneos/{tournament:slug}/temporadas/', 'Admin\SeasonController@list')->name('admin.seasons');
+	Route::get('/torneos/{tournament:slug}/temporadas/nueva', 'Admin\SeasonController@add')->name('admin.seasons.add');
+	Route::post('/torneos/{tournament:slug}/temporadas/nueva', 'Admin\SeasonController@save')->name('admin.seasons.save');
+	Route::get('/torneos/{tournament:slug}/temporadas/editar/{id}', 'Admin\SeasonController@edit')->name('admin.seasons.edit');
+	Route::put('/torneos/{tournament:slug}/temporadas/editar/{id}', 'Admin\SeasonController@update')->name('admin.seasons.update');
+	Route::get('/torneos/{tournament:slug}/temporadas/ver/{id}', 'Admin\SeasonController@view')->name('admin.seasons.view');
+	Route::get('/torneos/{tournament:slug}/temporadas/eliminar/{ids}', 'Admin\SeasonController@destroy')->name('admin.seasons.destroy');
+	Route::get('/torneos/{tournament:slug}/temporadas/duplicar/{ids}', 'Admin\SeasonController@duplicate')->name('admin.seasons.duplicate');
+	Route::get('/torneos/{tournament:slug}/temporadas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\SeasonController@export')->name('admin.seasons.export');
+	Route::get('/torneos/{tournament:slug}/temporadas/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\SeasonController@exportGlobal')->name('admin.seasons.export.global');
+	Route::post('/torneos/{tournament:slug}/temporadas/importar', 'Admin\SeasonController@import')->name('admin.seasons.import');
 });

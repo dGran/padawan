@@ -16,10 +16,4 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th>
-        <span>Juego</span>
-    </th>
-    <th class="hidden xl:table-cell">
-        <span>Participante</span>
-    </th>
 </tr>
