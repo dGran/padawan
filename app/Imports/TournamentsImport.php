@@ -29,7 +29,7 @@ class TournamentsImport implements ToModel, WithHeadingRow
                    'use_teams'        => $row['use_teams'] == null ? 0 : $row['use_teams'],
                    'use_rosters'      => $row['use_rosters'] == null ? 0 : $row['use_rosters'],
                    'use_economy'      => $row['use_economy'] == null ? 0 : $row['use_economy'],
-                   'use_salaries'     => $row['use_salaries'] == null ? 0 : $row['user_salaries'],
+                   'use_salaries'     => $row['use_salaries'] == null ? 0 : $row['use_salaries'],
                    'use_transfers'    => $row['use_transfers'] == null ? 0 : $row['use_transfers'],
                    'use_clauses'      => $row['use_clauses'] == null ? 0 : $row['use_clauses'],
                    'use_free_agents'  => $row['use_free_agents'] == null ? 0 : $row['use_free_agents'],

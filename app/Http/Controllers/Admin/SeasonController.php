@@ -82,7 +82,7 @@ class SeasonController extends Controller
 
     public function add(tournament $tournament)
     {
-    	if ($tournament->participant_type == "individual" && $tournament->use_rosters) {
+    	if ($tournament->use_rosters) {
     		$players_databases = PlayerDatabase::select('*')->game($tournament->game_id)->orderBy('name')->get();
     		if ($players_databases->count() == 0) {
 	            flash()->error('No existen databases para el juego, debe existir al menos una para poder crear una nueva temporada');
@@ -97,23 +97,24 @@ class SeasonController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
+            'num_participants' => 'required',
         ],
         [
             'name.required' => 'El nombre es obligatorio',
+            'num_participants.required' => 'El número de participantes es obligatorio. 0 para iliminados'
         ]);
 
         $data = $request->all();
         $data['slug'] = Str::slug($request->name, '-');
 
+		$data['tournament_id'] = $tournament->id;
         $data['state'] = 'inscriptions'; // default state for new seasons
-        $data['num_participants'] = $request->num_participants == null ? 0 : $request->num_participants;
-        $data['free_inscriptions'] = $request->free_inscriptions == 'on' ? 1 : 0;
-
+        $data['free_inscription'] = $request->free_inscription == 'on' ? 1 : 0;
         $season = Season::create($data);
 
         if ($season->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.seasons');
+            return redirect()->route('admin.seasons', $tournament);
         }
     }
 

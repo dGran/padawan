@@ -11,25 +11,25 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Número de participantes</label>
-                    <input type="number" min="0" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants', 0) }}">
+                    <input type="number" min="0" value="0" step="2" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants') }}">
                     <p class="block text-blue-500 text-xs pt-2">0 para participantes ilimitados</p>
                 </div>
                 <div class="element">
                     <label for="inscription_price">Precio de inscripción</label>
-                    <input type="number" min="0" class="placeholder-gray-400" id="inscription_price" name="inscription_price" placeholder="Precio de inscripción" value="{{ old('inscription_price', 0) }}">
+                    <input type="number" min="0" value="0" step="any" class="placeholder-gray-400" id="inscription_price" name="inscription_price" placeholder="Precio de inscripción" value="{{ old('inscription_price') }}">
                 </div>
             </div>
 
-            <label class="custom-label flex pb-2">
+            <label class="custom-label flex pb-2 -mt-3">
                   <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
                     <input type="checkbox" class="hidden" id="free_inscription" name="free_inscription" {{ old('free_inscription') == "on" ? 'checked' : '' }}>
                     <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                   </div>
-                  <span class="select-none"> Inscripción libre</span>
+                  <span class="select-none"> Inscripciones libres</span>
             </label>
-            <p class="block text-blue-500 text-xs pb-4">Inscripciones libres sin supervisión de los administradores</p>
+            <p class="block text-blue-500 text-xs pb-4">Inscripciones libres sin validación de los administradores</p>
 
-            @if ($tournament->participant_type == "individual" && $tournament->use_rosters)
+            @if ($tournament->use_rosters)
                 <div class="field-group">
                     <div class="element">
                         <label for="players_databases_id">Database</label>
@@ -48,8 +48,83 @@
                             </div>
                         </div>
                     </div>
+                    <div class="element">
+                        <label for="min_players">Mínimo jugadores plantilla</label>
+                        <input type="number" min="0" class="placeholder-gray-400" id="min_players" name="min_players" placeholder="Jugadores mínimos por plantilla" value="{{ old('min_players') }}">
+                    </div>
+                    <div class="element">
+                        <label for="max_players">Máximo jugadores plantilla</label>
+                        <input type="number" min="0" class="placeholder-gray-400" id="max_players" name="max_players" placeholder="Jugadores máximos por plantilla" value="{{ old('max_players') }}">
+                    </div>
                 </div>
+            @endif
 
+            @if ($tournament->use_economy)
+                <div class="field-group">
+                    <div class="element">
+                        <label for="initial_budget">Presupuesto inicial</label>
+                        <input type="number" min="0" step="any" class="placeholder-gray-400" id="initial_budget" name="initial_budget" placeholder="Presupuesto inicial de cada participante" value="{{ old('initial_budget') }}">
+                    </div>
+                </div>
+            @endif
+
+            @if ($tournament->use_salaries)
+                <div class="field-group">
+                    <div class="element">
+                        <label for="salary_cap">Tope salarial</label>
+                        <input type="number" min="0" class="placeholder-gray-400" id="salary_cap" name="salary_cap" placeholder="Tope salarial de cada participante" value="{{ old('salary_cap') }}">
+                        <p class="block text-blue-500 text-xs pt-2">Valor máximo de la suma de los salarios de todos los jugadores de cada participante</p>
+                    </div>
+                    @if ($tournament->use_free_agents)
+                            <div class="element">
+                                <label for="free_agents_default_salary">Salario agentes libres</label>
+                                <input type="number" min="0" step="any" class="placeholder-gray-400" id="free_agents_default_salary" name="free_agents_default_salary" placeholder="Salario inicial de agentes libres" value="{{ old('free_agents_default_salary') }}">
+                                <p class="block text-blue-500 text-xs pt-2">Valor por defecto del salario de agentes libres</p>
+                            </div>
+                            <div class="element">
+                                <label for="free_agents_default_price">Precio agentes libres</label>
+                                <input type="number" min="0" step="any" class="placeholder-gray-400" id="free_agents_default_price" name="free_agents_default_price" placeholder="Precio inicial de agentes libres" value="{{ old('free_agents_default_price') }}">
+                                <p class="block text-blue-500 text-xs pt-2">Valor por defecto del precio de agentes libres</p>
+                            </div>
+                        </div>
+                        <div class="field-group">
+                            <div class="element">
+                                <label for="free_agents_new_salary">Salario agentes libres fichados</label>
+                                <input type="number" min="0" step="any" class="placeholder-gray-400" id="free_agents_new_salary" name="free_agents_new_salary" placeholder="Salario de agentes libres una vez fichados" value="{{ old('free_agents_new_salary') }}">
+                                <p class="block text-blue-500 text-xs pt-2">Valor del salario de agentes libres una vez han sido fichados</p>
+                            </div>
+                            <div class="element">
+                                <label for="free_agents_new_price">Precio agentes libres fichados</label>
+                                <input type="number" min="0" step="any" class="placeholder-gray-400" id="free_agents_new_price" name="free_agents_new_price" placeholder="Precio de agentes libres una vez fichados" value="{{ old('free_agents_new_price') }}">
+                                <p class="block text-blue-500 text-xs pt-2">Valor del precio de agentes libres una vez han sido fichados</p>
+                            </div>
+                            <div class="element">
+                                <label for="dismiss_remuneration">Remuneración por despidos</label>
+                                <input type="number" min="0" step="any" class="placeholder-gray-400" id="dismiss_remuneration" name="dismiss_remuneration" placeholder="Remuneración por despidos" value="{{ old('dismiss_remuneration') }}">
+                                <p class="block text-blue-500 text-xs pt-2">Valor de la remuneración cuando un participante despide a un jugador</p>
+                            </div>
+                        </div>
+                    @endif
+            @endif
+
+            @if ($tournament->use_clauses)
+                <div class="field-group">
+                    <div class="element">
+                        <label for="clauses_max_paid">Máximo claúsulas pagadas permitido</label>
+                        <input type="number" min="0" class="placeholder-gray-400" id="clauses_max_paid" name="clauses_max_paid" placeholder="Claúsulas pagadas máximo" value="{{ old('clauses_max_paid') }}">
+                        <p class="block text-blue-500 text-xs pt-2">Número de máximo de pago de claúsulas que puede realizar un participante</p>
+                    </div>
+                    <div class="element">
+                        <label for="clauses_max_received">Máximo claúsulas recibidas permitido</label>
+                        <input type="number" min="0" class="placeholder-gray-400" id="clauses_max_received" name="clauses_max_received" placeholder="Claúsulas recibidas máximo" value="{{ old('clauses_max_received') }}">
+                        <p class="block text-blue-500 text-xs pt-2">Número de máximo de pago de claúsulas que puede recibir un participante</p>
+                    </div>
+                    <div class="element">
+                        <label for="clause_tax">Impuesto por pago de claúsulas</label>
+                        <input type="number" min="0" step="any" class="placeholder-gray-400" id="clause_tax" name="clause_tax" placeholder="Claúsulas recibidas máximo" value="{{ old('clause_tax') }}">
+                        <p class="block text-blue-500 text-xs pt-2">Valor del impuesto por pago de claúsulas</p>
+                    </div>
+                </div>
             @endif
 
 
