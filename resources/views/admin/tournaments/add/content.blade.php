@@ -33,9 +33,9 @@
                 <div class="element">
                     <label for="game_id">Juego</label>
                     <div class="relative">
-                        <select name="game_id" id="game_id">
+                        <select name="game_id" id="game_id" onchange="check_game_rosters()">
                             @foreach ($games as $game)
-                                <option {{ old('game_id') == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
+                                <option {{ old('game_id') == $game->id ? 'selected' : '' }} value="{{ $game->id }}" data-game-rosters="{{ $game->rosters }}">
                                     {{ $game->name }} ({{ $game->platform->name }})
                                 </option>
                             @endforeach
@@ -79,8 +79,8 @@
                   </div>
                   <span class="select-none"> Usa plantillas de jugadores</span>
             </label>
-            <p class="block text-blue-500 text-xs pb-4">
-                Cada participante está compuesto por una lista de jugadores (en caso de e-Teams los jugadores serán los integrantes del equipo e-Team)<br>Las plantillas se usarán tanto para estadísticas como para el mercado de fichajes
+            <p class="info_use_rosters block text-blue-500 text-xs pb-4">
+                Cada participante está compuesto por una plantilla de jugadores, se usarán tanto para estadísticas como para el mercado de fichajes
             </p>
 
             <label class="custom-label flex pt-4 pb-4">

@@ -12,6 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Tournament;
 use App\Season;
+use App\PlayerDatabase;
 
 class SeasonController extends Controller
 {
@@ -81,48 +82,32 @@ class SeasonController extends Controller
 
     public function add(tournament $tournament)
     {
-        return view('admin.seasons.add', ['tournament' => $tournament]);
+    	if ($tournament->participant_type == "individual" && $tournament->use_rosters) {
+    		$players_databases = PlayerDatabase::select('*')->game($tournament->game_id)->orderBy('name')->get();
+    		if ($players_databases->count() == 0) {
+	            flash()->error('No existen databases para el juego, debe existir al menos una para poder crear una nueva temporada');
+	            return back();
+    		}
+        	return view('admin.seasons.add', ['tournament' => $tournament, 'players_databases' => $players_databases]);
+    	}
+    	return view('admin.seasons.add', ['tournament' => $tournament]);
     }
 
     public function save(tournament $tournament, Request $request)
     {
-        $game = Game::find($request->game_id);
-        $gameName = $game->name;
-        $platformName = $game->platform->name;
-        $request['slug'] = Str::slug($request->name . ' ' . $gameName . ' ' . $platformName, '-');
-
         $data = $request->validate([
             'name' => 'required',
-            'slug' => 'unique:seasons,slug',
         ],
         [
             'name.required' => 'El nombre es obligatorio',
-            'slug.unique'   => "Ya existe $request->name en el juego $gameName ($platformName)",
         ]);
 
         $data = $request->all();
-        $data['slug'] = Str::slug($request->name . ' ' . $gameName . ' ' . $platformName, '-');
+        $data['slug'] = Str::slug($request->name, '-');
 
-        if ($request->hasFile('img')) {
-            $this->validate($request,[
-                'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ],
-            [
-                'img.image' => 'El logo debe ser una imagen',
-                'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
-            ]);
-            $img_name = $data['slug'] . '.' . $request->img->extension();
-            \Storage::disk('seasons')->put($img_name, \File::get($request->file('img')));
-            $data['img'] = $img_name;
-        }
-        $data['use_teams'] = $request->use_teams == 'on' ? 1 : 0;
-        $data['use_rosters'] = $request->use_rosters == 'on' ? 1 : 0;
-        $data['use_economy'] = $request->use_economy == 'on' ? 1 : 0;
-        $data['use_salaries'] = $request->use_salaries == 'on' ? 1 : 0;
-        $data['use_transfers'] = $request->use_transfers == 'on' ? 1 : 0;
-        $data['use_clauses'] = $request->use_clauses == 'on' ? 1 : 0;
-        $data['use_free_agents'] = $request->use_free_agents == 'on' ? 1 : 0;
+        $data['state'] = 'inscriptions'; // default state for new seasons
+        $data['num_participants'] = $request->num_participants == null ? 0 : $request->num_participants;
+        $data['free_inscriptions'] = $request->free_inscriptions == 'on' ? 1 : 0;
 
         $season = Season::create($data);
 

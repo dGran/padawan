@@ -37,6 +37,7 @@
 
 	function check_market() {
 		if ($('#market').is(':checked')) {
+			$('#use_rosters').prop('checked', true).prop('disabled', true);
 			$('#use_economy').prop('disabled', false).parents('.custom-label').removeClass('disable');
 			$('.info_use_economy').addClass('text-blue-500').removeClass('text-blue-300');
 			$('#use_salaries').prop('disabled', false).parents('.custom-label').removeClass('disable');
@@ -48,6 +49,7 @@
 			$('#use_free_agents').prop('disabled', false).parents('.custom-label').removeClass('disable');
 			$('.info_use_free_agents').addClass('text-blue-500').removeClass('text-blue-300');
 		} else {
+			$('#use_rosters').prop('disabled', false);
 			$('#use_economy').prop('checked', false).prop('disabled', true).parents('.custom-label').addClass('disable');
 			$('.info_use_economy').removeClass('text-blue-500').addClass('text-blue-300');
 			$('#use_salaries').prop('checked', false).prop('disabled', true).parents('.custom-label').addClass('disable');
@@ -63,14 +65,20 @@
 
 	function check_use_rosters() {
 		var type = $("#participant_type option:selected").val();
-		if ( type == "eteam") {
-			$('#use_rosters').prop('checked', true).prop('disabled', true);
+		if (type == "eteam") {
+			$('#market').prop('checked', false).prop('disabled', true);
+			check_market();
+			$('#use_rosters').prop('checked', false).prop('disabled', true);
+			$('.info_use_rosters').removeClass('text-blue-500').addClass('text-blue-300');
 		} else {
+			$('#market').prop('disabled', false);
 			$('#use_rosters').prop('disabled', false);
+			$('.info_use_rosters').addClass('text-blue-500').removeClass('text-blue-300');
 		}
 	}
 
     $("#form-edit").submit(function(event) {
+    	$('input:checkbox').prop('disabled', false);
         disabledActionsButtons();
     });
 </script>
