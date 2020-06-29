@@ -1,4 +1,6 @@
 <script>
+	var game_rosters = 0;
+	check_game_rosters();
 	check_market();
 
 	function showImage(fileInput) {
@@ -74,6 +76,40 @@
 			$('#market').prop('disabled', false);
 			$('#use_rosters').prop('disabled', false);
 			$('.info_use_rosters').addClass('text-blue-500').removeClass('text-blue-300');
+		}
+	}
+
+	function check_game_rosters()
+	{
+		game_rosters = $("#game_id option:selected").attr('data-game-rosters');
+		if (game_rosters == 1) {
+			$('#use_rosters').parents('.custom-label').show();
+			$('.info_use_rosters').show();
+			$('#market').parents('.custom-label').show();
+			$('#use_economy').parents('.custom-label').show();
+			$('.info_use_economy').show();
+			$('#use_salaries').parents('.custom-label').show();
+			$('.info_use_salaries').show();
+			$('#use_transfers').parents('.custom-label').show();
+			$('.info_use_transfers').show();
+			$('#use_clauses').parents('.custom-label').show();
+			$('.info_use_clauses').show();
+			$('#use_free_agents').parents('.custom-label').show();
+			$('.info_use_free_agents').show();
+		} else {
+			$('#use_rosters').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_rosters').hide();
+			$('#market').prop('checked', false).parents('.custom-label').hide();
+			$('#use_economy').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_economy').hide();
+			$('#use_salaries').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_salaries').hide();
+			$('#use_transfers').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_transfers').hide();
+			$('#use_clauses').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_clauses').hide();
+			$('#use_free_agents').prop('checked', false).parents('.custom-label').hide();
+			$('.info_use_free_agents').hide();
 		}
 	}
 

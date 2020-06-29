@@ -34,9 +34,9 @@
                 <div class="element">
                     <label for="game_id">Juego</label>
                     <div class="relative">
-                        <select name="game_id" id="game_id">
+                        <select name="game_id" id="game_id" onchange="check_game_rosters()">
                             @foreach ($games as $game)
-                                <option {{ $tournament->game_id == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
+                                <option {{ $tournament->game_id == $game->id ? 'selected' : '' }} value="{{ $game->id }}" data-game-rosters="{{ $game->rosters }}">
                                     {{ $game->name }} ({{ $game->platform->name }})
                                 </option>
                             @endforeach
