@@ -1,11 +1,11 @@
 <script>
-    var routeAdd = "{{ route('admin.seasons.add', $tournament->slug) }}";
-    {{-- var routeEdit = "{{ route('admin.seasons.edit', ':ID') }}"; --}}
-    {{-- var routeDestroy = "{{ route('admin.seasons.destroy', ':IDS') }}"; --}}
-    var routeView = "{{ route('admin.seasons.view', [$tournament->slug, ':ID']) }}";
-    {{-- var routeDuplicate = "{{ route('admin.seasons.duplicate', ':IDS') }}"; --}}
-    {{-- var routeExport = "{{ route('admin.seasons.export', [':FORMAT', ':IDS', ':FILENAME', $order]) }}"; --}}
-    {{-- var routeExportGlobal = "{{ route('admin.seasons.export.global', [':FORMAT', ':FILENAME', $order]) }}"; --}}
+    var routeAdd = "{{ route('admin.seasons.add', $tournament) }}";
+    var routeEdit = "{{ route('admin.seasons.edit', [$tournament, ':ID']) }}";
+    var routeDestroy = "{{ route('admin.seasons.destroy', [$tournament, ':IDS']) }}";
+    var routeView = "{{ route('admin.seasons.view', [$tournament, ':ID']) }}";
+    var routeDuplicate = "{{ route('admin.seasons.duplicate', [$tournament, ':IDS']) }}";
+    var routeExport = "{{ route('admin.seasons.export', [$tournament, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
+    var routeExportGlobal = "{{ route('admin.seasons.export.global', [$tournament, ':FORMAT', ':FILENAME', $order]) }}";
 
     {{-- var routeCompetitions = "{{ route('admin.seasons', ':SLUG') }}"; --}}
     {{-- var routeParticipants = "{{ route('admin.seasons', ':SLUG') }}"; --}}

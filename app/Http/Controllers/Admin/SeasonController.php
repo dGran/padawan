@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-// use App\Exports\SeasonsExport;
-// use App\Imports\SeasonsImport;
+use App\Exports\SeasonsExport;
+use App\Imports\SeasonsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -118,68 +118,33 @@ class SeasonController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(tournament $tournament, $id)
     {
         $season = Season::findOrFail($id);
-        $games = Game::orderBy('name')->get();
-
-        return view('admin.seasons.edit', ['season' => $season, 'games' => $games]);
+    	if ($tournament->use_rosters) {
+    		$players_databases = PlayerDatabase::select('*')->game($tournament->game_id)->orderBy('name')->get();
+        	return view('admin.seasons.edit', ['season' => $season, 'tournament' => $tournament, 'players_databases' => $players_databases]);
+    	}
+    	return view('admin.seasons.edit', ['season' => $season, 'tournament' => $tournament]);
     }
 
-    public function update($id, Request $request)
+    public function update(tournament $tournament, $id, Request $request)
     {
         $season = Season::findOrFail($id);
-
-        $game = Game::find($request->game_id);
-        $gameName = $game->name;
-        $platformName = $game->platform->name;
-        $request['slug'] = Str::slug($request->name . ' ' . $gameName . ' ' . $platformName, '-');
 
         $data = $request->validate([
             'name' => 'required',
-            'slug' => 'unique:seasons,slug,' . $season->id,
+            'num_participants' => 'required',
         ],
         [
             'name.required' => 'El nombre es obligatorio',
-            'slug.unique'   => "Ya existe $request->name en el juego $gameName ($platformName)",
+            'num_participants.required' => 'El número de participantes es obligatorio. 0 para iliminados'
         ]);
 
         $data = $request->all();
+        $data['slug'] = Str::slug($request->name, '-');
 
-        $data['slug'] = Str::slug($request->name . ' ' . $gameName . ' ' . $platformName, '-');
-
-        if ($request->deleteImg) {
-            // remove image from Storage
-            \Storage::disk('seasons')->delete($season->img);
-            $data['img'] = null;
-        } else {
-            if ($request->hasFile('img')) {
-                $this->validate($request,[
-                    'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ],
-                [
-                    'img.image' => 'El logo debe ser una imagen',
-                    'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                    'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
-                ]);
-
-                // remove image from Storage
-                \Storage::disk('seasons')->delete($season->img);
-
-	            $img_name = $data['slug'] . time() . '.' . $request->img->extension();
-                \Storage::disk('seasons')->put($img_name, \File::get($request->file('img')));
-
-                $data['img'] = $img_name;
-            }
-        }
-
-        $data['use_teams'] = $request->use_teams == 'on' ? 1 : 0;
-        $data['use_rosters'] = $request->use_rosters == 'on' ? 1 : 0;
-        $data['use_economy'] = $request->use_economy == 'on' ? 1 : 0;
-        $data['use_salaries'] = $request->use_salaries == 'on' ? 1 : 0;
-        $data['use_transfers'] = $request->use_transfers == 'on' ? 1 : 0;
-        $data['use_clauses'] = $request->use_clauses == 'on' ? 1 : 0;
-        $data['use_free_agents'] = $request->use_free_agents == 'on' ? 1 : 0;
+        $data['free_inscription'] = $request->free_inscription == 'on' ? 1 : 0;
 
         $season->fill($data);
 
@@ -187,18 +152,18 @@ class SeasonController extends Controller
             $season->update($data);
             if ($season->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.seasons');
+                return redirect()->route('admin.seasons', $tournament);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.seasons');
+                return redirect()->route('admin.seasons', $tournament);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.seasons');
+            return redirect()->route('admin.seasons', $tournament);
         }
     }
 
-    public function destroy($ids)
+    public function destroy(tournament $tournament, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
@@ -207,8 +172,6 @@ class SeasonController extends Controller
             $season = Season::find($ids[$i]);
             if ($season && $season->canDestroy()) {
                 $counter++;
-                // remove image from Storage
-                \Storage::disk('seasons')->delete($season->img);
                 $season->delete();
             }
         }
@@ -225,7 +188,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function duplicate($ids)
+    public function duplicate(tournament $tournament, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
@@ -237,12 +200,7 @@ class SeasonController extends Controller
                 $season = $original->replicate();
                 $random_numer = rand(100,999);
                 $season->name .= " (copia_" . $random_numer . ")";
-                if ($original->img) {
-                    $img_name = Str::slug($season->name . ' ' . $original->game->name . ' ' . $original->game->platform->name, '-') . '_' . $original->img;
-                    \Storage::disk('seasons')->copy($original->img, $img_name);
-                    $season->img = $img_name;
-                }
-                $season->slug = Str::slug($season->name . ' ' . $original->game->name . ' ' . $original->game->platform->name, '-');
+                $season->slug = Str::slug($season->name, '-');
                 $season->save();
             }
         }
@@ -259,22 +217,22 @@ class SeasonController extends Controller
         }
     }
 
-    public function export($format, $ids, $filename, $order)
+    public function export(tournament $tournament, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $seasons = Season::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $seasons->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
+        $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
             default:
                 flash()->error('Formato de archivo no válido.');
                 return back();
@@ -282,20 +240,20 @@ class SeasonController extends Controller
         }
     }
 
-    public function exportGlobal($format, $filename, $order) {
+    public function exportGlobal(tournament $tournament, $format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $seasons = Season::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $seasons->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
+        $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new seasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
@@ -304,10 +262,10 @@ class SeasonController extends Controller
         }
     }
 
-    public function import()
+    public function import(tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new seasonsImport, request()->file('fileImport'));
+            Excel::import(new SeasonsImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();
