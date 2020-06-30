@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTournamentsSeasonsTable extends Migration
+class CreateSeasonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTournamentsSeasonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tournaments_seasons', function (Blueprint $table) {
+        Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tournament_id')
                 ->references('id')
@@ -58,6 +58,6 @@ class CreateTournamentsSeasonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournaments_seasons');
+        Schema::dropIfExists('seasons');
     }
 }

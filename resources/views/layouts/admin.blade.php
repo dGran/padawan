@@ -45,12 +45,12 @@
 		@include('layouts.partials.admin.sidebar')
 
 		<div class="relative md:ml-64">
-			@include('layouts.partials.admin.header')
 			@isset($breadcrumb)
-				<div class="hidden md:block">
+				<div class="mx-4 md:mx-8">
 					@include('layouts.partials.admin.breadcrumb')
 				</div>
 			@endisset
+			@include('layouts.partials.admin.header')
 	        @if (flash()->message)
 	            @include('layouts.partials.flash_message')
 	        @endif

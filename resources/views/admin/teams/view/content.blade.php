@@ -2,7 +2,7 @@
 
 	<div class="view">
 
-		<div class="image circle">
+		<div class="image">
         	<img src="{{ $team->img() }}">
 		</div>
 		<div class="title">

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTournamentsParticipantsTable extends Migration
+class CreateParticipantsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTournamentsParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tournaments_participants', function (Blueprint $table) {
+        Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')
                 ->references('id')
-                ->on('tournaments_seasons')
+                ->on('seasons')
                 ->onDelete('cascade');
             $table->foreignId('user_id')
                 ->references('id')
@@ -48,6 +48,6 @@ class CreateTournamentsParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tournaments_participants');
+        Schema::dropIfExists('participants');
     }
 }

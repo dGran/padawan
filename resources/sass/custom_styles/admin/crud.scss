@@ -249,6 +249,12 @@
 
 .form {
 	@apply bg-white shadow-md rounded-lg p-6 mb-4 flex flex-col my-4 flex-1;
+	.thumbnail {
+		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 object-cover rounded-lg;
+		&.circle {
+			@apply rounded-full;
+		}
+	}
 	.field-group {
 		@apply -mx-3 flex-col flex;
 		@screen xl {
@@ -274,12 +280,12 @@
 .view {
 	@apply bg-white shadow overflow-hidden rounded-lg my-4 py-4 flex-1;
 	.image {
-		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 p-1;
+		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 rounded-lg;
 		img {
 			@apply object-cover w-full h-full;
 		}
 		&.circle {
-			@apply rounded-full p-0;
+			@apply rounded-full;
 		}
 	}
 	.title {

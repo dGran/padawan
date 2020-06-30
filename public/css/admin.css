@@ -19328,42 +19328,45 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 .breadcrumb-nav {
-  padding-left: 1rem;
-  padding-right: 1rem;
   margin-left: auto;
   margin-right: auto;
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
+  overflow-x: auto;
 }
 
 .breadcrumb-nav .breadcrumb-list {
-  display: flex;
   font-size: 0.75rem;
   padding-top: 1rem;
   padding-bottom: 1rem;
+  white-space: nowrap;
 }
 
-.breadcrumb-nav .breadcrumb-list .breadcrumb-link {
+.breadcrumb-nav .breadcrumb-list li {
+  display: inline-block;
+}
+
+.breadcrumb-nav .breadcrumb-list li .breadcrumb-link {
   font-weight: 700;
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
 }
 
-.breadcrumb-nav .breadcrumb-list .breadcrumb-link:hover {
+.breadcrumb-nav .breadcrumb-list li .breadcrumb-link:hover {
   --text-opacity: 1;
   color: #ed64a6;
   color: rgba(237, 100, 166, var(--text-opacity));
 }
 
-.breadcrumb-nav .breadcrumb-list .breadcrumb-link:focus {
+.breadcrumb-nav .breadcrumb-list li .breadcrumb-link:focus {
   --text-opacity: 1;
   color: #ed64a6;
   color: rgba(237, 100, 166, var(--text-opacity));
 }
 
-.breadcrumb-nav .breadcrumb-list .breadcrumb-separator {
+.breadcrumb-nav .breadcrumb-list li .breadcrumb-separator {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
   --text-opacity: 1;
@@ -19372,11 +19375,6 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 @media (min-width: 768px) {
-  .breadcrumb-nav {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .breadcrumb-list {
     font-size: 0.875rem;
   }
@@ -20111,6 +20109,26 @@ a.disable, button.disable, input.disable, select.disable {
   flex: 1 1 0%;
 }
 
+.form .thumbnail {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-left: auto;
+  margin-right: auto;
+  height: 6rem;
+  width: 6rem;
+  --border-opacity: 1;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, var(--border-opacity));
+  overflow: hidden;
+  border-width: 4px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 0.5rem;
+}
+
+.form .thumbnail.circle {
+  border-radius: 9999px;
+}
+
 .form .field-group {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -20192,7 +20210,7 @@ a.disable, button.disable, input.disable, select.disable {
   border-color: rgba(255, 255, 255, var(--border-opacity));
   overflow: hidden;
   border-width: 4px;
-  padding: 0.25rem;
+  border-radius: 0.5rem;
 }
 
 .view .image img {
@@ -20204,7 +20222,6 @@ a.disable, button.disable, input.disable, select.disable {
 
 .view .image.circle {
   border-radius: 9999px;
-  padding: 0;
 }
 
 .view .title {

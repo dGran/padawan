@@ -1,7 +1,7 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
 	<div class="view">
-		<div class="image circle">
+		<div class="image">
         	<img src="{{ $tournament->img() }}">
 		</div>
 		<div class="title">

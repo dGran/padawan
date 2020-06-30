@@ -8,6 +8,9 @@
         </label>
     </td>
     <td onclick="rowSelect(this)">
+        @if ($season->inscription_price > 0)
+            <i class="fas fa-donate text-green-500 mr-1 text-xl"></i>
+        @endif
         <span class="name">{{ $season->name }}</span>
         <span class="block text-gray-600" style="font-size: 9px">ID:{{ $season->id }}</span>
     </td>

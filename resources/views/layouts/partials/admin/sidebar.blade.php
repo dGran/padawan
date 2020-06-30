@@ -10,6 +10,9 @@
 				padawan sports
 			</span>
 		</span>
+		<div class="hidden md:block animated flash text-pink-600 infinite">
+			Aqui falta poner la información del usuario, como el menu en la vista mobile
+		</div>
 		<ul class="md:hidden items-center flex flex-wrap list-none">
 			{{-- user --}}
 			<li class="inline-block relative">

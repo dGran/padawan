@@ -1,26 +1,26 @@
 .breadcrumb-nav {
-	@apply px-4 mx-auto text-gray-700;
+	@apply mx-auto text-gray-700 overflow-x-auto;
 	.breadcrumb-list {
-		@apply flex text-xs py-4;
-		.breadcrumb-link {
-			@apply font-bold text-gray-700;
-			&:hover {
-				@apply text-pink-500;
+		@apply text-xs py-4 whitespace-no-wrap;
+		li {
+			@apply inline-block;
+			.breadcrumb-link {
+				@apply font-bold text-gray-700;
+				&:hover {
+					@apply text-pink-500;
+				}
+				&:focus {
+					@apply text-pink-500;
+				}
 			}
-			&:focus {
-				@apply text-pink-500;
+			.breadcrumb-separator {
+				@apply mx-2 text-pink-500;
 			}
-		}
-		.breadcrumb-separator {
-			@apply mx-2 text-pink-500;
 		}
 	}
 }
 
 @screen md {
-	.breadcrumb-nav {
-		@apply px-8;
-	}
 	.breadcrumb-list {
 		@apply text-sm;
 	}

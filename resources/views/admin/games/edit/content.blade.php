@@ -9,7 +9,7 @@
 			<input type="hidden" name="deleteImg" id="deleteImg" value=0>
 			<div class="flex flex-row mb-3 rounded justify-center">
 				<div class="relative">
-					<img id="thumbnail" src="{{ $game->img() }}" alt="img" class="object-cover w-24 h-24 rounded-full shadow overflow-hidden border-4 border-white">
+					<img id="thumbnail" src="{{ $game->img() }}" alt="img" class="thumbnail">
 					<a id="delete_img" class="{{ is_null($game->img) ? 'hidden' : '' }} absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
 						<i class="fas fa-times"></i>
 					</a>
