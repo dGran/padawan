@@ -25,6 +25,7 @@ class CreateEteamsPlayersTable extends Migration
                 ->onDelete('cascade');
             $table->date('contract_from')->nullable();
             $table->date('contract_to')->nullable();
+            $table->boolean('admin')->default(false);
             $table->timestamps();
         });
     }

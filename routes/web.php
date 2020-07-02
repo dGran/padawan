@@ -174,4 +174,39 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/temporadas/exportar/{format}/{ids}/{filename}/{order}', 'Admin\SeasonController@export')->name('admin.seasons.export');
 	Route::get('/torneos/{tournament:slug}/temporadas/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\SeasonController@exportGlobal')->name('admin.seasons.export.global');
 	Route::post('/torneos/{tournament:slug}/temporadas/importar', 'Admin\SeasonController@import')->name('admin.seasons.import');
+
+	//Participants
+	Route::get('/torneos/particpantes/selector-de-temporada', 'Admin\ParticipantController@selector')->name('admin.participants.selector');
+	Route::post('/torneos/particpantes/selector-de-temporada', 'Admin\ParticipantController@selectorSelect')->name('admin.participants.selector.select');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes', 'Admin\ParticipantController@list')->name('admin.participants');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/nuevo', 'Admin\ParticipantController@add')->name('admin.participants.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/participantes/nuevo', 'Admin\ParticipantController@save')->name('admin.participants.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/editar/{id}', 'Admin\ParticipantController@edit')->name('admin.participants.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/participantes/editar/{id}', 'Admin\ParticipantController@update')->name('admin.participants.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/ver/{id}', 'Admin\ParticipantController@view')->name('admin.participants.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/eliminar/{ids}', 'Admin\ParticipantController@destroy')->name('admin.participants.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/duplicar/{ids}', 'Admin\ParticipantController@duplicate')->name('admin.participants.duplicate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/exportar/{format}/{ids}/{filename}/{order}', 'Admin\ParticipantController@export')->name('admin.participants.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\ParticipantController@exportGlobal')->name('admin.participants.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/participantes/importar', 'Admin\ParticipantController@import')->name('admin.participants.import');
+
+	//Competitions
+	Route::get('/torneos/competiciones/selector-de-temporada', 'Admin\CompetitionController@selector')->name('admin.competitions.selector');
+	Route::post('/torneos/competiciones/selector-de-temporada', 'Admin\CompetitionController@selectorSelect')->name('admin.competitions.selector.select');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competitiones', 'Admin\CompetitionController@list')->name('admin.competitions');
+
+	//News
+	Route::get('/torneos/noticias/selector-de-temporada', 'Admin\PostController@selector')->name('admin.posts.selector');
+	Route::post('/torneos/noticias/selector-de-temporada', 'Admin\PostController@selectorSelect')->name('admin.posts.selector.select');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias', 'Admin\PostController@list')->name('admin.posts');
+
+	//Economy
+	Route::get('/torneos/economia/selector-de-temporada', 'Admin\CashController@selector')->name('admin.cash.selector');
+	Route::post('/torneos/economia/selector-de-temporada', 'Admin\CashController@selectorSelect')->name('admin.cash.selector.select');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/economia', 'Admin\CashController@list')->name('admin.cash');
+
+	//Transfers
+	Route::get('/torneos/transfers/selector-de-temporada', 'Admin\TransferController@selector')->name('admin.transfers.selector');
+	Route::post('/torneos/transfers/selector-de-temporada', 'Admin\TransferController@selectorSelect')->name('admin.transfers.selector.select');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/transfers', 'Admin\TransferController@list')->name('admin.transfers');
 });

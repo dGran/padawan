@@ -23,7 +23,7 @@ class CreateEplayersTable extends Migration
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->foreignId('game_position_id')
+            $table->foreignId('position_id')
                 ->references('id')
                 ->on('games_positions')
                 ->onDelete('cascade');

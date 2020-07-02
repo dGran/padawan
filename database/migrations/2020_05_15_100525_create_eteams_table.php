@@ -19,11 +19,12 @@ class CreateEteamsTable extends Migration
                 ->references('id')
                 ->on('games')
                 ->onDelete('cascade');
-            $table->foreignId('user_id')
+            $table->foreignId('owner_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
             $table->string('name')->unique();
+            $table->string('location')->nullable();
             $table->string('short_name');
             $table->string('slug')->unique();
             $table->timestamps();

@@ -17,19 +17,10 @@
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Competiciones" id="competitions" onclick="competitions()">
             <i class="icon-competitions"></i>
         </button>
-        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Noticias" id="posts" onclick="posts()">
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Noticias" id="news" onclick="news()">
             <i class="icon-news"></i>
         </button>
-        @if ($tournament->use_economy)
-            <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Economía" id="cash" onclick="cash()">
-                <i class="icon-economy"></i>
-            </button>
-        @endif
-        @if ($tournament->use_transfers)
-            <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Transfers" id="transfers" onclick="transfers()">
-                <i class="icon-transfers"></i>
-            </button>
-        @endif
+        </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
                 <i class="icon-view"></i>

@@ -4,6 +4,11 @@ use Illuminate\Database\Seeder;
 
 class PlayerDatabaseSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
 	    DB::table('players_databases')->insert([

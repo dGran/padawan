@@ -7,8 +7,11 @@
     var routeExport = "{{ route('admin.seasons.export', [$tournament, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.seasons.export.global', [$tournament, ':FORMAT', ':FILENAME', $order]) }}";
 
-    {{-- var routeCompetitions = "{{ route('admin.seasons', ':SLUG') }}"; --}}
-    {{-- var routeParticipants = "{{ route('admin.seasons', ':SLUG') }}"; --}}
+    var routeParticipants = "{{ route('admin.participants', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routeCompetitions = "{{ route('admin.competitions', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routePosts = "{{ route('admin.posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routeCash = "{{ route('admin.cash', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routeTransfers = "{{ route('admin.transfers', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
@@ -28,18 +31,22 @@
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
-                $("#competitions").show();
                 $("#participants").show();
-                $("#news").show();
+                $("#competitions").show();
+                $("#posts").show();
+                $("#cash").show();
+                $("#transfers").show();
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
                 $("#destroy").addClass('hint--top');
             } else {
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
-                $("#competitions").hide();
                 $("#participants").hide();
-                $("#news").hide();
+                $("#competitions").hide();
+                $("#posts").hide();
+                $("#cash").hide();
+                $("#transfers").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');
                 $("#destroy").addClass('hint--top-right');
@@ -58,19 +65,49 @@
         checkRowSelectedCustom();
     }
 
-    function competitions() {
-        var element = $(".mark:checked");
-        var slug = $(element).parents('tr').attr('data-slug');
-        var route = routeCompetitions;
-        var url = route.replace(':SLUG', slug);
-        window.location.href=url;
-    }
-
     function participants() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var route = routeParticipants;
-        var url = route.replace(':SLUG', slug);
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routeParticipants.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
         window.location.href=url;
     }
+
+    function competitions() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routeCompetitions.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
+    function posts() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routePosts.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
+    function cash() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routeCash.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
+    function transfers() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routeTransfers.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
 </script>
