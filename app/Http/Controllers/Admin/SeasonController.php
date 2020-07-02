@@ -33,7 +33,7 @@ class SeasonController extends Controller
 		return redirect()->route('admin.seasons', request()->tournament);
 	}
 
-    public function list(tournament $tournament)
+    public function list(Tournament $tournament)
     {
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
@@ -74,13 +74,13 @@ class SeasonController extends Controller
     	return view('admin.seasons.list', ['seasons' => $seasons, 'tournament' => $tournament, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
-    public function view(tournament $tournament, $id)
+    public function view(Tournament $tournament, $id)
     {
         $season = Season::findOrFail($id);
         return view('admin.seasons.view', ['season' => $season, 'tournament' => $tournament]);
     }
 
-    public function add(tournament $tournament)
+    public function add(Tournament $tournament)
     {
     	if ($tournament->use_rosters) {
     		$players_databases = PlayerDatabase::select('*')->game($tournament->game_id)->orderBy('name')->get();
@@ -93,7 +93,7 @@ class SeasonController extends Controller
     	return view('admin.seasons.add', ['tournament' => $tournament]);
     }
 
-    public function save(tournament $tournament, Request $request)
+    public function save(Tournament $tournament, Request $request)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -118,7 +118,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function edit(tournament $tournament, $id)
+    public function edit(Tournament $tournament, $id)
     {
         $season = Season::findOrFail($id);
     	if ($tournament->use_rosters) {
@@ -128,7 +128,7 @@ class SeasonController extends Controller
     	return view('admin.seasons.edit', ['season' => $season, 'tournament' => $tournament]);
     }
 
-    public function update(tournament $tournament, $id, Request $request)
+    public function update(Tournament $tournament, $id, Request $request)
     {
         $season = Season::findOrFail($id);
 
@@ -163,7 +163,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function destroy(tournament $tournament, $ids)
+    public function destroy(Tournament $tournament, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
@@ -188,7 +188,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function duplicate(tournament $tournament, $ids)
+    public function duplicate(Tournament $tournament, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
@@ -217,7 +217,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function export(tournament $tournament, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
@@ -240,7 +240,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function exportGlobal(tournament $tournament, $format, $filename, $order) {
+    public function exportGlobal(Tournament $tournament, $format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $seasons = Season::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
         $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
@@ -262,7 +262,7 @@ class SeasonController extends Controller
         }
     }
 
-    public function import(tournament $tournament)
+    public function import(Tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
             Excel::import(new SeasonsImport, request()->file('fileImport'));

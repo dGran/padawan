@@ -3,20 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use App\Http\Controllers\Controller;
-// use App\Exports\PositionsExport;
-// use App\Imports\PositionsImport;
-use Maatwebsite\Excel\Facades\Excel;
+// use App\Http\Controllers\Controller;
 use RealRashid\SweetAlert\Facades\Alert;
 
-use App\Toournament;
-use App\Game;
+use App\Tournament;
 
 class TournamentController extends Controller
 {
     public function index()
     {
-    	return view('tournaments.list');
+    	$tournaments = Tournament::orderBy('created_at', 'desc')->get();
+    	return view('tournaments.list', ['tournaments' => $tournaments]);
+    }
+
+    public function view(Tournament $tournament)
+    {
+        flash()->info('En desarrollo...');
+        return back();
     }
 }

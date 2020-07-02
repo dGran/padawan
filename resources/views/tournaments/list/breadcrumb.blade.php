@@ -1,3 +1,3 @@
-<li><a href="{{ route('home') }}" class="breadcrumb-link">Home</a></li>
+<li><a href="{{ route('home') }}" class="breadcrumb-link">Inicio</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Tournaments</li>
+<li>Torneos</li>
