@@ -62,7 +62,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black focus:outline-none">
+                                <button class="mt-8 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black focus:outline-none">
                                     {{ __('Register') }}
                                 </button>
                             </div>

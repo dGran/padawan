@@ -42,13 +42,13 @@
             </button>
         @endisset
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('seasons', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('participants', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('seasons', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('participants', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('seasons', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('participants', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

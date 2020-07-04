@@ -7,3 +7,5 @@
 @section('content')
     @include('tournaments.list.content')
 @endsection
+
+

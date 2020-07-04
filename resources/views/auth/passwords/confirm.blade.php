@@ -12,7 +12,7 @@
                 <div class="w-full relative">
                     <div class="mt-6">
                         <h1 class="text-center font-semibold text-black text-2xl">
-                            {{ __('Please confirm your password before continuing.') }}
+                            {{ __('Por favor confirme su password antes de continuar.') }}
                         </h1>
 
                         <form class="mt-8" method="POST" action="{{ route('password.confirm') }}">
@@ -41,7 +41,7 @@
                                             <label class="block text-gray-500 font-bold my-4">
                                                 <a href="{{ route('password.request') }}" class="cursor-pointer tracking-tighter text-black border-b-2 border-gray-400 hover:border-gray-600">
                                                     <span>
-                                                        {{ __('Forgot Password?') }}
+                                                        {{ __('Olvidé mi password') }}
                                                     </span>
                                                 </a>
                                             </label>
@@ -49,7 +49,7 @@
                                     </div>
                                 @endif
                                 <button class="mt-3 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg px-6 py-3 block shadow-xl hover:text-white hover:bg-black focus:outline-none">
-                                    {{ __('Confirm Password') }}
+                                    {{ __('Confirmar password') }}
                                 </button>
                             </div>
                         </form>

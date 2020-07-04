@@ -11,13 +11,13 @@
 					</div>
 					<div class="w-16 h-1 bg-orange-500 my-3 animated bounceInRight"></div>
 					<p class="text-gray-700 text-2xl md:text-3xl font-light mb-4 leading-normal animated bounceInLeft">
-						Sorry, your session has expired. Please refresh and try again.
+						Lo sentimos, tu sesión ha expirado. Por favor, actualice y pruebe de nuevo.
 					</p>
 					<span class="block mb-8 font-bold text-orange-600 text-sm md:text-base animated bounceInRight delay-1s">
 						Error code: 419
 					</span>
 					<a class="bg-transparent text-gray-600 hover:text-gray-800 font-bold uppercase tracking-wide py-3 px-6 border-2 border-gray-500 hover:border-gray-600 rounded-lg text-base md:text-lg animated  fadeIn delay-1s bg-gray-100 hover:bg-white" href="{{ route('home') }}">
-						Go Home
+						Ir al inicio
 					</a>
 				</div>
 			</div>

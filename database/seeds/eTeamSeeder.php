@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class eTeamsSeeder extends Seeder
+class eTeamSeeder extends Seeder
 {
     /**
      * Run the database seeds.

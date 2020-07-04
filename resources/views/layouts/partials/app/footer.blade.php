@@ -1,4 +1,4 @@
-<div class="bg-gray-700 py-2">
+{{-- <div class="bg-gray-700 py-2">
 	<div class="custom-container text-xs">
         <div class="py-2">
             <span class="text-xl">Pending! check this</span>
@@ -31,7 +31,7 @@
 	        </a>
         </div>
 	</div>
-</div>
+</div> --}}
 
 <div class="bg-gray-800 text-gray-600">
 	<div class="custom-container text-xs">
@@ -40,24 +40,24 @@
 				<ul class="">
 					<li class="inline-block mr-4">
 						<a href="{{ route('contact') }}" class="hover:text-gray-400">
-							Contact
+							Contacto
 						</a>
 					</li>
 					<li class="inline-block mr-4">
 						<a href="{{ route('privacy_policy') }}" class="hover:text-gray-400">
-							Privacy Policy
+							Política de privacidad
 						</a>
 					</li>
 					<li class="inline-block">
 						<a href="{{ route('cookie_policy') }}" class="hover:text-gray-400">
-							Cookie Policy
+							Política de cookies
 						</a>
 					</li>
 				</ul>
 			</div>
 			<div class="flex-2">
 				<span class="hidden md:inline-block mr-4">
-					Follow us
+					Síguenos
 				</span>
 			</div>
 			<div class="flex-2">
@@ -85,6 +85,6 @@
 
 <div class="custom-container text-gray-400 text-xs text-center py-3">
     <div class="px-4">
-		{{ env('APP_NAME') }}. Copyright &copy; <?php echo date("Y"); ?> All rights reserved.
+		{{ env('APP_NAME') }}. Copyright &copy; <?php echo date("Y"); ?> Todos los derechos reservados.
 	</div>
 </div>

@@ -11,13 +11,13 @@
 			</li> --}}
 			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 border-b border-gray-200 rounded-t-md">
 				<a class="block px-4 py-2 border-l-2 border-transparent hover:border-orange-500 focus:border-orange-500 text-gray-800 hover:text-orange-500 focus:text-orange-500 focus:outline-none rounded-t-md" href="{{ route('login') }}">
-					<i class="fas fa-fingerprint mr-2 w-4 text-center"></i>Login
+					<i class="fas fa-fingerprint mr-2 w-4 text-center"></i>Iniciar sesión
 				</a>
 			</li>
 			{{-- last-item --}}
 			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 rounded-b-md">
 				<a class="block px-4 py-2 border-l-2 border-transparent hover:border-orange-500 focus:border-orange-500 text-gray-800 hover:text-orange-500 focus:text-orange-500 focus:outline-none rounded-b-md" href="{{ route('register') }}">
-					<i class="fas fa-clipboard-list mr-2 w-4 text-center"></i>Register
+					<i class="fas fa-clipboard-list mr-2 w-4 text-center"></i>Registro
 				</a>
 			</li>
 		</ul>

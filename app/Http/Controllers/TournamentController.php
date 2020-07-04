@@ -18,7 +18,6 @@ class TournamentController extends Controller
 
     public function view(Tournament $tournament)
     {
-        flash()->info('En desarrollo...');
-        return back();
+        return view('tournament.index', ['tournament' => $tournament]);
     }
 }

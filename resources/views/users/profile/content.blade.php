@@ -3,7 +3,7 @@
         <div class="flex flex-wrap" id="tabs-id">
         	<div class="w-full md:max-w-lg md:mx-auto">
 		        <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold">
-		            User Profile
+		            Perfil de usuario
 		        </h1>
 	        	<div class="flex flex-row items-center my-3">
 	        		<div class="flex-col mr-3">

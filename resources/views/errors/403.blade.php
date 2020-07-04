@@ -22,7 +22,7 @@
 						</p>
 					@endif
 					<a class="bg-transparent text-gray-600 hover:text-gray-800 font-bold uppercase tracking-wide py-3 px-6 border-2 border-gray-500 hover:border-gray-600 rounded-lg text-base md:text-lg animated fadeIn delay-1s bg-gray-100 hover:bg-white" href="{{ route('home') }}">
-						Volver al inicio
+						Ir al inicio
 					</a>
 				</div>
 			</div>
