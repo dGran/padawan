@@ -35,6 +35,24 @@ class Participant extends Model
         }
     }
 
+    public function scopeName($query, $name, $tournament)
+    {
+        if (trim($name) !="") {
+            $query->where("teams.name", "LIKE", "%$name%");
+            $query->orWhere("users.name", "LIKE", "%$name%");
+            $query->orWhere("eteams.name", "LIKE", "%$name%");
+        }
+    }
+
+    public function scopeReserve($query, $value)
+    {
+        if ($value) {
+            return $query->where('reserve', $value);
+        } else {
+            return $query;
+        }
+    }
+
     public function presenter()
     {
         $presenter = [];

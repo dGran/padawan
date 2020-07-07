@@ -16,53 +16,13 @@
             <!--body-->
             <div class="relative p-6 flex-auto">
 
-{{--                 <label class="custom-label flex pb-2">
+                <label class="custom-label flex pb-4">
                       <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
-                        <input type="checkbox" class="hidden" id="filterMarket" name="filterMarket" {{ $filterMarket == 1 ? 'checked' : '' }}>
+                        <input type="checkbox" class="hidden" id="filterReserve" name="filterReserve" {{ $filterReserve == 1 ? 'checked' : '' }}>
                         <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                       </div>
-                      <span class="select-none"> Torneos con mercado de fichajes</span>
+                      <span class="select-none"> Sólo Reservas</span>
                 </label>
-
-                <div class="text-bold pb-2 pt-4">
-                    <label for="filterGame">Juego</label>
-                </div>
-                <div class="relative">
-                    <select name="filterGame" id="filterGame" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option {{ $filterGame == 0 ? 'selected' : '' }} value="0">
-                            Todos
-                        </option>
-                        @foreach ($games as $game)
-                            <option {{ $filterGame == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
-                                {{ $game->name }} ({{ $game->platform->name }})
-                            </option>
-                        @endforeach
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                    </div>
-                </div>
-
-                <div class="text-bold pb-2 pt-4">
-                    <label for="filterParticipantType">Tipo de participante</label>
-                </div>
-                <div class="relative">
-                    <select name="filterParticipantType" id="filterParticipantType" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                        <option {{ $filterParticipantType == null ? 'selected' : '' }} value="">
-                            Todos
-                        </option>
-                        <option {{ $filterParticipantType == 'individual' ? 'selected' : '' }} value="individual">Individual</option>
-                        <option {{ $filterParticipantType == 'eteam' ? 'selected' : '' }} value="eteam">E-Teams</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                        </svg>
-                    </div>
-                </div>
- --}}
 
                 <div class="text-bold pb-2">
                     <label for="perPage">Registros por página</label>

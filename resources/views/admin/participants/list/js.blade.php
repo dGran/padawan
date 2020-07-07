@@ -10,6 +10,11 @@
     {{-- var routeCompetitions = "{{ route('admin.participants', ':SLUG') }}"; --}}
     {{-- var routeParticipants = "{{ route('admin.participants', ':SLUG') }}"; --}}
 
+    function cancelFilterReserve() {
+        $("#filterReserve").prop("checked", false);
+        applyFilters();
+    }
+
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
     });

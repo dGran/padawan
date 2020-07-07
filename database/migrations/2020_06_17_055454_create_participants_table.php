@@ -20,20 +20,20 @@ class CreateParticipantsTable extends Migration
                 ->on('seasons')
                 ->onDelete('cascade');
             $table->foreignId('user_id')
+                ->nullable()
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade')
-                ->nullable();
+                ->onDelete('cascade');
             $table->foreignId('eteam_id')
+                ->nullable()
                 ->references('id')
                 ->on('eteams')
-                ->onDelete('cascade')
-                ->nullable();
+                ->onDelete('cascade');
             $table->foreignId('team_id')
+                ->nullable()
                 ->references('id')
                 ->on('teams')
-                ->onDelete('cascade')
-                ->nullable();
+                ->onDelete('cascade');
             $table->boolean('reserve')->default(false);
             $table->integer('clauses_paid')->nullable();
             $table->integer('clauses_received')->nullable();

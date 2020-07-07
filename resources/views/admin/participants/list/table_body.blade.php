@@ -22,4 +22,20 @@
             </div>
         </div>
     </td>
+    @if ($tournament->use_teams)
+        @if ($tournament->participant_type == "individual")
+            <td>
+                {{ $participant->user->name }}
+            </td>
+        @else
+            <td>
+                {{ $participant->eteam->name }}
+            </td>
+        @endif
+    @endif
+    <td>
+        @if ($participant->reserve)
+            <span class="text-xs font-semibold text-blue-700">RESERVA</span>
+        @endif
+    </td>
 </tr>

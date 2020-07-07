@@ -18,10 +18,15 @@
 	            	$('#season_slug').html(data);
 	            	$('#season_slug').removeClass("disable");
 	        	} else {
-	            	$('#season_slug').html('<option>No existen temporadas</option>');
+	            	$('#season_slug').html('<option value="">No existen temporadas</option>');
 	            	$('#season_slug').addClass("disable");
 	        	}
 	        });
         }
     }
+
+    // $("#form-selector").submit(function(event) {
+    //     disabledActionsButtons();
+    //     if ($('#season_slug').hasClass
+    // });
 </script>

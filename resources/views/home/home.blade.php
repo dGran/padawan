@@ -9,6 +9,8 @@
                 Content title
             </h2>
 
+			{{-- <iframe class="mt-8 w-full h-screen" src="https://docs.google.com/viewer?url=http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf&embedded=true"  frameborder="0"></iframe> --}}
+
         </div>
     </div>
 @endsection

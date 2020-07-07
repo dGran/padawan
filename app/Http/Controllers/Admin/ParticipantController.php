@@ -58,6 +58,7 @@ class ParticipantController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
+        $filterReserve = request()->filterReserve == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('participant_page')) {
@@ -75,22 +76,39 @@ class ParticipantController extends Controller
             if (request()->session()->get('participant_filterName')) {
                 $filterName = request()->session()->get('participant_filterName');
             }
+            if (request()->session()->get('participant_filterReserve')) {
+                $filterReserve = request()->session()->get('participant_filterReserve');
+            }
         }
 
-        $order_ext = $this->getOrder($order);
+        $order_ext = $this->getOrder($order, $tournament);
 
-        $participants = Participant::seasonId($season->id)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $participants = Participant::
+        leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->seasonId($season->id)
+        ->reserve($filterReserve)
+        ->name($filterName, $tournament)
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $participants->lastPage()) {
             $page = $participants->lastPage();
         }
-        $participants = Participant::seasonId($season->id)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+		$participants = Participant::
+        leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->seasonId($season->id)
+        ->reserve($filterReserve)
+        ->name($filterName, $tournament)
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['participant_perPage' => $perPage]);
         session(['participant_page' => $page]);
         session(['participant_order' => $order]);
         session(['participant_filterName' => $filterName]);
 
-    	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
+    	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterReserve' => $filterReserve, 'order' => $order]);
     }
 
     public function view(Tournament $tournament, $season_slug, $id)
@@ -136,6 +154,7 @@ class ParticipantController extends Controller
     	}
     	if ($tournament->use_teams) {
 	        $teams = \DB::table("teams")->select('*')
+	        		->where('game_id', '=', $tournament->game_id)
 	                ->whereNotIn('id', function($query) use ($season) {
 	                   $query->select('team_id')->from('participants')->whereNotNull('team_id')->where('season_id', '=', $season->id);
 	                })
@@ -157,9 +176,6 @@ class ParticipantController extends Controller
         $data = $request->all();
 
 		$data['season_id'] = $season->id;
-		// $data['user_id'] = $request->user_id;
-		// $data['eteam_id'] = $request->eteam_id;
-		// $data['team_id'] = $request->team_id;
         $data['reserve'] = $request->reserve == 'on' ? 1 : 0;
         $participant = Participant::create($data);
 
@@ -271,7 +287,7 @@ class ParticipantController extends Controller
     public function export(Tournament $tournament, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
-        $order_ext = $this->getOrder($order);
+        $order_ext = $this->getOrder($order, $tournament);
         $seasons = Season::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
         $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
 
@@ -292,7 +308,7 @@ class ParticipantController extends Controller
     }
 
     public function exportGlobal(Tournament $tournament, $format, $filename, $order) {
-        $order_ext = $this->getOrder($order);
+        $order_ext = $this->getOrder($order, $tournament);
         $seasons = Season::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
         $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
 
@@ -328,22 +344,31 @@ class ParticipantController extends Controller
      * HELPERS FUNCTIONS
      *
      */
-    protected function getOrder($order) {
+    protected function getOrder($order, $tournament) {
+        if ($tournament->use_teams) {
+        	$name_field = "teams.name";
+        } else {
+            if ($tournament->participant_type == "individual") {
+            	$name_field = "users.name";
+            } else {
+            	$name_field = "eteams.name";
+            }
+        }
         $order_ext = [
             'id' => [
-                'sortField'     => 'id',
+                'sortField'     => 'participants.id',
                 'sortDirection' => 'asc'
             ],
             'id_desc' => [
-                'sortField'     => 'id',
+                'sortField'     => 'participants.id',
                 'sortDirection' => 'desc'
             ],
             'name' => [
-                'sortField'     => 'name',
+                'sortField'     => $name_field,
                 'sortDirection' => 'asc'
             ],
             'name_desc' => [
-                'sortField'     => 'name',
+                'sortField'     => $name_field,
                 'sortDirection' => 'desc'
             ]
         ];

@@ -16,4 +16,13 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
+    @if ($tournament->use_teams)
+        @if ($tournament->participant_type == "individual")
+            <th>Usuario</th>
+        @else
+            <th>E-Team</th>
+        @endif
+    @endif
+    <th>
+    </th>
 </tr>

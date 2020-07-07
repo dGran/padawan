@@ -24,6 +24,7 @@ class CreateEteamsTable extends Migration
                 ->on('users')
                 ->onDelete('cascade');
             $table->string('name')->unique();
+            $table->string('img')->nullable();
             $table->string('location')->nullable();
             $table->string('short_name');
             $table->string('slug')->unique();
