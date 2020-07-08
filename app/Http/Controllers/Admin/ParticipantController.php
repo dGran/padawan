@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-// use App\Exports\SeasonsExport;
-// use App\Imports\SeasonsImport;
+use App\Exports\ParticipantsExport;
+use App\Imports\ParticipantsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -132,10 +131,13 @@ class ParticipantController extends Controller
 		                ->whereNotIn('id', function($query) use ($season) {
 		                   $query->select('user_id')->from('participants')->whereNotNull('user_id')->where('season_id', '=', $season->id);
 		                })
+		                ->whereNotIn('id', function($query) use ($season) {
+		                   $query->select('user_id')->from('reserves')->whereNotNull('user_id')->where('season_id', '=', $season->id);
+		                })
 		                ->orderBy('name', 'asc')
 		                ->get();
 	    		if ($users->count() == 0) {
-		            flash()->error('No existen más usuarios que no sean ya participantes');
+		            flash()->error('No existen más usuarios que no sean ya participantes o reservas');
 		            return back();
 	    		}
 	    	}
@@ -145,10 +147,13 @@ class ParticipantController extends Controller
 		                ->whereNotIn('id', function($query) use ($season) {
 		                   $query->select('eteam_id')->from('participants')->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
 		                })
+		                ->whereNotIn('id', function($query) use ($season) {
+		                   $query->select('eteam_id')->from('reserves')->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+		                })
 		                ->orderBy('name', 'asc')
 		                ->get();
 	    		if ($eteams->count() == 0) {
-		            flash()->error('No existen más e-teams que no sean ya participantes');
+		            flash()->error('No existen más e-teams que no sean ya participantes o reservas');
 		            return back();
 	    		}
 	    	}
@@ -204,6 +209,9 @@ class ParticipantController extends Controller
 	                ->whereNotIn('id', function($query) use ($season, $participant) {
 	                   $query->select('user_id')->from('participants')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
 	                })
+	                ->whereNotIn('id', function($query) use ($season, $participant) {
+	                   $query->select('user_id')->from('reserves')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
+	                })
 	                ->orderBy('name', 'asc')
 	                ->get();
     	}
@@ -212,6 +220,9 @@ class ParticipantController extends Controller
 	        $eteams = \DB::table("eteams")->select('*')
 	                ->whereNotIn('id', function($query) use ($season, $participant) {
 	                   $query->select('eteam_id')->from('participants')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+	                })
+	                ->whereNotIn('id', function($query) use ($season, $participant) {
+	                   $query->select('eteam_id')->from('reserves')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
 	                })
 	                ->orderBy('name', 'asc')
 	                ->get();
@@ -278,22 +289,27 @@ class ParticipantController extends Controller
         }
     }
 
-    public function export(Tournament $tournament, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, $season_slug, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
-        $seasons = Season::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
+        $participants = Participant::
+        select('participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->whereIn('participants.id', $ids)
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
             default:
                 flash()->error('Formato de archivo no válido.');
                 return back();
@@ -301,20 +317,24 @@ class ParticipantController extends Controller
         }
     }
 
-    public function exportGlobal(Tournament $tournament, $format, $filename, $order) {
+    public function exportGlobal(Tournament $tournament, $season_slug, $format, $filename, $order) {
         $order_ext = $this->getOrder($order, $tournament);
-        $seasons = Season::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $seasons->makeHidden(['slug', 'created_at', 'updated_at']);
+        $participants = Participant::
+        select('participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new SeasonsExport($seasons))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
@@ -326,7 +346,7 @@ class ParticipantController extends Controller
     public function import(Tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new SeasonsImport, request()->file('fileImport'));
+            Excel::import(new ParticipantsImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();

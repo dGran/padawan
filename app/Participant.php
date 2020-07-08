@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
-	protected $fillable = ['season_id', 'user_id', 'eteam_id', 'team_id', 'clasues_paid', 'clasues_received'];
+	protected $fillable = ['season_id', 'user_id', 'eteam_id', 'team_id'];
     public $timestamps = false;
 
     public function season()
@@ -58,11 +58,21 @@ class Participant extends Model
             }
         } else {
             if ($this->season->tournament->participant_type == "individual") {
-                $presenter['name'] = $this->user->name;
-                $presenter['img'] = $this->user->profile->avatar();
+                if ($this->user) {
+                    $presenter['name'] = $this->user->name;
+                    $presenter['img'] = $this->user->profile->avatar();
+                } else {
+                    $presenter['name'] = 'No definido';
+                    $presenter['img'] = asset('img/avatars/default.png');
+                }
             } else {
-                $presenter['name'] = $this->eteam->name;
-                $presenter['img'] = $this->eteam->img();
+                if ($this->eteam) {
+                    $presenter['name'] = $this->eteam->name;
+                    $presenter['img'] = $this->eteam->img();
+                } else {
+                    $presenter['name'] = 'No definido';
+                    $presenter['img'] = asset('img/eteams/default.png');
+                }
             }
         }
         return $presenter;

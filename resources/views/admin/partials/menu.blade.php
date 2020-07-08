@@ -21,8 +21,8 @@
 		<li class="{{ stripos(Request::route()->getName(), 'admin.participants') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.participants.selector') }}"><i class="icon-participants"></i>Participantes</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-reserves"></i>Reservas</a>
+		<li class="{{ stripos(Request::route()->getName(), 'admin.reserves') !== false ? 'current' : '' }}">
+			<a href="{{ route('admin.reserves.selector') }}"><i class="icon-reserves"></i>Reservas</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-competitions"></i>Competiciones</a>

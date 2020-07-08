@@ -34,8 +34,6 @@ class CreateParticipantsTable extends Migration
                 ->references('id')
                 ->on('teams')
                 ->onDelete('cascade');
-            $table->integer('clauses_paid')->nullable();
-            $table->integer('clauses_received')->nullable();
         });
     }
 

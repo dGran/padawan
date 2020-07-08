@@ -11,6 +11,7 @@
     var routeCompetitions = "{{ route('admin.competitions', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routePosts = "{{ route('admin.posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeCash = "{{ route('admin.cash', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routePlayers = "{{ route('admin.season_players', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeTransfers = "{{ route('admin.transfers', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
@@ -99,6 +100,15 @@
         var slug = $(element).parents('tr').attr('data-slug');
         var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
         var route = routeCash.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
+    function players() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routePlayers.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }

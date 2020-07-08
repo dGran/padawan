@@ -29,7 +29,6 @@ class CreateReservesTable extends Migration
                 ->references('id')
                 ->on('eteams')
                 ->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
