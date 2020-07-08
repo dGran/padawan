@@ -10,4 +10,4 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li><a href="{{ route('admin.participants', [$tournament, $season->slug]) }}" class="breadcrumb-link">Participantes</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Editar participante</li>
+<li>Editar participante #{{ $participant->id }}</li>

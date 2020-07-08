@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['title' => 'Editar participante', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => 'Editar participante #' . $participant->id, 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')

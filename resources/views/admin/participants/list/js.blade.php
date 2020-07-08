@@ -3,7 +3,6 @@
     var routeEdit = "{{ route('admin.participants.edit', [$tournament, $season->slug, ':ID']) }}";
     var routeDestroy = "{{ route('admin.participants.destroy', [$tournament, $season->slug, ':IDS']) }}";
     var routeView = "{{ route('admin.participants.view', [$tournament, $season->slug, ':ID']) }}";
-    var routeDuplicate = "{{ route('admin.participants.duplicate', [$tournament, $season->slug, ':IDS']) }}";
     var routeExport = "{{ route('admin.participants.export', [$tournament, $season->slug, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.participants.export.global', [$tournament, $season->slug, ':FORMAT', ':FILENAME', $order]) }}";
 
@@ -24,11 +23,6 @@
 
         $(".current-registers").text(current_registers);
         $(".max-registers").text(max_registers);
-    }
-
-    function cancelFilterReserve() {
-        $("#filterReserve").prop("checked", false);
-        applyFilters();
     }
 
     $("#form-filter").submit(function(event) {

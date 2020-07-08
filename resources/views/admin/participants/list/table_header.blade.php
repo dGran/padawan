@@ -23,6 +23,4 @@
             <th>E-Team</th>
         @endif
     @endif
-    <th>
-    </th>
 </tr>

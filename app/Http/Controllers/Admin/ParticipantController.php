@@ -58,7 +58,6 @@ class ParticipantController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
-        $filterReserve = request()->filterReserve == "on" ? 1 : '';
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('participant_page')) {
@@ -76,9 +75,6 @@ class ParticipantController extends Controller
             if (request()->session()->get('participant_filterName')) {
                 $filterName = request()->session()->get('participant_filterName');
             }
-            if (request()->session()->get('participant_filterReserve')) {
-                $filterReserve = request()->session()->get('participant_filterReserve');
-            }
         }
 
         $order_ext = $this->getOrder($order, $tournament);
@@ -89,7 +85,6 @@ class ParticipantController extends Controller
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
-        ->reserve($filterReserve)
         ->name($filterName, $tournament)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $participants->lastPage()) {
@@ -101,7 +96,6 @@ class ParticipantController extends Controller
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
-        ->reserve($filterReserve)
         ->name($filterName, $tournament)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
@@ -109,9 +103,8 @@ class ParticipantController extends Controller
         session(['participant_page' => $page]);
         session(['participant_order' => $order]);
         session(['participant_filterName' => $filterName]);
-        session(['participant_filterReserve' => $filterReserve]);
 
-    	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterReserve' => $filterReserve, 'order' => $order]);
+    	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
     public function view(Tournament $tournament, $season_slug, $id)
@@ -119,7 +112,7 @@ class ParticipantController extends Controller
         $participant = Participant::findOrFail($id);
         $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
 
-        return view('admin.participants.view', ['tournament' => $tournament, 'season' => $season, 'tournament' => $tournament]);
+        return view('admin.participants.view', ['participant' => $participant, 'tournament' => $tournament, 'season' => $season]);
     }
 
     public function add(Tournament $tournament, $season_slug)
@@ -188,7 +181,6 @@ class ParticipantController extends Controller
 	        $data = $request->all();
 
 			$data['season_id'] = $season->id;
-	        $data['reserve'] = $request->reserve == 'on' ? 1 : 0;
 	        $participant = Participant::create($data);
 
 	        if ($participant->save()) {
@@ -242,8 +234,6 @@ class ParticipantController extends Controller
     	$participant = Participant::findOrFail($id);
 
         $data = $request->all();
-
-        $data['reserve'] = $request->reserve == 'on' ? 1 : 0;
         $participant->fill($data);
 
         if ($participant->isDirty()) {
@@ -284,35 +274,6 @@ class ParticipantController extends Controller
             return back()->with('page', 1);
         } else {
             flash()->error('Acción cancelada. Los registros no han podido ser eliminados.');
-            return back();
-        }
-    }
-
-    public function duplicate(Tournament $tournament, $ids)
-    {
-        $ids=explode(",",$ids);
-        $counter = 0;
-        for ($i=0; $i < count($ids); $i++)
-        {
-            $original = Season::find($ids[$i]);
-            if ($original) {
-                $counter++;
-                $season = $original->replicate();
-                $random_numer = rand(100,999);
-                $season->name .= " (copia_" . $random_numer . ")";
-                $season->slug = Str::slug($season->name, '-');
-                $season->save();
-            }
-        }
-        if ($counter > 0) {
-            if ($counter == 1) {
-                flash()->success('Registro duplicado correctamente');
-            } else {
-                flash()->success('Registros duplicados correctamente');
-            }
-            return back();
-        } else {
-            flash()->error('Acción cancelada. Los registros que querías duplicar ya no existen. Se ha actualizado la lista.');
             return back();
         }
     }

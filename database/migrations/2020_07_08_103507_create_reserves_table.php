@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateParticipantsTable extends Migration
+class CreateReservesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateParticipantsTable extends Migration
      */
     public function up()
     {
-        Schema::create('participants', function (Blueprint $table) {
+        Schema::create('reserves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')
                 ->references('id')
@@ -29,13 +29,7 @@ class CreateParticipantsTable extends Migration
                 ->references('id')
                 ->on('eteams')
                 ->onDelete('cascade');
-            $table->foreignId('team_id')
-                ->nullable()
-                ->references('id')
-                ->on('teams')
-                ->onDelete('cascade');
-            $table->integer('clauses_paid')->nullable();
-            $table->integer('clauses_received')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -46,6 +40,6 @@ class CreateParticipantsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('participants');
+        Schema::dropIfExists('reserves');
     }
 }

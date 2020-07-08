@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model
 {
-	protected $fillable = ['season_id', 'user_id', 'eteam_id', 'team_id', 'reserve', 'clasues_paid', 'clasues_received'];
+	protected $fillable = ['season_id', 'user_id', 'eteam_id', 'team_id', 'clasues_paid', 'clasues_received'];
+    public $timestamps = false;
 
     public function season()
     {
@@ -41,15 +42,6 @@ class Participant extends Model
             $query->where("teams.name", "LIKE", "%$name%");
             $query->orWhere("users.name", "LIKE", "%$name%");
             $query->orWhere("eteams.name", "LIKE", "%$name%");
-        }
-    }
-
-    public function scopeReserve($query, $value)
-    {
-        if ($value) {
-            return $query->where('reserve', $value);
-        } else {
-            return $query;
         }
     }
 

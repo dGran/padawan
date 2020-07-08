@@ -27,9 +27,4 @@
             {{ $participant->name_without_team() }}
         </td>
     @endif
-    <td>
-        @if ($participant->reserve)
-            <span class="text-xs font-semibold text-blue-700">RESERVA</span>
-        @endif
-    </td>
 </tr>
