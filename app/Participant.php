@@ -57,8 +57,13 @@ class Participant extends Model
     {
         $presenter = [];
         if ($this->season->tournament->use_teams) {
-            $presenter['name'] = $this->team->name;
-            $presenter['img'] = $this->team->img();
+            if ($this->team) {
+                $presenter['name'] = $this->team->name;
+                $presenter['img'] = $this->team->img();
+            } else {
+                $presenter['name'] = 'No definido';
+                $presenter['img'] = asset('img/teams/default.png');
+            }
         } else {
             if ($this->season->tournament->participant_type == "individual") {
                 $presenter['name'] = $this->user->name;
@@ -69,6 +74,22 @@ class Participant extends Model
             }
         }
         return $presenter;
+    }
+
+    public function name_without_team()
+    {
+        if ($this->season->tournament->participant_type == "individual")
+        {
+            if ($this->user) {
+                return $this->user->name;
+            }
+            return "No definido";
+        } else {
+            if ($this->eteam) {
+                return $this->eteam->name;
+            }
+            return "No definido";
+        }
     }
 
 

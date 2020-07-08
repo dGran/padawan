@@ -25,6 +25,11 @@
                 <i class="icon-economy"></i>
             </button>
         @endif
+        @if ($tournament->use_rosters)
+            <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Jugadores" id="players" onclick="players()">
+                <i class="icon-players"></i>
+            </button>
+        @endif
         @if ($tournament->use_transfers)
             <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Transfers" id="transfers" onclick="transfers()">
                 <i class="icon-transfers"></i>

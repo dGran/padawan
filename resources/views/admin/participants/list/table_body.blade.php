@@ -23,15 +23,9 @@
         </div>
     </td>
     @if ($tournament->use_teams)
-        @if ($tournament->participant_type == "individual")
-            <td>
-                {{ $participant->user->name }}
-            </td>
-        @else
-            <td>
-                {{ $participant->eteam->name }}
-            </td>
-        @endif
+        <td>
+            {{ $participant->name_without_team() }}
+        </td>
     @endif
     <td>
         @if ($participant->reserve)

@@ -10,6 +10,7 @@
                         <label for="user_id">Usuario</label>
                         <div class="relative">
                             <select name="user_id" id="user_id">
+                                <option value="">No definido</option>
                                 @foreach ($users as $user)
                                     <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">
                                         {{ $user->name }}
@@ -29,6 +30,7 @@
                         <label for="eteam_id">E-Team</label>
                         <div class="relative">
                             <select name="eteam_id" id="eteam_id">
+                                <option value="">No definido</option>
                                 @foreach ($eteams as $eteam)
                                     <option {{ old('eteam_id') == $eteam->id ? 'selected' : '' }} value="{{ $eteam->id }}">
                                         {{ $eteam->name }}
@@ -48,6 +50,7 @@
                         <label for="team_id">Equipo</label>
                         <div class="relative">
                             <select name="team_id" id="team_id">
+                                <option value="">No definido</option>
                                 @foreach ($teams as $team)
                                     <option {{ old('team_id') == $team->id ? 'selected' : '' }} value="{{ $team->id }}">
                                         {{ $team->name }}

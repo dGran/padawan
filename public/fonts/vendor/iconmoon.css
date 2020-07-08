@@ -37,8 +37,11 @@
 .icon-pos-por:before {
   content: "\e91a";
 }
-.icon-news:before {
+.icon-reserves:before {
   content: "\e92c";
+}
+.icon-news:before {
+  content: "\e92d";
 }
 .icon-eplayers:before {
   content: "\e920";

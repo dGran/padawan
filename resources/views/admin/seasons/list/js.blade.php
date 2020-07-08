@@ -35,6 +35,7 @@
                 $("#competitions").show();
                 $("#posts").show();
                 $("#cash").show();
+                $("#players").show();
                 $("#transfers").show();
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
@@ -46,6 +47,7 @@
                 $("#competitions").hide();
                 $("#posts").hide();
                 $("#cash").hide();
+                $("#players").hide();
                 $("#transfers").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');

@@ -10,6 +10,22 @@
     {{-- var routeCompetitions = "{{ route('admin.participants', ':SLUG') }}"; --}}
     {{-- var routeParticipants = "{{ route('admin.participants', ':SLUG') }}"; --}}
 
+    var max_registers = "{{ $season->num_participants }}";
+    var current_registers = "{{ $season->participants->count() }}";
+    check_max_participants();
+
+    function check_max_participants() {
+        var full = "{{ $season->fullParticipants() }}";
+        if (full) {
+            $(".add").addClass('disable');
+        } else {
+            $(".add").removeClass('disable');
+        }
+
+        $(".current-registers").text(current_registers);
+        $(".max-registers").text(max_registers);
+    }
+
     function cancelFilterReserve() {
         $("#filterReserve").prop("checked", false);
         applyFilters();
@@ -33,18 +49,12 @@
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
-                $("#competitions").show();
-                $("#participants").show();
-                $("#news").show();
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
                 $("#destroy").addClass('hint--top');
             } else {
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
-                $("#competitions").hide();
-                $("#participants").hide();
-                $("#news").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');
                 $("#destroy").addClass('hint--top-right');

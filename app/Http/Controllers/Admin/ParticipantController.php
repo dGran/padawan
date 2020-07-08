@@ -84,7 +84,8 @@ class ParticipantController extends Controller
         $order_ext = $this->getOrder($order, $tournament);
 
         $participants = Participant::
-        leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        select('participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
@@ -95,7 +96,8 @@ class ParticipantController extends Controller
             $page = $participants->lastPage();
         }
 		$participants = Participant::
-        leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        select('participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
@@ -107,6 +109,7 @@ class ParticipantController extends Controller
         session(['participant_page' => $page]);
         session(['participant_order' => $order]);
         session(['participant_filterName' => $filterName]);
+        session(['participant_filterReserve' => $filterReserve]);
 
     	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterReserve' => $filterReserve, 'order' => $order]);
     }
@@ -123,123 +126,153 @@ class ParticipantController extends Controller
     {
     	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
 
-    	$users = null;
-    	$eteams = null;
-    	$teams = null;
+    	if ($season->fullParticipants()) {
+            flash()->error('Se ha alcanzado el máximo de participantes');
+            return back();
+    	} else {
+	    	$users = null;
+	    	$eteams = null;
+	    	$teams = null;
 
-    	if ($tournament->participant_type == 'individual') {
-	        $users = \DB::table("users")->select('*')
-	                ->whereNotIn('id', function($query) use ($season) {
-	                   $query->select('user_id')->from('participants')->whereNotNull('user_id')->where('season_id', '=', $season->id);
-	                })
-	                ->orderBy('name', 'asc')
-	                ->get();
-    		if ($users->count() == 0) {
-	            flash()->error('No existen más usuarios que no sean ya participantes');
-	            return back();
-    		}
-    	}
-    	if ($tournament->participant_type == 'eteam') {
-    		$eteams = ETeam::select('*')->orderBy('name')->get();
-	        $eteams = \DB::table("eteams")->select('*')
-	                ->whereNotIn('id', function($query) use ($season) {
-	                   $query->select('eteam_id')->from('participants')->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
-	                })
-	                ->orderBy('name', 'asc')
-	                ->get();
-    		if ($eteams->count() == 0) {
-	            flash()->error('No existen más e-teams que no sean ya participantes');
-	            return back();
-    		}
-    	}
-    	if ($tournament->use_teams) {
-	        $teams = \DB::table("teams")->select('*')
-	        		->where('game_id', '=', $tournament->game_id)
-	                ->whereNotIn('id', function($query) use ($season) {
-	                   $query->select('team_id')->from('participants')->whereNotNull('team_id')->where('season_id', '=', $season->id);
-	                })
-	                ->orderBy('name', 'asc')
-	                ->get();
-    		if ($teams->count() == 0) {
-	            flash()->error('No existen más equipos que no sean ya participantes');
-	            return back();
-    		}
-    	}
+	    	if ($tournament->participant_type == 'individual') {
+		        $users = \DB::table("users")->select('*')
+		                ->whereNotIn('id', function($query) use ($season) {
+		                   $query->select('user_id')->from('participants')->whereNotNull('user_id')->where('season_id', '=', $season->id);
+		                })
+		                ->orderBy('name', 'asc')
+		                ->get();
+	    		if ($users->count() == 0) {
+		            flash()->error('No existen más usuarios que no sean ya participantes');
+		            return back();
+	    		}
+	    	}
+	    	if ($tournament->participant_type == 'eteam') {
+	    		$eteams = ETeam::select('*')->orderBy('name')->get();
+		        $eteams = \DB::table("eteams")->select('*')
+		                ->whereNotIn('id', function($query) use ($season) {
+		                   $query->select('eteam_id')->from('participants')->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+		                })
+		                ->orderBy('name', 'asc')
+		                ->get();
+	    		if ($eteams->count() == 0) {
+		            flash()->error('No existen más e-teams que no sean ya participantes');
+		            return back();
+	    		}
+	    	}
+	    	if ($tournament->use_teams) {
+		        $teams = \DB::table("teams")->select('*')
+		        		->where('game_id', '=', $tournament->game_id)
+		                ->whereNotIn('id', function($query) use ($season) {
+		                   $query->select('team_id')->from('participants')->whereNotNull('team_id')->where('season_id', '=', $season->id);
+		                })
+		                ->orderBy('name', 'asc')
+		                ->get();
+	    		if ($teams->count() == 0) {
+		            flash()->error('No existen más equipos que no sean ya participantes');
+		            return back();
+	    		}
+	    	}
 
-    	return view('admin.participants.add', ['tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams, 'teams' => $teams]);
+	    	return view('admin.participants.add', ['tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams, 'teams' => $teams]);
+    	}
     }
 
     public function save(Tournament $tournament, $season_slug, Request $request)
     {
     	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
 
+    	if ($season->fullParticipants()) {
+            flash()->error('Se ha alcanzado el máximo de participantes');
+            return back();
+    	} else {
+	        $data = $request->all();
+
+			$data['season_id'] = $season->id;
+	        $data['reserve'] = $request->reserve == 'on' ? 1 : 0;
+	        $participant = Participant::create($data);
+
+	        if ($participant->save()) {
+	            flash()->success('Registro creado correctamente');
+	            return redirect()->route('admin.participants', [$tournament, $season_slug]);
+	        }
+    	}
+    }
+
+    public function edit(Tournament $tournament, $season_slug, $id)
+    {
+    	$participant = Participant::findOrFail($id);
+    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
+
+    	$users = null;
+    	$eteams = null;
+    	$teams = null;
+
+    	if ($tournament->participant_type == 'individual') {
+	        $users = \DB::table("users")->select('*')
+	                ->whereNotIn('id', function($query) use ($season, $participant) {
+	                   $query->select('user_id')->from('participants')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
+	                })
+	                ->orderBy('name', 'asc')
+	                ->get();
+    	}
+    	if ($tournament->participant_type == 'eteam') {
+    		$eteams = ETeam::select('*')->orderBy('name')->get();
+	        $eteams = \DB::table("eteams")->select('*')
+	                ->whereNotIn('id', function($query) use ($season, $participant) {
+	                   $query->select('eteam_id')->from('participants')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+	                })
+	                ->orderBy('name', 'asc')
+	                ->get();
+    	}
+    	if ($tournament->use_teams) {
+	        $teams = \DB::table("teams")->select('*')
+	        		->where('game_id', '=', $tournament->game_id)
+	                ->whereNotIn('id', function($query) use ($season, $participant) {
+	                   $query->select('team_id')->from('participants')->where('team_id', '!=', $participant->team_id)->whereNotNull('team_id')->where('season_id', '=', $season->id);
+	                })
+	                ->orderBy('name', 'asc')
+	                ->get();
+    	}
+
+    	return view('admin.participants.edit', ['participant' => $participant, 'tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams, 'teams' => $teams]);
+    }
+
+    public function update(Tournament $tournament, $season_slug, $id, Request $request)
+    {
+    	$participant = Participant::findOrFail($id);
+
         $data = $request->all();
 
-		$data['season_id'] = $season->id;
         $data['reserve'] = $request->reserve == 'on' ? 1 : 0;
-        $participant = Participant::create($data);
+        $participant->fill($data);
 
-        if ($participant->save()) {
-            flash()->success('Registro creado correctamente');
+        if ($participant->isDirty()) {
+            $participant->update($data);
+            if ($participant->update()) {
+                flash()->success('Registro editado correctamente');
+                return redirect()->route('admin.participants', [$tournament, $season_slug]);
+            } else {
+                flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
+                return redirect()->route('admin.participants', [$tournament, $season_slug]);
+            }
+        } else {
+            flash()->info('No se han detectado cambios en el registro');
             return redirect()->route('admin.participants', [$tournament, $season_slug]);
         }
     }
 
-    public function edit(Tournament $tournament, $id)
+    public function destroy(Tournament $tournament, $season_slug, $ids)
     {
-        $season = Season::findOrFail($id);
-    	if ($tournament->use_rosters) {
-    		$players_databases = PlayerDatabase::select('*')->game($tournament->game_id)->orderBy('name')->get();
-        	return view('admin.seasons.edit', ['season' => $season, 'tournament' => $tournament, 'players_databases' => $players_databases]);
-    	}
-    	return view('admin.seasons.edit', ['season' => $season, 'tournament' => $tournament]);
-    }
+    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
 
-    public function update(Tournament $tournament, $id, Request $request)
-    {
-        $season = Season::findOrFail($id);
-
-        $data = $request->validate([
-            'name' => 'required',
-            'num_participants' => 'required',
-        ],
-        [
-            'name.required' => 'El nombre es obligatorio',
-            'num_participants.required' => 'El número de participantes es obligatorio. 0 para iliminados'
-        ]);
-
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->name, '-');
-
-        $data['free_inscription'] = $request->free_inscription == 'on' ? 1 : 0;
-
-        $season->fill($data);
-
-        if ($season->isDirty()) {
-            $season->update($data);
-            if ($season->update()) {
-                flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.seasons', $tournament);
-            } else {
-                flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.seasons', $tournament);
-            }
-        } else {
-            flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.seasons', $tournament);
-        }
-    }
-
-    public function destroy(Tournament $tournament, $ids)
-    {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $season = Season::find($ids[$i]);
-            if ($season && $season->canDestroy()) {
+            $participant = Participant::find($ids[$i]);
+            if ($participant && $participant->canDestroy()) {
                 $counter++;
-                $season->delete();
+                $participant->delete();
             }
         }
         if ($counter > 0) {

@@ -22,6 +22,9 @@
 			<a href="{{ route('admin.participants.selector') }}"><i class="icon-participants"></i>Participantes</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-reserves"></i>Reservas</a>
+		</li>
+		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-competitions"></i>Competiciones</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
@@ -29,6 +32,9 @@
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-economy"></i>Economía</a>
+		</li>
+		<li class="disabled {{-- {{ \Request::is('admin/jugadores*') ? 'current' : '' }} --}}">
+			<a {{-- href="{{ route('admin.players') }}" --}}><i class="icon-players"></i>Jugadores</a>
 		</li>
 		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-transfers"></i>Transfers</a>

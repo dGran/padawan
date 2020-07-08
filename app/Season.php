@@ -14,6 +14,11 @@ class Season extends Model
         return $this->belongsTo('App\Tournament');
     }
 
+    public function participants()
+    {
+        return $this->hasMany('App\Participant');
+    }
+
     public function scopeName($query, $name)
     {
         if (trim($name) !="") {
@@ -25,6 +30,21 @@ class Season extends Model
     {
         if ($tournament > 0) {
             $query->where("tournament_id", "=", $tournament);
+        }
+    }
+
+    public function fullParticipants()
+    {
+        $max_registers = $this->num_participants;
+        if ($max_registers > 0) {
+            $current = $this->participants->count();
+            if ($current >= $max_registers) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 

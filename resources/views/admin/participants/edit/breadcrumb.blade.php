@@ -7,3 +7,7 @@
 <li><a href="{{ route('admin.seasons', $tournament->slug) }}" class="breadcrumb-link">Temporadas</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $season->name }}</li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li><a href="{{ route('admin.participants', [$tournament, $season->slug]) }}" class="breadcrumb-link">Participantes</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>Editar participante</li>
