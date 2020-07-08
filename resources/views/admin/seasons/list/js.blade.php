@@ -8,6 +8,7 @@
     var routeExportGlobal = "{{ route('admin.seasons.export.global', [$tournament, ':FORMAT', ':FILENAME', $order]) }}";
 
     var routeParticipants = "{{ route('admin.participants', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routeReserves = "{{ route('admin.reserves', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeCompetitions = "{{ route('admin.competitions', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routePosts = "{{ route('admin.posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeCash = "{{ route('admin.cash', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
@@ -33,6 +34,7 @@
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
                 $("#participants").show();
+                $("#reserves").show();
                 $("#competitions").show();
                 $("#posts").show();
                 $("#cash").show();
@@ -45,6 +47,7 @@
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
                 $("#participants").hide();
+                $("#reserves").hide();
                 $("#competitions").hide();
                 $("#posts").hide();
                 $("#cash").hide();
@@ -73,6 +76,15 @@
         var slug = $(element).parents('tr').attr('data-slug');
         var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
         var route = routeParticipants.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var url = route;
+        window.location.href=url;
+    }
+
+    function reserves() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
+        var route = routeReserves.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }

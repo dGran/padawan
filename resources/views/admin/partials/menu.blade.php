@@ -15,28 +15,28 @@
 		<li class="{{ stripos(Request::route()->getName(), 'admin.tournaments') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.tournaments') }}"><i class="icon-tournaments"></i>Torneos</a>
 		</li>
-		<li class="{{ stripos(Request::route()->getName(), 'admin.seasons') !== false ? 'current' : '' }}">
+		<li class="ml-3 {{ stripos(Request::route()->getName(), 'admin.seasons') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.seasons.selector') }}"><i class="icon-seasons"></i>Temporadas</a>
 		</li>
-		<li class="{{ stripos(Request::route()->getName(), 'admin.participants') !== false ? 'current' : '' }}">
+		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.participants') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.participants.selector') }}"><i class="icon-participants"></i>Participantes</a>
 		</li>
-		<li class="{{ stripos(Request::route()->getName(), 'admin.reserves') !== false ? 'current' : '' }}">
+		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.reserves') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.reserves.selector') }}"><i class="icon-reserves"></i>Reservas</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-competitions"></i>Competiciones</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-news"></i>Noticias</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-economy"></i>Economía</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/jugadores*') ? 'current' : '' }} --}}">
+		<li class="disabled ml-6 {{-- {{ \Request::is('admin/jugadores*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.players') }}" --}}><i class="icon-players"></i>Jugadores</a>
 		</li>
-		<li class="disabled {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
+		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-transfers"></i>Transfers</a>
 		</li>
 	</ul>

@@ -41,9 +41,7 @@
 <ul>
     <li>- expulsar usuario o eteam</li>
     <li>- sustituir (por reserva) usuario o eteam</li>
-    <li>- crear tabla reservas y eliminar el campo reserve de participantes</li>
     <li>- generar automaticamente los participantes si no son ilimitados al crear la temporada, y modificar al editar (o no permitir editar (estudiar)</li>
-    <li>- agregar campo en temporadas, admin reservas</li>
 </ul>
 
 <div class="selected-options hidden animated fast">

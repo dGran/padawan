@@ -14,6 +14,9 @@
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Participantes" id="participants" onclick="participants()">
             <i class="icon-participants"></i>
         </button>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Reservas" id="reserves" onclick="reserves()">
+            <i class="icon-reserves"></i>
+        </button>
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Competiciones" id="competitions" onclick="competitions()">
             <i class="icon-competitions"></i>
         </button>
