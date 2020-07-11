@@ -15,7 +15,7 @@
 		<li class="{{ stripos(Request::route()->getName(), 'admin.tournaments') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.tournaments') }}"><i class="icon-tournaments"></i>Torneos</a>
 		</li>
-		<li class="ml-3 {{ stripos(Request::route()->getName(), 'admin.seasons') !== false ? 'current' : '' }}">
+		<li class="ml-3 {{ stripos(Request::route()->getName(), 'admin.seasons') !== false && strpos(Request::route()->getName(), '_posts') == false ? 'current' : '' }}">
 			<a href="{{ route('admin.seasons.selector') }}"><i class="icon-seasons"></i>Temporadas</a>
 		</li>
 		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.participants') !== false ? 'current' : '' }}">
@@ -27,8 +27,8 @@
 		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-competitions"></i>Competiciones</a>
 		</li>
-		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-news"></i>Noticias</a>
+		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.seasons_posts') !== false ? 'current' : '' }}">
+			<a href="{{ route('admin.seasons_posts.selector') }}"><i class="icon-news"></i>Noticias</a>
 		</li>
 		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
 			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-economy"></i>Economía</a>

@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => 'Error 503', 'wrap_bg' => 'bg-gray-200'])
+@extends('layouts.errors', ['title' => 'Error 503'])
 
 @section('content')
-	<div class="antialiased font-sans below-fixed-header">
-		<div class="md:flex">
+	<div class="antialiased font-roboto flex h-screen bg-gray-200">
+		<div class="m-auto">
 			<div class="w-full flex items-center justify-center">
 				<div class="max-w-lg m-12 md:m-8">
 					<div class="text-black text-5xl md:text-6xl font-black animated bounceInUp">
@@ -16,8 +16,8 @@
 					<span class="block mb-8 font-bold text-orange-600 text-sm md:text-base animated bounceInRight delay-1s">
 						Error code: 503
 					</span>
-					<a class="bg-transparent text-gray-600 hover:text-gray-800 font-bold uppercase tracking-wide py-3 px-6 border-2 border-gray-500 hover:border-gray-600 rounded-lg text-base md:text-lg animated  fadeIn delay-1s bg-gray-100 hover:bg-white" href="{{ route('home') }}">
-						Ir al inicio
+					<a class="bg-transparent text-gray-600 hover:text-gray-800 font-bold uppercase tracking-wide py-3 px-6 border-2 border-gray-500 hover:border-gray-600 rounded-lg text-base md:text-lg animated  fadeIn delay-1s bg-gray-100 hover:bg-white" href="{{ request()->is('admin/*') ? route('admin') : route('home') }}">
+						{{ request()->is('admin/*') ? 'Ir al dashboard' : 'Ir al inicio' }}
 					</a>
 				</div>
 			</div>

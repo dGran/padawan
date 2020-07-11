@@ -190,7 +190,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season_slug}/participantes/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\ParticipantController@exportGlobal')->name('admin.participants.export.global');
 	Route::post('/torneos/{tournament:slug}/{season_slug}/participantes/importar', 'Admin\ParticipantController@import')->name('admin.participants.import');
 
-	//Participants
+	//Reserves
 	Route::get('/reservas/selector-de-temporada', 'Admin\ReserveController@selector')->name('admin.reserves.selector');
 	Route::post('/reservas/selector-de-temporada', 'Admin\ReserveController@selectorSelect')->name('admin.reserves.selector.select');
 	Route::get('/reservas/cargar_temporadas/{tournament_id}', 'Admin\ReserveController@loadSeasons')->name('admin.reserves.load_seasons');
@@ -211,9 +211,20 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/competitiones', 'Admin\CompetitionController@list')->name('admin.competitions');
 
 	//News
-	Route::get('/torneos/noticias/selector-de-temporada', 'Admin\PostController@selector')->name('admin.posts.selector');
-	Route::post('/torneos/noticias/selector-de-temporada', 'Admin\PostController@selectorSelect')->name('admin.posts.selector.select');
-	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias', 'Admin\PostController@list')->name('admin.posts');
+	Route::get('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selector')->name('admin.seasons_posts.selector');
+	Route::post('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selectorSelect')->name('admin.seasons_posts.selector.select');
+	Route::get('/noticias/cargar_temporadas/{tournament_id}', 'Admin\SeasonPostController@loadSeasons')->name('admin.seasons_posts.load_seasons');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias', 'Admin\SeasonPostController@list')->name('admin.seasons_posts');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/nueva', 'Admin\SeasonPostController@add')->name('admin.seasons_posts.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/noticias/nueva', 'Admin\SeasonPostController@save')->name('admin.seasons_posts.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/editar/{id}', 'Admin\SeasonPostController@edit')->name('admin.seasons_posts.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/noticias/editar/{id}', 'Admin\SeasonPostController@update')->name('admin.seasons_posts.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/ver/{id}', 'Admin\SeasonPostController@view')->name('admin.seasons_posts.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/eliminar/{ids}', 'Admin\SeasonPostController@destroy')->name('admin.seasons_posts.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/duplicar/{ids}', 'Admin\SeasonPostController@duplicate')->name('admin.seasons_posts.duplicate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/exportar/{format}/{ids}/{filename}/{order}', 'Admin\SeasonPostController@export')->name('admin.seasons_posts.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/noticias/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\SeasonPostController@exportGlobal')->name('admin.seasons_posts.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/noticias/importar', 'Admin\SeasonPostController@import')->name('admin.seasons_posts.import');
 
 	//Economy
 	Route::get('/torneos/economia/selector-de-temporada', 'Admin\CashController@selector')->name('admin.cash.selector');

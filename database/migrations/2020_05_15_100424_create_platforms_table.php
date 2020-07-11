@@ -17,6 +17,7 @@ class CreatePlatformsTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('img')->nullable();
+            $table->enum('color', ['blue', 'red', 'green', 'black', 'white', 'gray', 'orange', 'yellow', 'teal', 'indigo', 'purple', 'pink'])->nullable();
             $table->string('slug')->unique();
         });
     }

@@ -21,6 +21,7 @@ class CreateTournamentsTable extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();
+            $table->string('banner')->nullable();
             $table->enum('participant_type', ['individual', 'eteam']);
             $table->boolean('use_teams')->default(false);
             $table->boolean('use_rosters')->default(false);

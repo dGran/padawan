@@ -10,7 +10,7 @@
     var routeParticipants = "{{ route('admin.participants', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeReserves = "{{ route('admin.reserves', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeCompetitions = "{{ route('admin.competitions', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routePosts = "{{ route('admin.posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routePosts = "{{ route('admin.seasons_posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeCash = "{{ route('admin.cash', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routePlayers = "{{ route('admin.season_players', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
     var routeTransfers = "{{ route('admin.transfers', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";

@@ -3,9 +3,10 @@
 <div class="w-full fixed border-b border-gray-800 bg-gray-900 z-50">
     <div x-data="{ open: false }" class="flex flex-col custom-container md:items-center md:justify-between md:flex-row">
         <div class="py-4 flex flex-row items-center justify-between">
-            <a href="{{ route('home') }}" class="text-lg font-semibold tracking-wide uppercase focus:outline-none">
-                <img src="https://symfony.com/uploads/projects/magento.png" alt="logo" class="w-8 md:w-10 inline-block">
-                <span class="ml-1 mr-2">{{ env('APP_NAME') }}</span>
+            <a href="{{ route('home') }}" class="flex items-center text-lg font-semibold tracking-wide uppercase focus:outline-none">
+                {{-- <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Embl%C3%A8me_de_l%27Ordre_Jedi.svg" alt="logo" class="w-8 md:w-10 inline-block"> --}}
+                <i class="icon-logo text-3xl lg:text-4xl text-orange-500"></i>
+                <span class="ml-4 mr-2 hover:text-orange-200">{{ env('APP_NAME') }}</span>
             </a>
             <div class="md:hidden flex">
                 @guest

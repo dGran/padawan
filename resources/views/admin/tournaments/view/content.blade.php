@@ -113,7 +113,7 @@
 			<div>
 				<dt>Reglas</dt>
 				<dd>
-					<textarea class="appearance-none block w-full border border-gray-300 rounded py-2 px-3 focus:border-gray-500" rows="10">{{ $tournament->rules }}</textarea>
+					<textarea readonly class="appearance-none block w-full border border-gray-300 rounded py-2 px-3 focus:border-gray-500" rows="10">{{ $tournament->rules }}</textarea>
 				</dd>
 			</div>
 	    </dl>

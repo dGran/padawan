@@ -85,6 +85,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'seasons_posts' => [
+            'driver' => 'local',
+            'root' => public_path('img/seasons_posts'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

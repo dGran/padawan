@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-logo:before {
+  content: "\e92c";
+}
 .icon-pos-med:before {
   content: "\e917";
 }
@@ -38,10 +41,10 @@
   content: "\e91a";
 }
 .icon-reserves:before {
-  content: "\e92c";
+  content: "\e92d";
 }
 .icon-news:before {
-  content: "\e92d";
+  content: "\e92e";
 }
 .icon-eplayers:before {
   content: "\e920";
