@@ -28,6 +28,13 @@ class SeasonPost extends Model
         }
     }
 
+    public function scopeType($query, $type)
+    {
+        if (trim($type) !="") {
+            $query->where("type", "=", $type);
+        }
+    }
+
     public function img()
     {
         switch ($this->type) {

@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Exports\ParticipantsExport;
-use App\Imports\ParticipantsImport;
+use App\Exports\SeasonsPostsExport;
+use App\Imports\SeasonsPostsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -60,6 +60,7 @@ class SeasonPostController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
+        $filterType = request()->filterType;
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('season_post_page')) {
@@ -77,22 +78,26 @@ class SeasonPostController extends Controller
             if (request()->session()->get('season_post_filterName')) {
                 $filterName = request()->session()->get('season_post_filterName');
             }
+            if (request()->session()->get('season_post_filterType')) {
+                $filterType = request()->session()->get('season_post_filterType');
+            }
         }
 
         $order_ext = $this->getOrder($order, $tournament);
 
-        $seasons_posts = SeasonPost::seasonId($season->id)->name($filterName, $tournament)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $seasons_posts = SeasonPost::seasonId($season->id)->name($filterName, $tournament)->type($filterType)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $seasons_posts->lastPage()) {
             $page = $seasons_posts->lastPage();
         }
-		$seasons_posts = SeasonPost::seasonId($season->id)->name($filterName, $tournament)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+		$seasons_posts = SeasonPost::seasonId($season->id)->name($filterName, $tournament)->type($filterType)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['season_post_perPage' => $perPage]);
         session(['season_post_page' => $page]);
         session(['season_post_order' => $order]);
         session(['season_post_filterName' => $filterName]);
+        session(['season_post_filterType' => $filterType]);
 
-    	return view('admin.seasons_posts.list', ['seasons_posts' => $seasons_posts, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
+    	return view('admin.seasons_posts.list', ['seasons_posts' => $seasons_posts, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterType' => $filterType, 'order' => $order]);
     }
 
     public function view(Tournament $tournament, $season_slug, $id)
@@ -319,6 +324,7 @@ class SeasonPostController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
         $seasons_posts = SeasonPost::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $seasons_posts->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
@@ -345,17 +351,18 @@ class SeasonPostController extends Controller
         }
 
         $order_ext = $this->getOrder($order, $tournament);
-		$seasons_posts = SeasonPost::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+		$seasons_posts = SeasonPost::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+		$seasons_posts->makeHidden(['img', 'slug']);
 
         switch ($format) {
             case 'xls':
-                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new SeasonsPostsExport($seasons_posts))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new SeasonsPostsExport($seasons_posts))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new ParticipantsExport($participants))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new SeasonsPostsExport($seasons_posts))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
@@ -367,7 +374,7 @@ class SeasonPostController extends Controller
     public function import(Tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new ParticipantsImport, request()->file('fileImport'));
+            Excel::import(new SeasonsPostsImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();

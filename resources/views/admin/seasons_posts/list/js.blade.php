@@ -7,6 +7,11 @@
     var routeExport = "{{ route('admin.seasons_posts.export', [$tournament, $season->slug, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.seasons_posts.export.global', [$tournament, $season->slug, ':FORMAT', ':FILENAME', $order]) }}";
 
+    function cancelFilterType() {
+        $("#filterType").val('');
+        applyFilters();
+    }
+
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
     });
