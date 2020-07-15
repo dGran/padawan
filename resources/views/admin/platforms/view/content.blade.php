@@ -25,6 +25,14 @@
 				<dt>Nombre</dt>
 				<dd>{{ $platform->name }}</dd>
 			</div>
+			<div>
+				<dt>Color</dt>
+				<dd>
+					<span class="bg-{{ $platform->color }}-500 py-2 px-4 text-white rounded">
+						{{ $platform->color_name() }}
+					</span>
+				</dd>
+			</div>
 	    </dl>
 
 	</div>

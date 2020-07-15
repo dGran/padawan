@@ -31,6 +31,28 @@
                     <label for="name">*Nombre</label>
                     <input type="text" class="placeholder-gray-400" id="name" name="name" placeholder="Nombre" autofocus value="{{ old('name', $platform->name) }}">
                 </div>
+                <div class="element">
+                    <label for="color">Color</label>
+                    <div class="relative">
+                        <select name="color" id="color">
+                            <option {{ $platform->color == 'yellow' ? 'selected' : '' }} value="yellow">Amarillo</option>
+                            <option {{ $platform->color == 'blue' ? 'selected' : '' }} value="blue">Azul</option>
+                            <option {{ $platform->color == 'indigo' ? 'selected' : '' }} value="indigo">Azul oscuro</option>
+                            <option {{ $platform->color == 'gray' ? 'selected' : '' }} value="gray">Gris</option>
+                            <option {{ $platform->color == 'orange' ? 'selected' : '' }} value="orange">Naranja</option>
+                            <option {{ $platform->color == 'purple' ? 'selected' : '' }} value="purple">Púrpura</option>
+                            <option {{ $platform->color == 'red' ? 'selected' : '' }} value="red">Rojo</option>
+                            <option {{ $platform->color == 'pink' ? 'selected' : '' }} value="pink">Rosa</option>
+                            <option {{ $platform->color == 'green' ? 'selected' : '' }} value="green">Verde</option>
+                            <option {{ $platform->color == 'teal' ? 'selected' : '' }} value="teal">Verde azulado</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-8">

@@ -17,6 +17,7 @@ class PlatformsImport implements ToModel, WithHeadingRow
         if (!Platform::where('name', $row['name'])->exists()) {
             $platform = Platform::create([
                'name'   => $row['name'],
+               'color'  => $row['color'],
                'slug'   => Str::slug($row['name'], '-'),
             ]);
             return $platform;
