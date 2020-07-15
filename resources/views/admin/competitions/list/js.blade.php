@@ -53,6 +53,17 @@
         checkRowSelectedCustom();
     }
 
+    function showHideAllRowOptionsCustom() {
+        if ($("#allMark").is(':checked')) {
+            $(".mark").prop('checked', true);
+            $(".mark").parents('tr').addClass('selected');
+        } else {
+            $(".mark").prop('checked', false);
+            $(".mark").parents('tr').removeClass('selected');
+        }
+        showHideRowOptionsCustom();
+    }
+
     function phases() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
