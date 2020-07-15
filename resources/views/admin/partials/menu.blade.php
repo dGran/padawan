@@ -24,8 +24,8 @@
 		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.reserves') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.reserves.selector') }}"><i class="icon-reserves"></i>Reservas</a>
 		</li>
-		<li class="disabled ml-6 {{-- {{ \Request::is('admin/juegos*') ? 'current' : '' }} --}}">
-			<a {{-- href="{{ route('admin.games') }}" --}}><i class="icon-competitions"></i>Competiciones</a>
+		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.competitions') !== false ? 'current' : '' }}">
+			<a href="{{ route('admin.competitions.selector') }}"><i class="icon-competitions"></i>Competiciones</a>
 		</li>
 		<li class="ml-6 {{ stripos(Request::route()->getName(), 'admin.seasons_posts') !== false ? 'current' : '' }}">
 			<a href="{{ route('admin.seasons_posts.selector') }}"><i class="icon-news"></i>Noticias</a>

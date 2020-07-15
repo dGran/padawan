@@ -195,7 +195,7 @@ class ParticipantController extends Controller
         if (!$season) {
             flash()->error('La temporada no existe');
             return redirect()->route('admin');
-        }r
+        }
 
     	if ($season->fullParticipants()) {
             flash()->error('Se ha alcanzado el máximo de participantes');

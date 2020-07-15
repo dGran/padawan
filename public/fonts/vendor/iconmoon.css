@@ -40,6 +40,18 @@
 .icon-pos-por:before {
   content: "\e91a";
 }
+.icon-gamepad:before {
+  content: "\e92f";
+}
+.icon-groups_participants:before {
+  content: "\e930";
+}
+.icon-groups:before {
+  content: "\e931";
+}
+.icon-phases:before {
+  content: "\e932";
+}
 .icon-reserves:before {
   content: "\e92d";
 }

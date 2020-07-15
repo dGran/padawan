@@ -206,9 +206,33 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::post('/torneos/{tournament:slug}/{season_slug}/reservas/importar', 'Admin\ReserveController@import')->name('admin.reserves.import');
 
 	//Competitions
-	Route::get('/torneos/competiciones/selector-de-temporada', 'Admin\CompetitionController@selector')->name('admin.competitions.selector');
-	Route::post('/torneos/competiciones/selector-de-temporada', 'Admin\CompetitionController@selectorSelect')->name('admin.competitions.selector.select');
-	Route::get('/torneos/{tournament:slug}/{season:slug}/competitiones', 'Admin\CompetitionController@list')->name('admin.competitions');
+	Route::get('/competiciones/selector-de-temporada', 'Admin\CompetitionController@selector')->name('admin.competitions.selector');
+	Route::post('/competiciones/selector-de-temporada', 'Admin\CompetitionController@selectorSelect')->name('admin.competitions.selector.select');
+	Route::get('/competiciones/cargar_temporadas/{tournament_id}', 'Admin\CompetitionController@loadSeasons')->name('admin.competitions.load_seasons');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones', 'Admin\CompetitionController@list')->name('admin.competitions');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/nueva', 'Admin\CompetitionController@add')->name('admin.competitions.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/competiciones/nueva', 'Admin\CompetitionController@save')->name('admin.competitions.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/editar/{id}', 'Admin\CompetitionController@edit')->name('admin.competitions.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/competiciones/editar/{id}', 'Admin\CompetitionController@update')->name('admin.competitions.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/ver/{id}', 'Admin\CompetitionController@view')->name('admin.competitions.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/eliminar/{ids}', 'Admin\CompetitionController@destroy')->name('admin.competitions.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/duplicar/{ids}', 'Admin\CompetitionController@duplicate')->name('admin.competitions.duplicate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/exportar/{format}/{ids}/{filename}/{order}', 'Admin\CompetitionController@export')->name('admin.competitions.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/competiciones/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\CompetitionController@exportGlobal')->name('admin.competitions.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/competiciones/importar', 'Admin\CompetitionController@import')->name('admin.competitions.import');
+
+	//Fases
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases', 'Admin\CompetitionController@list')->name('admin.competitions.phases');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/nueva', 'Admin\CompetitionController@add')->name('admin.competitions.phases.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/nueva', 'Admin\CompetitionController@save')->name('admin.competitions.phases.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/editar/{id}', 'Admin\CompetitionController@edit')->name('admin.competitions.phases.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/editar/{id}', 'Admin\CompetitionController@update')->name('admin.competitions.phases.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/ver/{id}', 'Admin\CompetitionController@view')->name('admin.competitions.phases.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/eliminar/{ids}', 'Admin\CompetitionController@destroy')->name('admin.competitions.phases.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/duplicar/{ids}', 'Admin\CompetitionController@duplicate')->name('admin.competitions.phases.duplicate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/exportar/{format}/{ids}/{filename}/{order}', 'Admin\CompetitionController@export')->name('admin.competitions.phases.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\CompetitionController@exportGlobal')->name('admin.competitions.phases.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/importar', 'Admin\CompetitionController@import')->name('admin.competitions.phases.import');
 
 	//News
 	Route::get('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selector')->name('admin.seasons_posts.selector');

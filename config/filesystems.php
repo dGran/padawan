@@ -91,6 +91,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'competitions' => [
+            'driver' => 'local',
+            'root' => public_path('img/competitions'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
