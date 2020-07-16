@@ -7,13 +7,13 @@
     var routeExport = "{{ route('admin.seasons.export', [$tournament, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.seasons.export.global', [$tournament, ':FORMAT', ':FILENAME', $order]) }}";
 
-    var routeParticipants = "{{ route('admin.participants', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routeReserves = "{{ route('admin.reserves', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routeCompetitions = "{{ route('admin.competitions', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routePosts = "{{ route('admin.seasons_posts', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routeCash = "{{ route('admin.cash', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routePlayers = "{{ route('admin.season_players', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
-    var routeTransfers = "{{ route('admin.transfers', [':TOURNAMENT_SLUG', ':SEASON_SLUG']) }}";
+    var routeParticipants = "{{ route('admin.participants', [$tournament, ':SEASON_SLUG']) }}";
+    var routeReserves = "{{ route('admin.reserves', [$tournament, ':SEASON_SLUG']) }}";
+    var routeCompetitions = "{{ route('admin.competitions', [$tournament, ':SEASON_SLUG']) }}";
+    var routePosts = "{{ route('admin.seasons_posts', [$tournament, ':SEASON_SLUG']) }}";
+    var routeCash = "{{ route('admin.cash', [$tournament, ':SEASON_SLUG']) }}";
+    var routePlayers = "{{ route('admin.season_players', [$tournament, ':SEASON_SLUG']) }}";
+    var routeTransfers = "{{ route('admin.transfers', [$tournament, ':SEASON_SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
@@ -85,8 +85,7 @@
     function participants() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routeParticipants.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routeParticipants.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -94,8 +93,7 @@
     function reserves() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routeReserves.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routeReserves.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -103,8 +101,7 @@
     function competitions() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routeCompetitions.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routeCompetitions.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -112,8 +109,7 @@
     function posts() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routePosts.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routePosts.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -121,8 +117,7 @@
     function cash() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routeCash.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routeCash.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -130,8 +125,7 @@
     function players() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routePlayers.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routePlayers.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }
@@ -139,8 +133,7 @@
     function transfers() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var tournament_slug = $(element).parents('tr').attr('data-tournament-slug');
-        var route = routeTransfers.replace(':TOURNAMENT_SLUG', tournament_slug).replace(':SEASON_SLUG', slug);
+        var route = routeTransfers.replace(':SEASON_SLUG', slug);
         var url = route;
         window.location.href=url;
     }

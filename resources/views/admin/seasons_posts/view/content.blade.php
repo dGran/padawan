@@ -9,7 +9,7 @@
 				{{ $season_post->title }}
 			</p>
 	    	<div class="pt-6 pb-3">
-				<a href="{{ route('admin.seasons_posts.edit', [$tournament, $season->slug, $season_post->id]) }}" class="edit">
+				<a href="{{ route('admin.seasons_posts.edit', [$tournament, $season, $season_post->id]) }}" class="edit">
 		  			Editar
 				</a>
 			</div>

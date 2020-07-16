@@ -49,14 +49,8 @@ class ReserveController extends Controller
 		}
     }
 
-    public function list(Tournament $tournament, $season_slug)
+    public function list(Tournament $tournament, Season $season)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
@@ -87,7 +81,7 @@ class ReserveController extends Controller
         ->leftJoin('users', 'users.id', '=', 'reserves.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'reserves.eteam_id')
         ->seasonId($season->id)
-        ->name($filterName, $tournament)
+        ->name($filterName)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $reserves->lastPage()) {
             $page = $reserves->lastPage();
@@ -97,7 +91,7 @@ class ReserveController extends Controller
         ->leftJoin('users', 'users.id', '=', 'reserves.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'reserves.eteam_id')
         ->seasonId($season->id)
-        ->name($filterName, $tournament)
+        ->name($filterName)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['reserve_perPage' => $perPage]);
@@ -108,27 +102,14 @@ class ReserveController extends Controller
     	return view('admin.reserves.list', ['reserves' => $reserves, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
-    public function view(Tournament $tournament, $season_slug, $id)
+    public function view(Tournament $tournament, Season $season, $id)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $reserve = Reserve::findOrFail($id);
-
         return view('admin.reserves.view', ['reserve' => $reserve, 'tournament' => $tournament, 'season' => $season]);
     }
 
-    public function add(Tournament $tournament, $season_slug)
+    public function add(Tournament $tournament, Season $season)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$users = null;
     	$eteams = null;
 
@@ -167,14 +148,8 @@ class ReserveController extends Controller
     	return view('admin.reserves.add', ['tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams]);
     }
 
-    public function save(Tournament $tournament, $season_slug, Request $request)
+    public function save(Tournament $tournament, Season $season, Request $request)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $data = $request->all();
 
 		$data['season_id'] = $season->id;
@@ -182,18 +157,12 @@ class ReserveController extends Controller
 
         if ($reserve->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.reserves', [$tournament, $season_slug]);
+            return redirect()->route('admin.reserves', [$tournament, $season]);
         }
     }
 
-    public function edit(Tournament $tournament, $season_slug, $id)
+    public function edit(Tournament $tournament, Season $season, $id)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$reserve = Reserve::findOrFail($id);
 
     	$users = null;
@@ -226,14 +195,8 @@ class ReserveController extends Controller
     	return view('admin.reserves.edit', ['reserve' => $reserve, 'tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams]);
     }
 
-    public function update(Tournament $tournament, $season_slug, $id, Request $request)
+    public function update(Tournament $tournament, Season $season, $id, Request $request)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$reserve = Reserve::findOrFail($id);
 
         $data = $request->all();
@@ -243,25 +206,19 @@ class ReserveController extends Controller
             $reserve->update($data);
             if ($reserve->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.reserves', [$tournament, $season_slug]);
+                return redirect()->route('admin.reserves', [$tournament, $season]);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.reserves', [$tournament, $season_slug]);
+                return redirect()->route('admin.reserves', [$tournament, $season]);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.reserves', [$tournament, $season_slug]);
+            return redirect()->route('admin.reserves', [$tournament, $season]);
         }
     }
 
-    public function destroy(Tournament $tournament, $season_slug, $ids)
+    public function destroy(Tournament $tournament, Season $season, $ids)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
@@ -285,14 +242,8 @@ class ReserveController extends Controller
         }
     }
 
-    public function export(Tournament $tournament, $season_slug, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, Season $season, $format, $ids, $filename, $order)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
         $reserves = Reserve::
@@ -318,13 +269,7 @@ class ReserveController extends Controller
         }
     }
 
-    public function exportGlobal(Tournament $tournament, $season_slug, $format, $filename, $order) {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
+    public function exportGlobal(Tournament $tournament, Season $season, $format, $filename, $order) {
         $order_ext = $this->getOrder($order, $tournament);
         $reserves = Reserve::
         select('reserves.*', 'users.name', 'eteams.name')

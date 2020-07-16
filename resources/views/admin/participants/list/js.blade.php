@@ -1,10 +1,10 @@
 <script>
-    var routeAdd = "{{ route('admin.participants.add', [$tournament, $season->slug]) }}";
-    var routeEdit = "{{ route('admin.participants.edit', [$tournament, $season->slug, ':ID']) }}";
-    var routeDestroy = "{{ route('admin.participants.destroy', [$tournament, $season->slug, ':IDS']) }}";
-    var routeView = "{{ route('admin.participants.view', [$tournament, $season->slug, ':ID']) }}";
-    var routeExport = "{{ route('admin.participants.export', [$tournament, $season->slug, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.participants.export.global', [$tournament, $season->slug, ':FORMAT', ':FILENAME', $order]) }}";
+    var routeAdd = "{{ route('admin.participants.add', [$tournament, $season]) }}";
+    var routeEdit = "{{ route('admin.participants.edit', [$tournament, $season, ':ID']) }}";
+    var routeDestroy = "{{ route('admin.participants.destroy', [$tournament, $season, ':IDS']) }}";
+    var routeView = "{{ route('admin.participants.view', [$tournament, $season, ':ID']) }}";
+    var routeExport = "{{ route('admin.participants.export', [$tournament, $season, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
+    var routeExportGlobal = "{{ route('admin.participants.export.global', [$tournament, $season, ':FORMAT', ':FILENAME', $order]) }}";
 
     var max_registers = "{{ $season->num_participants }}";
     var current_registers = "{{ $season->participants->count() }}";

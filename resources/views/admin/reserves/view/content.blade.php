@@ -9,7 +9,7 @@
 				{{ $reserve->presenter()['name'] }}
 			</p>
 	    	<div class="pt-6 pb-3">
-				<a href="{{ route('admin.reserves.edit', [$tournament, $season->slug, $reserve->id]) }}" class="edit">
+				<a href="{{ route('admin.reserves.edit', [$tournament, $season, $reserve->id]) }}" class="edit">
 		  			Editar
 				</a>
 			</div>

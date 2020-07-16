@@ -1,13 +1,13 @@
 <script>
-    var routeAdd = "{{ route('admin.competitions.add', [$tournament, $season->slug]) }}";
-    var routeEdit = "{{ route('admin.competitions.edit', [$tournament, $season->slug, ':ID']) }}";
-    var routeDestroy = "{{ route('admin.competitions.destroy', [$tournament, $season->slug, ':IDS']) }}";
-    var routeView = "{{ route('admin.competitions.view', [$tournament, $season->slug, ':ID']) }}";
-    var routeDuplicate = "{{ route('admin.competitions.duplicate', [$tournament, $season->slug, ':IDS']) }}";
-    var routeExport = "{{ route('admin.competitions.export', [$tournament, $season->slug, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.competitions.export.global', [$tournament, $season->slug, ':FORMAT', ':FILENAME', $order]) }}";
+    var routeAdd = "{{ route('admin.competitions.add', [$tournament, $season]) }}";
+    var routeEdit = "{{ route('admin.competitions.edit', [$tournament, $season, ':ID']) }}";
+    var routeDestroy = "{{ route('admin.competitions.destroy', [$tournament, $season, ':IDS']) }}";
+    var routeView = "{{ route('admin.competitions.view', [$tournament, $season, ':ID']) }}";
+    var routeDuplicate = "{{ route('admin.competitions.duplicate', [$tournament, $season, ':IDS']) }}";
+    var routeExport = "{{ route('admin.competitions.export', [$tournament, $season, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
+    var routeExportGlobal = "{{ route('admin.competitions.export.global', [$tournament, $season, ':FORMAT', ':FILENAME', $order]) }}";
 
-    var routePhases = "{{ route('admin.competitions.phases', [$tournament, $season->slug, ':SLUG']) }}";
+    var routePhases = "{{ route('admin.competitions.phases', [$tournament, $season, ':SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();

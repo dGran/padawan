@@ -78,7 +78,7 @@ class SeasonPost extends Model
                 return 'Regular';
                 break;
             case 'result':
-                return 'Resultado';
+                return 'Resultados';
                 break;
             case 'transfer':
                 return 'Fichajes';
@@ -87,7 +87,7 @@ class SeasonPost extends Model
                 return 'Prensa';
                 break;
             case 'champion':
-                return 'Campeón';
+                return 'Campeones';
                 break;
         }
     }

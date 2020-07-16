@@ -4,10 +4,10 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $tournament->name }} ({{ $tournament->game->name }} - {{ $tournament->game->platform->name }})</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li><a href="{{ route('admin.seasons', $tournament->slug) }}" class="breadcrumb-link">Temporadas</a></li>
+<li><a href="{{ route('admin.seasons', $tournament) }}" class="breadcrumb-link">Temporadas</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $season->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li><a href="{{ route('admin.seasons_posts', [$tournament, $season->slug]) }}" class="breadcrumb-link">Noticias</a></li>
+<li><a href="{{ route('admin.seasons_posts', [$tournament, $season]) }}" class="breadcrumb-link">Noticias</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
 <li>Nuneva</li>

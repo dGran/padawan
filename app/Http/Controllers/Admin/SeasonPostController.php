@@ -48,14 +48,8 @@ class SeasonPostController extends Controller
 		}
     }
 
-    public function list(Tournament $tournament, $season_slug)
+    public function list(Tournament $tournament, Season $season)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
@@ -100,38 +94,19 @@ class SeasonPostController extends Controller
     	return view('admin.seasons_posts.list', ['seasons_posts' => $seasons_posts, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterType' => $filterType, 'order' => $order]);
     }
 
-    public function view(Tournament $tournament, $season_slug, $id)
+    public function view(Tournament $tournament, Season $season, $id)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $season_post = SeasonPost::findOrFail($id);
-
         return view('admin.seasons_posts.view', ['season_post' => $season_post, 'tournament' => $tournament, 'season' => $season]);
     }
 
-    public function add(Tournament $tournament, $season_slug)
+    public function add(Tournament $tournament, Season $season)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	return view('admin.seasons_posts.add', ['tournament' => $tournament, 'season' => $season]);
     }
 
-    public function save(Tournament $tournament, $season_slug, Request $request)
+    public function save(Tournament $tournament, Season $season, Request $request)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $data = $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -164,32 +139,19 @@ class SeasonPostController extends Controller
 
         if ($season_post->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.seasons_posts', [$tournament, $season_slug]);
+            return redirect()->route('admin.seasons_posts', [$tournament, $season]);
         }
 
     }
 
-    public function edit(Tournament $tournament, $season_slug, $id)
+    public function edit(Tournament $tournament, Season $season, $id)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$season_post = SeasonPost::findOrFail($id);
-
     	return view('admin.seasons_posts.edit', ['season_post' => $season_post, 'tournament' => $tournament, 'season' => $season]);
     }
 
-    public function update(Tournament $tournament, $season_slug, $id, Request $request)
+    public function update(Tournament $tournament, Season $season, $id, Request $request)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$season_post = SeasonPost::findOrFail($id);
 
         $data = $request->validate([
@@ -235,25 +197,19 @@ class SeasonPostController extends Controller
             $season_post->update($data);
             if ($season_post->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.seasons_posts', [$tournament, $season_slug]);
+                return redirect()->route('admin.seasons_posts', [$tournament, $season]);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.seasons_posts', [$tournament, $season_slug]);
+                return redirect()->route('admin.seasons_posts', [$tournament, $season]);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.seasons_posts', [$tournament, $season_slug]);
+            return redirect()->route('admin.seasons_posts', [$tournament, $season]);
         }
     }
 
-    public function destroy(Tournament $tournament, $season_slug, $ids)
+    public function destroy(Tournament $tournament, Season $season, $ids)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
@@ -279,7 +235,7 @@ class SeasonPostController extends Controller
         }
     }
 
-    public function duplicate(Tournament $tournament, $season_slug, $ids)
+    public function duplicate(Tournament $tournament, Season $season, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
@@ -313,14 +269,8 @@ class SeasonPostController extends Controller
         }
     }
 
-    public function export(Tournament $tournament, $season_slug, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, Season $season, $format, $ids, $filename, $order)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
         $seasons_posts = SeasonPost::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
@@ -342,14 +292,8 @@ class SeasonPostController extends Controller
         }
     }
 
-    public function exportGlobal(Tournament $tournament, $season_slug, $format, $filename, $order)
+    public function exportGlobal(Tournament $tournament, Season $season, $format, $filename, $order)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $order_ext = $this->getOrder($order, $tournament);
 		$seasons_posts = SeasonPost::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 		$seasons_posts->makeHidden(['img', 'slug']);

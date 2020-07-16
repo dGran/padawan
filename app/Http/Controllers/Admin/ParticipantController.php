@@ -50,14 +50,8 @@ class ParticipantController extends Controller
 		}
     }
 
-    public function list(Tournament $tournament, $season_slug)
+    public function list(Tournament $tournament, Season $season)
     {
-    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
@@ -89,7 +83,7 @@ class ParticipantController extends Controller
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
-        ->name($filterName, $tournament)
+        ->name($filterName)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $participants->lastPage()) {
             $page = $participants->lastPage();
@@ -100,7 +94,7 @@ class ParticipantController extends Controller
         ->leftJoin('users', 'users.id', '=', 'participants.user_id')
         ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
         ->seasonId($season->id)
-        ->name($filterName, $tournament)
+        ->name($filterName)
         ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['participant_perPage' => $perPage]);
@@ -111,27 +105,14 @@ class ParticipantController extends Controller
     	return view('admin.participants.list', ['participants' => $participants, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
-    public function view(Tournament $tournament, $season_slug, $id)
+    public function view(Tournament $tournament, Season $season, $id)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $participant = Participant::findOrFail($id);
-
         return view('admin.participants.view', ['participant' => $participant, 'tournament' => $tournament, 'season' => $season]);
     }
 
-    public function add(Tournament $tournament, $season_slug)
+    public function add(Tournament $tournament, Season $season)
     {
-    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	if ($season->fullParticipants()) {
             flash()->error('Se ha alcanzado el máximo de participantes');
             return back();
@@ -189,14 +170,8 @@ class ParticipantController extends Controller
     	}
     }
 
-    public function save(Tournament $tournament, $season_slug, Request $request)
+    public function save(Tournament $tournament, Season $season, Request $request)
     {
-    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	if ($season->fullParticipants()) {
             flash()->error('Se ha alcanzado el máximo de participantes');
             return back();
@@ -208,19 +183,13 @@ class ParticipantController extends Controller
 
 	        if ($participant->save()) {
 	            flash()->success('Registro creado correctamente');
-	            return redirect()->route('admin.participants', [$tournament, $season_slug]);
+	            return redirect()->route('admin.participants', [$tournament, $season]);
 	        }
     	}
     }
 
-    public function edit(Tournament $tournament, $season_slug, $id)
+    public function edit(Tournament $tournament, Season $season, $id)
     {
-    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$participant = Participant::findOrFail($id);
 
     	$users = null;
@@ -263,14 +232,8 @@ class ParticipantController extends Controller
     	return view('admin.participants.edit', ['participant' => $participant, 'tournament' => $tournament, 'season' => $season, 'users' => $users, 'eteams' => $eteams, 'teams' => $teams]);
     }
 
-    public function update(Tournament $tournament, $season_slug, $id, Request $request)
+    public function update(Tournament $tournament, Season $season, $id, Request $request)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
     	$participant = Participant::findOrFail($id);
 
         $data = $request->all();
@@ -280,25 +243,19 @@ class ParticipantController extends Controller
             $participant->update($data);
             if ($participant->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.participants', [$tournament, $season_slug]);
+                return redirect()->route('admin.participants', [$tournament, $season]);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.participants', [$tournament, $season_slug]);
+                return redirect()->route('admin.participants', [$tournament, $season]);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.participants', [$tournament, $season_slug]);
+            return redirect()->route('admin.participants', [$tournament, $season]);
         }
     }
 
-    public function destroy(Tournament $tournament, $season_slug, $ids)
+    public function destroy(Tournament $tournament, Season $season, $ids)
     {
-    	$season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
@@ -322,14 +279,8 @@ class ParticipantController extends Controller
         }
     }
 
-    public function export(Tournament $tournament, $season_slug, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, Season $season, $format, $ids, $filename, $order)
     {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
         $participants = Participant::
@@ -356,13 +307,7 @@ class ParticipantController extends Controller
         }
     }
 
-    public function exportGlobal(Tournament $tournament, $season_slug, $format, $filename, $order) {
-        $season = Season::where('tournament_id', $tournament->id)->where('slug', $season_slug)->first();
-        if (!$season) {
-            flash()->error('La temporada no existe');
-            return redirect()->route('admin');
-        }
-
+    public function exportGlobal(Tournament $tournament, Season $season, $format, $filename, $order) {
         $order_ext = $this->getOrder($order, $tournament);
         $participants = Participant::
         select('participants.*', 'teams.name', 'users.name', 'eteams.name')

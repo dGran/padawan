@@ -19,6 +19,20 @@ class Season extends Model
         return $this->hasMany('App\Participant');
     }
 
+    public function reserves()
+    {
+        return $this->hasMany('App\Participant');
+    }
+
+    public function seasons_posts()
+    {
+        return $this->hasMany('App\SeasonPost');
+    }
+
+    public function competitions() {
+        return $this->hasMany('App\Competition');
+    }
+
     public function scopeName($query, $name)
     {
         if (trim($name) !="") {

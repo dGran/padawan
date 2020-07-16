@@ -9,7 +9,7 @@
         @isset($import)
             <form id="frmImport" role="form"
                 method="POST"
-                action="{{ route('admin.participants.import', [$tournament, $season->slug]) }}"
+                action="{{ route('admin.participants.import', [$tournament, $season]) }}"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="file" name="fileImport" id="fileImport" class="hidden">

@@ -36,7 +36,7 @@ class Participant extends Model
         }
     }
 
-    public function scopeName($query, $name, $tournament)
+    public function scopeName($query, $name)
     {
         if (trim($name) !="") {
             $query->where("teams.name", "LIKE", "%$name%");

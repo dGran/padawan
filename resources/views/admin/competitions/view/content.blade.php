@@ -9,7 +9,7 @@
 				{{ $competition->name }}
 			</p>
 	    	<div class="pt-6 pb-3">
-				<a href="{{ route('admin.competitions.edit', [$tournament, $season->slug, $competition->id]) }}" class="edit">
+				<a href="{{ route('admin.competitions.edit', [$tournament, $season, $competition->id]) }}" class="edit">
 		  			Editar
 				</a>
 			</div>

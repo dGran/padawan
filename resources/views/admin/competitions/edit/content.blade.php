@@ -1,7 +1,7 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
     <div class="form">
-        <form id="form-add" method="POST" role="form" action="{{ route('admin.competitions.update', [$tournament, $season->slug, $competition->id]) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
+        <form id="form-add" method="POST" role="form" action="{{ route('admin.competitions.update', [$tournament, $season, $competition->id]) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
             @csrf
             {{ method_field('PUT') }}
 
@@ -37,7 +37,7 @@
                 <button type="submit" class="bg-green-500 text-white active:bg-green-600 focus:bg-green-600 hover:bg-green-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
                     Guardar
                 </button>
-                <a href="{{ route('admin.competitions', [$tournament, $season->slug]) }}" class="bg-transparent text-red-500 active:text-red-600 focus:text-red-600 hover:text-red-600 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease">
+                <a href="{{ route('admin.competitions', [$tournament, $season]) }}" class="bg-transparent text-red-500 active:text-red-600 focus:text-red-600 hover:text-red-600 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease">
                     Cancelar
                 </a>
             </div>

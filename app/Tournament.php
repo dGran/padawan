@@ -13,6 +13,10 @@ class Tournament extends Model
         return $this->belongsTo('App\Game');
     }
 
+    public function seasons() {
+        return $this->hasMany('App\Season');
+    }
+
     public function scopeName($query, $name)
     {
         if (trim($name) !="") {

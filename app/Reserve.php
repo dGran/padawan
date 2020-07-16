@@ -31,10 +31,10 @@ class Reserve extends Model
         }
     }
 
-    public function scopeName($query, $name, $tournament)
+    public function scopeName($query, $name)
     {
         if (trim($name) !="") {
-            $query->orWhere("users.name", "LIKE", "%$name%");
+            $query->where("users.name", "LIKE", "%$name%");
             $query->orWhere("eteams.name", "LIKE", "%$name%");
         }
     }
