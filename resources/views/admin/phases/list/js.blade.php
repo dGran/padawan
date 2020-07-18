@@ -1,13 +1,13 @@
 <script>
-    var routeAdd = "{{ route('admin.competitions.add', [$tournament, $season->slug]) }}";
-    var routeEdit = "{{ route('admin.competitions.edit', [$tournament, $season->slug, ':ID']) }}";
-    var routeDestroy = "{{ route('admin.competitions.destroy', [$tournament, $season->slug, ':IDS']) }}";
-    var routeView = "{{ route('admin.competitions.view', [$tournament, $season->slug, ':ID']) }}";
-    var routeDuplicate = "{{ route('admin.competitions.duplicate', [$tournament, $season->slug, ':IDS']) }}";
-    var routeExport = "{{ route('admin.competitions.export', [$tournament, $season->slug, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.competitions.export.global', [$tournament, $season->slug, ':FORMAT', ':FILENAME', $order]) }}";
+    var routeAdd = "{{ route('admin.phases.add', [$tournament, $season, $competition]) }}";
+    var routeEdit = "{{ route('admin.phases.edit', [$tournament, $season, $competition, ':ID']) }}";
+    var routeDestroy = "{{ route('admin.phases.destroy', [$tournament, $season, $competition, ':IDS']) }}";
+    var routeView = "{{ route('admin.phases.view', [$tournament, $season, $competition, ':ID']) }}";
+    var routeDuplicate = "{{ route('admin.phases.duplicate', [$tournament, $season, $competition, ':IDS']) }}";
+    var routeExport = "{{ route('admin.phases.export', [$tournament, $season, $competition, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
+    var routeExportGlobal = "{{ route('admin.phases.export.global', [$tournament, $season, $competition, ':FORMAT', ':FILENAME', $order]) }}";
 
-    var routePhases = "{{ route('admin.competitions.phases', [$tournament, $season->slug, ':SLUG']) }}";
+    var routeGroups = "{{ route('admin.phases', [$tournament, $season, $competition, ':SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
@@ -27,14 +27,14 @@
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
-                $("#phases").show();
+                $("#groups").show();
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
                 $("#destroy").addClass('hint--top');
             } else {
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
-                $("#phases").hide();
+                $("#groups").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');
                 $("#destroy").addClass('hint--top-right');
@@ -64,12 +64,11 @@
         showHideRowOptionsCustom();
     }
 
-    function phases() {
+    function groups() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var route = routePhases;
+        var route = routeGroups;
         var url = route.replace(':SLUG', slug);
         window.location.href=url;
-        admin.seasons
     }
 </script>

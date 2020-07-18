@@ -11,8 +11,8 @@
                 <i class="icon-edit"></i>
             </button>
         @endisset
-        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Fases" id="phases" onclick="phases()">
-            <i class="icon-phases"></i>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Grupos" id="groups" onclick="groups()">
+            <i class="icon-groups"></i>
         </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
@@ -35,13 +35,13 @@
             </button>
         @endisset
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('competitions', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('phases', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('competitions', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('phases', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('competitions', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('phases', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

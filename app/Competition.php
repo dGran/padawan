@@ -14,6 +14,11 @@ class Competition extends Model
         return $this->belongsTo('App\Season');
     }
 
+    public function phases()
+    {
+        return $this->hasMany('App\Phase');
+    }
+
     public function scopeSeasonId($query, $season)
     {
         if ($season > 0) {
@@ -53,5 +58,25 @@ class Competition extends Model
         // defaults return true
 
         return true;
+    }
+
+    public function last_phase()
+    {
+        if ($this->phases->count() > 0) {
+            return Phase::where('competition_id', '=', $this->id)->orderBy('order', 'desc')->first();
+        }
+        return false;
+    }
+
+    public function max_participants_new_phase()
+    {
+        $last_phase = $this->last_phase();
+        if ($last_phase) {
+            return $last_phase->num_participants;
+        }
+        if ($this->season->num_participants > 0) {
+            return $this->season->num_participants;
+        }
+        return null;
     }
 }

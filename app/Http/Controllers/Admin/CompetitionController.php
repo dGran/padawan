@@ -106,7 +106,7 @@ class CompetitionController extends Controller
             'name' => 'required',
         ],
         [
-            'name.required' => 'El título es obligatorio',
+            'name.required' => 'El nombre es obligatorio',
         ]);
 
         $data = $request->all();
@@ -151,7 +151,7 @@ class CompetitionController extends Controller
             'name' => 'required',
         ],
         [
-            'name.required' => 'El título es obligatorio',
+            'name.required' => 'El nombre es obligatorio',
         ]);
 
         $data = $request->all();
@@ -235,16 +235,16 @@ class CompetitionController extends Controller
             $original = Competition::find($ids[$i]);
             if ($original) {
                 $counter++;
-                $competitions = $original->replicate();
+                $competition = $original->replicate();
                 $random_numer = rand(100,999);
-                $competitions->name .= " (copia_" . $random_numer . ")";
+                $competition->name .= " (copia_" . $random_numer . ")";
                 if ($original->img) {
                     $img_name = "copy_" . $random_numer . "_" . $original->img;
                     \Storage::disk('competitions')->copy($original->img, $img_name);
-                    $competitions->img = $img_name;
+                    $competition->img = $img_name;
                 }
-                $competitions->slug = Str::slug($competitions->name, '-');
-                $competitions->save();
+                $competition->slug = Str::slug($competition->name, '-');
+                $competition->save();
             }
         }
         if ($counter > 0) {

@@ -7,7 +7,7 @@
     var routeExport = "{{ route('admin.competitions.export', [$tournament, $season, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.competitions.export.global', [$tournament, $season, ':FORMAT', ':FILENAME', $order]) }}";
 
-    var routePhases = "{{ route('admin.competitions.phases', [$tournament, $season, ':SLUG']) }}";
+    var routePhases = "{{ route('admin.phases', [$tournament, $season, ':SLUG']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
@@ -70,6 +70,5 @@
         var route = routePhases;
         var url = route.replace(':SLUG', slug);
         window.location.href=url;
-        admin.seasons
     }
 </script>

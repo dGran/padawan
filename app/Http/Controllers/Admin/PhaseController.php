@@ -55,18 +55,18 @@ class PhaseController extends Controller
         session(['phase_order' => $order]);
         session(['phase_filterName' => $filterName]);
 
-    	return view('admin.phases.list', ['phases' => $phases, 'tournament' => $tournament, 'season' => $season, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
+    	return view('admin.phases.list', ['phases' => $phases, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
     public function view(Tournament $tournament, Season $season, Competition $competition, $id)
     {
-        $competition = Competition::findOrFail($id);
-        return view('admin.competitions.view', ['competition' => $competition, 'tournament' => $tournament, 'season' => $season]);
+        $phase = Phase::findOrFail($id);
+        return view('admin.phases.view', ['phase' => $phase, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
     }
 
     public function add(Tournament $tournament, Season $season, Competition $competition)
     {
-    	return view('admin.competitions.add', ['tournament' => $tournament, 'season' => $season]);
+    	return view('admin.phases.add', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
     }
 
     public function save(Tournament $tournament, Season $season, Competition $competition, Request $request)
@@ -75,96 +75,60 @@ class PhaseController extends Controller
             'name' => 'required',
         ],
         [
-            'name.required' => 'El título es obligatorio',
+            'name.required' => 'El nombre es obligatorio',
         ]);
 
         $data = $request->all();
 
-		$data['season_id'] = $season->id;
+		$data['competition_id'] = $competition->id;
 		$data['slug'] = Str::slug($request->name, '-');
-        if ($request->hasFile('img')) {
-            $this->validate($request,[
-                'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            ],
-            [
-                'img.image' => 'El logo debe ser una imagen',
-                'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
-            ]);
+		$data['order'] = $competition->phases->count() + 1;
+		$data['active'] = 0;
 
-            $img_name = $data['slug'] . '.' . $request->img->extension();
-            \Storage::disk('competitions')->put($img_name, \File::get($request->file('img')));
+        $phase = Phase::create($data);
 
-            $data['img'] = $img_name;
-        }
-        $competition = Competition::create($data);
-
-        if ($competition->save()) {
+        if ($phase->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.competitions', [$tournament, $season_slug]);
+            return redirect()->route('admin.phases', [$tournament, $season, $competition]);
         }
 
     }
 
     public function edit(Tournament $tournament, Season $season, Competition $competition, $id)
     {
-    	$competition = Competition::findOrFail($id);
-    	return view('admin.competitions.edit', ['competition' => $competition, 'tournament' => $tournament, 'season' => $season]);
+    	$phase = Phase::findOrFail($id);
+    	return view('admin.phases.edit', ['phase' => $phase, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
     }
 
     public function update(Tournament $tournament, Season $season, Competition $competition, $id, Request $request)
     {
-    	$competition = Competition::findOrFail($id);
+    	$phase = Phase::findOrFail($id);
 
         $data = $request->validate([
             'name' => 'required',
         ],
         [
-            'name.required' => 'El título es obligatorio',
+            'name.required' => 'El nombre es obligatorio',
         ]);
 
         $data = $request->all();
 
         $data['slug'] = Str::slug($request->name, '-');
-        if ($request->deleteImg) {
-            // remove image from Storage
-            \Storage::disk('competitions')->delete($competition->img);
-            $data['img'] = null;
-        } else {
-            if ($request->hasFile('img')) {
-                $this->validate($request,[
-                    'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                ],
-                [
-                    'img.image' => 'El logo debe ser una imagen',
-                    'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                    'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
-                ]);
 
-                // remove image from Storage
-                \Storage::disk('competitions')->delete($competition->img);
+        $phase->fill($data);
 
-	            $img_name = $data['slug'] . '.' . $request->img->extension();
-                \Storage::disk('competitions')->put($img_name, \File::get($request->file('img')));
-
-                $data['img'] = $img_name;
-            }
-        }
-
-        $competition->fill($data);
-
-        if ($competition->isDirty()) {
-            $competition->update($data);
-            if ($competition->update()) {
+        if ($phase->isDirty()) {
+            $phase->update($data);
+            if ($phase->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.competitions', [$tournament, $season_slug]);
+                return redirect()->route('admin.phases', [$tournament, $season, $competition]);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.competitions', [$tournament, $season_slug]);
+                return redirect()->route('admin.phases', [$tournament, $season, $competition]);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.competitions', [$tournament, $season_slug]);
+            return redirect()->route('admin.phases', [$tournament, $season, $competition]);
         }
     }
 
@@ -174,12 +138,11 @@ class PhaseController extends Controller
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $competition = Competition::find($ids[$i]);
-            if ($competition && $competition->canDestroy()) {
+            $phase = Phase::find($ids[$i]);
+            if ($phase && $phase->canDestroy()) {
                 $counter++;
-                // remove image from Storage
-                \Storage::disk('competitions')->delete($competition->img);
-                $competition->delete();
+                $phase->delete();
+                $this->reorder_phases($competition->id);
             }
         }
         if ($counter > 0) {
@@ -195,25 +158,32 @@ class PhaseController extends Controller
         }
     }
 
+    protected function reorder_phases($competition_id)
+    {
+    	$phases = Phase::where('competition_id', '=', $competition_id)->orderBy('order', 'asc')->get();
+    	$order = 1;
+    	foreach ($phases as $phase) {
+    		$phase->order = $order;
+    		$phase->save();
+    		$order++;
+    	}
+    }
+
     public function duplicate(Tournament $tournament, Season $season, Competition $competition, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $original = Competition::find($ids[$i]);
+            $original = Phase::find($ids[$i]);
             if ($original) {
                 $counter++;
-                $competitions = $original->replicate();
+                $phase = $original->replicate();
                 $random_numer = rand(100,999);
-                $competitions->name .= " (copia_" . $random_numer . ")";
-                if ($original->img) {
-                    $img_name = "copy_" . $random_numer . "_" . $original->img;
-                    \Storage::disk('competitions')->copy($original->img, $img_name);
-                    $competitions->img = $img_name;
-                }
-                $competitions->slug = Str::slug($competitions->name, '-');
-                $competitions->save();
+                $phase->name .= " (copia_" . $random_numer . ")";
+                $phase->slug = Str::slug($phase->name, '-');
+                $phase->order = $competition->phases->count() + 1;
+                $phase->save();
             }
         }
         if ($counter > 0) {

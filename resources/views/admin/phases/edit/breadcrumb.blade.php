@@ -8,6 +8,10 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $season->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li><a href="{{ route('admin.competitions', [$tournament, $season->slug]) }}" class="breadcrumb-link">Competiciones</a></li>
+<li><a href="{{ route('admin.competitions', [$tournament, $season]) }}" class="breadcrumb-link">Competiciones</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Editar competición #{{ $competition->id }}</li>
+<li>{{ $competition->name }}</li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li><a href="{{ route('admin.phases', [$tournament, $season, $competition]) }}" class="breadcrumb-link">Fases</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>Editar fase #{{ $phase->id }}</li>

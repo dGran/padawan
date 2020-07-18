@@ -1,20 +1,18 @@
-@extends('layouts.admin', ['title' => 'Phases', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => 'Fases', 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')
 @endsection
 
 @section('breadcrumb')
-    {{-- @include('admin.competitions.list.breadcrumb') --}}
-    hola que tal
-    {{ $phases }}
+    @include('admin.phases.list.breadcrumb')
 @endsection
 
 @section('content')
-    {{-- @include('admin.competitions.list.content') --}}
+    @include('admin.phases.list.content')
 @endsection
 
 @section('js')
-    {{-- @include('admin.partials.list.js') --}}
-    {{-- @include('admin.competitions.list.js') --}}
+    @include('admin.partials.list.js')
+    @include('admin.phases.list.js')
 @endsection

@@ -8,4 +8,8 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $season->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Competiciones</li>
+<li><a href="{{ route('admin.competitions', [$tournament, $season]) }}" class="breadcrumb-link">Competiciones</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>{{ $competition->name }}</li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>Fases</li>

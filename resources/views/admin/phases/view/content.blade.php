@@ -1,15 +1,12 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
 	<div class="view">
-		<div class="image">
-        	<img src="{{ $competition->img() }}">
-		</div>
 		<div class="title">
 			<p class="text-lg font-semibold">
-				{{ $competition->name }}
+				{{ $phase->name }}
 			</p>
 	    	<div class="pt-6 pb-3">
-				<a href="{{ route('admin.competitions.edit', [$tournament, $season->slug, $competition->id]) }}" class="edit">
+				<a href="{{ route('admin.phases.edit', [$tournament, $season, $competition, $phase->id]) }}" class="edit">
 		  			Editar
 				</a>
 			</div>
@@ -18,15 +15,33 @@
 		<dl>
 			<div>
 				<dt>ID</dt>
-				<dd>{{ $competition->id }}</dd>
+				<dd>{{ $phase->id }}</dd>
 			</div>
 			<div>
-				<dt>Temporada</dt>
-				<dd>{{ $competition->season->name }}</dd>
+				<dt>Competición</dt>
+				<dd>{{ $phase->competition->name }}</dd>
 			</div>
 			<div>
 				<dt>Nombre</dt>
-				<dd>{{ $competition->name }}</dd>
+				<dd>{{ $phase->name }}</dd>
+			</div>
+			<div>
+				<dt>Modo de juego</dt>
+				<dd>{{ $phase->mode_name() }}</dd>
+			</div>
+			<div>
+				<dt>Orden</dt>
+				<dd>{{ $phase->order }}</dd>
+			</div>
+			<div>
+				<dt>Estado</dt>
+				<dd>
+					@if ($phase->active)
+						<i class="fas fa-toggle-on mr-2 text-green-500 text-base"></i>Activa
+					@else
+						<i class="fas fa-toggle-off mr-2 text-gray-500 text-base"></i>Activa
+					@endif
+				</dd>
 			</div>
 	    </dl>
 

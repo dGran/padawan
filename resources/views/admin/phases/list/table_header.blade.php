@@ -16,4 +16,7 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
+    <th>
+        Modo
+    </th>
 </tr>
