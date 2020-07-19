@@ -15,7 +15,14 @@ class CreateGroupsTable extends Migration
     {
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('phase_id')
+                ->references('id')
+                ->on('phases')
+                ->onDelete('cascade');
+            $table->string('name');
+            $table->integer('num_participants');
+            $table->boolean('active');
+            $table->string('slug');
         });
     }
 

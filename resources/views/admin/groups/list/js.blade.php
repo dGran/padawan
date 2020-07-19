@@ -1,19 +1,25 @@
 <script>
-    var routeAdd = "{{ route('admin.phases.add', [$tournament, $season, $competition]) }}";
-    var routeEdit = "{{ route('admin.phases.edit', [$tournament, $season, $competition, ':ID']) }}";
-    var routeDestroy = "{{ route('admin.phases.destroy', [$tournament, $season, $competition, ':IDS']) }}";
-    var routeView = "{{ route('admin.phases.view', [$tournament, $season, $competition, ':ID']) }}";
-    var routeDuplicate = "{{ route('admin.phases.duplicate', [$tournament, $season, $competition, ':IDS']) }}";
-    var routeExport = "{{ route('admin.phases.export', [$tournament, $season, $competition, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
-    var routeExportGlobal = "{{ route('admin.phases.export.global', [$tournament, $season, $competition, ':FORMAT', ':FILENAME', $order]) }}";
-    var routeActivate = "{{ route('admin.phases.activate', [$tournament, $season, $competition, ':IDS']) }}";
-    var routeDesactivate = "{{ route('admin.phases.desactivate', [$tournament, $season, $competition, ':IDS']) }}";
+    var routeAdd = "{{ route('admin.groups.add', [$tournament, $season, $competition, $phase]) }}";
+    var routeEdit = "{{ route('admin.groups.edit', [$tournament, $season, $competition, $phase, ':ID']) }}";
+    var routeDestroy = "{{ route('admin.groups.destroy', [$tournament, $season, $competition, $phase, ':IDS']) }}";
+    var routeView = "{{ route('admin.groups.view', [$tournament, $season, $competition, $phase, ':ID']) }}";
+    var routeDuplicate = "{{ route('admin.groups.duplicate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
+    var routeExport = "{{ route('admin.groups.export', [$tournament, $season, $competition, $phase, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
+    var routeExportGlobal = "{{ route('admin.groups.export.global', [$tournament, $season, $competition, $phase, ':FORMAT', ':FILENAME', $order]) }}";
+    var routeActivate = "{{ route('admin.groups.activate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
+    var routeDesactivate = "{{ route('admin.groups.desactivate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
 
-    var routeGroups = "{{ route('admin.groups', [$tournament, $season, $competition, ':SLUG']) }}";
+    var routeParticipants = "{{ route('admin.groups', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+    var routeCompetition = "{{ route('admin.groups', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
 
-    function cancelFilterMode() {
-        $("#filterMode").val('0');
-        applyFilters();
+    check_max_participants();
+    function check_max_participants() {
+        var full = "{{ $phase->fullParticipants() }}";
+        if (full) {
+            $(".add").addClass('disable');
+        } else {
+            $(".add").removeClass('disable');
+        }
     }
 
     $("#form-filter").submit(function(event) {
@@ -34,14 +40,16 @@
             if (elements == 1) {
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
-                $("#groups").show();
+                $("#participants").show();
+                $("#competition").show();
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
                 $("#destroy").addClass('hint--top');
             } else {
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
-                $("#groups").hide();
+                $("#participants").hide();
+                $("#competition").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');
                 $("#destroy").addClass('hint--top-right');
@@ -91,10 +99,18 @@
         window.location.href=url;
     }
 
-    function groups() {
+    function participants() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var route = routeGroups;
+        var route = routeParticipants;
+        var url = route.replace(':SLUG', slug);
+        window.location.href=url;
+    }
+
+    function competition() {
+        var element = $(".mark:checked");
+        var slug = $(element).parents('tr').attr('data-slug');
+        var route = routeParticipants;
         var url = route.replace(':SLUG', slug);
         window.location.href=url;
     }

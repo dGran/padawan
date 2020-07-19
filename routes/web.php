@@ -233,6 +233,23 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/exportar/{format}/{ids}/{filename}/{order}', 'Admin\PhaseController@export')->name('admin.phases.export');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\PhaseController@exportGlobal')->name('admin.phases.export.global');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/importar', 'Admin\PhaseController@import')->name('admin.phases.import');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/activar/{ids}', 'Admin\PhaseController@activate')->name('admin.phases.activate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/desactivar/{ids}', 'Admin\PhaseController@desactivate')->name('admin.phases.desactivate');
+
+	//Grupos
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos', 'Admin\GroupController@list')->name('admin.groups');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nueva', 'Admin\GroupController@add')->name('admin.groups.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nueva', 'Admin\GroupController@save')->name('admin.groups.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/editar/{id}', 'Admin\GroupController@edit')->name('admin.groups.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/editar/{id}', 'Admin\GroupController@update')->name('admin.groups.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/ver/{id}', 'Admin\GroupController@view')->name('admin.groups.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/eliminar/{ids}', 'Admin\GroupController@destroy')->name('admin.groups.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/duplicar/{ids}', 'Admin\GroupController@duplicate')->name('admin.groups.duplicate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GroupController@export')->name('admin.groups.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GroupController@exportGlobal')->name('admin.groups.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/importar', 'Admin\GroupController@import')->name('admin.groups.import');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/activar/{ids}', 'Admin\GroupController@activate')->name('admin.groups.activate');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/desactivar/{ids}', 'Admin\GroupController@desactivate')->name('admin.groups.desactivate');
 
 	//News
 	Route::get('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selector')->name('admin.seasons_posts.selector');

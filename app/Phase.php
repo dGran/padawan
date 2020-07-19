@@ -14,6 +14,11 @@ class Phase extends Model
         return $this->belongsTo('App\Competition');
     }
 
+    public function groups()
+    {
+        return $this->hasMany('App\Group');
+    }
+
     public function scopeCompetitionId($query, $competition)
     {
         if ($competition > 0) {
@@ -77,5 +82,28 @@ class Phase extends Model
             return $this->competition->season->num_participants;
         }
         return null;
+    }
+
+    public function max_participants_new_group()
+    {
+        $counter = 0;
+        foreach ($this->groups as $group) {
+            $counter += $group->num_participants;
+        }
+        return $this->num_participants - $counter;
+    }
+
+    public function current_participants()
+    {
+        return Group::where('phase_id', $this->id)->sum('num_participants');
+    }
+
+    public function fullParticipants()
+    {
+        if ($this->num_participants > $this->current_participants()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

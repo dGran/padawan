@@ -11,8 +11,11 @@
                 <i class="icon-edit"></i>
             </button>
         @endisset
-        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Grupos" id="groups" onclick="groups()">
-            <i class="icon-groups"></i>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Participantes" id="participants" onclick="participants()">
+            <i class="icon-participants"></i>
+        </button>
+        <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Competición" id="competition" onclick="competition()">
+            <i class="icon-competitions"></i>
         </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">
@@ -41,13 +44,13 @@
             </button>
         @endisset
         @isset($export)
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('phases', 'xls')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('groups', 'xls')">
                 <i class="icon-xls"></i>
             </button>
-            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('phases', 'xlsx')">
+            <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xlsx)" onclick="exportFile('groups', 'xlsx')">
                 <i class="icon-xlsx"></i>
             </button>
-            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('phases', 'csv')">
+            <button class="hint--top-left hint--rounded hint--bounce" type="button" aria-label="Exportar (.csv)"  onclick="exportFile('groups', 'csv')">
                 <i class="icon-csv"></i>
             </button>
         @endisset

@@ -33,11 +33,15 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Participantes</label>
-                    <input type="number" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" min="0" max="{{ $phase->max_participants() }}" value="{{ old('num_participants', $phase->num_participants) }}">
-                    @if ($competition->phases->count()>0)
-                        <p class="block text-blue-500 text-xs pt-2">El valor máximo es el número de participantes de la fase anterior</p>
+                    <input type="number" class="placeholder-gray-400 {{ $phase->groups->count() > 0 ? 'disable' : '' }}" id="num_participants" name="num_participants" placeholder="Número de participantes" min="0" max="{{ $phase->max_participants() }}" value="{{ old('num_participants', $phase->num_participants) }}">
+                    @if ($phase->groups->count() > 0)
+                        <p class="block text-blue-500 text-xs pt-2">No se puede editar el número de participantes porque ya existen grupos en la fase</p>
                     @else
-                        <p class="block text-blue-500 text-xs pt-2">El valor máximo es el número de participantes de la temporada</p>
+                        @if ($competition->phases->count()>1)
+                            <p class="block text-blue-500 text-xs pt-2">El valor máximo es el número de participantes de la fase anterior ({{ $phase->max_participants() }})</p>
+                        @else
+                            <p class="block text-blue-500 text-xs pt-2">El valor máximo es el número de participantes de la temporada ({{ $season->num_participants  }})</p>
+                        @endif
                     @endif
                 </div>
             </div>

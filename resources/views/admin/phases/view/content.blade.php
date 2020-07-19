@@ -30,6 +30,10 @@
 				<dd>{{ $phase->mode_name() }}</dd>
 			</div>
 			<div>
+				<dt>Número de participantes</dt>
+				<dd>{{ $phase->num_participants }}</dd>
+			</div>
+			<div>
 				<dt>Orden</dt>
 				<dd>{{ $phase->order }}</dd>
 			</div>
@@ -39,7 +43,7 @@
 					@if ($phase->active)
 						<i class="fas fa-toggle-on mr-2 text-green-500 text-base"></i>Activa
 					@else
-						<i class="fas fa-toggle-off mr-2 text-gray-500 text-base"></i>Activa
+						<i class="fas fa-toggle-off mr-2 text-gray-500 text-base"></i>Inactiva
 					@endif
 				</dd>
 			</div>

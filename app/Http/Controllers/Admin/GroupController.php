@@ -5,25 +5,25 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Exports\PhasesExport;
-use App\Imports\PhasesImport;
+use App\Exports\GroupsExport;
+use App\Imports\GroupsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use App\Group;
 use App\Phase;
 use App\Tournament;
 use App\Season;
 use App\Competition;
 
-class PhaseController extends Controller
+class GroupController extends Controller
 {
-    public function list(Tournament $tournament, Season $season, Competition $competition)
+    public function list(Tournament $tournament, Season $season, Competition $competition, Phase $phase)
     {
         $perPage = request()->perPage;
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
-        $filterMode = request()->filterMode;
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('phase_page')) {
@@ -41,40 +41,36 @@ class PhaseController extends Controller
             if (request()->session()->get('phase_filterName')) {
                 $filterName = request()->session()->get('phase_filterName');
             }
-            if (request()->session()->get('phase_filterMode')) {
-                $filterMode = request()->session()->get('phase_filterMode');
-            }
         }
 
         $order_ext = $this->getOrder($order, $tournament);
 
-        $phases = Phase::competitionId($competition->id)->name($filterName)->mode($filterMode)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
-        if ($page > $phases->lastPage()) {
-            $page = $phases->lastPage();
+        $groups = Group::phaseId($phase->id)->name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        if ($page > $groups->lastPage()) {
+            $page = $groups->lastPage();
         }
-		$phases = Phase::competitionId($competition->id)->name($filterName)->mode($filterMode)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+		$groups = Group::phaseId($phase->id)->name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['phase_perPage' => $perPage]);
         session(['phase_page' => $page]);
         session(['phase_order' => $order]);
         session(['phase_filterName' => $filterName]);
-        session(['phase_filterMode' => $filterMode]);
 
-    	return view('admin.phases.list', ['phases' => $phases, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterMode' => $filterMode, 'order' => $order]);
+    	return view('admin.groups.list', ['groups' => $groups, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
     }
 
-    public function view(Tournament $tournament, Season $season, Competition $competition, $id)
+    public function view(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $id)
     {
-        $phase = Phase::findOrFail($id);
-        return view('admin.phases.view', ['phase' => $phase, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
+        $group = Group::findOrFail($id);
+        return view('admin.groups.view', ['group' => $group, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase]);
     }
 
-    public function add(Tournament $tournament, Season $season, Competition $competition)
+    public function add(Tournament $tournament, Season $season, Competition $competition, Phase $phase)
     {
-    	return view('admin.phases.add', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
+    	return view('admin.groups.add', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase]);
     }
 
-    public function save(Tournament $tournament, Season $season, Competition $competition, Request $request)
+    public function save(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Request $request)
     {
         $data = $request->validate([
             'name' => 'required',
@@ -85,29 +81,28 @@ class PhaseController extends Controller
 
         $data = $request->all();
 
-		$data['competition_id'] = $competition->id;
+		$data['phase_id'] = $phase->id;
 		$data['slug'] = Str::slug($request->name, '-');
-		$data['order'] = $competition->phases->count() + 1;
 		$data['active'] = 0;
 
-        $phase = Phase::create($data);
+        $group = Group::create($data);
 
-        if ($phase->save()) {
+        if ($group->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.phases', [$tournament, $season, $competition]);
+            return redirect()->route('admin.groups', [$tournament, $season, $competition, $phase]);
         }
 
     }
 
-    public function edit(Tournament $tournament, Season $season, Competition $competition, $id)
+    public function edit(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $id)
     {
-    	$phase = Phase::findOrFail($id);
-    	return view('admin.phases.edit', ['phase' => $phase, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition]);
+    	$group = Group::findOrFail($id);
+    	return view('admin.groups.edit', ['group' => $group, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase]);
     }
 
-    public function update(Tournament $tournament, Season $season, Competition $competition, $id, Request $request)
+    public function update(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $id, Request $request)
     {
-    	$phase = Phase::findOrFail($id);
+    	$group = Group::findOrFail($id);
 
         $data = $request->validate([
             'name' => 'required',
@@ -120,34 +115,33 @@ class PhaseController extends Controller
 
         $data['slug'] = Str::slug($request->name, '-');
 
-        $phase->fill($data);
+        $group->fill($data);
 
-        if ($phase->isDirty()) {
-            $phase->update($data);
-            if ($phase->update()) {
+        if ($group->isDirty()) {
+            $group->update($data);
+            if ($group->update()) {
                 flash()->success('Registro editado correctamente');
-                return redirect()->route('admin.phases', [$tournament, $season, $competition]);
+                return redirect()->route('admin.groups', [$tournament, $season, $competition, $phase]);
             } else {
                 flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
-                return redirect()->route('admin.phases', [$tournament, $season, $competition]);
+                return redirect()->route('admin.groups', [$tournament, $season, $competition, $phase]);
             }
         } else {
             flash()->info('No se han detectado cambios en el registro');
-            return redirect()->route('admin.phases', [$tournament, $season, $competition]);
+            return redirect()->route('admin.groups', [$tournament, $season, $competition, $phase]);
         }
     }
 
-    public function destroy(Tournament $tournament, Season $season, Competition $competition, $ids)
+    public function destroy(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $phase = Phase::find($ids[$i]);
-            if ($phase && $phase->canDestroy()) {
+            $group = Group::find($ids[$i]);
+            if ($group && $group->canDestroy()) {
                 $counter++;
-                $phase->delete();
-                $this->reorder_phases($competition->id);
+                $group->delete();
             }
         }
         if ($counter > 0) {
@@ -163,32 +157,23 @@ class PhaseController extends Controller
         }
     }
 
-    protected function reorder_phases($competition_id)
-    {
-    	$phases = Phase::where('competition_id', '=', $competition_id)->orderBy('order', 'asc')->get();
-    	$order = 1;
-    	foreach ($phases as $phase) {
-    		$phase->order = $order;
-    		$phase->save();
-    		$order++;
-    	}
-    }
-
-    public function duplicate(Tournament $tournament, Season $season, Competition $competition, $ids)
+    public function duplicate(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $original = Phase::find($ids[$i]);
+            $original = Group::find($ids[$i]);
             if ($original) {
                 $counter++;
-                $phase = $original->replicate();
+                $group = $original->replicate();
                 $random_numer = rand(100,999);
-                $phase->name .= " (copia_" . $random_numer . ")";
-                $phase->slug = Str::slug($phase->name, '-');
-                $phase->order = $competition->phases->count() + 1;
-                $phase->save();
+                $group->name .= " (copia_" . $random_numer . ")";
+                if ($group->num_participants > $phase->max_participants_new_group()) {
+                	$group->num_participants = $phase->max_participants_new_group();
+                }
+                $group->slug = Str::slug($group->name, '-');
+                $group->save();
             }
         }
         if ($counter > 0) {
@@ -204,15 +189,15 @@ class PhaseController extends Controller
         }
     }
 
-    public function activate(Tournament $tournament, Season $season, Competition $competition, $ids)
+    public function activate(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $phase = Phase::find($ids[$i]);
-            $phase->active = 1;
-            $phase->save();
+            $group = Group::find($ids[$i]);
+            $group->active = 1;
+            $group->save();
             $counter++;
         }
         if ($counter > 0) {
@@ -228,15 +213,15 @@ class PhaseController extends Controller
         }
     }
 
-    public function desactivate(Tournament $tournament, Season $season, Competition $competition, $ids)
+    public function desactivate(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $ids)
     {
         $ids=explode(",",$ids);
         $counter = 0;
         for ($i=0; $i < count($ids); $i++)
         {
-            $phase = Phase::find($ids[$i]);
-            $phase->active = 0;
-            $phase->save();
+            $group = Group::find($ids[$i]);
+            $group->active = 0;
+            $group->save();
             $counter++;
         }
         if ($counter > 0) {
@@ -252,22 +237,22 @@ class PhaseController extends Controller
         }
     }
 
-    public function export(Tournament $tournament, Season $season, Competition $competition, $format, $ids, $filename, $order)
+    public function export(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
-        $phases = Phase::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $phases->makeHidden(['slug']);
+        $groups = Group::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $groups->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
             default:
                 flash()->error('Formato de archivo no válido.');
                 return back();
@@ -275,21 +260,21 @@ class PhaseController extends Controller
         }
     }
 
-    public function exportGlobal(Tournament $tournament, Season $season, Competition $competition, $format, $filename, $order)
+    public function exportGlobal(Tournament $tournament, Season $season, Competition $competition, Phase $phase, $format, $filename, $order)
     {
         $order_ext = $this->getOrder($order, $tournament);
-		$phases = Phase::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-		$phases->makeHidden(['slug']);
+		$groups = Group::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+		$groups->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new GroupsExport($groups))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
@@ -301,7 +286,7 @@ class PhaseController extends Controller
     public function import(Tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new PhasesImport, request()->file('fileImport'));
+            Excel::import(new GroupsImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();
