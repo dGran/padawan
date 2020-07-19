@@ -1,4 +1,4 @@
-<tr data-id="{{ $group->id }}" data-slug="{{ $group->slug }}">
+<tr data-id="{{ $group->id }}" data-name="{{ $group->name }}" data-slug="{{ $group->slug }}">
     <td class="select text-center">
         <label class="custom-check">
             <div>

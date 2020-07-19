@@ -1,4 +1,4 @@
-<tr data-id="{{ $phase->id }}" data-slug="{{ $phase->slug }}">
+<tr data-id="{{ $phase->id }}" data-name="{{ $phase->name }}" data-slug="{{ $phase->slug }}">
     <td class="select text-center">
         <label class="custom-check">
             <div>

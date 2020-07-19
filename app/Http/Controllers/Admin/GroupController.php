@@ -67,7 +67,12 @@ class GroupController extends Controller
 
     public function add(Tournament $tournament, Season $season, Competition $competition, Phase $phase)
     {
-    	return view('admin.groups.add', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase]);
+    	if ($phase->fullParticipants()) {
+            flash()->error('Se ha alcanzado el máximo de participantes de la fase en los grupos existentes');
+            return back();
+    	} else {
+    		return view('admin.groups.add', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase]);
+    	}
     }
 
     public function save(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Request $request)

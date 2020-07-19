@@ -238,8 +238,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 
 	//Grupos
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos', 'Admin\GroupController@list')->name('admin.groups');
-	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nueva', 'Admin\GroupController@add')->name('admin.groups.add');
-	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nueva', 'Admin\GroupController@save')->name('admin.groups.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nuevo', 'Admin\GroupController@add')->name('admin.groups.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nuevo', 'Admin\GroupController@save')->name('admin.groups.save');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/editar/{id}', 'Admin\GroupController@edit')->name('admin.groups.edit');
 	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/editar/{id}', 'Admin\GroupController@update')->name('admin.groups.update');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/ver/{id}', 'Admin\GroupController@view')->name('admin.groups.view');

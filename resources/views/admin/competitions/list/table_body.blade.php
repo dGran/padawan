@@ -1,4 +1,4 @@
-<tr data-id="{{ $competition->id }}" data-slug="{{ $competition->slug }}">
+<tr data-id="{{ $competition->id }}" data-name="{{ $competition->name }}" data-slug="{{ $competition->slug }}">
     <td class="select text-center">
         <label class="custom-check">
             <div>
