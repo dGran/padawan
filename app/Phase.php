@@ -28,6 +28,13 @@ class Phase extends Model
         }
     }
 
+    public function scopeMode($query, $mode)
+    {
+        if (!$mode == 0) {
+            $query->where("mode", "=", $mode);
+        }
+    }
+
     public function canDestroy()
     {
         // apply logic...

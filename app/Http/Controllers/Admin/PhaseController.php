@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
-use App\Exports\CompetitionsExport;
-use App\Imports\CompetitionsImport;
+use App\Exports\PhasesExport;
+use App\Imports\PhasesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -23,6 +23,7 @@ class PhaseController extends Controller
         $perPage = request()->perPage ? request()->perPage : 10;
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
+        $filterMode = request()->filterMode;
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('phase_page')) {
@@ -40,22 +41,26 @@ class PhaseController extends Controller
             if (request()->session()->get('phase_filterName')) {
                 $filterName = request()->session()->get('phase_filterName');
             }
+            if (request()->session()->get('phase_filterMode')) {
+                $filterMode = request()->session()->get('phase_filterMode');
+            }
         }
 
         $order_ext = $this->getOrder($order, $tournament);
 
-        $phases = Phase::competitionId($competition->id)->name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $phases = Phase::competitionId($competition->id)->name($filterName)->mode($filterMode)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $phases->lastPage()) {
             $page = $phases->lastPage();
         }
-		$phases = Phase::competitionId($competition->id)->name($filterName)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+		$phases = Phase::competitionId($competition->id)->name($filterName)->mode($filterMode)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         session(['phase_perPage' => $perPage]);
         session(['phase_page' => $page]);
         session(['phase_order' => $order]);
         session(['phase_filterName' => $filterName]);
+        session(['phase_filterMode' => $filterMode]);
 
-    	return view('admin.phases.list', ['phases' => $phases, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'order' => $order]);
+    	return view('admin.phases.list', ['phases' => $phases, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterMode' => $filterMode, 'order' => $order]);
     }
 
     public function view(Tournament $tournament, Season $season, Competition $competition, $id)
@@ -203,18 +208,18 @@ class PhaseController extends Controller
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
-        $competitions = Competition::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $competitions->makeHidden(['img', 'slug']);
+        $phases = Phase::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+        $phases->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
             default:
                 flash()->error('Formato de archivo no válido.');
                 return back();
@@ -225,18 +230,18 @@ class PhaseController extends Controller
     public function exportGlobal(Tournament $tournament, Season $season, Competition $competition, $format, $filename, $order)
     {
         $order_ext = $this->getOrder($order, $tournament);
-		$competitions = Competition::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-		$competitions->makeHidden(['img', 'slug']);
+		$phases = Phase::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+		$phases->makeHidden(['slug']);
 
         switch ($format) {
             case 'xls':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLS);
                 break;
             case 'xlsx':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::XLSX);
                 break;
             case 'csv':
-                return (new CompetitionsExport($competitions))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
+                return (new PhasesExport($phases))->download($filename . '.' . $format, \Maatwebsite\Excel\Excel::CSV);
                 break;
             default:
                 flash()->error('Formato de archivo no válido.');
@@ -248,7 +253,7 @@ class PhaseController extends Controller
     public function import(Tournament $tournament)
     {
         if (request()->hasFile('fileImport')) {
-            Excel::import(new CompetitionsImport, request()->file('fileImport'));
+            Excel::import(new PhasesImport, request()->file('fileImport'));
             flash()->success('Registros importados correctamente. Los registros ya existentes han sido omitidos');
         }
         return back();
