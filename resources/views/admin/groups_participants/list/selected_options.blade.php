@@ -21,9 +21,6 @@
                 <i class="icon-trash"></i>
             </button>
         @endisset
-        <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Activar" id="activate" onclick="activate()">
-            <i class="fas fa-toggle-on"></i> ???
-        </button>
         @isset($duplicate)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Duplicar" onclick="duplicate()">
                 <i class="icon-duplicate"></i>

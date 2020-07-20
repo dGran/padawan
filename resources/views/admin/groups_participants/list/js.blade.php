@@ -6,6 +6,9 @@
     var routeExport = "{{ route('admin.groups_participants.export', [$tournament, $season, $competition, $phase, $group, ':FORMAT', ':IDS', ':FILENAME', $order]) }}";
     var routeExportGlobal = "{{ route('admin.groups_participants.export.global', [$tournament, $season, $competition, $phase, $group, ':FORMAT', ':FILENAME', $order]) }}";
 
+    var routeRandomParticipant = "{{ route('admin.groups_participants.add_random', [$tournament, $season, $competition, $phase, $group]) }}";
+    var routeRandomParticipants = "{{ route('admin.groups_participants.complete_random', [$tournament, $season, $competition, $phase, $group]) }}";
+
     var max_registers = "{{ $group->num_participants }}";
     var current_registers = "{{ $group->participants->count() }}";
 
@@ -14,8 +17,12 @@
         var full = "{{ $group->fullParticipants() }}";
         if (full) {
             $(".add").addClass('disable');
+            $("#random_participant").addClass('disable');
+            $("#random_participants").addClass('disable');
         } else {
             $(".add").removeClass('disable');
+            $("#random_participant").removeClass('disable');
+            $("#random_participants").removeClass('disable');
         }
 
         $(".current-registers").text(current_registers);
@@ -73,6 +80,16 @@
             $(".mark").parents('tr').removeClass('selected');
         }
         showHideRowOptionsCustom();
+    }
+
+    function random_participant() {
+        var url = routeRandomParticipant;
+        window.location.href=url;
+    }
+
+    function random_participants() {
+        var url = routeRandomParticipants;
+        window.location.href=url;
     }
 
 </script>

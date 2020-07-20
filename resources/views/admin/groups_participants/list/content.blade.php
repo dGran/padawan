@@ -40,7 +40,6 @@
             'edit'        => 1,
             'view'        => 1,
             'destroy'     => 1,
-            'duplicate'   => 1,
             'export'      => 1
         ])
 </div>

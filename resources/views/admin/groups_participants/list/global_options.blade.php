@@ -6,6 +6,13 @@
 </div>
 <div class="elements">
     <div class="scroll pt-4">
+        <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="Agregar participante al azar" id="random_participant" onclick="random_participant()">
+            <i class="fas fa-dice-one"></i>
+        </button>
+        <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Completar participantes al azar" id="random_participants" onclick="random_participants()">
+            <i class="fas fa-dice"></i>
+        </button>
+
         @isset($import)
             <form id="frmImport" role="form"
                 method="POST"
@@ -13,7 +20,7 @@
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <input type="file" name="fileImport" id="fileImport" class="hidden">
-                <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="Importar" onclick="importFile()">
+                <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Importar" onclick="importFile()">
                 <i class="icon-import"></i>
                 </button>
             </form>

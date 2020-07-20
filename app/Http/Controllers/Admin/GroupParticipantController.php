@@ -81,7 +81,7 @@ class GroupParticipantController extends Controller
     public function view(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
     {
         $group_participant = GroupParticipant::findOrFail($id);
-        return view('admin.groups.view', ['group_participant' => $group_participant, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+        return view('admin.groups_participants.view', ['group_participant' => $group_participant, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function add(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
@@ -104,7 +104,7 @@ class GroupParticipantController extends Controller
 	                ->orderBy('id', 'asc')
 	                ->get();
     		if ($participants->count() == 0) {
-	            flash()->error('No existen más participantes');
+	            flash()->error('No existen más participantes sin asignar');
 	            return back();
     		}
 
@@ -148,13 +148,6 @@ class GroupParticipantController extends Controller
     public function update(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id, Request $request)
     {
     	$group_participant = GroupParticipant::findOrFail($id);
-
-        // $data = $request->validate([
-        //     'name' => 'required',
-        // ],
-        // [
-        //     'name.required' => 'El nombre es obligatorio',
-        // ]);
 
         $data = $request->all();
 
@@ -200,11 +193,100 @@ class GroupParticipantController extends Controller
         }
     }
 
+    public function addRandom(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
+    {
+        $participants = Participant::
+        		where('season_id', '=', $season->id)
+                ->whereNotIn('id', function($query) use ($phase) {
+					$query
+						->select('participant_id')
+						->from('groups_participants')
+						->leftJoin('groups', 'groups.id', '=', 'groups_participants.group_id')
+						->leftJoin('phases', 'phases.id', '=', 'groups.phase_id')
+						->whereNotNull('participant_id')
+						->where('phases.id', '=', $phase->id);
+                })
+                ->orderBy('id', 'asc')
+                ->get();
+
+        if ($participants->count() == 0) {
+			flash()->error('No existen más participantes sin asignar');
+			return back();
+        }
+
+        $free_participants = [];
+        foreach ($participants as $participant) {
+            array_push($free_participants, $participant->id);
+        }
+
+        $result = array_rand ($free_participants, 1);
+        $group_participant = GroupParticipant::create([
+            'group_id'       => $group->id,
+            'participant_id' => $free_participants[$result]
+        ]);
+        if ($group_participant->save()) {
+            flash()->success('Registro creado al azar correctamente');
+            return redirect()->route('admin.groups_participants', [$tournament, $season, $competition, $phase, $group]);
+        }
+    }
+
+    public function completeRandom(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
+    {
+		$spaces = $group->num_participants - $group->participants->count();
+
+        $counter = 0;
+        for ($i=0; $i < $spaces; $i++) {
+	        $participants = Participant::
+	        		where('season_id', '=', $season->id)
+	                ->whereNotIn('id', function($query) use ($phase) {
+						$query
+							->select('participant_id')
+							->from('groups_participants')
+							->leftJoin('groups', 'groups.id', '=', 'groups_participants.group_id')
+							->leftJoin('phases', 'phases.id', '=', 'groups.phase_id')
+							->whereNotNull('participant_id')
+							->where('phases.id', '=', $phase->id);
+	                })
+	                ->orderBy('id', 'asc')
+	                ->get();
+
+	        if ($participants->count() == 0) {
+				flash()->error('No existen más participantes sin asignar');
+				return back();
+	        }
+
+	        $free_participants = [];
+	        foreach ($participants as $participant) {
+	            array_push($free_participants, $participant->id);
+	        }
+
+	        $result = array_rand ($free_participants, 1);
+	        $group_participant = GroupParticipant::create([
+	            'group_id'       => $group->id,
+	            'participant_id' => $free_participants[$result]
+	        ]);
+	        $counter++;
+        }
+
+        if ($counter > 0) {
+            flash()->success('Registros creados al azar correctamente');
+            return redirect()->route('admin.groups_participants', [$tournament, $season, $competition, $phase, $group]);
+        }
+    }
+
     public function export(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order, $tournament);
-        $groups_participants = GroupParticipant::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+		$groups_participants = GroupParticipant::
+        select('groups_participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('participants', 'participants.id', '=', 'groups_participants.participant_id')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->whereIn('id', $ids)
+        ->groupId($group->id)
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
@@ -225,7 +307,14 @@ class GroupParticipantController extends Controller
     public function exportGlobal(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $format, $filename, $order)
     {
         $order_ext = $this->getOrder($order, $tournament);
-		$groups_participants = GroupParticipant::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
+		$groups_participants = GroupParticipant::
+        select('groups_participants.*', 'teams.name', 'users.name', 'eteams.name')
+        ->leftJoin('participants', 'participants.id', '=', 'groups_participants.participant_id')
+        ->leftJoin('teams', 'teams.id', '=', 'participants.team_id')
+        ->leftJoin('users', 'users.id', '=', 'participants.user_id')
+        ->leftJoin('eteams', 'eteams.id', '=', 'participants.eteam_id')
+        ->groupId($group->id)
+        ->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
 
         switch ($format) {
             case 'xls':
