@@ -50,26 +50,32 @@ class Participant extends Model
         $presenter = [];
         if ($this->season->tournament->use_teams) {
             if ($this->team) {
+                $presenter['defined'] = true;
                 $presenter['name'] = $this->team->name;
                 $presenter['img'] = $this->team->img();
             } else {
+                $presenter['defined'] = false;
                 $presenter['name'] = 'No definido';
                 $presenter['img'] = asset('img/teams/default.png');
             }
         } else {
             if ($this->season->tournament->participant_type == "individual") {
                 if ($this->user) {
+                    $presenter['defined'] = true;
                     $presenter['name'] = $this->user->name;
                     $presenter['img'] = $this->user->profile->avatar();
                 } else {
+                    $presenter['defined'] = false;
                     $presenter['name'] = 'No definido';
                     $presenter['img'] = asset('img/avatars/default.png');
                 }
             } else {
                 if ($this->eteam) {
+                    $presenter['defined'] = true;
                     $presenter['name'] = $this->eteam->name;
                     $presenter['img'] = $this->eteam->img();
                 } else {
+                    $presenter['defined'] = false;
                     $presenter['name'] = 'No definido';
                     $presenter['img'] = asset('img/eteams/default.png');
                 }

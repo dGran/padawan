@@ -16,7 +16,7 @@
             </div>
             <div class="ml-3">
                 {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
-                    <span class="name">{{ $participant->presenter()['name'] }}</span>
+                    <span class="name {{ !$participant->presenter()['defined'] ? 'text-gray-500' : '' }}">{{ $participant->presenter()['name'] }}</span>
                     <span class="block text-gray-600" style="font-size: 9px">ID:{{ $participant->id }}</span>
                 {{-- </p> --}}
             </div>

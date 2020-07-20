@@ -16,4 +16,10 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $phase->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Grupos</li>
+<li><a href="{{ route('admin.groups', [$tournament, $season, $competition, $phase]) }}" class="breadcrumb-link">Grupos</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>{{ $group->name }}</li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li><a href="{{ route('admin.groups_participants', [$tournament, $season, $competition, $phase, $group]) }}" class="breadcrumb-link">Participantes</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>Editar participante #{{ $group_participant->id }}</li>

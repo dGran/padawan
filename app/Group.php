@@ -14,6 +14,11 @@ class Group extends Model
         return $this->belongsTo('App\Phase');
     }
 
+    public function participants()
+    {
+        return $this->hasMany('App\GroupParticipant', 'group_id', 'id');
+    }
+
     public function scopePhaseId($query, $phase)
     {
         if ($phase > 0) {
@@ -44,5 +49,13 @@ class Group extends Model
     		$counter += $group->num_participants;
     	}
     	return ($phase->num_participants + $this->num_participants) - $counter;
+    }
+
+    public function fullParticipants()
+    {
+        if ($this->num_participants > $this->participants->count()) {
+            return false;
+        }
+        return true;
     }
 }

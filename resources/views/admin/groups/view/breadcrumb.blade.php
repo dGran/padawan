@@ -14,6 +14,8 @@
 <li><span class="breadcrumb-separator">/</span></li>
 <li><a href="{{ route('admin.phases', [$tournament, $season, $competition]) }}" class="breadcrumb-link">Fases</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
+<li>{{ $phase->name }}</li>
+<li><span class="breadcrumb-separator">/</span></li>
 <li><a href="{{ route('admin.groups', [$tournament, $season, $competition, $phase]) }}" class="breadcrumb-link">Grupos</a></li>
 <li><span class="breadcrumb-separator">/</span></li>
 <li>{{ $group->name }}</li>

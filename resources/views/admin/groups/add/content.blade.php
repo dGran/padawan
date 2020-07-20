@@ -11,7 +11,7 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Participantes</label>
-                    <input type="number" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" min="0" max="{{ $phase->max_participants_new_group() }}" value="{{ old('num_participants', 0) }}">
+                    <input type="number" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" min="0" max="{{ $phase->max_participants_new_group() }}" value="{{ old('num_participants', $phase->max_participants_new_group()) }}">
                     <p class="block text-blue-500 text-xs pt-2">Máximo: {{ $phase->max_participants_new_group() }}</p>
                 </div>
             </div>

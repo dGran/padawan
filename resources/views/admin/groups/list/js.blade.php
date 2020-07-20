@@ -9,7 +9,7 @@
     var routeActivate = "{{ route('admin.groups.activate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
     var routeDesactivate = "{{ route('admin.groups.desactivate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
 
-    var routeParticipants = "{{ route('admin.groups', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+    var routeParticipants = "{{ route('admin.groups_participants', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
     var routeCompetition = "{{ route('admin.groups', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
 
     check_max_participants();

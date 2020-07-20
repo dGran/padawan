@@ -251,6 +251,18 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/activar/{ids}', 'Admin\GroupController@activate')->name('admin.groups.activate');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/desactivar/{ids}', 'Admin\GroupController@desactivate')->name('admin.groups.desactivate');
 
+	//Grupos-participantes
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes', 'Admin\GroupParticipantController@list')->name('admin.groups_participants');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/nuevo', 'Admin\GroupParticipantController@add')->name('admin.groups_participants.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/nuevo', 'Admin\GroupParticipantController@save')->name('admin.groups_participants.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/editar/{id}', 'Admin\GroupParticipantController@edit')->name('admin.groups_participants.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/editar/{id}', 'Admin\GroupParticipantController@update')->name('admin.groups_participants.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/ver/{id}', 'Admin\GroupParticipantController@view')->name('admin.groups_participants.view');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/eliminar/{ids}', 'Admin\GroupParticipantController@destroy')->name('admin.groups_participants.destroy');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GroupParticipantController@export')->name('admin.groups_participants.export');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GroupParticipantController@exportGlobal')->name('admin.groups_participants.export.global');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/importar', 'Admin\GroupParticipantController@import')->name('admin.groups_participants.import');
+
 	//News
 	Route::get('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selector')->name('admin.seasons_posts.selector');
 	Route::post('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selectorSelect')->name('admin.seasons_posts.selector.select');
