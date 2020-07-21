@@ -8,6 +8,7 @@
     var routeExportGlobal = "{{ route('admin.competitions.export.global', [$tournament, $season, ':FORMAT', ':FILENAME', $order]) }}";
 
     var routePhases = "{{ route('admin.phases', [$tournament, $season, ':SLUG']) }}";
+    var routeGenerate = "{{ route('admin.phases', [$tournament, $season, ':ID']) }}";
 
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();

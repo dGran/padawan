@@ -12,8 +12,14 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Participantes</label>
-                    <input type="number" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" min="0" max="{{ $group->max_participants() }}" value="{{ old('num_participants', $group->num_participants) }}">
-                    <p class="block text-blue-500 text-xs pt-2">Máximo: {{ $group->max_participants() }}</p>
+                    <input type="number" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" min="{{ $group->participants->count() }}" max="{{ $group->max_participants() }}" value="{{ old('num_participants', $group->num_participants) }}">
+                        <div class="pt-2">
+                            @if ($group->participants->count() > 0)
+                                <p class="block text-blue-500 text-xs">Mínimo: {{ $group->participants->count() }} (participantes registrados)</p>
+                            @endif
+                            <p class="block text-blue-500 text-xs">Máximo: {{ $group->max_participants() }}</p>
+                        </div>
+                    </p>
                 </div>
             </div>
 

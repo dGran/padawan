@@ -182,6 +182,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes', 'Admin\ParticipantController@list')->name('admin.participants');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/nuevo', 'Admin\ParticipantController@add')->name('admin.participants.add');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/participantes/nuevo', 'Admin\ParticipantController@save')->name('admin.participants.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/generar-participantes', 'Admin\ParticipantController@generateParticipants')->name('admin.participants.generate_participants');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/editar/{id}', 'Admin\ParticipantController@edit')->name('admin.participants.edit');
 	Route::put('/torneos/{tournament:slug}/{season:slug}/participantes/editar/{id}', 'Admin\ParticipantController@update')->name('admin.participants.update');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/ver/{id}', 'Admin\ParticipantController@view')->name('admin.participants.view');

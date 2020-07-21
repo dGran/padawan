@@ -36,4 +36,28 @@
     $("#form-add").submit(function(event) {
         disabledActionsButtons();
     });
+
+    function auto_generate_league_change()
+    {
+    	if ($("#auto_generate_league").prop('checked')) {
+    		$("#auto_generate_playoff").prop('checked', false);
+    		$("#auto_generate_race").prop('checked', false);
+		}
+    }
+
+    function auto_generate_playoff_change()
+    {
+    	if ($("#auto_generate_playoff").prop('checked')) {
+    		$("#auto_generate_league").prop('checked', false);
+    		$("#auto_generate_race").prop('checked', false);
+		}
+    }
+
+    function auto_generate_race_change()
+    {
+    	if ($("#auto_generate_race").prop('checked')) {
+    		$("#auto_generate_league").prop('checked', false);
+    		$("#auto_generate_playoff").prop('checked', false);
+		}
+    }
 </script>

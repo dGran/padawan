@@ -131,8 +131,22 @@ class CompetitionController extends Controller
         $competition = Competition::create($data);
 
         if ($competition->save()) {
-            flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.competitions', [$tournament, $season]);
+            if ($request->auto_generate_league == "on" || $request->auto_generate_playoff == "on" || $request->auto_generate_race == "on") {
+                if ($request->auto_generate_league == "on") {
+                    $this->auto_generate_phase_group_participants($competition, 'league');
+                }
+                if ($request->auto_generate_playoff == "on") {
+                    $this->auto_generate_phase_group_participants($competition, 'playoff');
+                }
+                if ($request->auto_generate_race == "on") {
+                    $this->auto_generate_phase_group_participants($competition, 'race');
+                }
+                flash()->success('Registro creado correctamente, fase y grupo generados automáticamente e inscritos todos los participantes en el grupo');
+                return redirect()->route('admin.competitions', [$tournament, $season]);
+            } else {
+                flash()->success('Registro creado correctamente');
+                return redirect()->route('admin.competitions', [$tournament, $season]);
+            }
         }
 
     }
@@ -341,5 +355,50 @@ class CompetitionController extends Controller
             ]
         ];
         return $order_ext[$order];
+    }
+
+    protected function auto_generate_phase_group_participants($competition, $mode)
+    {
+        $phase = \App\Phase::create([
+            'competition_id'   => $competition->id,
+            'name'             => 'Fase 1',
+            'mode'             => $mode,
+            'num_participants' => $competition->season->num_participants,
+            'order'            => 1,
+            'active'           => 0,
+            'slug'             => Str::slug('Fase 1', '-')
+        ]);
+        $group = \App\Group::create([
+            'phase_id'         => $phase->id,
+            'name'             => 'Grupo 1',
+            'num_participants' => $phase->num_participants,
+            'active'           => 0,
+            'slug'             => Str::slug('Grupo 1', '-')
+        ]);
+
+        for ($i=0; $i < $group->num_participants; $i++) {
+            $participants = \App\Participant::
+                    where('season_id', '=', $competition->season->id)
+                    ->whereNotIn('id', function($query) use ($phase) {
+                        $query
+                            ->select('participant_id')
+                            ->from('groups_participants')
+                            ->leftJoin('groups', 'groups.id', '=', 'groups_participants.group_id')
+                            ->leftJoin('phases', 'phases.id', '=', 'groups.phase_id')
+                            ->whereNotNull('participant_id')
+                            ->where('phases.id', '=', $phase->id);
+                    })
+                    ->orderBy('id', 'asc')
+                    ->get();
+
+            if ($participants->count() > 0) {
+                foreach ($participants as $participant) {
+                    $group_participant = \App\GroupParticipant::create([
+                        'group_id'       => $group->id,
+                        'participant_id' => $participant->id
+                    ]);
+                }
+            }
+        }
     }
 }

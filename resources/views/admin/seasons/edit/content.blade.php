@@ -12,8 +12,16 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Número de participantes</label>
-                    <input type="number" min="0" step="2" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants', $season->num_participants) }}">
-                    <p class="block text-blue-500 text-xs pt-2">0 para participantes ilimitados</p>
+                    <input type="number" min="{{ $season->participants->count() }}" class="placeholder-gray-400 {{ $season->hasCompetitionWithPhases() ? 'disable' : '' }}" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants', $season->num_participants) }}">
+                    @if ($season->hasCompetitionWithPhases())
+                        <p class="block text-blue-500 text-xs pt-2">Ya existen competiciones con fases configuradas, debes eliminarlas para poder editar el número de participantes</p>
+                    @else
+                        @if ($season->participants->count() > 0)
+                            <p class="block text-blue-500 text-xs pt-2">Mínimo: {{ $season->participants->count() }} (participantes ya registrados)</p>
+                        @else
+                            <p class="block text-blue-500 text-xs pt-2">0 para participantes ilimitados</p>
+                        @endif
+                    @endif
                 </div>
                 <div class="element">
                     <label for="inscription_price">Precio de inscripción</label>

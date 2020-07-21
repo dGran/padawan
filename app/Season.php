@@ -62,6 +62,17 @@ class Season extends Model
         }
     }
 
+    public function hasCompetitionWithPhases()
+    {
+        foreach ($this->competitions as $competition) {
+            if ($competition->phases->count() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function canDestroy()
     {
         // apply logic...

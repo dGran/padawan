@@ -41,7 +41,7 @@
 <ul>
     <li>- expulsar usuario o eteam</li>
     <li>- sustituir (por reserva) usuario o eteam</li>
-    <li>- generar automaticamente los participantes si no son ilimitados al crear la temporada, y modificar al editar (o no permitir editar (estudiar)</li>
+    <li>- autonoticias al registrar participante / expulsar</li>
 </ul>
 
 <div class="selected-options hidden animated fast">

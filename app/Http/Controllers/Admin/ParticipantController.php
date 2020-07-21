@@ -279,6 +279,18 @@ class ParticipantController extends Controller
         }
     }
 
+    public function generateParticipants(Tournament $tournament, Season $season)
+    {
+        $current_participants = $season->participants->count();
+        for ($i = $current_participants; $i < $season->num_participants; $i++) {
+            $participant = Participant::create([
+                'season_id'       => $season->id
+            ]);
+        }
+        flash()->success('Lista de participantes completada con êxito.');
+        return back();
+    }
+
     public function export(Tournament $tournament, Season $season, $format, $ids, $filename, $order)
     {
         $ids=explode(",",$ids);
