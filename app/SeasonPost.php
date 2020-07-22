@@ -41,6 +41,9 @@ class SeasonPost extends Model
             case 'default':
                 $default = asset('img/seasons_posts/default.png');
                 break;
+            case 'participation':
+                $default = asset('img/seasons_posts/participation.png');
+                break;
             case 'transfer':
                 $default = asset('img/seasons_posts/transfer.png');
                 break;
@@ -79,6 +82,9 @@ class SeasonPost extends Model
                 break;
             case 'result':
                 return 'Resultados';
+                break;
+            case 'participation':
+                return 'Participación';
                 break;
             case 'transfer':
                 return 'Fichajes';

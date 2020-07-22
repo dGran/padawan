@@ -31,11 +31,13 @@
 			</div>
 			<div>
 				<dt>Estado</dt>
-				<dd>
+				<dd class="flex items-center">
 					@if ($group->active)
-						<i class="fas fa-toggle-on mr-2 text-green-500 text-base"></i>Activo
+						<i class="icon-toggle-on text-2xl mr-2 text-green-500 text-base"></i>
+						<span>Activo</span>
 					@else
-						<i class="fas fa-toggle-off mr-2 text-gray-500 text-base"></i>Inactivo
+						<i class="icon-toggle-off text-2xl mr-2 text-gray-500 text-base"></i>
+						<span>Inactivo</span>
 					@endif
 				</dd>
 			</div>

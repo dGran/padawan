@@ -10,6 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Participant;
+use App\Reserve;
 use App\Tournament;
 use App\Season;
 use App\User;
@@ -181,6 +182,19 @@ class ParticipantController extends Controller
 			$data['season_id'] = $season->id;
 	        $participant = Participant::create($data);
 
+            if ($participant->user_id || $participant->eteam_id) {
+                $random_numer = rand(100,999999);
+                $img_name = "user_add_" . $random_numer . '.png';
+                \Storage::disk('seasons_posts')->copy('user_add.png', $img_name);
+                $this->generate_season_post(
+                    $season->id,
+                    'participation',
+                    $img_name,
+                    $participant->name_without_team() . ' ha sido inscrito por los administradores',
+                    'Los administradores han inscrito a ' . $participant->name_without_team() . ' a la lista de participantes'
+                );
+            }
+
 	        if ($participant->save()) {
 	            flash()->success('Registro creado correctamente');
 	            return redirect()->route('admin.participants', [$tournament, $season]);
@@ -235,12 +249,47 @@ class ParticipantController extends Controller
     public function update(Tournament $tournament, Season $season, $id, Request $request)
     {
     	$participant = Participant::findOrFail($id);
+        $original_user_id = $participant->user_id;
+        $original_eteam_id = $participant->eteam_id;
+        $original_name = $participant->name_without_team();
 
         $data = $request->all();
         $participant->fill($data);
 
         if ($participant->isDirty()) {
             $participant->update($data);
+
+            if ($participant->user_id != $original_user_id || $participant->eteam_id != $original_eteam_id) {
+                //delete post
+                if ($original_user_id || $original_eteam_id) {
+                    $random_numer = rand(100,999999);
+                    $img_name = "user_remove_" . $random_numer . '.png';
+                    \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+                    $this->generate_season_post(
+                        $season->id,
+                        'participation',
+                        $img_name,
+                        $original_name . ' ha sido eliminado por los administradores',
+                        'Los administradores han eliminado a ' . $original_name . ' de la lista de participantes'
+                    );
+                }
+
+                $participant->refresh();
+                //add post
+                if ($participant->user_id || $participant->eteam_id) {
+                    $random_numer = rand(100,999999);
+                    $img_name = "user_add_" . $random_numer . '.png';
+                    \Storage::disk('seasons_posts')->copy('user_add.png', $img_name);
+                    $this->generate_season_post(
+                        $season->id,
+                        'participation',
+                        $img_name,
+                        $participant->name_without_team() . ' ha sido inscrito por los administradores',
+                        'Los administradores han inscrito a ' . $participant->name_without_team() . ' a la lista de participantes'
+                    );
+                }
+            }
+
             if ($participant->update()) {
                 flash()->success('Registro editado correctamente');
                 return redirect()->route('admin.participants', [$tournament, $season]);
@@ -263,6 +312,20 @@ class ParticipantController extends Controller
             $participant = Participant::find($ids[$i]);
             if ($participant && $participant->canDestroy()) {
                 $counter++;
+
+                if ($participant->user_id || $participant->eteam_id) {
+                    $random_numer = rand(100,999999);
+                    $img_name = "user_remove_" . $random_numer . '.png';
+                    \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+                    $this->generate_season_post(
+                        $season->id,
+                        'participation',
+                        $img_name,
+                        $participant->name_without_team() . ' ha sido eliminado por los administradores',
+                        'Los administradores han eliminado a ' . $participant->name_without_team() . ' de la lista de participantes'
+                    );
+                }
+
                 $participant->delete();
             }
         }
@@ -276,6 +339,84 @@ class ParticipantController extends Controller
         } else {
             flash()->error('Acción cancelada. Los registros no han podido ser eliminados.');
             return back();
+        }
+    }
+
+    public function kick(Tournament $tournament, Season $season, $id)
+    {
+        $participant = Participant::findOrFail($id);
+
+        $name = $participant->presenter()['name'];
+
+        $participant->user_id = null;
+        $participant->eteam_id = null;
+        $participant->save();
+
+        $random_numer = rand(100,999999);
+        $img_name = "user_remove_" . $random_numer . '.png';
+        \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+        $this->generate_season_post(
+            $season->id,
+            'participation',
+            $img_name,
+            $name . ' ha sido expulsado por los administradores',
+            'Los administradores han expulsado a ' . $name . ' de la lista de participantes'
+        );
+
+        flash()->success($name . ' ha sido expulsado de la lista de participantes.');
+        return back();
+    }
+
+    public function replace(Tournament $tournament, Season $season, $id)
+    {
+        $participant = Participant::findOrFail($id);
+        $reserves = Reserve::where('season_id', '=', $season->id)->orderBy('created_at', 'asc')->get();
+
+        return view('admin.participants.replace', ['participant' => $participant, 'reserves' => $reserves, 'tournament' => $tournament, 'season' => $season]);
+    }
+
+    public function replaceUpdate(Tournament $tournament, Season $season, $id, Request $request)
+    {
+        $participant = Participant::findOrFail($id);
+        $reserve = Reserve::findOrFail($request->reserve_id);
+
+        $original_name = $participant->name_without_team();
+
+        $participant->user_id = $reserve->user_id;
+        $participant->eteam_id = $reserve->eteam_id;
+
+        $participant->save();
+        $reserve->delete();
+
+        if ($participant->save()) {
+
+            //delete post
+            $random_numer = rand(100,999999);
+            $img_name = "user_remove_" . $random_numer . '.png';
+            \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+            $this->generate_season_post(
+                $season->id,
+                'participation',
+                $img_name,
+                $original_name . ' ha sido eliminado por los administradores',
+                'Los administradores han eliminado a ' . $original_name . ' de la lista de participantes'
+            );
+
+            $participant->refresh();
+            //add post
+            $random_numer = rand(100,999999);
+            $img_name = "user_add_" . $random_numer . '.png';
+            \Storage::disk('seasons_posts')->copy('user_add.png', $img_name);
+            $this->generate_season_post(
+                $season->id,
+                'participation',
+                $img_name,
+                'El reserva ' . $participant->name_without_team() . ' ha sido inscrito por los administradores',
+                'Los administradores han inscrito al reserva ' . $participant->name_without_team() . ' a la lista de participantes'
+            );
+
+            flash()->success('Participante sustituido correctamente');
+            return redirect()->route('admin.participants', [$tournament, $season]);
         }
     }
 

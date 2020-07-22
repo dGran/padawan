@@ -19,7 +19,7 @@ class CreateSeasonsPostsTable extends Migration
                 ->references('id')
                 ->on('seasons')
                 ->onDelete('cascade');
-            $table->enum('type', ['default', 'transfer', 'result', 'champion', 'press'])->nullable();
+            $table->enum('type', ['default', 'participation', 'transfer', 'result', 'champion', 'press'])->nullable();
             $table->string('img')->nullable();
             $table->string('title');
             $table->text('content');

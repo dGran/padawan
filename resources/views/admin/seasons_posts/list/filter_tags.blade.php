@@ -8,6 +8,9 @@
             	@if ($filterType == 'default')
             		Tipo: regular
             	@endif
+                @if ($filterType == 'participation')
+                    Tipo: participación
+                @endif
             	@if ($filterType == 'result')
             		Tipo: resultados
             	@endif

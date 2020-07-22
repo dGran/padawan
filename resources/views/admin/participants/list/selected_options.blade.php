@@ -31,6 +31,12 @@
                 <i class="icon-bookmark-add"></i>
             </button>
         @endisset
+        <button class="hint--top hint--rounded hint--bounce mr-2 disable" type="button" aria-label="Sustituir por reserva" id="replace" onclick="replace()">
+            <i class="icon-replace"></i>
+        </button>
+        <button class="hint--top hint--error hint--rounded hint--bounce danger-btn mr-2 disable" type="button" aria-label="Expulsar" id="kick" onclick="kick()">
+            <i class="icon-kick"></i>
+        </button>
         @isset($export)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Exportar (.xls)" onclick="exportFile('participants', 'xls')">
                 <i class="icon-xls"></i>

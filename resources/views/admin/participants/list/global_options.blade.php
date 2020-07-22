@@ -6,8 +6,8 @@
 </div>
 <div class="elements">
     <div class="scroll pt-4">
-        <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="Generar resto de participantes" id="generate_participants" onclick="generateParticipants()">
-            <i class="fas fa-magic"></i>
+        <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="{{ $season->participants->count() > 0 ? 'Generar resto de participantes' : 'Generar participantes'}}" id="generate_participants" onclick="generateParticipants()">
+            <i class="icon-magic"></i>
         </button>
 
         @isset($import)

@@ -38,12 +38,6 @@
     </div>
 </div>
 
-<ul>
-    <li>- expulsar usuario o eteam</li>
-    <li>- sustituir (por reserva) usuario o eteam</li>
-    <li>- autonoticias al registrar participante / expulsar</li>
-</ul>
-
 <div class="selected-options hidden animated fast">
     @include('admin.participants.list.selected_options',
         [

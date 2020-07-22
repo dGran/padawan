@@ -21,7 +21,7 @@ class Season extends Model
 
     public function reserves()
     {
-        return $this->hasMany('App\Participant');
+        return $this->hasMany('App\Reserve');
     }
 
     public function seasons_posts()

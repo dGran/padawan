@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Reserve extends Model
 {
 	protected $fillable = ['season_id', 'user_id', 'eteam_id'];
-    public $timestamps = false;
 
     public function season()
     {

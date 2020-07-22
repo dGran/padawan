@@ -38,7 +38,7 @@
                         <input type="checkbox" class="hidden" id="auto_generate_league" name="auto_generate_league" {{ old('auto_generate_league') == "on" ? 'checked' : '' }} onchange="auto_generate_league_change()">
                         <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                     </div>
-                    <span class="select-none"><i class="fas fa-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Liga)</b> y grupo único</span>
+                    <span class="select-none"><i class="icon-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Liga)</b> y grupo único</span>
                 </label>
                 <p class="info_auto_generate_league block text-blue-500 text-xs pt-2 pb-4">Marca la casilla para generar automáticamente una fase (modo de juego Liga) con un grupo e inscribir a todos los participantes en êl</p>
             @endif
@@ -49,7 +49,7 @@
                         <input type="checkbox" class="hidden" id="auto_generate_playoff" name="auto_generate_playoff" {{ old('auto_generate_playoff') == "on" ? 'checked' : '' }} onchange="auto_generate_playoff_change()">
                         <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                     </div>
-                    <span class="select-none"><i class="fas fa-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Eliminatorias)</b> y grupo único</span>
+                    <span class="select-none"><i class="icon-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Eliminatorias)</b> y grupo único</span>
                 </label>
                 <p class="info_auto_generate_playoff block text-blue-500 text-xs pt-2 pb-4">Marca la casilla para generar automáticamente una fase (modo de juego Eliminatorias) con un grupo e inscribir a todos los participantes en êl</p>
             @endif
@@ -60,7 +60,7 @@
                         <input type="checkbox" class="hidden" id="auto_generate_race" name="auto_generate_race" {{ old('auto_generate_race') == "on" ? 'checked' : '' }}  onchange="auto_generate_race_change()">
                         <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
                     </div>
-                    <span class="select-none"><i class="fas fa-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Carreras)</b> y grupo único</span>
+                    <span class="select-none"><i class="icon-magic text-gray-600 ml-1 mr-2"></i>Generar fase <b>(Carreras)</b> y grupo único</span>
                 </label>
                 <p class="info_auto_generate_race block text-blue-500 text-xs pt-2 pb-4">Marca la casilla para generar automáticamente una fase (modo de juego Carreras) con un grupo e inscribir a todos los participantes en êl</p>
             @endif

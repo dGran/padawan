@@ -40,6 +40,21 @@
 .icon-pos-por:before {
   content: "\e91a";
 }
+.icon-dice:before {
+  content: "\e933";
+}
+.icon-dices:before {
+  content: "\e934";
+}
+.icon-replace:before {
+  content: "\e935";
+}
+.icon-kick:before {
+  content: "\e936";
+}
+.icon-magic:before {
+  content: "\e937";
+}
 .icon-gamepad:before {
   content: "\e92f";
 }
@@ -177,4 +192,41 @@
 }
 .icon-bookmark-add:before {
   content: "\e905";
+}
+.icon-discord:before {
+  content: "\e938";
+  color: #7289da;
+}
+.icon-facebook:before {
+  content: "\e939";
+  color: #1877f2;
+}
+.icon-origin:before {
+  content: "\e93a";
+  color: #f56c2d;
+}
+.icon-steam:before {
+  content: "\e93b";
+}
+.icon-twitch:before {
+  content: "\e93c";
+  color: #6441a4;
+}
+.icon-twitter:before {
+  content: "\e93d";
+  color: #1da1f2;
+}
+.icon-xbox:before {
+  content: "\e93e";
+  color: #107c10;
+}
+.icon-youtube:before {
+  content: "\e93f";
+  color: #f00;
+}
+.icon-toggle-off:before {
+  content: "\f204";
+}
+.icon-toggle-on:before {
+  content: "\f205";
 }

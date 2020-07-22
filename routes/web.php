@@ -190,6 +190,9 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/exportar/{format}/{ids}/{filename}/{order}', 'Admin\ParticipantController@export')->name('admin.participants.export');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\ParticipantController@exportGlobal')->name('admin.participants.export.global');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/participantes/importar', 'Admin\ParticipantController@import')->name('admin.participants.import');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/expulsar/{id}', 'Admin\ParticipantController@kick')->name('admin.participants.kick');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/participantes/reemplazar/{id}', 'Admin\ParticipantController@replace')->name('admin.participants.replace');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/participantes/reemplazar/{id}', 'Admin\ParticipantController@replaceUpdate')->name('admin.participants.replace.update');
 
 	//Reserves
 	Route::get('/reservas/selector-de-temporada', 'Admin\ReserveController@selector')->name('admin.reserves.selector');

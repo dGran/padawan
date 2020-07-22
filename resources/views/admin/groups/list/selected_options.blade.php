@@ -12,10 +12,10 @@
             </button>
         @endisset
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Participantes" id="participants" onclick="participants()">
-            <i class="icon-participants"></i>
+            <i class="icon-groups_participants"></i>
         </button>
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Competición" id="competition" onclick="competition()">
-            <i class="icon-competitions"></i>
+            <i class="icon-gamepad"></i>
         </button>
         @isset($view)
             <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Ver" id="view" onclick="view()">

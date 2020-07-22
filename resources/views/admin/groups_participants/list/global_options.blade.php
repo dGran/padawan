@@ -7,10 +7,10 @@
 <div class="elements">
     <div class="scroll pt-4">
         <button class="hint--top-right hint--rounded hint--bounce mr-2" type="button" aria-label="Agregar participante al azar" id="random_participant" onclick="random_participant()">
-            <i class="fas fa-dice-one"></i>
+            <i class="icon-dice"></i>
         </button>
         <button class="hint--top hint--rounded hint--bounce mr-2" type="button" aria-label="Completar participantes al azar" id="random_participants" onclick="random_participants()">
-            <i class="fas fa-dice"></i>
+            <i class="icon-dices"></i>
         </button>
 
         @isset($import)

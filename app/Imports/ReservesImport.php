@@ -34,6 +34,8 @@ class ReservesImport implements ToModel, WithHeadingRow
            		'season_id' => $row['season_id'],
            		'user_id'   => $row['user_id'],
            		'eteam_id'  => $row['eteam_id'],
+                'created_at'  => $row['created_at'],
+                'updated_at'  => $row['updated_at'],
             ]);
             return $reserve;
         }

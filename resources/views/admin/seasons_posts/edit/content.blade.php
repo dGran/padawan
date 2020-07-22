@@ -1,7 +1,7 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
     <div class="form">
-        <form id="form-add" method="POST" role="form" action="{{ route('admin.seasons_posts.update', [$tournament, $season, $season_post->id]) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
+        <form id="form-edit" method="POST" role="form" action="{{ route('admin.seasons_posts.update', [$tournament, $season, $season_post->id]) }}" lang="{{ app()->getLocale() }}" enctype="multipart/form-data">
             @csrf
             {{ method_field('PUT') }}
 

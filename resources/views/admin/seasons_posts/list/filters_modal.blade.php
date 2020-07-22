@@ -23,6 +23,7 @@
                     <select name="filterType" id="filterType" class="appearance-none h-full rounded border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         <option value="">Todos</option>
                         <option {{ $filterType == 'default' ? 'selected' : '' }} value="default">Regular</option>
+                        <option {{ $filterType == 'participation' ? 'selected' : '' }} value="participation">Participación</option>
                         <option {{ $filterType == 'result' ? 'selected' : '' }} value="result">Resultado</option>
                         <option {{ $filterType == 'champion' ? 'selected' : '' }} value="champion">Campeón</option>
                         @if ($tournament->use_rosters && ($tournament->use_transfers || $tournament->use_clauses || $tournament->use_free_agents))

@@ -29,7 +29,7 @@ class ReservesExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'id', 'season_id', 'user_id', 'eteam_id'
+            'id', 'season_id', 'user_id', 'eteam_id', 'created_at', 'updated_at'
         ];
     }
 }

@@ -155,6 +155,17 @@ class ReserveController extends Controller
 		$data['season_id'] = $season->id;
         $reserve = Reserve::create($data);
 
+        $random_numer = rand(100,999999);
+        $img_name = "user_add_" . $random_numer . '.png';
+        \Storage::disk('seasons_posts')->copy('user_add.png', $img_name);
+        $this->generate_season_post(
+            $season->id,
+            'participation',
+            $img_name,
+            $reserve->presenter()['name'] . ' ha sido inscrito a la lista de reservas por los administradores',
+            'Los administradores han inscrito a la lista de reservas a ' . $reserve->presenter()['name']
+        );
+
         if ($reserve->save()) {
             flash()->success('Registro creado correctamente');
             return redirect()->route('admin.reserves', [$tournament, $season]);
@@ -198,12 +209,41 @@ class ReserveController extends Controller
     public function update(Tournament $tournament, Season $season, $id, Request $request)
     {
     	$reserve = Reserve::findOrFail($id);
+        $original_user_id = $reserve->user_id;
+        $original_eteam_id = $reserve->eteam_id;
+        $original_name = $reserve->presenter()['name'];
 
         $data = $request->all();
         $reserve->fill($data);
 
         if ($reserve->isDirty()) {
             $reserve->update($data);
+
+            //delete post
+            $random_numer = rand(100,999999);
+            $img_name = "user_remove_" . $random_numer . '.png';
+            \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+            $this->generate_season_post(
+                $season->id,
+                'participation',
+                $img_name,
+                $original_name . ' ha sido eliminado de la lista de reservas por los administradores',
+                'Los administradores han eliminado a ' . $original_name . ' de la lista de reservas'
+            );
+
+            $reserve->refresh();
+            //add post
+            $random_numer = rand(100,999999);
+            $img_name = "user_add_" . $random_numer . '.png';
+            \Storage::disk('seasons_posts')->copy('user_add.png', $img_name);
+            $this->generate_season_post(
+                $season->id,
+                'participation',
+                $img_name,
+                $reserve->presenter()['name'] . ' ha sido inscrito a la lista de reservas por los administradores',
+                'Los administradores han inscrito a la lista de reservas a ' . $reserve->presenter()['name']
+            );
+
             if ($reserve->update()) {
                 flash()->success('Registro editado correctamente');
                 return redirect()->route('admin.reserves', [$tournament, $season]);
@@ -226,6 +266,18 @@ class ReserveController extends Controller
             $reserve = Reserve::find($ids[$i]);
             if ($reserve && $reserve->canDestroy()) {
                 $counter++;
+
+                $random_numer = rand(100,999999);
+                $img_name = "user_remove_" . $random_numer . '.png';
+                \Storage::disk('seasons_posts')->copy('user_remove.png', $img_name);
+                $this->generate_season_post(
+                    $season->id,
+                    'participation',
+                    $img_name,
+                    $reserve->presenter()['name'] . ' ha sido eliminado de la lista de reservas por los administradores',
+                    'Los administradores han eliminado de la lista de reservas a ' . $reserve->presenter()['name']
+                );
+
                 $reserve->delete();
             }
         }
