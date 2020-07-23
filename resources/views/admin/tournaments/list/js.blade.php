@@ -8,6 +8,8 @@
     var routeExportGlobal = "{{ route('admin.tournaments.export.global', [':FORMAT', ':FILENAME', $order]) }}";
 
     var routeSeasons = "{{ route('admin.seasons', ':SLUG') }}";
+    var routeParticipants = "{{ route('admin.groups_participants', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
+    var routeCompetition = "{{ route('admin.groups', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
 
     function cancelFilterGame() {
         $("#filterGame").val('0');
@@ -40,9 +42,21 @@
             hideFilters();
             showRowOptions();
             if (elements == 1) {
+                var element = $(".mark:checked");
+                var season = $(element).parents('tr').attr('data-one_s');
+                var competition = $(element).parents('tr').attr('data-one_sc');
+                var phase = $(element).parents('tr').attr('data-one_scp');
+                var group = $(element).parents('tr').attr('data-one_scpg');
                 $(".selected-regs-count").text($(".mark:checked").parents('tr').attr('data-name'));
                 $("#edit").show();
                 $("#seasons").show();
+                if (season && competition && phase && group) {
+                    $("#participants").show();
+                    $("#competition").show();
+                } else {
+                    $("#participants").hide();
+                    $("#competition").hide();
+                }
                 $("#view").show();
                 $("#destroy").removeClass('hint--top-right');
                 $("#destroy").addClass('hint--top');
@@ -50,6 +64,8 @@
                 $(".selected-regs-count").text(elements + ' registros seleccionados');
                 $("#edit").hide();
                 $("#seasons").hide();
+                $("#participants").hide();
+                $("#competition").hide();
                 $("#view").hide();
                 $("#destroy").removeClass('hint--top');
                 $("#destroy").addClass('hint--top-right');
@@ -86,5 +102,29 @@
         var url = route.replace(':SLUG', slug);
         window.location.href=url;
         admin.seasons
+    }
+
+    function participants() {
+        var element = $(".mark:checked");
+        var tournament = $(element).parents('tr').attr('data-slug');
+        var season = $(element).parents('tr').attr('data-one_s');
+        var competition = $(element).parents('tr').attr('data-one_sc');
+        var phase = $(element).parents('tr').attr('data-one_scp');
+        var group = $(element).parents('tr').attr('data-one_scpg');
+        var route = routeParticipants;
+        var url = route.replace(':TOURNAMENT', tournament).replace(':SEASON', season).replace(':COMPETITION', competition).replace(':PHASE', phase).replace(':GROUP', group);
+        window.location.href=url;
+    }
+
+    function competition() {
+        var element = $(".mark:checked");
+        var tournament = $(element).parents('tr').attr('data-slug');
+        var season = $(element).parents('tr').attr('data-one_s');
+        var competition = $(element).parents('tr').attr('data-one_sc');
+        var phase = $(element).parents('tr').attr('data-one_scp');
+        var group = $(element).parents('tr').attr('data-one_scpg');
+        var route = routeParticipants;
+        var url = route.replace(':SLUG', slug);
+        window.location.href=url;
     }
 </script>

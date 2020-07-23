@@ -18,7 +18,7 @@
             </div>
         </div>
     </td>
-    <td>
+    <td onclick="rowSelect(this)">
         {{ $group->num_participants }}
     </td>
 </tr>

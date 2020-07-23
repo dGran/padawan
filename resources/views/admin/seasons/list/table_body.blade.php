@@ -14,7 +14,7 @@
         <span class="name">{{ $season->name }}</span>
         <span class="block text-gray-600" style="font-size: 9px">ID:{{ $season->id }}</span>
     </td>
-    <td>
+    <td onclick="rowSelect(this)">
         {{ $season->num_participants == 0 ? 'Ilimitados' : $season->num_participants }}
     </td>
 </tr>

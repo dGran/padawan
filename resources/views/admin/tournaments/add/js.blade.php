@@ -1,7 +1,8 @@
 <script>
 	var game_rosters = 0;
-	check_game_rosters();
+	check_game_options();
 	check_market();
+	check_quickly();
 
 	function showImage(fileInput) {
 		thumbnail.src = '{{ asset('img/tournaments/default.png') }}';
@@ -79,7 +80,7 @@
 		}
 	}
 
-	function check_game_rosters()
+	function check_game_options()
 	{
 		game_rosters = $("#game_id option:selected").attr('data-game-rosters');
 		if (game_rosters == 1) {
@@ -110,6 +111,38 @@
 			$('.info_use_clauses').hide();
 			$('#use_free_agents').prop('checked', false).parents('.custom-label').hide();
 			$('.info_use_free_agents').hide();
+		}
+
+		game_mode_league = $("#game_id option:selected").attr('data-mode-league');
+		game_mode_playoffs = $("#game_id option:selected").attr('data-mode-playoffs');
+		game_mode_races = $("#game_id option:selected").attr('data-mode-races');
+		if (game_mode_league == 1) {
+			$('#mode').append($('<option>').val('league').text("Liga"));
+		} else {
+			$("#mode option[value='league']").remove();
+		}
+		if (game_mode_playoffs == 1) {
+			$('#mode').append($('<option>').val('playoff').text("Eliminatorias"));
+		} else {
+			$("#mode option[value='playoff']").remove();
+		}
+		if (game_mode_races == 1) {
+			$('#mode').append($('<option>').val('race').text("Carreras"));
+		} else {
+			$("#mode option[value='race']").remove();
+		}
+	}
+
+	function check_quickly()
+	{
+		if ($('#quickly').is(':checked')) {
+			$('#num_participants').removeClass('disable');
+			$('.info_num_participants').addClass('text-blue-500').removeClass('text-blue-300');
+			$('#mode').removeClass('disable');
+		} else {
+			$('#num_participants').addClass('disable');
+			$('.info_num_participants').removeClass('text-blue-500').addClass('text-blue-300');
+			$('#mode').addClass('disable');
 		}
 	}
 

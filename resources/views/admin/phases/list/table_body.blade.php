@@ -18,7 +18,7 @@
             </div>
         </div>
     </td>
-    <td>
+    <td onclick="rowSelect(this)">
         {{ $phase->mode_name() }}
     </td>
 </tr>

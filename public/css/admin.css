@@ -19751,6 +19751,24 @@ a.disable, button.disable, input.disable, select.disable {
   background-color: rgba(235, 248, 255, var(--bg-opacity));
 }
 
+.selected-options .elements button.teal-btn, .global-options .elements button.teal-btn {
+  --text-opacity: 1;
+  color: #38b2ac;
+  color: rgba(56, 178, 172, var(--text-opacity));
+}
+
+.selected-options .elements button.teal-btn:hover, .selected-options .elements button.teal-btn :focus, .global-options .elements button.teal-btn:hover, .global-options .elements button.teal-btn :focus {
+  --text-opacity: 1;
+  color: #2c7a7b;
+  color: rgba(44, 122, 123, var(--text-opacity));
+  --border-opacity: 1;
+  border-color: #38b2ac;
+  border-color: rgba(56, 178, 172, var(--border-opacity));
+  --bg-opacity: 1;
+  background-color: #e6fffa;
+  background-color: rgba(230, 255, 250, var(--bg-opacity));
+}
+
 .selected-options .elements button:hover, .selected-options .elements button :focus, .global-options .elements button:hover, .global-options .elements button :focus {
   --text-opacity: 1;
   color: #2d3748;

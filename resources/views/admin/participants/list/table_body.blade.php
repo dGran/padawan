@@ -23,7 +23,7 @@
         </div>
     </td>
     @if ($tournament->use_teams)
-        <td>
+        <td onclick="rowSelect(this)">
             {{ $participant->name_without_team() }}
         </td>
     @endif

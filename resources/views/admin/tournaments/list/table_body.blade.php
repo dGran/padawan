@@ -1,4 +1,9 @@
-<tr data-id="{{ $tournament->id }}" data-name="{{ $tournament->name }}" data-slug="{{ $tournament->slug }}">
+<tr data-id="{{ $tournament->id }}" data-name="{{ $tournament->name }}" data-slug="{{ $tournament->slug }}"
+    data-one_s = "{{ $tournament->seasons->count() > 0 ? $tournament->seasons->first()->slug : '' }}"
+    data-one_sc = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 ? $tournament->seasons->first()->competitions->first()->slug : '' }}"
+    data-one_scp = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->count() > 0 ? $tournament->seasons->first()->competitions->first()->phases->first()->slug : '' }}"
+    data-one_scpg = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->first()->groups->count() >0 ? $tournament->seasons->first()->competitions->first()->phases->first()->groups->first()->slug : '' }}"
+    >
     <td class="select text-center">
         <label class="custom-check">
             <div>

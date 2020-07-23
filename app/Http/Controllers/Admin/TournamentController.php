@@ -138,8 +138,55 @@ class TournamentController extends Controller
 
         $tournament = Tournament::create($data);
 
+        // quickly confifuration
+        if ($request->quickly == "on") {
+            $season = \App\Season::create([
+                'tournament_id'     => $tournament->id,
+                'name'              => 'Temporada 1',
+                'state'             => 'inscriptions',
+                'num_participants'  => $request->num_participants,
+                'slug'              => Str::slug('Temporada 1', '-'),
+            ]);
+            for ($i = 0; $i < $request->num_participants; $i++) {
+                \App\Participant::create([
+                    'season_id'     => $season->id
+                ]);
+            }
+            $competition = \App\Competition::create([
+                'season_id'         => $season->id,
+                'name'              => $tournament->name,
+                'slug'              => Str::slug($tournament->name, '-'),
+            ]);
+            $phase = \App\Phase::create([
+                'competition_id'    => $competition->id,
+                'name'              => 'Fase 1',
+                'mode'              => $request->mode,
+                'num_participants'  => $request->num_participants,
+                'order'             => 1,
+                'active'            => 0,
+                'slug'              => Str::slug('Fase 1', '-'),
+            ]);
+            $group = \App\Group::create([
+                'phase_id'          => $phase->id,
+                'name'              => 'Grupo 1',
+                'num_participants'  => $request->num_participants,
+                'active'            => 0,
+                'slug'              => Str::slug('Grupo 1', '-'),
+            ]);
+            foreach ($season->participants as $participant) {
+                $group_participant = \App\GroupParticipant::create([
+                    'group_id'       => $group->id,
+                    'participant_id' => $participant->id
+                ]);
+            }
+        }
+
         if ($tournament->save()) {
-            flash()->success('Registro creado correctamente');
+            if ($request->quickly == "on") {
+                flash()->success('Registro creado con configuración rápida correctamente');
+            } else {
+                flash()->success('Registro creado correctamente');
+            }
             return redirect()->route('admin.tournaments');
         }
     }

@@ -75,4 +75,28 @@ class Tournament extends Model
 
         return true;
     }
+
+    public function one_scpg()
+    {
+        if ($this->seasons->count() == 1)
+        {
+            $season = $this->seasons->first();
+            if ($season->competitions->count() == 1)
+            {
+                $competition = $season->competitions->first();
+                if ($competition->phases->count() == 1)
+                {
+                    $phase = $competition->phases->first();
+                    if ($phase->groups->count() == 1)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            return false;
+        }
+        return false;
+    }
 }
