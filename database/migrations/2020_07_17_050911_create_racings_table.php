@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlayoffsTable extends Migration
+class CreateRacingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreatePlayoffsTable extends Migration
      */
     public function up()
     {
-        Schema::create('playoffs', function (Blueprint $table) {
+        Schema::create('racings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')
                 ->references('id')
                 ->on('groups')
                 ->onDelete('cascade');
-            $table->integer("num_rounds")->nullable();
-            $table->boolean("predefined_rounds")->default(true);
+            $table->integer("num_races")->nullable()->default(1);
+            $table->boolean('fastest_lap')->default(false);
         });
     }
 
@@ -31,6 +31,6 @@ class CreatePlayoffsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('playoffs');
+        Schema::dropIfExists('racings');
     }
 }

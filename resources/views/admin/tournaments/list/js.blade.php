@@ -9,7 +9,6 @@
 
     var routeSeasons = "{{ route('admin.seasons', ':SLUG') }}";
     var routeParticipants = "{{ route('admin.groups_participants', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
-    var routeCompetition = "{{ route('admin.groups', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
 
     function cancelFilterGame() {
         $("#filterGame").val('0');
@@ -118,13 +117,23 @@
 
     function competition() {
         var element = $(".mark:checked");
+        var mode = $(element).parents('tr').attr('data-one_mode');
+        if (mode == 'league') {
+            var routeCompetition = "{{ route('admin.league.config', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
+        }
+        if (mode == 'playoff') {
+            var routeCompetition = "{{ route('admin.playoff.config', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
+        }
+        if (mode == 'race') {
+            var routeCompetition = "{{ route('admin.racing.config', [':TOURNAMENT', ':SEASON', ':COMPETITION', ':PHASE', ':GROUP']) }}";
+        }
         var tournament = $(element).parents('tr').attr('data-slug');
         var season = $(element).parents('tr').attr('data-one_s');
         var competition = $(element).parents('tr').attr('data-one_sc');
         var phase = $(element).parents('tr').attr('data-one_scp');
         var group = $(element).parents('tr').attr('data-one_scpg');
-        var route = routeParticipants;
-        var url = route.replace(':SLUG', slug);
+        var route = routeCompetition;
+        var url = route.replace(':TOURNAMENT', tournament).replace(':SEASON', season).replace(':COMPETITION', competition).replace(':PHASE', phase).replace(':GROUP', group);
         window.location.href=url;
     }
 </script>

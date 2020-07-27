@@ -375,30 +375,52 @@ class CompetitionController extends Controller
             'active'           => 0,
             'slug'             => Str::slug('Grupo 1', '-')
         ]);
+        foreach ($competition->season->participants as $participant) {
+            $group_participant = \App\GroupParticipant::create([
+                'group_id'       => $group->id,
+                'participant_id' => $participant->id
+            ]);
+        }
+        // for ($i=0; $i < $group->num_participants; $i++) {
+        //     $participants = \App\Participant::
+        //             where('season_id', '=', $competition->season->id)
+        //             ->whereNotIn('id', function($query) use ($phase) {
+        //                 $query
+        //                     ->select('participant_id')
+        //                     ->from('groups_participants')
+        //                     ->leftJoin('groups', 'groups.id', '=', 'groups_participants.group_id')
+        //                     ->leftJoin('phases', 'phases.id', '=', 'groups.phase_id')
+        //                     ->whereNotNull('participant_id')
+        //                     ->where('phases.id', '=', $phase->id);
+        //             })
+        //             ->orderBy('id', 'asc')
+        //             ->get();
 
-        for ($i=0; $i < $group->num_participants; $i++) {
-            $participants = \App\Participant::
-                    where('season_id', '=', $competition->season->id)
-                    ->whereNotIn('id', function($query) use ($phase) {
-                        $query
-                            ->select('participant_id')
-                            ->from('groups_participants')
-                            ->leftJoin('groups', 'groups.id', '=', 'groups_participants.group_id')
-                            ->leftJoin('phases', 'phases.id', '=', 'groups.phase_id')
-                            ->whereNotNull('participant_id')
-                            ->where('phases.id', '=', $phase->id);
-                    })
-                    ->orderBy('id', 'asc')
-                    ->get();
-
-            if ($participants->count() > 0) {
-                foreach ($participants as $participant) {
-                    $group_participant = \App\GroupParticipant::create([
-                        'group_id'       => $group->id,
-                        'participant_id' => $participant->id
-                    ]);
-                }
-            }
+        //     if ($participants->count() > 0) {
+        //         foreach ($participants as $participant) {
+        //             $group_participant = \App\GroupParticipant::create([
+        //                 'group_id'       => $group->id,
+        //                 'participant_id' => $participant->id
+        //             ]);
+        //         }
+        //     }
+        // }
+        switch ($phase->mode) {
+            case 'league':
+                \App\League::create([
+                    'group_id'      => $group->id
+                ]);
+                break;
+            case 'playoff':
+                \App\Playoff::create([
+                    'group_id'      => $group->id
+                ]);
+                break;
+            case 'race':
+                \App\Racing::create([
+                    'group_id'      => $group->id
+                ]);
+                break;
         }
     }
 }

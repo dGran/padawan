@@ -1,9 +1,4 @@
-<tr data-id="{{ $tournament->id }}" data-name="{{ $tournament->name }}" data-slug="{{ $tournament->slug }}"
-    data-one_s = "{{ $tournament->seasons->count() > 0 ? $tournament->seasons->first()->slug : '' }}"
-    data-one_sc = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 ? $tournament->seasons->first()->competitions->first()->slug : '' }}"
-    data-one_scp = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->count() > 0 ? $tournament->seasons->first()->competitions->first()->phases->first()->slug : '' }}"
-    data-one_scpg = "{{ $tournament->seasons->count() > 0 && $tournament->seasons->first()->competitions->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->count() > 0 && $tournament->seasons->first()->competitions->first()->phases->first()->groups->count() >0 ? $tournament->seasons->first()->competitions->first()->phases->first()->groups->first()->slug : '' }}"
-    >
+<tr data-id="{{ $tournament->id }}" data-name="{{ $tournament->name }}" data-slug="{{ $tournament->slug }}" data-one_s = "{{ $tournament->is_one_scpg() ? $tournament->one_scpg()['season'] : '' }}" data-one_sc = "{{ $tournament->is_one_scpg() ? $tournament->one_scpg()['competition'] : '' }}" data-one_scp = "{{ $tournament->is_one_scpg() ? $tournament->one_scpg()['phase'] : '' }}" data-one_scpg = "{{ $tournament->is_one_scpg() ? $tournament->one_scpg()['group'] : '' }}" data-one_mode = "{{ $tournament->is_one_scpg() ? $tournament->one_scpg_mode() : '' }}">
     <td class="select text-center">
         <label class="custom-check">
             <div>

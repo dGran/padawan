@@ -240,7 +240,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/activar/{ids}', 'Admin\PhaseController@activate')->name('admin.phases.activate');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/fases/desactivar/{ids}', 'Admin\PhaseController@desactivate')->name('admin.phases.desactivate');
 
-	//Grupos
+	//Groups
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos', 'Admin\GroupController@list')->name('admin.groups');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nuevo', 'Admin\GroupController@add')->name('admin.groups.add');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/nuevo', 'Admin\GroupController@save')->name('admin.groups.save');
@@ -255,7 +255,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/activar/{ids}', 'Admin\GroupController@activate')->name('admin.groups.activate');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/grupos/desactivar/{ids}', 'Admin\GroupController@desactivate')->name('admin.groups.desactivate');
 
-	//Grupos-participantes
+	//Groups_participants
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes', 'Admin\GroupParticipantController@list')->name('admin.groups_participants');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/nuevo', 'Admin\GroupParticipantController@add')->name('admin.groups_participants.add');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/nuevo', 'Admin\GroupParticipantController@save')->name('admin.groups_participants.save');
@@ -268,6 +268,25 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/exportar/{format}/{ids}/{filename}/{order}', 'Admin\GroupParticipantController@export')->name('admin.groups_participants.export');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/exportar-tabla-completa/{format}/{filename}/{order}', 'Admin\GroupParticipantController@exportGlobal')->name('admin.groups_participants.export.global');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/participantes/importar', 'Admin\GroupParticipantController@import')->name('admin.groups_participants.import');
+
+	//Leagues
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga', 'Admin\LeagueController@config')->name('admin.league.config');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga', 'Admin\LeagueController@configUpdate')->name('admin.league.config.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/calendario', 'Admin\LeagueController@schedule')->name('admin.league.schedule');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/clasificaciones', 'Admin\LeagueController@clasificaciones')->name('admin.league.standings');
+
+	//Playoffs
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-eliminatorias', 'Admin\PlayoffController@config')->name('admin.playoff.config');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-eliminatorias', 'Admin\PlayoffController@configUpdate')->name('admin.playoff.config.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-eliminatorias/rondas', 'Admin\PlayoffController@schedule')->name('admin.playoff.schedule');
+
+	//Racings
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras', 'Admin\RacingController@config')->name('admin.racing.config');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras', 'Admin\RacingController@configUpdate')->name('admin.racing.config.update');
+	Route::post('/torneos/gestion-de-carreras/guardar-puntuacion/{id}', 'Admin\RacingController@configUpdateScore')->name('admin.racing.config.update.score');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/restaurar-puntuaciones', 'Admin\RacingController@configRestoreScores')->name('admin.racing.config.restore.scores');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario', 'Admin\RacingController@schedule')->name('admin.racing.schedule');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/clasificaciones', 'Admin\RacingController@standings')->name('admin.racing.standings');
 
 	//News
 	Route::get('/noticias/selector-de-temporada', 'Admin\SeasonPostController@selector')->name('admin.seasons_posts.selector');

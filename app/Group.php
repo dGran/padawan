@@ -19,6 +19,21 @@ class Group extends Model
         return $this->hasMany('App\GroupParticipant', 'group_id', 'id');
     }
 
+    public function league()
+    {
+        return $this->hasOne('App\League');
+    }
+
+    public function playoff()
+    {
+        return $this->hasOne('App\Playoff');
+    }
+
+    public function racing()
+    {
+        return $this->hasOne('App\Racing');
+    }
+
     public function scopePhaseId($query, $phase)
     {
         if ($phase > 0) {

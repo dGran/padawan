@@ -15,7 +15,18 @@ class CreateLeaguesTable extends Migration
     {
         Schema::create('leagues', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('group_id')
+                ->references('id')
+                ->on('groups')
+                ->onDelete('cascade');
+            $table->boolean('allow_draws')->default(true);
+            $table->float('win_points', 8, 2)->default(3);
+            $table->float('draw_points', 8, 2)->default(1);
+            $table->float('lose_points', 8, 2)->default(0);
+            $table->float('play_amount', 8, 2)->nullable();
+            $table->float('win_amount', 8, 2)->nullable();
+            $table->float('draw_amount', 8, 2)->nullable();
+            $table->float('lose_amount', 8, 2)->nullable();
         });
     }
 

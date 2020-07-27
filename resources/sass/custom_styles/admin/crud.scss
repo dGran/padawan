@@ -1,3 +1,12 @@
+input, select, textarea {
+	@apply appearance-none block w-full border border-gray-300 rounded py-2 px-3;
+	// fix for null values in input date
+	min-height: 39px;
+	&:focus {
+		@apply border-gray-500;
+	}
+}
+
 .table-wrap {
 	@apply inline-block min-w-full shadow rounded-lg overflow-hidden border border-gray-400 text-xs border;
 	@screen md {
@@ -326,6 +335,29 @@
 				@apply mt-1 text-sm leading-5 text-gray-900;
 				@screen lg {
 					@apply mt-0;
+				}
+			}
+		}
+	}
+}
+
+.racing-menu {
+	@apply flex whitespace-no-wrap flex-row mb-0 list-none pt-3 pb-4;
+	li {
+		@apply flex-auto text-center;
+		a {
+			@apply text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white cursor-pointer;
+			&:hover {
+				@apply bg-pink-100;
+			}
+		}
+		&.current {
+			@apply ml-0 cursor-not-allowed;
+			a {
+				@apply text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600;
+				pointer-events: none;
+				&:hover {
+					@apply bg-pink-600;
 				}
 			}
 		}

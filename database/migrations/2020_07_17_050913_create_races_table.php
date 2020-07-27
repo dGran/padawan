@@ -15,7 +15,18 @@ class CreateRacesTable extends Migration
     {
         Schema::create('races', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('racing_id')
+                ->references('id')
+                ->on('racings')
+                ->onDelete('cascade');
+            $table->foreignId('circuit_id')
+                ->nullable()
+                ->references('id')
+                ->on('games_circuits')
+                ->onDelete('cascade');
+            $table->integer('laps')->nullable();
+            $table->boolean('pre_qualifying')->default(false);
+            $table->boolean('qualifying')->default(false);
         });
     }
 

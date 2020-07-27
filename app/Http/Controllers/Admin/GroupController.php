@@ -92,6 +92,30 @@ class GroupController extends Controller
 
         $group = Group::create($data);
 
+        switch ($group->phase->mode) {
+            case 'league':
+                $league = \App\League::create([
+                    'group_id'      => $group->id
+                ]);
+                break;
+            case 'playoff':
+                $playoff = \App\Playoff::create([
+                    'group_id'      => $group->id
+                ]);
+                break;
+            case 'race':
+                $racing = \App\Racing::create([
+                    'group_id'      => $group->id
+                ]);
+                for ($i=0; $i < $group->num_participants ; $i++) {
+                    \App\RacingScore::create([
+                        'racing_id'     => $racing->id,
+                        'position'      => 'Posición ' . $i+1,
+                    ]);
+                }
+                break;
+        }
+
         if ($group->save()) {
             flash()->success('Registro creado correctamente');
             return redirect()->route('admin.groups', [$tournament, $season, $competition, $phase]);

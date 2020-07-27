@@ -179,6 +179,30 @@ class TournamentController extends Controller
                     'participant_id' => $participant->id
                 ]);
             }
+
+            switch ($phase->mode) {
+                case 'league':
+                    $league = \App\League::create([
+                        'group_id'      => $group->id
+                    ]);
+                    break;
+                case 'playoff':
+                    $playoff = \App\Playoff::create([
+                        'group_id'      => $group->id
+                    ]);
+                    break;
+                case 'race':
+                    $racing = \App\Racing::create([
+                        'group_id'      => $group->id
+                    ]);
+                    for ($i=1; $i < $group->num_participants+1 ; $i++) {
+                        \App\RacingScore::create([
+                            'racing_id'     => $racing->id,
+                            'position'      => $i,
+                        ]);
+                    }
+                    break;
+            }
         }
 
         if ($tournament->save()) {

@@ -76,7 +76,7 @@ class Tournament extends Model
         return true;
     }
 
-    public function one_scpg()
+    public function is_one_scpg()
     {
         if ($this->seasons->count() == 1)
         {
@@ -98,5 +98,23 @@ class Tournament extends Model
             return false;
         }
         return false;
+    }
+
+    public function one_scpg()
+    {
+        if ($this->is_one_scpg()) {
+            $data['season'] = $this->seasons->first()->slug;
+            $data['competition'] = $this->seasons->first()->competitions->first()->slug;
+            $data['phase'] = $this->seasons->first()->competitions->first()->phases->first()->slug;
+            $data['group'] = $this->seasons->first()->competitions->first()->phases->first()->groups->first()->slug;
+            return $data;
+        }
+    }
+
+    public function one_scpg_mode()
+    {
+        if ($this->is_one_scpg()) {
+            return $this->seasons->first()->competitions->first()->phases->first()->mode;
+        }
     }
 }

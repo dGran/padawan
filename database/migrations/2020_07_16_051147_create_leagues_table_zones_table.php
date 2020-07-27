@@ -15,7 +15,6 @@ class CreateLeaguesTableZonesTable extends Migration
     {
         Schema::create('leagues_table_zones', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
         });
     }
 

@@ -9,6 +9,7 @@
 		<meta name="description" content="...">
 		<meta name="keywords" content="...">
 		<meta name="theme-color" content="#000000" />
+		@yield('metas')
 
 		<link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
 		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}"/>

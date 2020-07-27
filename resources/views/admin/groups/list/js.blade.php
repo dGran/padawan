@@ -10,7 +10,17 @@
     var routeDesactivate = "{{ route('admin.groups.desactivate', [$tournament, $season, $competition, $phase, ':IDS']) }}";
 
     var routeParticipants = "{{ route('admin.groups_participants', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
-    var routeCompetition = "{{ route('admin.groups', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+
+    var $mode = "{{ $phase->mode }}";
+    if ($mode == 'league') {
+        var routeCompetition = "{{ route('admin.league.config', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+    }
+    if ($mode == 'playoff') {
+        var routeCompetition = "{{ route('admin.playoff.config', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+    }
+    if ($mode == 'race') {
+        var routeCompetition = "{{ route('admin.racing.config', [$tournament, $season, $competition, $phase, ':SLUG']) }}";
+    }
 
     check_max_participants();
     function check_max_participants() {
@@ -110,7 +120,7 @@
     function competition() {
         var element = $(".mark:checked");
         var slug = $(element).parents('tr').attr('data-slug');
-        var route = routeParticipants;
+        var route = routeCompetition;
         var url = route.replace(':SLUG', slug);
         window.location.href=url;
     }
