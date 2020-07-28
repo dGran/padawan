@@ -60,12 +60,12 @@
         {{-- <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"> --}}
         <div class="flex-auto">
             <div class="border-b border-gray-400">
-				<button class="my-3 bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none" type="button" style="transition: all .15s ease">
+				<a href="{{ route('admin.racing.schedule.races.add', [$tournament, $season, $competition, $phase, $group]) }}" class="my-3 bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none" type="button" style="transition: all .15s ease">
 					<div class="flex items-center">
 						<i class="icon-add mr-3 text-xl"></i>
 						<span>Nueva carrera</span>
 					</div>
-				</button>
+				</a>
             </div>
             <h3 class="font-bold uppercase text-sm mt-2 mb-4">
                 Calendario de carreras

@@ -29,6 +29,7 @@ class CreateRacesTable extends Migration
             $table->integer('laps')->nullable();
             $table->boolean('pre_qualifying')->default(false);
             $table->boolean('qualifying')->default(false);
+            $table->string('slug');
         });
     }
 
