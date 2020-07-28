@@ -59,11 +59,19 @@
         @include('admin.racings.menu')
         {{-- <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"> --}}
         <div class="flex-auto">
-            <h3 class="font-bold uppercase text-sm pl-2">
+            <div class="border-b border-gray-400">
+				<button class="my-3 bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none" type="button" style="transition: all .15s ease">
+					<div class="flex items-center">
+						<i class="icon-add mr-3 text-xl"></i>
+						<span>Nueva carrera</span>
+					</div>
+				</button>
+            </div>
+            <h3 class="font-bold uppercase text-sm mt-2 mb-4">
                 Calendario de carreras
             </h3>
             @if ($races->count() == 0)
-	            <div class="bg-white shadow-md rounded-lg p-6 mt-2 mb-4">
+	            <div class="bg-white shadow-md rounded-lg p-4 mt-2 mb-4">
 					No existen carreras
 	            </div>
 			@else
