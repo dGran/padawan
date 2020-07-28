@@ -107,10 +107,10 @@ class GroupController extends Controller
                 $racing = \App\Racing::create([
                     'group_id'      => $group->id
                 ]);
-                for ($i=0; $i < $group->num_participants ; $i++) {
+                for ($i=1; $i < $group->num_participants+1 ; $i++) {
                     \App\RacingScore::create([
                         'racing_id'     => $racing->id,
-                        'position'      => 'Posición ' . $i+1,
+                        'position'      => 'Posición ' . $i,
                     ]);
                 }
                 break;

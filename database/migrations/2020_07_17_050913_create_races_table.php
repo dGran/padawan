@@ -24,6 +24,8 @@ class CreateRacesTable extends Migration
                 ->references('id')
                 ->on('games_circuits')
                 ->onDelete('cascade');
+            $table->string('name');
+            $table->dateTime('date')->nullable();
             $table->integer('laps')->nullable();
             $table->boolean('pre_qualifying')->default(false);
             $table->boolean('qualifying')->default(false);

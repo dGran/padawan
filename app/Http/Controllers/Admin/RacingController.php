@@ -14,6 +14,7 @@ use App\Group;
 use App\GroupParticipant;
 use App\Racing;
 use App\RacingScore;
+use App\Race;
 
 class RacingController extends Controller
 {
@@ -53,7 +54,10 @@ class RacingController extends Controller
 
     public function schedule(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
     {
-    	dd('schedule');
+        $racing = $group->racing;
+        $races = Race::where('racing_id', $racing->id)->orderBy('date', 'asc')->get();
+
+        return view('admin.racings.schedule', ['racing' => $racing, 'races' => $races, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)

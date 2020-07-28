@@ -18,4 +18,9 @@ class Racing extends Model
     {
         return $this->hasMany('App\RacingScore', 'racing_id', 'id');
     }
+
+    public function races()
+    {
+        return $this->hasMany('App\Races', 'racing_id', 'id');
+    }
 }
