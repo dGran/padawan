@@ -23,4 +23,19 @@ class Race extends Model
     {
         return $this->hasOne('App\RaceResult', 'race_id', 'id');
     }
+
+    // public function getDateAttribute()
+    // {
+    //     dd($this->date);
+    //     return \Carbon\Carbon::parse($this->date)->format('Y-m-d\TH:i');
+    // }
+
+    public function canDestroy()
+    {
+        // apply logic...
+        // defaults return true
+
+        return true;
+    }
+
 }

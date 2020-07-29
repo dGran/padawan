@@ -33,7 +33,7 @@
                 </div>
                 <div class="element">
                     <label for="date">Fecha</label>
-                    <input type="datetime-local" class="placeholder-gray-400" id="date" name="date" placeholder="Fecha de carrera" value="{{ old('date') }}">
+                    <input type="datetime-local" class="placeholder-gray-400" id="date" name="date" placeholder="Fecha de carrera" value="{{ old('date', \Carbon\Carbon::parse(now())->format('Y-m-d\TH:i')) }}">
                 </div>
             </div>
 

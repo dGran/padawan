@@ -1,8 +1,9 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
     <div class="form">
-        <form id="form-add" method="POST" role="form" action="{{ route('admin.racing.schedule.races.add', [$tournament, $season, $competition, $phase, $group]) }}" lang="{{ app()->getLocale() }}">
+        <form id="form-add" method="POST" role="form" action="{{ route('admin.racing.schedule.races.update', [$tournament, $season, $competition, $phase, $group, $race->id]) }}" lang="{{ app()->getLocale() }}">
             @csrf
+            {{ method_field('PUT') }}
 
             <div class="field-group">
                 <div class="element">
@@ -33,7 +34,7 @@
                 </div>
                 <div class="element">
                     <label for="date">Fecha</label>
-                    <input type="datetime-local" class="placeholder-gray-400" id="date" name="date" placeholder="Fecha de carrera" value="{{ old('date', $race->date) }}">
+                    <input type="datetime-local" class="placeholder-gray-400" id="date" name="date" placeholder="Fecha de carrera" value="{{ old('date', \Carbon\Carbon::parse($race->date)->format('Y-m-d\TH:i')) }}">
                 </div>
             </div>
 

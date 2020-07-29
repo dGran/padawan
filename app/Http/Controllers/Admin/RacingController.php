@@ -103,6 +103,19 @@ class RacingController extends Controller
         dd('update!');
     }
 
+    public function scheduleDestroyRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+        if ($race && $race->canDestroy()) {
+            $race->delete();
+            flash()->success('Registro eliminado correctamente');
+            return back();
+        } else {
+            flash()->error('Acción cancelada. El registro no ha podido ser eliminado.');
+            return back();
+        }
+    }
+
     public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
     {
         $racing = $group->racing;
