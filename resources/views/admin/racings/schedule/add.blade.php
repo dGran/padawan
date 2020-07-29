@@ -5,13 +5,13 @@
 @endsection
 
 @section('breadcrumb')
-    @include('admin.racings.schedule.races.breadcrumb')
+    @include('admin.racings.schedule.add.breadcrumb')
 @endsection
 
 @section('content')
-    @include('admin.racings.schedule.races.content')
+    @include('admin.racings.schedule.add.content')
 @endsection
 
 @section('js')
-    @include('admin.racings.schedule.races.js')
+    @include('admin.racings.schedule.add.js')
 @endsection

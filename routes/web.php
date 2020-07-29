@@ -289,6 +289,8 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario', 'Admin\RacingController@schedule')->name('admin.racing.schedule');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/nueva-carrera', 'Admin\RacingController@scheduleAddRace')->name('admin.racing.schedule.races.add');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/nueva-carrera', 'Admin\RacingController@scheduleSaveRace')->name('admin.racing.schedule.races.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/editar-carrera/{id}', 'Admin\RacingController@scheduleEditRace')->name('admin.racing.schedule.races.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/editar-carrera/{id}', 'Admin\RacingController@scheduleUpdateRace')->name('admin.racing.schedule.races.update');
 
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/clasificaciones', 'Admin\RacingController@standings')->name('admin.racing.standings');
 

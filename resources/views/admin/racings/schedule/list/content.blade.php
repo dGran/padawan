@@ -77,20 +77,34 @@
 			@else
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
 					@foreach ($races as $race)
-			            <div class="bg-white shadow-md rounded-lg p-5 mt-2 mb-4 relative">
-			            	<div class="ribbon"><span>FINALIZADA</span></div>
+			            <div class="{{ $race->results ? 'bg-gray-100' : 'bg-white' }}  shadow-md rounded-lg p-5 mt-2 mb-4 relative">
+			            	@if ($race->results)
+			            		<div class="ribbon"><span>FINALIZADA</span></div>
+			            	@endif
 
 			            	<div class="flex flex-row mb-4">
-			            		<div class="flex flex-col border-r pr-2 mr-2">
-			            			<span class="text-center text-4xl text-pink-600 font-bold tracking-wide" style="line-height: 1em">
-			            				{{ date('d', strtotime($race->date)) }}
+			            		<div class="flex flex-col border-r pr-2 mr-2 {{ $race->results ? 'text-gray-800' : 'text-pink-600' }} font-bold">
+			            			<span class="text-center text-4xl font-bold tracking-wide" style="line-height: 1em">
+			            				@if (!is_null($race->date))
+			            					{{ date('d', strtotime($race->date)) }}
+			            				@else
+			            					N/D
+			            				@endif
 			            			</span>
-			            			<div class="flex flex-row whitespace-no-wrap text-center">
-			            				<span class="uppercase font-bold text-pink-600" style="font-size: 11px">
-			            					{{ date('M', strtotime($race->date)) }} |
+			            			<div class="flex flex-row whitespace-no-wrap justify-center">
+			            				<span class="uppercase" style="font-size: 11px">
+			            					@if (!is_null($race->date))
+			            						{{ date('M', strtotime($race->date)) }} |
+			            					@else
+			            						N/D
+			            					@endif
 			            				</span>
-			            				<span class="uppercase font-bold text-pink-600 ml-1" style="font-size: 11px">
-			            					{{ date('H:i', strtotime($race->date)) }}
+			            				<span class="uppercase ml-1" style="font-size: 11px">
+			            					@if (!is_null($race->date))
+			            						{{ date('H:i', strtotime($race->date)) }}
+			            					@else
+			            						N/D
+			            					@endif
 			            				</span>
 			            			</div>
 			            		</div>
@@ -100,13 +114,13 @@
 			            		</div>
 			            	</div>
 			            	<div class="">
-			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg">
-								<button class="mt-4 w-full bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none" type="button" style="transition: all .15s ease">
-									Resultados
+			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->results ? 'filter: grayscale(100%);' : '' }}">
+								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->results ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease">
+									{{ $race->results ? 'Ver resultados' : 'Editar resultados' }}
 								</button>
-								<button class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar">
+								<a href="{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, $race->id]) }}" class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar">
 									<i class="icon-edit"></i>
-								</button>
+								</a>
 							<button class="bg-red-500 text-white hover:bg-red-600 active:bg-red-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--error hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 8px" aria-label="Eliminar">
 									<i class="icon-trash"></i>
 								</button>

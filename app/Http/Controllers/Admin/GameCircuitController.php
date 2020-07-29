@@ -102,9 +102,9 @@ class GameCircuitController extends Controller
                 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
-                'img.image' => 'El logo debe ser una imagen',
-                'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
+                'img.image' => 'Extensión del archivo de imagen inválido',
+                'img.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                'img.max' => 'El tamaño de la imagen no puede ser mayor a 2048 bytes'
             ]);
 
             $img_name = 'circuit_' . time() . '.' . $request->img->extension();

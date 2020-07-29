@@ -13,7 +13,6 @@
                     <label for="circuit_id">Circuito</label>
                     <div class="relative">
                         <select name="circuit_id" id="circuit_id">
-                            <option selected value="0">Ninguno</option>
                             @foreach ($circuits as $circuit)
                                 <option value="{{ $circuit->id }}">{{ $circuit->name }}</option>
                             @endforeach

@@ -18,4 +18,9 @@ class Race extends Model
     {
         return $this->hasOne('App\GameCircuit', 'id', 'circuit_id');
     }
+
+    public function results()
+    {
+        return $this->hasOne('App\RaceResult', 'race_id', 'id');
+    }
 }

@@ -86,8 +86,21 @@ class RacingController extends Controller
 
         if ($race->save()) {
             flash()->success('Registro creado correctamente');
-            return redirect()->route('admin.seasons.schedule', $tournament, $season, $competition, $phase, $group);
+            return redirect()->route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]);
         }
+    }
+
+    public function scheduleEditRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+        $circuits = GameCircuit::where('game_id', '=', $tournament->game->id)->orderBy('name', 'asc')->get();
+
+        return view('admin.racings.schedule.edit', ['circuits' => $circuits, 'race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+    }
+
+    public function scheduleUpdateRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id, Request $request)
+    {
+        dd('update!');
     }
 
     public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
