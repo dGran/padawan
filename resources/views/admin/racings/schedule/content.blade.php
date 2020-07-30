@@ -67,23 +67,6 @@
 					</div>
 				</a>
             </div>
-
-
-<!-- Add a placeholder for the Twitch embed -->
-{{-- <div id="twitch-embed"></div> --}}
-
-<!-- Load the Twitch embed script -->
-{{-- <script src="https://player.twitch.tv/js/embed/v1.js"></script> --}}
-
-<!-- Create a Twitch.Player object. This will render within the placeholder div -->
-{{-- <script type="text/javascript">
-  new Twitch.Player("twitch-embed", {
-    video: "691748254",
-    width: "800",
-    height: "350",
-  });
-</script> --}}
-
             <h3 class="font-bold uppercase text-sm mt-2 mb-4">
                 Calendario de carreras
             </h3>
@@ -94,7 +77,7 @@
 			@else
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
 					@foreach ($races as $race)
-			            <div class="{{ $race->results ? 'bg-gray-100' : 'bg-white' }}  shadow-md rounded-lg p-5 mt-2 mb-4 relative">
+			            <div class="{{ $race->results ? 'bg-gray-100 ' : 'bg-white' }}  shadow-md rounded-lg p-5 mt-2 mb-4 relative">
 			            	@if ($race->results)
 			            		<div class="ribbon"><span>FINALIZADA</span></div>
 			            	@endif
@@ -132,13 +115,13 @@
 			            	</div>
 			            	<div class="">
 			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->results ? 'filter: grayscale(100%);' : '' }}">
-								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->results ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="edit()">
+								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->results ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease">
 									{{ $race->results ? 'Ver resultados' : 'Editar resultados' }}
 								</button>
-								<button href="{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, $race->id]) }}" class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar" onclick="edit('{{ $race->id }}')">
+								<button class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar">
 									<i class="icon-edit"></i>
 								</button>
-								<button class="bg-red-500 text-white hover:bg-red-600 active:bg-red-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--error hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 8px" aria-label="Eliminar" onclick="destroy('{{ $race->id }}', '{{ $race->name }}')">
+							<button class="bg-red-500 text-white hover:bg-red-600 active:bg-red-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--error hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 8px" aria-label="Eliminar">
 									<i class="icon-trash"></i>
 								</button>
 			            	</div>

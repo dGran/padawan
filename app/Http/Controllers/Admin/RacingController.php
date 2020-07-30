@@ -80,6 +80,8 @@ class RacingController extends Controller
 
         $data = $request->all();
         $data['racing_id'] = $group->racing->id;
+        $data['pre_qualifying'] = $request->pre_qualifying == "on" ? 1 : 0;
+        $data['qualifying'] = $request->qualifying == "on" ? 1 : 0;
         $data['slug'] = Str::slug($request->name, '-');
 
         $race = Race::create($data);
@@ -100,7 +102,33 @@ class RacingController extends Controller
 
     public function scheduleUpdateRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id, Request $request)
     {
-        dd('update!');
+        $race = Race::findOrFail($id);
+
+        $data = $request->validate([
+            'name' => 'required',
+        ],
+        [
+            'name.required' => 'El nombre es obligatorio',
+        ]);
+
+        $data = $request->all();
+        $data['pre_qualifying'] = $request->pre_qualifying == "on" ? 1 : 0;
+        $data['qualifying'] = $request->qualifying == "on" ? 1 : 0;
+        $data['slug'] = Str::slug($request->name, '-');
+
+        $race->fill($data);
+
+        if ($race->isDirty()) {
+            $race->update($data);
+            if ($race->update()) {
+                flash()->success('Registro editado correctamente');
+            } else {
+                flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
+            }
+        } else {
+            flash()->info('No se han detectado cambios en el registro');
+        }
+        return redirect()->route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]);
     }
 
     public function scheduleDestroyRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)

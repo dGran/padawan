@@ -20,7 +20,6 @@ class CreateRacesTable extends Migration
                 ->on('racings')
                 ->onDelete('cascade');
             $table->foreignId('circuit_id')
-                ->nullable()
                 ->references('id')
                 ->on('games_circuits')
                 ->onDelete('cascade');
@@ -29,6 +28,8 @@ class CreateRacesTable extends Migration
             $table->integer('laps')->nullable();
             $table->boolean('pre_qualifying')->default(false);
             $table->boolean('qualifying')->default(false);
+            $table->string('twitch_video_id')->nullable();
+            $table->string('youtube_video_id')->nullable();
             $table->string('slug');
         });
     }

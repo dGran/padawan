@@ -38,6 +38,33 @@
                 </div>
             </div>
 
+            <div class="field-group">
+                <div class="element">
+                    <label for="twitch_video_id">Twitch</label>
+                    <input type="text" class="placeholder-gray-400" id="twitch_video_id" name="twitch_video_id" placeholder="ID video en Twitch" autofocus value="{{ old('twitch_video_id', $race->twitch_video_id) }}">
+                </div>
+                <div class="element">
+                    <label for="youtube_video_id">Youtube</label>
+                    <input type="text" class="placeholder-gray-400" id="youtube_video_id" name="youtube_video_id" placeholder="ID video en Youtube" autofocus value="{{ old('youtube_video_id', $race->youtube_video_id) }}">
+                </div>
+            </div>
+
+            <label class="custom-label flex pb-2">
+                  <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
+                    <input type="checkbox" class="hidden" id="pre_qualifying" name="pre_qualifying" {{ old('pre_qualifying') == "on" || $race->pre_qualifying ? 'checked' : '' }}>
+                    <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
+                  </div>
+                  <span class="select-none"> Pre-qualifying</span>
+            </label>
+
+            <label class="custom-label flex pb-2">
+                  <div class="bg-white border border-gray-400 rounded w-6 h-6 p-1 flex justify-center items-center mr-2">
+                    <input type="checkbox" class="hidden" id="qualifying" name="qualifying" {{ old('qualifying') == "on"  || $race->qualifying ? 'checked' : '' }}>
+                    <svg class="hidden w-4 h-4 text-green-600 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
+                  </div>
+                  <span class="select-none"> Qualifying</span>
+            </label>
+
             <div class="pt-4">
                 <button type="submit" class="bg-green-500 text-white active:bg-green-600 focus:bg-green-600 hover:bg-green-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
                     Guardar
