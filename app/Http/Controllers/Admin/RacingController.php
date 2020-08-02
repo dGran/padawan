@@ -17,6 +17,7 @@ use App\GroupParticipant;
 use App\Racing;
 use App\RacingScore;
 use App\Race;
+use App\RaceResult;
 
 class RacingController extends Controller
 {
@@ -80,8 +81,6 @@ class RacingController extends Controller
 
         $data = $request->all();
         $data['racing_id'] = $group->racing->id;
-        $data['pre_qualifying'] = $request->pre_qualifying == "on" ? 1 : 0;
-        $data['qualifying'] = $request->qualifying == "on" ? 1 : 0;
         $data['slug'] = Str::slug($request->name, '-');
 
         $race = Race::create($data);
@@ -112,8 +111,6 @@ class RacingController extends Controller
         ]);
 
         $data = $request->all();
-        $data['pre_qualifying'] = $request->pre_qualifying == "on" ? 1 : 0;
-        $data['qualifying'] = $request->qualifying == "on" ? 1 : 0;
         $data['slug'] = Str::slug($request->name, '-');
 
         $race->fill($data);
@@ -129,6 +126,75 @@ class RacingController extends Controller
             flash()->info('No se han detectado cambios en el registro');
         }
         return redirect()->route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]);
+    }
+
+    public function scheduleEditRaceResults(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+        $group_participants = GroupParticipant::where('group_id', '=', $group->id)->get();
+
+        if ($race->results->count() == 0) {
+            foreach ($group_participants as $group_participant) {
+                RaceResult::create([
+                    'race_id'              => $race->id,
+                    'group_participant_id' => $group_participant->id,
+                    'user_id'              => $group_participant->participant->user_id,
+                    'eteam_id'             => $group_participant->participant->eteam_id,
+                ]);
+            }
+
+        }
+
+        $results = RaceResult::where('race_id', '=', $race->id)->orderBy('position', 'asc')->get();
+
+        return view('admin.racings.schedule.results', ['race' => $race, 'results' => $results, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+    }
+
+    public function scheduleUpdateRaceResults($id, Request $request)
+    {
+        $result = RaceResult::findOrFail($id);
+        $last_position = $result->race->racing->group->num_participants;
+        $result->position = $request->position == null || $request->position > $last_position ? 0 : $request->position;
+        $result->fastest_lap = $request->fastest_lap;
+        $result->pole = $request->pole;
+
+        $data = $result;
+
+        if ($result->fastest_lap == 1 ) {
+            $prev_fastest_lap = RaceResult::where('race_id', '=', $result->race_id)->where('fastest_lap', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
+            if ($prev_fastest_lap->count() > 0) {
+                foreach ($prev_fastest_lap as $prev) {
+                    $prev->fastest_lap = 0;
+                    $prev->save();
+                }
+            }
+        }
+        if ($result->pole == 1 ) {
+            $prev_pole = RaceResult::where('race_id', '=', $result->race_id)->where('pole', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
+            if ($prev_pole->count() > 0) {
+                foreach ($prev_pole as $prev) {
+                    $prev->pole = 0;
+                    $prev->save();
+                }
+            }
+        }
+
+        $result->save();
+
+        return $result;
+        exit;
+    }
+
+    public function scheduleResetRaceResults($id)
+    {
+        $results = RaceResult::where('race_id', '=', $id)->get();
+        foreach ($results as $result) {
+            $result->position = 0;
+            $result->fastest_lap = 0;
+            $result->pole = 0;
+            $result->save();
+        }
+        exit;
     }
 
     public function scheduleDestroyRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
@@ -147,16 +213,8 @@ class RacingController extends Controller
     public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
     {
         $racing = $group->racing;
-        $races = Race::where('racing_id', $racing->id)->orderBy('date', 'asc')->get();
-        $participants = GroupParticipant::where('group_id', $group->id)->orderBy('id', 'asc')->get();
+        $positions = $racing->generate_table();
 
-        $results = [];
-        foreach ($races->results as $result) {
-            $results['participant_id'] = $result->group_participant_id;
-            $score = RacingScore::where('racing_id', '=', $racing->id)->where('position', '=', $result->position)->get()->score;
-            $results['score'] += $score;
-        }
-
-        return view('admin.racings.schedule', ['racing' => $racing, 'races' => $races, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+        return view('admin.racings.standings', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 }

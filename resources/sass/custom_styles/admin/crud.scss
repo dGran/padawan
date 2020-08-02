@@ -8,7 +8,10 @@ input, select, textarea {
 }
 
 .table-wrap {
-	@apply inline-block min-w-full shadow rounded-lg overflow-hidden border border-gray-400 text-xs border;
+	@apply inline-block min-w-full w-full overflow-auto shadow rounded-lg border border-gray-400 text-xs;
+	// &.scrollable {
+	// 	@apply relative overflow-auto ;
+	// }
 	@screen md {
 		@apply text-sm;
 	}
@@ -17,7 +20,7 @@ input, select, textarea {
 		@apply min-w-full leading-normal bg-white;
 		thead {
 			th {
-				@apply px-1 py-3 border-b border-gray-300 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wide text-left;
+				@apply px-1 py-3 border-b border-gray-300 bg-gray-100 font-semibold text-gray-600 uppercase tracking-wide;
 				&:first-child {
 					@apply pl-3;
 				}
@@ -30,11 +33,20 @@ input, select, textarea {
 			tr {
 				&.selected {
 					@apply bg-yellow-100;
+					td {
+						@apply bg-yellow-100;
+					}
 				}
 				&:hover {
 					@apply bg-gray-100;
+					td {
+						@apply bg-gray-100;
+					}
 					&.selected {
 						@apply bg-yellow-100;
+						td {
+							@apply bg-yellow-100;
+						}
 					}
 					td {
 						.name {
@@ -43,7 +55,7 @@ input, select, textarea {
 					}
 				}
 				td {
-					@apply px-1 py-2 border-b border-gray-200;
+					@apply px-1 py-2 border-b border-gray-200 bg-white;
 					&:first-child {
 						@apply pl-3;
 					}

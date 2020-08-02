@@ -94,13 +94,13 @@
 			@else
 				<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3">
 					@foreach ($races as $race)
-			            <div class="{{ $race->results ? 'bg-gray-100' : 'bg-white' }}  shadow-md rounded-lg p-5 mt-2 mb-4 relative">
-			            	@if ($race->results)
+			            <div class="{{ $race->finished() ? 'bg-gray-100' : 'bg-white' }}  shadow-md rounded-lg p-5 mt-2 mb-4 relative">
+			            	@if ($race->finished())
 			            		<div class="ribbon"><span>FINALIZADA</span></div>
 			            	@endif
 
 			            	<div class="flex flex-row mb-4">
-			            		<div class="flex flex-col border-r pr-2 mr-2 {{ $race->results ? 'text-gray-800' : 'text-pink-600' }} font-bold">
+			            		<div class="flex flex-col border-r pr-2 mr-2 {{ $race->finished() ? 'text-gray-800' : 'text-pink-600' }} font-bold">
 			            			<span class="text-center text-4xl font-bold tracking-wide" style="line-height: 1em">
 			            				@if (!is_null($race->date))
 			            					{{ date('d', strtotime($race->date)) }}
@@ -131,9 +131,9 @@
 			            		</div>
 			            	</div>
 			            	<div class="">
-			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->results ? 'filter: grayscale(100%);' : '' }}">
-								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->results ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="edit()">
-									{{ $race->results ? 'Ver resultados' : 'Editar resultados' }}
+			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->finished() ? 'filter: grayscale(100%);' : '' }}">
+								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->finished() ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="editResults('{{ $race->id }}')">
+									Editar resultados
 								</button>
 								<button href="{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, $race->id]) }}" class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar" onclick="edit('{{ $race->id }}')">
 									<i class="icon-edit"></i>

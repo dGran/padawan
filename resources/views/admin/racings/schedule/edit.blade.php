@@ -1,4 +1,4 @@
-@extends('layouts.admin', ['title' => $group->name . ' - Gestión de carreras - Calendario - Editar carrera', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => $group->name . ' - Gestión de carreras', 'breadcrumb' => true])
 
 @section('menu')
 	@include('admin.partials.menu')

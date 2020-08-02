@@ -1,4 +1,8 @@
-@extends('layouts.admin', ['title' => $group->name . ' - Gestión de carreras - Calendario - Resultados carrera', 'breadcrumb' => true])
+@extends('layouts.admin', ['title' => $group->name . ' - Gestión de carreras', 'breadcrumb' => true])
+
+@section('metas')
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('menu')
 	@include('admin.partials.menu')

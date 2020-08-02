@@ -21,6 +21,30 @@ class Racing extends Model
 
     public function races()
     {
-        return $this->hasMany('App\Races', 'racing_id', 'id');
+        return $this->hasMany('App\Race', 'racing_id', 'id');
+    }
+
+    public function generate_table()
+    {
+        $group_participants = GroupParticipant::where('group_id', '=', $this->group->id)->get();
+        $table_participants = collect();
+
+        foreach ($group_participants as $key => $participant) {
+            $race_results = RaceResult::where('group_participant_id', '=', $participant->id)->get();
+            $pts = 0;
+            foreach ($race_results as $result) {
+                $score = RacingScore::where('racing_id', '=', $this->id)->where('position', '=', $result->position)->first();
+                if ($score) {
+                    $pts += $score->score;
+                }
+            }
+            $table_participants->push([
+                'participant' => $participant,
+                'pts' => $pts,
+            ]);
+        }
+        $table_participants = $table_participants->sortByDesc('gf')->sortByDesc('pole')->sortByDesc('pts')->values();
+
+        return $table_participants;
     }
 }

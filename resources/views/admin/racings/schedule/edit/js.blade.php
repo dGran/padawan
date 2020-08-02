@@ -1,4 +1,5 @@
 <script>
+	{{--
 	$('#pre_qualifying').change(function() {
 		if ($(this).is(':checked')) {
 			$('#qualifying').prop('checked', true);
@@ -10,4 +11,5 @@
 			$(this).prop('checked', true);
 		}
 	});
+	 --}}
 </script>

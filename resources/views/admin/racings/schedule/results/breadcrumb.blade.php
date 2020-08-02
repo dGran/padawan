@@ -16,4 +16,6 @@
 <li title="Grupos"><a href="{{ route('admin.groups', [$tournament, $season, $competition, $phase]) }}" class="breadcrumb-link icon-groups mr-2"></a></li>
 <li>{{ $group->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Gestión de carreras</li>
+<li><a href="{{ route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]) }}" class="breadcrumb-link">Gestión de carreras - Calendario</a></li>
+<li><span class="breadcrumb-separator">/</span></li>
+<li>{{ $race->name }} - Editar resultados</li>

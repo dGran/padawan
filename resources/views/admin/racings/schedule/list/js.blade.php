@@ -1,10 +1,17 @@
 <script>
 	var routeEdit = "{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
 	var routeDestroy = "{{ route('admin.racing.schedule.races.destroy', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
+    var routeEditResults = "{{ route('admin.racing.schedule.races.edit.results', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
 
     //edit
     function edit(id) {
         var route = routeEdit;
+        var url = route.replace(':ID', id);
+        window.location.href=url;
+    }
+
+    function editResults(id) {
+        var route = routeEditResults;
         var url = route.replace(':ID', id);
         window.location.href=url;
     }

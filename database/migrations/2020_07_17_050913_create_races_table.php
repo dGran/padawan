@@ -26,8 +26,6 @@ class CreateRacesTable extends Migration
             $table->string('name');
             $table->dateTime('date')->nullable();
             $table->integer('laps')->nullable();
-            $table->boolean('pre_qualifying')->default(false);
-            $table->boolean('qualifying')->default(false);
             $table->string('twitch_video_id')->nullable();
             $table->string('youtube_video_id')->nullable();
             $table->string('slug');

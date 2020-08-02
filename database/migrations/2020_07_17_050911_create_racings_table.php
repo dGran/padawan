@@ -21,6 +21,7 @@ class CreateRacingsTable extends Migration
                 ->onDelete('cascade');
             $table->integer("num_races")->nullable()->default(1);
             $table->boolean('fastest_lap')->default(false);
+            $table->boolean('pole')->default(false);
         });
     }
 
