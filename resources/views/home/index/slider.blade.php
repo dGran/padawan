@@ -59,22 +59,22 @@
 			<div class="carousel col-start-1 row-start-1" x-ref="carousel">
 				<div class="w-3/5 px-2">
 					<img
-					src="https://sm.ign.com/ign_es/screenshot/default/pes2020-04-messi-1560264509_sbuy.jpg"
+					src="{{ asset('img/games/pes_banner.png') }}"
 					loading="lazy">
 				</div>
 				<div class="w-3/5 px-2">
 					<img
-					src="https://images.unsplash.com/photo-1581375279144-bb3b381c7046?ixlib=rb-1.2.1&auto=format&fit=crop&w=770&q=80"
+					src="{{ asset('img/games/gt_banner.png') }}"
 					loading="lazy">
 				</div>
 				<div class="w-3/5 px-2">
 					<img
-					src="https://images.unsplash.com/photo-1581375303816-4a17124934f7?ixlib=rb-1.2.1&auto=format&fit=crop&w=770&q=80"
+					src="{{ asset('img/games/fifa_banner.png') }}"
 					loading="lazy">
 				</div>
 				<div class="w-3/5 px-2">
 					<img
-					src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?ixlib=rb-1.2.1&auto=format&fit=crop&w=770&q=80"
+					src="{{ asset('img/games/pes_banner.png') }}"
 					loading="lazy">
 				</div>
 			</div>

@@ -73,6 +73,34 @@ class Season extends Model
         return false;
     }
 
+    public function free_places()
+    {
+        $max_registers = $this->num_participants;
+        if ($this->tournament->participant_type == 'individual') {
+            $inscriptions = Participant::where('season_id', $this->id)->where('user_id', '>', 0)->count();
+            $free_places = $max_registers - $inscriptions;
+        } else {
+            $inscriptions = Participant::where('season_id', $this->id)->where('eteam_id', '>', 0)->count();
+            $free_places = $max_registers - $inscriptions;
+        }
+
+        return $free_places;
+    }
+
+    public function fill_places()
+    {
+        $max_registers = $this->num_participants;
+        $free_places = $this->free_places();
+        $fill_places = $max_registers - $free_places;
+
+        return $fill_places;
+    }
+
+    public function fill_places_percent()
+    {
+        return intval(($this->fill_places() / $this->num_participants) * 100);
+    }
+
     public function canDestroy()
     {
         // apply logic...

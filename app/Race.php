@@ -34,15 +34,23 @@ class Race extends Model
 
     public function score_participant($id)
     {
-        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->first()->position;
-        if ($position == 0) {
-            return '-';
+        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->first();
+        if ($position) {
+            if ($position->position == 0) {
+                return '-';
+            }
+            $score = RacingScore::where('racing_id', '=', $this->racing->id)->where('position', '=', $position->position)->first();
+            if ($score) {
+                return $score->score;
+            }
         }
-        $score = RacingScore::where('racing_id', '=', $this->racing->id)->where('position', '=', $position)->first();
-        if ($score) {
-            return $score->score;
-        }
-        return 0;
+        return '-';
+    }
+
+    public function short_name()
+    {
+        $race = str_replace(' ', '', $this->name);
+        return substr($race, 0, 3);
     }
 
     public function canDestroy()

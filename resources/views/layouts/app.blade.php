@@ -27,11 +27,13 @@
 		</title>
 	</head>
 
-	<body class="font-roboto bg-gray-900 text-gray-200">
+	<body class="font-roboto bg-gray-900 text-gray-200" style="background-image: radial-gradient(#242e3f .5px, transparent .5px),radial-gradient(#101318 .5px, transparent .5px);
+    background-size: calc(20 * .5px) calc(20 * .5px);
+    background-position: 0 0,calc(10 * .5px) calc(10 * .5px);">
 		<noscript>You need to enable JavaScript to run this app.</noscript>
 
 		<div class="wrap flex flex-col h-screen justify-between {{ isset($wrap_bg) ? $wrap_bg : '' }}">
-			<header class="bg-gray-900 ">
+			<header class="">
 				@include('layouts.partials.app.header')
 			</header>
 

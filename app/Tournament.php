@@ -76,6 +76,14 @@ class Tournament extends Model
         return true;
     }
 
+    public function has_sponsors()
+    {
+        // apply logic...
+        // defaults return true
+
+        return false;
+    }
+
     public function is_one_scpg()
     {
         if ($this->seasons->count() == 1)
@@ -107,6 +115,17 @@ class Tournament extends Model
             $data['competition'] = $this->seasons->first()->competitions->first()->slug;
             $data['phase'] = $this->seasons->first()->competitions->first()->phases->first()->slug;
             $data['group'] = $this->seasons->first()->competitions->first()->phases->first()->groups->first()->slug;
+            return $data;
+        }
+    }
+
+    public function one_scpg_model()
+    {
+        if ($this->is_one_scpg()) {
+            $data['season'] = $this->seasons->first();
+            $data['competition'] = $this->seasons->first()->competitions->first();
+            $data['phase'] = $this->seasons->first()->competitions->first()->phases->first();
+            $data['group'] = $this->seasons->first()->competitions->first()->phases->first()->groups->first();
             return $data;
         }
     }

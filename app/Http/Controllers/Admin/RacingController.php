@@ -154,6 +154,9 @@ class RacingController extends Controller
     {
         $result = RaceResult::findOrFail($id);
         $last_position = $result->race->racing->group->num_participants;
+        if (RaceResult::where('race_id', $result->race->id)->where('position', $request->position)->count() > 0) {
+            $request->position = 0;
+        }
         $result->position = $request->position == null || $request->position > $last_position ? 0 : $request->position;
         $result->fastest_lap = $request->fastest_lap;
         $result->pole = $request->pole;

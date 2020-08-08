@@ -1,6 +1,6 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
-<div class="w-full fixed border-b border-gray-800 bg-gray-900 z-50">
+<div class="w-full fixed border-b border-gray-900 z-50 bg-gray-900" style="background: #131619">
     <div x-data="{ open: false }" class="flex flex-col custom-container md:items-center md:justify-between md:flex-row">
         <div class="py-4 flex flex-row items-center justify-between">
             <a href="{{ route('home') }}" class="flex items-center text-lg font-semibold tracking-wide uppercase focus:outline-none">
@@ -24,7 +24,7 @@
             </div>
 
         </div>
-        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row p-3 bg-gray-800 md:bg-transparent md:p-0 rounded mb-4 md:mb-0">
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row p-3 bg-gray-900 md:bg-transparent md:p-0 rounded mb-4 md:mb-0">
             @include('layouts.partials.app.menu')
         </nav>
     </div>

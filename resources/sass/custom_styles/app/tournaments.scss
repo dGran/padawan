@@ -1,0 +1,238 @@
+.tournament {
+	@apply max-w-screen-xl mx-auto;
+	margin-top: 63px;
+	margin-bottom: 1em;
+	@screen md {
+		margin-top: 80px;
+	}
+	.wrapper {
+		background: #131619;
+		@screen md {
+			@apply border border-black rounded mx-10 relative;
+		}
+		@screen lg {
+			padding: .5em;
+		}
+		.banner {
+			@apply w-full h-auto mx-auto;
+			@screen md {
+				@apply w-1/2 pt-1 pb-3;
+				img {
+					@apply w-full h-auto border border-black rounded;
+				}
+			}
+			@screen lg {
+				@apply w-1/3;
+			}
+		}
+		.platform-content {
+			@screen md {
+				border-left: 1px solid rgba(0,0,0,0.1);
+				border-right: 1px solid rgba(0,0,0,0.1);
+			}
+			&.red {
+				background: linear-gradient(180deg, #9b2c2c 0%, darken(#9b2c2c, 1) 50%, darken(#9b2c2c, 4) 75%, darken(#9b2c2c, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-red-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-red-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-red-400 text-11;
+						}
+					}
+				}
+				.menu {
+					@apply text-red-200;
+					ul {
+						.item {
+							@apply bg-red-800 border-red-900;
+							&:hover {
+								@apply bg-red-300 text-red-700;
+							}
+						}
+						.active {
+							@apply text-red-700 cursor-not-allowed;
+							a {
+								pointer-events: none;
+							}
+						}
+					}
+				}
+			}
+			&.green {
+				background: linear-gradient(180deg, #276749 0%, darken(#276749, 1) 50%, darken(#276749, 4) 75%, darken(#276749, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-green-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-green-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-green-400 text-11;
+						}
+					}
+				}
+				.menu {
+					@apply text-green-200;
+					ul {
+						.item {
+							@apply bg-green-800 border-green-900;
+							&:hover {
+								@apply bg-green-300 text-green-700;
+							}
+						}
+						.active {
+							@apply text-green-700;
+						}
+					}
+				}
+			}
+			&.blue {
+				background: linear-gradient(180deg, #2c5282 0%, darken(#2c5282, 1) 50%, darken(#2c5282, 4) 75%, darken(#2c5282, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-blue-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-blue-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-blue-400 text-11;
+						}
+					}
+				}
+				.menu {
+					@apply text-blue-200;
+					ul {
+						.item {
+							@apply bg-blue-800 border-blue-900;
+							&:hover {
+								@apply bg-blue-300 text-blue-700;
+							}
+						}
+						.active {
+							@apply text-blue-700;
+						}
+					}
+				}
+			}
+
+			.breadcrumb {
+				@apply px-2;
+				border-top: 1px solid rgba(200,200,200,0.1);
+				border-bottom: 1px solid rgba(0,0,0,0.1);
+				ol {
+					@apply flex py-1 font-roboto-condensed text-13;
+					.link {
+						@apply font-bold;
+					}
+					.separator {
+						@apply mx-1;
+						&:after {
+							content: "/";
+						}
+					}
+					.current {
+						@apply truncate;
+					}
+				}
+			}
+
+			.tournament-info {
+				@apply w-full pt-3 pb-1 px-2 flex items-center;
+				border-top: 1px solid rgba(200,200,200,0.1);
+				.logo {
+					min-height: 5.5rem;
+					min-width: 5.5rem;
+					max-height: 5.5rem;
+					max-width: 5.5rem;
+					img {
+						border: 1px solid rgba(200,200,200,0.1);
+						@apply rounded w-full;
+					}
+				}
+				.info {
+					@apply flex flex-col ml-3 truncate;
+					.name {
+						@apply truncate uppercase text-25 font-bold font-roboto-condensed text-white;
+						text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+						line-height: 1.25em;
+					}
+					.game, .platform, .participation {
+						@apply truncate text-11;
+					}
+				}
+			}
+
+			.menu {
+				@apply px-2 py-3 flex items-center;
+				ul {
+					@apply flex flex-row text-14 font-roboto-condensed font-semibold;
+					.item {
+						@apply border rounded mr-1 text-center truncate;
+						a {
+							@apply block px-3;
+						}
+					}
+					.active {
+						@apply border border-transparent rounded bg-white mr-1 text-center;
+						a {
+							@apply block px-3;
+						}
+					}
+				}
+			}
+		}
+
+		.content {
+			@apply bg-gray-100 text-gray-800 font-roboto;
+			@screen md {
+				border-left: 1px solid rgba(0,0,0,0.1);
+				border-right: 1px solid rgba(0,0,0,0.1);
+			}
+			h2 {
+				@apply uppercase bg-gray-900 rounded text-16 text-white font-bold font-roboto-condensed;
+				height: 32px;
+				padding: 6px 12px 0 12px;
+			}
+			.rules-content {
+				@apply my-3 bg-gray-100 border border-gray-200 rounded p-3 text-gray-700;
+			}
+		}
+
+		.sponsors {
+			@apply py-3 bg-gray-200 border-t border-gray-300;
+			@screen md {
+				border-left: 1px solid rgba(0,0,0,0.1);
+				border-right: 1px solid rgba(0,0,0,0.1);
+			}
+			h4 {
+				@apply text-gray-600 uppercase font-fjalla text-17 text-center;
+				text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+			}
+			ul {
+				@apply flex items-center justify-center w-full gap-4 py-2;
+				li {
+					figure {
+						img {
+							@apply h-16;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -48,6 +48,7 @@
 
     <div class="custom-container below-fixed-header">
         <div class="py-8">
+        	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos similique quasi asperiores maxime quaerat blanditiis placeat praesentium maiores sit, deserunt corporis neque dicta amet, aliquid obcaecati dignissimos saepe tempore! Voluptatem.
 
 			@include('home.index.slider')
 

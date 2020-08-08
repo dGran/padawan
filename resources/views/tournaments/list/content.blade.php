@@ -67,105 +67,84 @@
         </div>
     </div>
  --}}
-    <div class="my-8">
+    <div class="py-4 mb-8 bg-gray-800 rounded-md p-3 shadow-lg" style="background: #242c39">
         <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold">
-            Torneos disponibles
+            Torneos nuevos
         </h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 my-4">
-            <div class="bg-gray-800 rounded-md border-2 border-gray-900 hover:border-red-500 relative">
-<div class="ribbon"><span>PREMIADO</span></div>
-                <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/12/16/15765089814192.png" alt="" class="rounded-t-md">
-                <div class="platform-logo h-16 w-16 rounded-full bg-red-800 border border-red-600 p-0 shadow-md p-2" style="position: absolute; top:10px; right: 10px">
-                    <img class="object-cover w-full h-full" src="https://www.freepnglogos.com/uploads/playstation-png-logo/andtoid-playstation-png-logo-24.png" alt="">
-                </div>
-                <div class="flex items-center border-t-4 border-yellow-500 p-3 pb-0">
-                    <img src="https://storage.googleapis.com/pro-gaming-production.appspot.com/images%2Fgames%2Flogos%2F71524f81c05c3cb7bc4d05cc8f781cfbe647c15d.png?GoogleAccessId=firebase-adminsdk-4bf2k%40pro-gaming-production.iam.gserviceaccount.com&Expires=16447014000&Signature=RhZuuN%2FLRUOmBaQjCPQYh4r7pQPho3lyNZh7fud2%2BijWFeAN0GjW3AP2ufarOO5jPLkt8KqF0Ue3qnH5BW9kJE2uJ2eS25I9jE59epzZaipq73ouTW51Oj7Yhr5gg7ujEqIQF%2FdO79x7qhWX7irDswMPSusaWTsny%2BgYvdBq02TC1Gbo%2BnxKslxd2qqDH5VUuMA8setZghvLJuHRPLcCAxMnedl7L9jlJHfEB8hKjK7LzPOK96w30iOdqaHNyQwUEBNh7ZFeiv%2FmmrpE9DtDfTPQT6q%2BUWgru5axsnAlmGbhCFUgk8oVIs11%2BhRotAejurgk20n%2FBCLzFFKcg34f4w%3D%3D" alt="" class="flex-initial w-12 h-12 rounded">
-                    <div class="flex-0 ml-3">
-                        <span class="block font-fjalla tracking-wider font-light">FIFA 20</span>
-                        <span class="block font-semibold text-yellow-500">Clubes Pro Divisiones - Temporada 2</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-4">
+            @foreach ($seasons as $season)
+                <a href="{{ route('tournament', $season->tournament->slug) }}">
+                <div class="rounded-md relative bg-gray-800 border border-gray-900" onmouseover="show_details('{{ $season->id }}')" onmouseout="hide_details('{{ $season->id }}')">
+                    <div class="border-b-2 border-yellow-500 ">
+                        @if ($season->inscription_price > 0)
+                            <div class="ribbon"><span>PREMIADO</span></div>
+                        @endif
+                        <img src="{{ asset('img/games/' . $season->tournament->game->banner) }}" alt="" class="rounded-t-md">
+    {{--                     <div class="platform-logo h-16 w-16 rounded-full bg-white border border-{{ $season->tournament->game->platform->color }}-600 p-0 p-2" style="position: absolute; top:10px; right: 10px">
+                            <img class="object-cover w-full h-full" src="{{ $season->tournament->game->platform->img() }}" alt="">
+                        </div> --}}
                     </div>
-                </div>
-                <div class="p-3">
                     <div class="relative">
-                        <div class="text-right">
-                            <span class="text-xs font-semibold inline-block text-red-500">
-                                30%
-                            </span>
+                        <div class="flex items-center p-3 pb-0">
+                            <img src="{{ $season->tournament->game->img() }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
+                            <div class="ml-3">
+                                <span class="block font-fjalla tracking-wider font-light uppercase text-yellow-500 text-11">{{ $season->tournament->game->name }}</span>
+                                <span class="block font-semibold tracking-tight uppercase text-14">{{ $season->tournament->name }}</span>
+                            </div>
                         </div>
-                        <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-red-200">
-                            <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"></div>
+                        <div class="p-3">
+                            <div class="relative">
+                                <div class="clearfix">
+                                    <span class="float-left text-xs font-semibold inline-block text-{{ $season->tournament->game->platform->color }}-500">
+                                        INSCRIPCIONES
+                                    </span>
+                                    <span class="float-right text-xs font-semibold inline-block text-{{ $season->tournament->game->platform->color }}-500">
+                                        {{ $season->fill_places_percent() }}%
+                                    </span>
+                                </div>
+                                <div class="overflow-hidden h-1 mt-1 mb-2 text-xs flex rounded bg-{{ $season->tournament->game->platform->color }}-200">
+                                    <div style="width:{{ $season->fill_places_percent() }}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-{{ $season->tournament->game->platform->color }}-500"></div>
+                                </div>
+                                <p class="text-right text-xs font-roboto-condensed text-11">
+                                    {{ $season->fill_places() }} / {{ $season->num_participants }} PLAZAS
+                                </p>
+                            </div>
                         </div>
-                        <p class="text-right text-xs">
-                            8 / 24 PLAZAS
-                        </p>
+                        <div id="detail{{ $season->id }}" class="bg-{{ $season->tournament->game->platform->color }}-800 text-white absolute top-0 left-0 w-full h-full p-3 hidden animated uppercase text-13 font-roboto-condensed">
+                            @if ($season->free_places() > 0)
+                                <p class="text-center font-semibold">{{ $season->free_places() }} plazas Libres</p>
+                                <div class="text-center py-3">
+                                    <button class="bg-white text-teal-600 hover:bg-orange-500 hover:text-white font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease">
+                                        @if ($season->inscription_price > 0)
+                                            Inscríbete por {{ $season->inscription_price }} €!
+                                        @else
+                                            Inscríbete gratis!
+                                        @endif
+                                    </button>
+                                </div>
+                            @endif
+
+                        </div>
+                    </div>
+                    <div class="bg-{{ $season->tournament->game->platform->color }}-800 px-3 py-2 text-white rounded-b-md text-center border-t-2 border-{{ $season->tournament->game->platform->color }}-600 uppercase" style="font-size: 12px">
+                        {{ $season->tournament->game->platform->name }}
                     </div>
                 </div>
-                <div class="bg-red-800 px-3 py-2 text-white rounded-b-md text-center border-t-4 border-red-600">
-                    PlayStation
-                </div>
-            </div>
-            <div class="bg-gray-800 rounded-md border-2 border-gray-900 hover:border-green-500 relative">
-                <img src="https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/12/16/15765089814192.png" alt="" class="rounded-t-md">
-                <div class="platform-logo h-16 w-16 rounded-full bg-green-800 border border-green-600 p-0 shadow-md p-2" style="position: absolute; top:10px; right: 10px">
-                    <img class="object-cover w-full h-full" src="https://image.flaticon.com/icons/svg/732/732146.svg" alt="" style="fill: white;">
-                </div>
-                <div class="flex items-center border-t-4 border-yellow-500 p-3 pb-0">
-                    <img src="https://storage.googleapis.com/pro-gaming-production.appspot.com/images%2Fgames%2Flogos%2F71524f81c05c3cb7bc4d05cc8f781cfbe647c15d.png?GoogleAccessId=firebase-adminsdk-4bf2k%40pro-gaming-production.iam.gserviceaccount.com&Expires=16447014000&Signature=RhZuuN%2FLRUOmBaQjCPQYh4r7pQPho3lyNZh7fud2%2BijWFeAN0GjW3AP2ufarOO5jPLkt8KqF0Ue3qnH5BW9kJE2uJ2eS25I9jE59epzZaipq73ouTW51Oj7Yhr5gg7ujEqIQF%2FdO79x7qhWX7irDswMPSusaWTsny%2BgYvdBq02TC1Gbo%2BnxKslxd2qqDH5VUuMA8setZghvLJuHRPLcCAxMnedl7L9jlJHfEB8hKjK7LzPOK96w30iOdqaHNyQwUEBNh7ZFeiv%2FmmrpE9DtDfTPQT6q%2BUWgru5axsnAlmGbhCFUgk8oVIs11%2BhRotAejurgk20n%2FBCLzFFKcg34f4w%3D%3D" alt="" class="flex-initial w-12 h-12 rounded">
-                    <div class="flex-0 ml-3">
-                        <span class="block font-fjalla tracking-wider font-light">FIFA 20</span>
-                        <span class="block font-semibold text-yellow-500">Liga ESP Septiembre</span>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="relative">
-                        <div class="text-right">
-                            <span class="text-xs font-semibold inline-block text-green-500">
-                                50%
-                            </span>
-                        </div>
-                        <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-green-200">
-                            <div style="width:50%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
-                        </div>
-                        <p class="text-right text-xs">
-                            12 / 24 PLAZAS
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-green-800 px-3 py-2 text-white rounded-b-md text-center border-t-4 border-green-600">
-                    Xbox
-                </div>
-            </div>
-            <div class="bg-gray-800 rounded-md border-2 border-gray-900 hover:border-blue-300 relative">
-                <img src="https://i.ytimg.com/vi/baNWFMuSpdI/maxresdefault.jpg" alt="" class="rounded-t-md">
-                <div class="platform-logo h-16 w-16 rounded-full bg-blue-800 border border-blue-600 p-0 shadow-md p-2" style="position: absolute; top:10px; right: 10px">
-                    <img class="object-cover w-full h-full" src="https://image.flaticon.com/icons/svg/76/76658.svg" alt="" style="fill: white;">
-                </div>
-                <div class="flex items-center border-t-4 border-yellow-500 p-3 pb-0">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRs4P1WIUa-SRGPb5afZKCovfc0GQm13pzmTw&usqp=CAU" alt="" class="flex-initial w-12 h-12 rounded">
-                    <div class="flex-0 ml-3">
-                        <span class="block font-fjalla tracking-wider font-light">GT RACING</span>
-                        <span class="block font-semibold text-yellow-500">Campeonato Septiembre</span>
-                    </div>
-                </div>
-                <div class="p-3">
-                    <div class="relative">
-                        <div class="text-right">
-                            <span class="text-xs font-semibold inline-block text-blue-500">
-                                30%
-                            </span>
-                        </div>
-                        <div class="overflow-hidden h-1 mb-2 text-xs flex rounded bg-blue-200">
-                            <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                        </div>
-                        <p class="text-right text-xs">
-                            8 / 24 PLAZAS
-                        </p>
-                    </div>
-                </div>
-                <div class="bg-blue-800 px-3 py-2 text-white rounded-b-md text-center border-t-4 border-blue-600">
-                    PC
-                </div>
-            </div>
+                </a>
+            @endforeach
+
         </div>
+        <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold pt-6 my-3">
+            Listado completo
+        </h1>
+        <table class="bg-gray-800 w-full rounded-md">
+            @foreach ($seasons as $season)
+                <tr>
+                    <td class="p-2">
+                        {{ $season->tournament->name }}
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </div>
 </div>

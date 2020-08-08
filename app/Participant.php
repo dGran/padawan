@@ -84,6 +84,20 @@ class Participant extends Model
         return $presenter;
     }
 
+    public function is_free()
+    {
+        if ($this->season->tournament->participant_type == "individual") {
+            if (!$this->user) {
+                return true;
+            }
+        } else {
+            if (!$this->eteam) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function name_without_team()
     {
         if ($this->season->tournament->participant_type == "individual")
@@ -99,7 +113,6 @@ class Participant extends Model
             return "No definido";
         }
     }
-
 
     public function canDestroy()
     {

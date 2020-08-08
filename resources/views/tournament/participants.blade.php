@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => $tournament->name])
+@extends('layouts.app', ['title' => $tournament->name . ' - Participantes'])
 
 @section('content')
 
@@ -8,7 +8,7 @@
 			@include('tournament.partials.tournament_header')
 
 	        <div class="content">
-	            @include('tournament.index.content')
+	            @include('tournament.participants.content')
 	        </div>
 
 			@if ($tournament->has_sponsors())

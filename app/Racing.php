@@ -43,7 +43,7 @@ class Racing extends Model
                 'pts' => $pts,
             ]);
         }
-        $table_participants = $table_participants->sortByDesc('gf')->sortByDesc('pole')->sortByDesc('pts')->values();
+        $table_participants = $table_participants->sortByDesc('pts')->values();
 
         return $table_participants;
     }

@@ -8,7 +8,7 @@
 			@include('tournament.partials.tournament_header')
 
 	        <div class="content">
-	            @include('tournament.index.content')
+	            @include('tournament.standing.races.content')
 	        </div>
 
 			@if ($tournament->has_sponsors())

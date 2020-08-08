@@ -53,9 +53,9 @@ a, button, input, select {
 	}
 }
 .below-fixed-header {
-	margin-top: 65px;
-	@screen md {
-		margin-top: 72px;
+	margin-top: 63px;
+	@screen lg {
+		margin-top: 68px;
 	}
 }
 
@@ -73,3 +73,77 @@ a, button, input, select {
 		display: none;
 	}
 }
+
+@for $i from 7 through 28 {
+  .text-#{$i} {
+    font-size: #{$i}px;
+  }
+}
+
+
+// .text-28 {
+// 	font-size: 28px;
+// }
+// .text-27 {
+// 	font-size: 27px;
+// }
+// .text-26 {
+// 	font-size: 26px;
+// }
+// .text-25 {
+// 	font-size: 25px;
+// }
+// .text-24 {
+// 	font-size: 24px;
+// }
+// .text-23 {
+// 	font-size: 23px;
+// }
+// .text-22 {
+// 	font-size: 22px;
+// }
+// .text-21 {
+// 	font-size: 21px;
+// }
+// .text-20 {
+// 	font-size: 20px;
+// }
+// .text-19 {
+// 	font-size: 19px;
+// }
+// .text-18 {
+// 	font-size: 18px;
+// }
+// .text-17 {
+// 	font-size: 17px;
+// }
+// .text-16 {
+// 	font-size: 16px;
+// }
+// .text-15 {
+// 	font-size: 15px;
+// }
+// .text-14 {
+// 	font-size: 14px;
+// }
+// .text-13 {
+// 	font-size: 13px;
+// }
+// .text-12 {
+// 	font-size: 12px;
+// }
+// .text-11 {
+// 	font-size: 11px;
+// }
+// .text-10 {
+// 	font-size: 10px;
+// }
+// .text-9 {
+// 	font-size: 9px;
+// }
+// .text-8 {
+// 	font-size: 8px;
+// }
+// .text-7 {
+// 	font-size: 7px;
+// }

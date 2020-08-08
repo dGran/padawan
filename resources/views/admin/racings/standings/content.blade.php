@@ -34,7 +34,7 @@
 				                <td class="sticky" style="width: 150px; min-width: 150px; max-width: 150px; left: 60px;">
 				                	<div class="flex flex-row items-center">
 					                    <img src="{{ $position['participant']->participant->presenter()['img'] }}" alt="" width=30>
-					                    <span class="ml-2">{{ $position['participant']->participant->presenter()['name'] }}</span>
+					                    <span class="mx-2 truncate">{{ $position['participant']->participant->presenter()['name'] }}</span>
 				                	</div>
 				                </td>
 						        <td class="text-center font-bold text-base text-gray-60">
