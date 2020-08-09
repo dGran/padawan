@@ -1,9 +1,9 @@
 .tournament {
 	@apply max-w-screen-xl mx-auto;
 	margin-top: 63px;
-	margin-bottom: 1em;
 	@screen md {
 		margin-top: 80px;
+		margin-bottom: 1em;
 	}
 	.wrapper {
 		background: #131619;
@@ -209,8 +209,139 @@
 				padding: 6px 12px 0 12px;
 			}
 			.rules-content {
-				@apply my-3 bg-gray-100 border border-gray-200 rounded p-3 text-gray-700;
+				@apply my-3 bg-white border rounded p-3 text-gray-700;
 			}
+
+			//races
+			.races-standing-container {
+				@apply border my-3 bg-white rounded;
+				.title {
+					@apply border-b uppercase text-13 font-bold p-2 rounded;
+					background: #f9f9f9;
+				}
+				.races-tops {
+					@apply text-center;
+					.wrap {
+						@apply flex justify-center mt-4 mb-12 mx-2;
+						figure {
+							@apply relative;
+							.img-participant {
+								@apply w-20 h-20 rounded-full object-cover m-2 shadow-md;
+							}
+							.img-position {
+								@apply w-8 h-8 absolute border border-white rounded p-1;
+								top: -5px;
+								left: 3px;
+							}
+							.name {
+								@apply truncate border border-white w-24 rounded text-10 p-1 text-center absolute shadow-md;
+								bottom: -5px;
+								left: 0px;
+							}
+							.pts {
+								@apply text-28 font-bold font-roboto-condensed w-full text-center absolute;
+								bottom: -45px;
+								left: 0px;
+							}
+							&.first {
+								.img-position, .name {
+									@apply bg-yellow-400;
+								}
+							}
+							&.second {
+								.img-position, .name {
+									@apply bg-gray-400;
+								}
+							}
+							&.third {
+								.img-position, .name {
+									@apply bg-orange-700;
+								}
+								.name {
+									@apply text-white;
+								}
+							}
+							&.second, &.third {
+								@apply ml-3;
+								@screen md {
+									@apply ml-8;
+								}
+							}
+						}
+					}
+				}
+				.table-wrap {
+					@apply overflow-x-auto border-t;
+					table {
+						@apply w-full;
+						thead {
+							@apply border-b;
+							th {
+								@apply py-2 align-bottom uppercase text-11;
+							}
+							.pos {
+								@apply w-8 px-2;
+							}
+							.participant {
+								@apply text-left;
+							}
+							.pts {
+								@apply text-center;
+								min-width: 32px;
+								width: 42px;
+							}
+						}
+						tbody {
+							tr {
+								border-top: 1px solid #f2f2f2;
+								&:hover {
+									@apply bg-yellow-100;
+								}
+								td {
+									@apply py-1;
+								}
+								.pos {
+									@apply text-right text-13 font-bold text-gray-500 pr-2 font-roboto-condensed;
+									span {
+										@apply pr-1;
+									}
+								}
+								.name {
+									min-width: 230px;
+									.name-container {
+										@apply flex flex-row items-center text-13;
+										img {
+											@apply rounded-full h-8 w-8 object-cover;
+										}
+										div {
+											@apply truncate;
+											.text-name {
+												@apply mx-2;
+											}
+											.text-subname {
+												@apply block mx-2 text-9 text-gray-600;
+											}
+										}
+									}
+								}
+								.pts-total {
+									@apply text-center font-bold px-2 text-15 bg-orange-100 font-roboto-condensed;
+									border-left: 1px solid #f2f2f2;
+								}
+								.pts {
+									@apply text-center text-12 px-1;
+									border-left: 1px solid #f2f2f2;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			//league
+
+			//playoff
+
 		}
 
 		.sponsors {

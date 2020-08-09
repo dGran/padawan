@@ -32,13 +32,13 @@
         <ul>
             <li class="{{ Request::route()->getName() == 'tournament' ? 'active' : 'item' }}"><a href="{{ route('tournament', $tournament) }}">Inicio</a></li>
             <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}"><a href="{{ route('tournament.rules', $tournament) }}">Normativa</a></li>
-            <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}"><a href="{{ route('tournament.participants', $tournament) }}">Participantes</a></li>
             @if ($tournament->seasons->first()->competitions->count() > 1)
                 <li class="item"><a href="#">Competiciones</a></li>
             @else
-                <li class="item"><a href="#">Calendario</a></li>
+                <li class="{{ Request::route()->getName() == 'tournament.schedule' ? 'active' : 'item' }}"><a href="{{ route('tournament.schedule', $tournament) }}">Calendario</a></li>
                 <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}"><a href="{{ route('tournament.standing', $tournament) }}">Clasificación</a></li>
             @endif
+            <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}"><a href="{{ route('tournament.participants', $tournament) }}">Participantes</a></li>
         </ul>
     </div>
 

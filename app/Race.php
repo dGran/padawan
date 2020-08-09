@@ -47,6 +47,18 @@ class Race extends Model
         return '-';
     }
 
+    public function position_participant($id)
+    {
+        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->first();
+        if ($position) {
+            if ($position->position == 0) {
+                return null;
+            }
+            return $position->position;
+        }
+        return null;
+    }
+
     public function short_name()
     {
         $race = str_replace(' ', '', $this->name);

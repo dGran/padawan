@@ -19513,12 +19513,12 @@ a.disable, button.disable, input.disable, select.disable {
   margin-left: auto;
   margin-right: auto;
   margin-top: 63px;
-  margin-bottom: 1em;
 }
 
 @media (min-width: 768px) {
   .tournament {
     margin-top: 80px;
+    margin-bottom: 1em;
   }
 }
 
@@ -19923,17 +19923,267 @@ a.disable, button.disable, input.disable, select.disable {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
   --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
   border-width: 1px;
-  --border-opacity: 1;
-  border-color: #edf2f7;
-  border-color: rgba(237, 242, 247, var(--border-opacity));
   border-radius: 0.25rem;
   padding: 0.75rem;
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container {
+  border-width: 1px;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .races-standing-container .title {
+  border-bottom-width: 1px;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background: #f9f9f9;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops {
+  text-align: center;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure {
+  position: relative;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .img-participant {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 9999px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .img-position {
+  width: 2rem;
+  height: 2rem;
+  position: absolute;
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, var(--border-opacity));
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  top: -5px;
+  left: 3px;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-width: 1px;
+  --border-opacity: 1;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, var(--border-opacity));
+  width: 6rem;
+  border-radius: 0.25rem;
+  font-size: 10px;
+  padding: 0.25rem;
+  text-align: center;
+  position: absolute;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  bottom: -5px;
+  left: 0px;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .pts {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: -45px;
+  left: 0px;
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.first .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.first .name {
+  --bg-opacity: 1;
+  background-color: #f6e05e;
+  background-color: rgba(246, 224, 94, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second .name {
+  --bg-opacity: 1;
+  background-color: #cbd5e0;
+  background-color: rgba(203, 213, 224, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .name {
+  --bg-opacity: 1;
+  background-color: #c05621;
+  background-color: rgba(192, 86, 33, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .name {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third {
+  margin-left: 0.75rem;
+}
+
+@media (min-width: 768px) {
+  .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third {
+    margin-left: 2rem;
+  }
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap {
+  overflow-x: auto;
+  border-top-width: 1px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table {
+  width: 100%;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table thead {
+  border-bottom-width: 1px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table thead th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  vertical-align: bottom;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table thead .pos {
+  width: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table thead .participant {
+  text-align: left;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table thead .pts {
+  text-align: center;
+  min-width: 32px;
+  width: 42px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr {
+  border-top: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr:hover {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr td {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pos {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
+  padding-right: 0.5rem;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pos span {
+  padding-right: 0.25rem;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name {
+  min-width: 230px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 13px;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container img {
+  border-radius: 9999px;
+  height: 2rem;
+  width: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div .text-name {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div .text-subname {
+  display: block;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 9px;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pts-total {
+  text-align: center;
+  font-weight: 700;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 15px;
+  --bg-opacity: 1;
+  background-color: #fffaf0;
+  background-color: rgba(255, 250, 240, var(--bg-opacity));
+  font-family: "Roboto Condensed", sans-serif;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pts {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-left: 1px solid #f2f2f2;
 }
 
 .tournament .wrapper .sponsors {

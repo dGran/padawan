@@ -50,4 +50,21 @@ class TournamentController extends Controller
     		}
     	}
     }
+
+    public function schedule(Tournament $tournament)
+    {
+    	if ($tournament->is_one_scpg()) {
+    		$season = $tournament->one_scpg_model()['season'];
+    		$competition = $tournament->one_scpg_model()['competition'];
+    		$phase = $tournament->one_scpg_model()['phase'];
+    		$group = $tournament->one_scpg_model()['group'];
+
+    		if ($tournament->one_scpg_mode() == 'race') {
+		        $racing = $group->racing;
+		        // $positions = $racing->generate_table();
+
+				return view('tournament.schedule.races', ['racing' => $racing, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    		}
+    	}
+    }
 }
