@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+// use App\Http\Traits\DatesTranslator;
 
 class Race extends Model
 {
@@ -22,6 +23,11 @@ class Race extends Model
     public function results()
     {
         return $this->hasMany('App\RaceResult', 'race_id', 'id');
+    }
+
+    public function getDateAttribute($date)
+    {
+        return new \Date($date);
     }
 
     public function finished() {

@@ -4,7 +4,7 @@
     	<div class="title">
     		clasificacion pilotos
     	</div>
-    	<section class="races-tops">
+{{--     	<section class="races-tops">
     		<div class="wrap">
 			    @for ($i = 0; $i < 3; $i++)
 					<figure class="{{ $i == 0 ? 'first' : '' }} {{ $i == 1 ? 'second' : '' }} {{ $i == 2 ? 'third' : '' }}">
@@ -19,7 +19,7 @@
 					</figure>
     			@endfor
 			</div>
-    	</section>
+    	</section> --}}
     	<div class="table-wrap">
 			<table>
 			    <thead>

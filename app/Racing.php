@@ -24,6 +24,32 @@ class Racing extends Model
         return $this->hasMany('App\Race', 'racing_id', 'id');
     }
 
+    public function nextRace()
+    {
+        foreach ($this->races->sortBy('date') as $race) {
+            if (!$race->finished() && \Carbon\Carbon::parse($race->date) > \Carbon\Carbon::now()) {
+                return $race;
+            }
+        }
+        return false;
+    }
+
+    public function nextRaceDate()
+    {
+        if ($this->nextRace()) {
+            return \Carbon\Carbon::parse($this->nextRace()->date);
+        }
+        return false;
+    }
+
+    public function nextRaceDateTimestamp()
+    {
+        if ($this->nextRace()) {
+            return \Carbon\Carbon::parse($this->nextRace()->date)->timestamp;
+        }
+        return false;
+    }
+
     public function generate_table()
     {
         $group_participants = GroupParticipant::where('group_id', '=', $this->group->id)->get();

@@ -40,6 +40,7 @@ Route::prefix('/torneos')->group(function () {
 	Route::get('/{tournament:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
 	Route::get('/{tournament:slug}/clasificacion', 'TournamentController@standing')->name('tournament.standing');
 	Route::get('/{tournament:slug}/calendario', 'TournamentController@schedule')->name('tournament.schedule');
+	Route::get('/{tournament:slug}/calendario/{race_slug}', 'TournamentController@scheduleRace')->name('tournament.schedule.race');
 });
 
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {

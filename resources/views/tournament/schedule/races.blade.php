@@ -21,3 +21,7 @@
 	</div> {{-- tournament --}}
 
 @endsection
+
+@section('js')
+	@include('tournament.schedule.races.js')
+@endsection

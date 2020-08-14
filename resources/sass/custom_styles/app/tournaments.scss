@@ -204,23 +204,133 @@
 				border-right: 1px solid rgba(0,0,0,0.1);
 			}
 			h2 {
-				@apply uppercase bg-gray-900 rounded text-16 text-white font-bold font-roboto-condensed;
+				@apply uppercase bg-gray-900 rounded text-16 text-white font-bold font-roboto-condensed px-3 flex items-center;
 				height: 32px;
-				padding: 6px 12px 0 12px;
+				// padding: 5px 12px 0 12px;
+				.actions {
+					li {
+						@apply inline-block ml-1 text-gray-600;
+						&:hover {
+							@apply text-white;
+						}
+						a {
+							@apply text-17 cursor-pointer;
+						}
+						&.active {
+							@apply text-white;
+							a {
+								@apply cursor-not-allowed;
+								pointer-events: none;
+							}
+						}
+					}
+				}
 			}
+
+			.index-content {
+				@apply my-3 border rounded;
+				ul {
+					@apply bg-white rounded;
+					li {
+						border-bottom: 1px solid #f2f2f2;
+						&:last-child {
+							border-bottom: none;
+						}
+						.item-container {
+							@apply p-2 flex items-center;
+							img {
+								@apply w-16 h-16 self-start rounded object-cover;
+							}
+							.text {
+								@apply ml-3 flex flex-col self-start text-gray-800;
+								.post-title {
+									@apply font-semibold font-roboto-condensed;
+								}
+								.post-content {
+									@apply text-13;
+								}
+							}
+						}
+					}
+				}
+			}
+
 			.rules-content {
 				@apply my-3 bg-white border rounded p-3 text-gray-700;
+			}
+
+			.participants-content {
+				@apply my-3;
+				.card-view {
+					ul {
+						@apply grid grid-cols-2 gap-2 mt-3;
+						@screen md {
+							@apply grid-cols-3;
+						}
+						@screen lg {
+							@apply grid-cols-4;
+						}
+						.item {
+							@apply p-3 bg-white border rounded text-center relative;
+							&:hover {
+								@apply bg-yellow-100;
+							}
+							figure {
+								img {
+									@apply w-20 h-20 object-cover m-auto shadow border-white border-4 rounded-full;
+								}
+							}
+							.name {
+								@apply pt-1 truncate text-gray-700 font-bold font-roboto-condensed;
+							}
+							.counter {
+								@apply text-12 font-bold text-gray-500 absolute;
+								left: 5px;
+								top: 5px;
+							}
+						}
+					}
+				}
+				.list-view {
+					@apply mt-3 border rounded bg-white;
+					.item {
+						@apply flex items-center border-b px-2 py-1 rounded;
+						border-bottom: 1px solid #f2f2f2;
+						&:last-child {
+							border-bottom: none;
+						}
+						&:hover {
+							@apply bg-yellow-100;
+						}
+						.counter {
+							@apply text-12 font-bold text-gray-500 w-5 text-right;
+						}
+						figure {
+							@apply ml-3;
+							img {
+								@apply w-10 h-10 object-cover m-auto rounded-full;
+								min-width: 2.5rem;
+							}
+						}
+						.name {
+							@apply truncate text-gray-700 font-bold font-roboto-condensed ml-3;
+						}
+					}
+				}
+				.empty-view {
+					@apply p-3 mt-3 bg-white border rounded text-center relative text-gray-700 font-bold font-roboto-condensed;
+				}
 			}
 
 			//races
 			.races-standing-container {
 				@apply border my-3 bg-white rounded;
 				.title {
-					@apply border-b uppercase text-13 font-bold p-2 rounded;
+					@apply uppercase text-13 font-bold p-2 rounded;
 					background: #f9f9f9;
 				}
 				.races-tops {
-					@apply text-center;
+					@apply text-center border-t;
 					.wrap {
 						@apply flex justify-center mt-4 mb-12 mx-2;
 						figure {
@@ -341,6 +451,127 @@
 			//league
 
 			//playoff
+
+			.races-schedule-content {
+				@apply my-3;
+				.countdown-content {
+					@apply pb-2;
+					.race {
+						@apply text-center font-roboto-condensed font-semibold text-23;
+					}
+					.circuit, .laps {
+						@apply text-center font-roboto-condensed font-semibold text-gray-500 text-11;
+						span {
+							@apply block text-gray-800 text-13;
+						}
+					}
+					.laps {
+						@apply mt-1;
+					}
+					.race-date {
+						@apply text-center font-roboto-condensed font-semibold my-2 uppercase;
+					}
+					figure {
+						@apply py-2 px-4 w-full m-auto;
+						@screen md {
+							@apply w-3/4;
+						}
+						@screen lg {
+							@apply w-3/5;
+						}
+						img {
+							@apply object-cover w-full h-auto rounded shadow-lg;
+						}
+					}
+					.countdown {
+						@apply w-full text-center font-roboto-condensed font-semibold;
+						li {
+							@apply inline-block bg-white text-center uppercase w-20 h-20 border rounded p-2;
+							font-size: .75em;
+							span {
+								display: block;
+								font-size: 2rem;
+							}
+						}
+					}
+				}
+				.empty-view {
+					@apply bg-white rounded border p-3;
+				}
+				.races {
+					@apply grid grid-cols-1 gap-3;
+					@screen sm {
+						@apply grid-cols-2;
+					}
+					@screen lg {
+						@apply grid-cols-3;
+					}
+					.race {
+						@apply bg-white rounded p-5 relative border;
+						&:hover {
+							.item-header {
+								.counter {
+									@apply bg-gray-900;
+								}
+							}
+							.item-bottom {
+								figure {
+									img {
+										filter: brightness(65%) blur(1px);
+										-webkit-filter: brightness(65%) blur(1px);
+									}
+									&.finished {
+										filter: grayscale(100%);
+									}
+								}
+							}
+						}
+						.item-header {
+							@apply flex flex-row mb-4;
+							.date {
+								@apply flex flex-col border-r pr-2 mr-2 font-bold;
+								.top {
+									@apply text-center text-4xl font-bold tracking-wide;
+									line-height: 1em;
+								}
+								.bottom {
+									@apply flex flex-row whitespace-no-wrap justify-center font-roboto-condensed;
+									.month {
+										@apply uppercase text-11;
+									}
+									.hour {
+										@apply uppercase text-11 ml-1;
+									}
+								}
+							}
+							.race-info {
+								.race-name {
+									@apply font-semibold;
+								}
+								.circuit-name {
+									@apply text-xs text-gray-700;
+								}
+							}
+							.counter {
+								@apply text-12 font-bold text-white absolute bg-gray-500 rounded-full p-1 w-6 h-6 text-center;
+								line-height: 1.4em;
+								right: 5px;
+								top: 5px;
+							}
+						}
+						.item-bottom {
+							figure {
+								img {
+									@apply object-cover w-full h-auto rounded shadow-lg;
+									&.finished {
+										filter: grayscale(100%);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 
 		}
 

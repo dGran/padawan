@@ -30,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
             'error' => 'red',
             'info' => 'blue',
         ]);
+
+        \Carbon\Carbon::setLocale(config('app.locale'));
     }
 }

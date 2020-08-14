@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\DatesTranslator;
 
 class Tournament extends Model
 {

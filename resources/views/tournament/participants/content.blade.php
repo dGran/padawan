@@ -1,63 +1,104 @@
 <div class="content p-2">
-    <h2 class="clearfix items-center">
-    	<span class="float-left">participantes</span>
-    	<i class="fas fa-address-card float-right pl-2 text-20"></i>
-    	<i class="fas fa-list-ul float-right text-20"></i>
+    <h2>
+    	<span class="flex-none">participantes</span>
+    	<ul class="actions flex-1 text-right {{ $season->participants->count() == 0 ? 'hidden' : '' }}">
+    		<li id="participants_list_view_button">
+		    	<a onclick="participants_change_view('list')"><i class="fas fa-list-ul"></i></a>
+    		</li>
+    		<li id="participants_card_view_button" class="active">
+    			<a onclick="participants_change_view('card')"><i class="fas fa-address-card"></i></a>
+    		</li>
+    	</ul>
     </h2>
 
-    <div class="participants">
+    <div class="participants-content">
 	    @if ($season->participants->count() > 0)
-			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 py-2">
-				@foreach ($season->participants as $participant)
-					<div class="card_view p-3 bg-white border rounded hover:bg-yellow-100 text-center relative">
-						<figure>
-							<img src="{{ $participant->presenter()['img'] }}" alt="{{ $participant->presenter()['name'] }}" class="w-20 h-20 object-cover m-auto shadow border-white border-4 rounded-full" style="{{ $participant->is_free() ? 'filter: grayscale(100%);' : '' }}">
-						</figure>
-						<p class="pt-1 truncate text-gray-700 font-bold font-roboto-condensed">
-							{{ $participant->is_free() ? "LIBRE" : $participant->presenter()['name'] }}
-						</p>
-						<span class="text-12 font-bold text-gray-500 absolute" style="top: 5px; left: 5px">{{ $loop->iteration }}</span>
-					</div>
-					<div class="list-view hidden">
-						{{ $participant->presenter()['name'] }}
-					</div>
-				@endforeach
+			<div id="participants_card_view" class="card-view">
+				<ul>
+					@foreach ($season->participants as $participant)
+						<li class="item">
+							<span class="counter">{{ $loop->iteration }}</span>
+							<figure>
+								<img src="{{ $participant->presenter()['img'] }}" alt="{{ $participant->presenter()['name'] }}" style="{{ $participant->is_free() ? 'filter: grayscale(100%);' : '' }}">
+							</figure>
+							<p class="name">
+								{{ $participant->is_free() ? "LIBRE" : $participant->presenter()['name'] }}
+							</p>
+						</li>
+					@endforeach
+				</ul>
+			</div>
+			<div id="participants_list_view" class="list-view hidden">
+				<ul>
+					@foreach ($season->participants as $participant)
+						<li class="item">
+							<span class="counter">{{ $loop->iteration }}</span>
+							<figure>
+								<img src="{{ $participant->presenter()['img'] }}" alt="{{ $participant->presenter()['name'] }}" style="{{ $participant->is_free() ? 'filter: grayscale(100%);' : '' }}">
+							</figure>
+							<p class="name">
+								{{ $participant->is_free() ? "LIBRE" : $participant->presenter()['name'] }}
+							</p>
+						</li>
+					@endforeach
+				</ul>
 			</div>
 		@else
-			<div class="p-3 my-2 bg-white border rounded text-center relative text-gray-700 font-bold font-roboto-condensed">
+			<div class="empty-view">
 				Lista de participantes vacía
 			</div>
 		@endif
-	</div>
 
-	<div class="reserves mt-4">
+		{{-- reserves --}}
 
-	    <h2 class="clearfix items-center">
-	    	<span class="float-left">Reservas</span>
-	    	<i class="fas fa-address-card float-right pl-2 text-20"></i>
-	    	<i class="fas fa-list-ul float-right text-20"></i>
+	    <h2 class="mt-3">
+	    	<span class="flex-none">reservas</span>
+	    	<ul class="actions flex-1 text-right {{ $season->reserves->count() == 0 ? 'hidden' : '' }}">
+	    		<li id="reserves_list_view_button" class="active">
+			    	<a onclick="reserves_change_view('list')"><i class="fas fa-list-ul"></i></a>
+	    		</li>
+	    		<li id="reserves_card_view_button">
+	    			<a onclick="reserves_change_view('card')"><i class="fas fa-address-card"></i></a>
+	    		</li>
+	    	</ul>
 	    </h2>
-		@if ($season->reserves->count() > 0)
-			<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 py-2">
-				@foreach ($season->reserves as $reserve)
-					<div class="card_view p-3 bg-white border rounded hover:bg-yellow-100 text-center relative">
-						<figure>
-							<img src="{{ $reserve->presenter()['img'] }}" alt="{{ $reserve->presenter()['name'] }}" class="w-20 h-20 object-cover m-auto shadow border-white border-4 rounded-full" style="{{ $reserve->is_free() ? 'filter: grayscale(100%);' : '' }}">
-						</figure>
-						<p class="pt-1 truncate text-gray-700 font-bold font-roboto-condensed">
-							{{ $reserve->is_free() ? "LIBRE" : $reserve->presenter()['name'] }}
-						</p>
-						<span class="text-12 font-bold text-gray-500 absolute" style="top: 5px; left: 5px">{{ $loop->iteration }}</span>
-					</div>
-					<div class="list-view hidden">
-						{{ $reserve->presenter()['name'] }}
-					</div>
-				@endforeach
+
+	    @if ($season->reserves->count() > 0)
+			<div id="reserves_card_view" class="card-view hidden">
+				<ul>
+					@foreach ($season->reserves as $reserve)
+						<li class="item">
+							<span class="counter">{{ $loop->iteration }}</span>
+							<figure>
+								<img src="{{ $reserve->presenter()['img'] }}" alt="{{ $reserve->presenter()['name'] }}">
+							</figure>
+							<p class="name">
+								{{ $reserve->presenter()['name'] }}
+							</p>
+						</li>
+					@endforeach
+				</ul>
+			</div>
+			<div id="reserves_list_view" class="list-view">
+				<ul>
+					@foreach ($season->reserves as $reserve)
+						<li class="item">
+							<span class="counter">{{ $loop->iteration }}</span>
+							<figure>
+								<img src="{{ $reserve->presenter()['img'] }}" alt="{{ $reserve->presenter()['name'] }}">
+							</figure>
+							<p class="name">
+								{{ $reserve->presenter()['name'] }}
+							</p>
+						</li>
+					@endforeach
+				</ul>
 			</div>
 		@else
-			<div class="p-3 mt-2 bg-white border rounded text-center relative text-gray-700 font-bold font-roboto-condensed">
+			<div class="empty-view">
 				Lista de reservas vacía
 			</div>
 		@endif
-	</div>
-</div>
+
+	</div> {{-- participants-content --}}
+</div> {{-- content --}}

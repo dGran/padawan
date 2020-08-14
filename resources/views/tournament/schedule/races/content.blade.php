@@ -46,55 +46,91 @@
 </style>
 
 <div class="content p-2">
-    <h2>calendario</h2>
-	@if ($racing->races->count() == 0)
-	    <div class="bg-white shadow-md rounded p-4 mt-2 mb-4">
-			No existen carreras
+	@if ($racing->nextRace() && \Carbon\Carbon::parse($racing->nextRace()->date) > \Carbon\Carbon::now())
+	    <h2>próxima carrera</h2>
+	    <div class="races-schedule-content">
+	    	<div class="countdown-content">
+		    	<p class="race">
+		    		{{ $racing->nextRace()->name }}
+		    	</p>
+		    	<figure>
+		    		<img src="{{ $racing->nextRace()->circuit->img() }}" alt="{{ $racing->nextRace()->name }}">
+		    	</figure>
+		    	<p class="circuit">
+		    		CIRCUITO
+		    		<span>{{ $racing->nextRace()->circuit->name }}</span>
+		    	</p>
+		    	<p class="laps">
+		    		VUELTAS
+		    		<span>{{ $racing->nextRace()->laps }}</span>
+		    	</p>
+	    		<p class="race-date">{{ $racing->nextRaceDate()->format('l j m Y - h:i') }}</p>
+				<ul class="countdown">
+					<li><span id="days">-</span>días</li>
+					<li><span id="hours">-</span>horas</li>
+					<li><span id="minutes">-</span>minutos</li>
+					<li><span id="seconds">-</span>segundos</li>
+				</ul>
+	    	</div>
 	    </div>
-	@else
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 pt-4 md:gap-4">
-			@foreach ($racing->races as $race)
-	            <div class="bg-white rounded p-5 mt-2 mb-4 relative border">
-	            	@if ($race->finished())
-	            		<div class="ribbon"><span>FINALIZADA</span></div>
-	            	@endif
-
-	            	<div class="flex flex-row mb-4">
-	            		<div class="flex flex-col border-r pr-2 mr-2 {{ $race->finished() ? 'text-gray-800' : 'text-pink-600' }} font-bold">
-	            			<span class="text-center text-4xl font-bold tracking-wide" style="line-height: 1em">
-	            				@if (!is_null($race->date))
-	            					{{ date('d', strtotime($race->date)) }}
-	            				@else
-	            					N/D
-	            				@endif
-	            			</span>
-	            			<div class="flex flex-row whitespace-no-wrap justify-center">
-	            				<span class="uppercase" style="font-size: 11px">
-	            					@if (!is_null($race->date))
-	            						{{ date('M', strtotime($race->date)) }} |
-	            					@else
-	            						N/D
-	            					@endif
-	            				</span>
-	            				<span class="uppercase ml-1" style="font-size: 11px">
-	            					@if (!is_null($race->date))
-	            						{{ date('H:i', strtotime($race->date)) }}
-	            					@else
-	            						N/D
-	            					@endif
-	            				</span>
-	            			</div>
-	            		</div>
-	            		<div class="">
-	            			<p class="font-semibold">{{ $race->name }}</p>
-	            			<span class="block text-xs text-gray-700">{{ $race->circuit->name }}</span>
-	            		</div>
-	            	</div>
-	            	<div class="">
-	            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->finished() ? 'filter: grayscale(100%);' : '' }}">
-	            	</div>
-	            </div>
-			@endforeach
-		</div>
 	@endif
-</div>
+
+    <h2>calendario</h2>
+    <div class="races-schedule-content">
+		@if ($racing->races->count() == 0)
+		    <div class="empty-view">
+				No existen carreras
+		    </div>
+		@else
+			<ul class="races">
+				@foreach ($racing->races->sortBy('date') as $race)
+	            	<a href="{{ route('tournament.schedule.race', [$tournament, $race->slug]) }}">
+			            <li class="race">
+			            	@if ($race->finished())
+			            		<div class="ribbon"><span>FINALIZADA</span></div>
+			            	@endif
+
+			            	<div class="item-header">
+			            		<div class="date {{ $race->finished() ? 'text-gray-800' : 'text-' . $tournament->game->platform->color . '-600' }}">
+			            			<span class="top">
+			            				@if (!is_null($race->date))
+			            					{{ date('d', strtotime($race->date)) }}
+			            				@else
+			            					N/D
+			            				@endif
+			            			</span>
+			            			<div class="bottom">
+			            				<span class="month uppercase">
+			            					@if (!is_null($race->date))
+			            						{{ str_replace(".", "", $race->date->format('M')) }} |
+			            					@else
+			            						N/D
+			            					@endif
+			            				</span>
+			            				<span class="hour">
+			            					@if (!is_null($race->date))
+			            						{{ date('H:i', strtotime($race->date)) }}
+			            					@else
+			            						N/D
+			            					@endif
+			            				</span>
+			            			</div>
+			            		</div>
+			            		<div class="race-info">
+			            			<p class="race-name">{{ $race->name }}</p>
+			            			<p class="circuit-name">{{ $race->circuit->name }}</p>
+			            		</div>
+		            			<span class="counter">{{ $loop->iteration }}</span>
+			            	</div>
+			            	<div class="item-bottom">
+			            		<figure>
+			            			<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="{{ $race->finished() ? 'finished' : '' }}">
+			            		</figure>
+			            	</div>
+			            </li>
+		            </a>
+				@endforeach
+			</ul>
+		@endif
+    </div> {{-- races-schedule-content --}}
+</div> {{-- content --}}

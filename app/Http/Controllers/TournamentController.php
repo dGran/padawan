@@ -8,6 +8,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Tournament;
 use App\Season;
+use App\Race;
 
 class TournamentController extends Controller
 {
@@ -66,5 +67,10 @@ class TournamentController extends Controller
 				return view('tournament.schedule.races', ['racing' => $racing, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     		}
     	}
+    }
+
+    public function scheduleRace(Tournament $tournament, $race_slug)
+    {
+    	dd($race_slug);
     }
 }
