@@ -1,0 +1,27 @@
+.index-content {
+	@apply my-3 border rounded;
+	ul {
+		@apply bg-white rounded;
+		li {
+			border-bottom: 1px solid #f2f2f2;
+			&:last-child {
+				border-bottom: none;
+			}
+			.item-container {
+				@apply p-2 flex items-center;
+				img {
+					@apply w-16 h-16 self-start rounded object-cover;
+				}
+				.text {
+					@apply ml-3 flex flex-col self-start text-gray-800;
+					.post-title {
+						@apply font-semibold font-roboto-condensed;
+					}
+					.post-content {
+						@apply text-13;
+					}
+				}
+			}
+		}
+	}
+}

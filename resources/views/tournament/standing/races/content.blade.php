@@ -1,6 +1,6 @@
 <div class="content p-2">
     <h2>clasificación</h2>
-    <div class="races-standing-container">
+    <div class="races-standing-content">
     	<div class="title">
     		clasificacion pilotos
     	</div>
@@ -38,7 +38,7 @@
 							<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
 								<span>{{ $loop->iteration }}</span>
 							</td>
-			                <td class="name">
+			                <td class="participant-name">
 			                	<div class="name-container">
 				                    <img src="{{ $position['participant']->participant->presenter()['img'] }}">
 				                    <div>

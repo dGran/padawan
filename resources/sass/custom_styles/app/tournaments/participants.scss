@@ -1,0 +1,62 @@
+.participants-content {
+	@apply my-3;
+	.card-view {
+		ul {
+			@apply grid grid-cols-2 gap-2 mt-3;
+			@screen md {
+				@apply grid-cols-3;
+			}
+			@screen lg {
+				@apply grid-cols-4;
+			}
+			.item {
+				@apply p-3 bg-white border rounded text-center relative;
+				&:hover {
+					@apply bg-yellow-100;
+				}
+				figure {
+					img {
+						@apply w-20 h-20 object-cover m-auto shadow border-white border-4 rounded-full;
+					}
+				}
+				.name {
+					@apply pt-1 truncate text-gray-700 font-bold font-roboto-condensed;
+				}
+				.counter {
+					@apply text-12 font-bold text-gray-500 absolute;
+					left: 5px;
+					top: 5px;
+				}
+			}
+		}
+	}
+	.list-view {
+		@apply mt-3 border rounded bg-white;
+		.item {
+			@apply flex items-center border-b px-2 py-1 rounded;
+			border-bottom: 1px solid #f2f2f2;
+			&:last-child {
+				border-bottom: none;
+			}
+			&:hover {
+				@apply bg-yellow-100;
+			}
+			.counter {
+				@apply text-12 font-bold text-gray-500 w-5 text-right;
+			}
+			figure {
+				@apply ml-3;
+				img {
+					@apply w-10 h-10 object-cover m-auto rounded-full;
+					min-width: 2.5rem;
+				}
+			}
+			.name {
+				@apply truncate text-gray-700 font-bold font-roboto-condensed ml-3;
+			}
+		}
+	}
+	.empty-view {
+		@apply p-3 mt-3 bg-white border rounded text-center relative text-gray-700 font-bold font-roboto-condensed;
+	}
+}

@@ -15,27 +15,19 @@
 			  distance = countDown - now;
 			$('#days').text(Math.floor(distance / (day)));
 			if ($('#days').text() == '0') {
-				$('#days').addClass('text-gray-500');
-			} else {
-				$('#days').removeClass('text-gray-500');
+				$('#days').text('-');
 			}
 			$('#hours').text(Math.floor((distance % (day)) / (hour)));
-			if ($('#hours').text() == '0' && $('#days').text() == '0') {
-				$('#hours').addClass('text-gray-500');
-			} else {
-				$('#hours').removeClass('text-gray-500');
+			if ($('#hours').text() == '0' && $('#days').text() == '-') {
+				$('#hours').text('-');
 			}
 			$('#minutes').text(Math.floor((distance % (hour)) / (minute)));
-			if ($('#minutes').text() == '0' && $('#hours').text() == '0' && $('#days').text() == '0') {
-				$('#minutes').addClass('text-gray-500');
-			} else {
-				$('#minutes').removeClass('text-gray-500');
+			if ($('#minutes').text() == '0' && $('#hours').text() == '-' && $('#days').text() == '-') {
+				$('#minutes').text('-');
 			}
 			$('#seconds').text(Math.floor((distance % (minute)) / (second)));
-			if ($('#seconds').text() == '0' && $('#minutes').text() == '0' && $('#hours').text() == '0' && $('#days').text() == '0') {
-				$('#seconds').addClass('text-gray-500');
-			} else {
-				$('#seconds').removeClass('text-gray-500');
+			if ($('#seconds').text() == '0' && $('#minutes').text() == '-' && $('#hours').text() == '-' && $('#days').text() == '-') {
+				$('#seconds').text('-');
 			}
 			//do something later when date is reached
 			if (distance < 0) {

@@ -19357,6 +19357,75 @@ a.disable, button.disable, input.disable, select.disable {
   font-size: 28px;
 }
 
+.ribbon {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 75px;
+  height: 75px;
+  text-align: right;
+}
+
+.ribbon span {
+  font-size: 10px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 20px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  width: 100px;
+  display: block;
+  background: #79A70A;
+  background: linear-gradient(#B6BAC9 0%, #808080 100%);
+  box-shadow: 0 3px 10px -5px black;
+  position: absolute;
+  top: 19px;
+  left: -21px;
+}
+
+.ribbon span:before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #808080;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #808080;
+}
+
+.ribbon span:after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #808080;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #808080;
+}
+
+.ribbon.gray span {
+  color: white;
+  background: linear-gradient(#B6BAC9 0%, #808080 100%);
+}
+
+.ribbon.gray span:before {
+  border-left: 3px solid #808080;
+  border-top: 3px solid #808080;
+}
+
+.ribbon.gray span:after {
+  border-right: 3px solid #808080;
+  border-top: 3px solid #808080;
+}
+
 .swal-footer {
   --bg-opacity: 1;
   background-color: #edf2f7;
@@ -19603,7 +19672,6 @@ a.disable, button.disable, input.disable, select.disable {
   --text-opacity: 1;
   color: #fc8181;
   color: rgba(252, 129, 129, var(--text-opacity));
-  font-size: 11px;
 }
 
 .tournament .wrapper .platform-content.red .menu {
@@ -19661,7 +19729,6 @@ a.disable, button.disable, input.disable, select.disable {
   --text-opacity: 1;
   color: #68d391;
   color: rgba(104, 211, 145, var(--text-opacity));
-  font-size: 11px;
 }
 
 .tournament .wrapper .platform-content.green .menu {
@@ -19714,7 +19781,6 @@ a.disable, button.disable, input.disable, select.disable {
   --text-opacity: 1;
   color: #63b3ed;
   color: rgba(99, 179, 237, var(--text-opacity));
-  font-size: 11px;
 }
 
 .tournament .wrapper .platform-content.blue .menu {
@@ -19793,10 +19859,19 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 .tournament .wrapper .platform-content .tournament-info .logo {
-  min-height: 5.5rem;
-  min-width: 5.5rem;
-  max-height: 5.5rem;
-  max-width: 5.5rem;
+  min-height: 4.75rem;
+  min-width: 4.75rem;
+  max-height: 4.75rem;
+  max-width: 4.75rem;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .platform-content .tournament-info .logo {
+    min-height: 5.5rem;
+    min-width: 5.5rem;
+    max-height: 5.5rem;
+    max-width: 5.5rem;
+  }
 }
 
 .tournament .wrapper .platform-content .tournament-info .logo img {
@@ -19819,7 +19894,7 @@ a.disable, button.disable, input.disable, select.disable {
   text-overflow: ellipsis;
   white-space: nowrap;
   text-transform: uppercase;
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 700;
   font-family: "Roboto Condensed", sans-serif;
   --text-opacity: 1;
@@ -19829,11 +19904,23 @@ a.disable, button.disable, input.disable, select.disable {
   line-height: 1.25em;
 }
 
+@media (min-width: 640px) {
+  .tournament .wrapper .platform-content .tournament-info .info .name {
+    font-size: 25px;
+  }
+}
+
 .tournament .wrapper .platform-content .tournament-info .info .game, .tournament .wrapper .platform-content .tournament-info .info .platform, .tournament .wrapper .platform-content .tournament-info .info .participation {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 10px;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .platform-content .tournament-info .info .game, .tournament .wrapper .platform-content .tournament-info .info .platform, .tournament .wrapper .platform-content .tournament-info .info .participation {
+    font-size: 12px;
+  }
 }
 
 .tournament .wrapper .platform-content .menu {
@@ -19851,6 +19938,12 @@ a.disable, button.disable, input.disable, select.disable {
   font-size: 14px;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .platform-content .menu ul {
+    font-size: 16px;
+  }
 }
 
 .tournament .wrapper .platform-content .menu ul .item {
@@ -19897,10 +19990,6 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 @media (min-width: 768px) {
-  .tournament .wrapper .content {
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
-    border-right: 1px solid rgba(0, 0, 0, 0.1);
-  }
 }
 
 .tournament .wrapper .content h2 {
@@ -20185,7 +20274,7 @@ a.disable, button.disable, input.disable, select.disable {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-.tournament .wrapper .content .races-standing-container {
+.tournament .wrapper .content .races-standing-content {
   border-width: 1px;
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -20195,7 +20284,7 @@ a.disable, button.disable, input.disable, select.disable {
   border-radius: 0.25rem;
 }
 
-.tournament .wrapper .content .races-standing-container .title {
+.tournament .wrapper .content .races-standing-content .title {
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 700;
@@ -20204,12 +20293,12 @@ a.disable, button.disable, input.disable, select.disable {
   background: #f9f9f9;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops {
+.tournament .wrapper .content .races-standing-content .races-tops {
   text-align: center;
   border-top-width: 1px;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap {
   display: flex;
   justify-content: center;
   margin-top: 1rem;
@@ -20218,11 +20307,11 @@ a.disable, button.disable, input.disable, select.disable {
   margin-right: 0.5rem;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure {
   position: relative;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .img-participant {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .img-participant {
   width: 5rem;
   height: 5rem;
   border-radius: 9999px;
@@ -20232,7 +20321,7 @@ a.disable, button.disable, input.disable, select.disable {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .img-position {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .img-position {
   width: 2rem;
   height: 2rem;
   position: absolute;
@@ -20246,7 +20335,7 @@ a.disable, button.disable, input.disable, select.disable {
   left: 3px;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .name {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .name {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -20265,7 +20354,7 @@ a.disable, button.disable, input.disable, select.disable {
   left: 0px;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure .pts {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .pts {
   font-size: 28px;
   font-weight: 700;
   font-family: "Roboto Condensed", sans-serif;
@@ -20276,54 +20365,54 @@ a.disable, button.disable, input.disable, select.disable {
   left: 0px;
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.first .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.first .name {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.first .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.first .name {
   --bg-opacity: 1;
   background-color: #f6e05e;
   background-color: rgba(246, 224, 94, var(--bg-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second .name {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second .name {
   --bg-opacity: 1;
   background-color: #cbd5e0;
   background-color: rgba(203, 213, 224, var(--bg-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .img-position, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .name {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .name {
   --bg-opacity: 1;
   background-color: #c05621;
   background-color: rgba(192, 86, 33, var(--bg-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third .name {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .name {
   --text-opacity: 1;
   color: #fff;
   color: rgba(255, 255, 255, var(--text-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third {
+.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third {
   margin-left: 0.75rem;
 }
 
 @media (min-width: 768px) {
-  .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-container .races-tops .wrap figure.third {
+  .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third {
     margin-left: 2rem;
   }
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap {
+.tournament .wrapper .content .races-standing-content .table-wrap {
   overflow-x: auto;
   border-top-width: 1px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table {
+.tournament .wrapper .content .races-standing-content .table-wrap table {
   width: 100%;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table thead {
+.tournament .wrapper .content .races-standing-content .table-wrap table thead {
   border-bottom-width: 1px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table thead th {
+.tournament .wrapper .content .races-standing-content .table-wrap table thead th {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   vertical-align: bottom;
@@ -20331,38 +20420,38 @@ a.disable, button.disable, input.disable, select.disable {
   font-size: 11px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table thead .pos {
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .pos {
   width: 2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table thead .participant {
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .participant {
   text-align: left;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table thead .pts {
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .pts {
   text-align: center;
   min-width: 32px;
   width: 42px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr {
   border-top: 1px solid #f2f2f2;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr:hover {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:hover {
   --bg-opacity: 1;
   background-color: #fffff0;
   background-color: rgba(255, 255, 240, var(--bg-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr td {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr td {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pos {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .pos {
   text-align: right;
   font-size: 13px;
   font-weight: 700;
@@ -20373,22 +20462,23 @@ a.disable, button.disable, input.disable, select.disable {
   font-family: "Roboto Condensed", sans-serif;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pos span {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .pos span {
   padding-right: 0.25rem;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name {
   min-width: 230px;
+  max-width: 230px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name .name-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 13px;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container img {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name .name-container img {
   border-radius: 9999px;
   height: 2rem;
   width: 2rem;
@@ -20396,18 +20486,18 @@ a.disable, button.disable, input.disable, select.disable {
      object-fit: cover;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name .name-container div {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div .text-name {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-name {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .name .name-container div .text-subname {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-subname {
   display: block;
   margin-left: 0.5rem;
   margin-right: 0.5rem;
@@ -20417,7 +20507,7 @@ a.disable, button.disable, input.disable, select.disable {
   color: rgba(113, 128, 150, var(--text-opacity));
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pts-total {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .pts-total {
   text-align: center;
   font-weight: 700;
   padding-left: 0.5rem;
@@ -20430,7 +20520,7 @@ a.disable, button.disable, input.disable, select.disable {
   border-left: 1px solid #f2f2f2;
 }
 
-.tournament .wrapper .content .races-standing-container .table-wrap table tbody tr .pts {
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr .pts {
   text-align: center;
   font-size: 12px;
   padding-left: 0.25rem;
@@ -20452,9 +20542,12 @@ a.disable, button.disable, input.disable, select.disable {
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 600;
   font-size: 23px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.tournament .wrapper .content .races-schedule-content .countdown-content .circuit, .tournament .wrapper .content .races-schedule-content .countdown-content .laps {
+.tournament .wrapper .content .races-schedule-content .countdown-content .circuit, .tournament .wrapper .content .races-schedule-content .countdown-content .laps, .tournament .wrapper .content .races-schedule-content .countdown-content .race-date {
   text-align: center;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: 600;
@@ -20462,14 +20555,20 @@ a.disable, button.disable, input.disable, select.disable {
   color: #a0aec0;
   color: rgba(160, 174, 192, var(--text-opacity));
   font-size: 11px;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.tournament .wrapper .content .races-schedule-content .countdown-content .circuit span, .tournament .wrapper .content .races-schedule-content .countdown-content .laps span {
+.tournament .wrapper .content .races-schedule-content .countdown-content .circuit span, .tournament .wrapper .content .races-schedule-content .countdown-content .laps span, .tournament .wrapper .content .races-schedule-content .countdown-content .race-date span {
   display: block;
   --text-opacity: 1;
   color: #2d3748;
   color: rgba(45, 55, 72, var(--text-opacity));
   font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .tournament .wrapper .content .races-schedule-content .countdown-content .laps {
@@ -20477,11 +20576,6 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 .tournament .wrapper .content .races-schedule-content .countdown-content .race-date {
-  text-align: center;
-  font-family: "Roboto Condensed", sans-serif;
-  font-weight: 600;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
   text-transform: uppercase;
 }
 
@@ -20515,6 +20609,19 @@ a.disable, button.disable, input.disable, select.disable {
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+.tournament .wrapper .content .races-schedule-content .countdown-content .countdown-title {
+  text-align: center;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
 .tournament .wrapper .content .races-schedule-content .countdown-content .countdown {
   width: 100%;
   text-align: center;
@@ -20529,12 +20636,12 @@ a.disable, button.disable, input.disable, select.disable {
   background-color: rgba(255, 255, 255, var(--bg-opacity));
   text-align: center;
   text-transform: uppercase;
-  width: 5rem;
+  width: 4rem;
   height: 5rem;
   border-width: 1px;
   border-radius: 0.25rem;
   padding: 0.5rem;
-  font-size: 0.75em;
+  font-size: 0.7em;
 }
 
 .tournament .wrapper .content .races-schedule-content .countdown-content .countdown li span {
@@ -20587,8 +20694,8 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 .tournament .wrapper .content .races-schedule-content .races .race:hover .item-bottom figure img {
-  filter: brightness(65%) blur(1px);
-  -webkit-filter: brightness(65%) blur(1px);
+  filter: brightness(65%);
+  -webkit-filter: brightness(65%);
 }
 
 .tournament .wrapper .content .races-schedule-content .races .race:hover .item-bottom figure.finished {
@@ -20681,6 +20788,24 @@ a.disable, button.disable, input.disable, select.disable {
 .tournament .wrapper .content .races-schedule-content .races .race .item-bottom figure img.finished {
   -webkit-filter: grayscale(100%);
           filter: grayscale(100%);
+}
+
+.tournament .wrapper .content .race-banner {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  font-size: 22px;
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .race-banner {
+    font-size: 24px;
+  }
 }
 
 .tournament .wrapper .sponsors {

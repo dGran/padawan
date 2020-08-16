@@ -1,0 +1,9 @@
+.race-banner {
+	@apply text-white text-22 font-bold font-roboto-condensed truncate;
+	@screen sm {
+		@apply text-24;
+	}
+}
+.race-content {
+
+}

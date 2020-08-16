@@ -75,75 +75,66 @@ a, button, input, select {
 }
 
 @for $i from 7 through 28 {
-  .text-#{$i} {
-    font-size: #{$i}px;
-  }
+	.text-#{$i} {
+		font-size: #{$i}px;
+	}
 }
 
-
-// .text-28 {
-// 	font-size: 28px;
-// }
-// .text-27 {
-// 	font-size: 27px;
-// }
-// .text-26 {
-// 	font-size: 26px;
-// }
-// .text-25 {
-// 	font-size: 25px;
-// }
-// .text-24 {
-// 	font-size: 24px;
-// }
-// .text-23 {
-// 	font-size: 23px;
-// }
-// .text-22 {
-// 	font-size: 22px;
-// }
-// .text-21 {
-// 	font-size: 21px;
-// }
-// .text-20 {
-// 	font-size: 20px;
-// }
-// .text-19 {
-// 	font-size: 19px;
-// }
-// .text-18 {
-// 	font-size: 18px;
-// }
-// .text-17 {
-// 	font-size: 17px;
-// }
-// .text-16 {
-// 	font-size: 16px;
-// }
-// .text-15 {
-// 	font-size: 15px;
-// }
-// .text-14 {
-// 	font-size: 14px;
-// }
-// .text-13 {
-// 	font-size: 13px;
-// }
-// .text-12 {
-// 	font-size: 12px;
-// }
-// .text-11 {
-// 	font-size: 11px;
-// }
-// .text-10 {
-// 	font-size: 10px;
-// }
-// .text-9 {
-// 	font-size: 9px;
-// }
-// .text-8 {
-// 	font-size: 8px;
-// }
-// .text-7 {
-// 	font-size: 7px;
-// }
+.ribbon {
+	position: absolute;
+	left: -5px; top: -5px;
+	z-index: 1;
+	overflow: hidden;
+	width: 75px; height: 75px;
+	text-align: right;
+	span {
+		// default gray
+		font-size: 10px;
+		font-weight: bold;
+		color: #FFF;
+		text-transform: uppercase;
+		text-align: center;
+		line-height: 20px;
+		transform: rotate(-45deg);
+		-webkit-transform: rotate(-45deg);
+		width: 100px;
+		display: block;
+		background: #79A70A;
+		background: linear-gradient(#B6BAC9 0%, #808080 100%);
+		box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+		position: absolute;
+		top: 19px; left: -21px;
+		&:before {
+			content: "";
+			position: absolute; left: 0px; top: 100%;
+			z-index: -1;
+			border-left: 3px solid #808080;
+			border-right: 3px solid transparent;
+			border-bottom: 3px solid transparent;
+			border-top: 3px solid #808080;
+		}
+		&:after {
+			content: "";
+			position: absolute; right: 0px; top: 100%;
+			z-index: -1;
+			border-left: 3px solid transparent;
+			border-right: 3px solid #808080;
+			border-bottom: 3px solid transparent;
+			border-top: 3px solid #808080;
+		}
+	}
+	&.gray {
+		span {
+			color: white;
+			background: linear-gradient(#B6BAC9 0%, #808080 100%);
+			&:before {
+				border-left: 3px solid #808080;
+				border-top: 3px solid #808080;
+			}
+			&:after {
+				border-right: 3px solid #808080;
+				border-top: 3px solid #808080;
+			}
+		}
+	}
+}

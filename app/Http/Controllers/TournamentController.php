@@ -71,6 +71,12 @@ class TournamentController extends Controller
 
     public function scheduleRace(Tournament $tournament, $race_slug)
     {
-    	dd($race_slug);
+		$race = Race::where('slug', $race_slug)->first();
+		$season = $race->racing->group->phase->competition->season;
+		$competition = $race->racing->group->phase->competition;
+		$phase = $race->racing->group->phase;
+		$group = $race->racing->group;
+
+		return view('tournament.schedule.races.race', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     }
 }

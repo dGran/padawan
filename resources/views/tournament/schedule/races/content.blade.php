@@ -1,56 +1,10 @@
-<style>
-
-	.ribbon {
-	  position: absolute;
-	  left: -5px; top: -5px;
-	  z-index: 1;
-	  overflow: hidden;
-	  width: 75px; height: 75px;
-	  text-align: right;
-	}
-	.ribbon span {
-	  font-size: 10px;
-	  font-weight: bold;
-	  color: #FFF;
-	  text-transform: uppercase;
-	  text-align: center;
-	  line-height: 20px;
-	  transform: rotate(-45deg);
-	  -webkit-transform: rotate(-45deg);
-	  width: 100px;
-	  display: block;
-	  background: #79A70A;
-	  background: linear-gradient(#B6BAC9 0%, #808080 100%);
-	  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
-	  position: absolute;
-	  top: 19px; left: -21px;
-	}
-	.ribbon span::before {
-	  content: "";
-	  position: absolute; left: 0px; top: 100%;
-	  z-index: -1;
-	  border-left: 3px solid #808080;
-	  border-right: 3px solid transparent;
-	  border-bottom: 3px solid transparent;
-	  border-top: 3px solid #808080;
-	}
-	.ribbon span::after {
-	  content: "";
-	  position: absolute; right: 0px; top: 100%;
-	  z-index: -1;
-	  border-left: 3px solid transparent;
-	  border-right: 3px solid #808080;
-	  border-bottom: 3px solid transparent;
-	  border-top: 3px solid #808080;
-	}
-</style>
-
 <div class="content p-2">
 	@if ($racing->nextRace() && \Carbon\Carbon::parse($racing->nextRace()->date) > \Carbon\Carbon::now())
 	    <h2>próxima carrera</h2>
 	    <div class="races-schedule-content">
 	    	<div class="countdown-content">
 		    	<p class="race">
+		    		<img src="https://image.flaticon.com/icons/svg/1505/1505471.svg" alt="" width="32" class="m-auto">
 		    		{{ $racing->nextRace()->name }}
 		    	</p>
 		    	<figure>
@@ -64,13 +18,24 @@
 		    		VUELTAS
 		    		<span>{{ $racing->nextRace()->laps }}</span>
 		    	</p>
-	    		<p class="race-date">{{ $racing->nextRaceDate()->format('l j m Y - h:i') }}</p>
+	    		<p class="race-date">
+	    			FECHA
+	    			<span>{{ $racing->nextRaceDate()->format('l, j \d\e F \d\e Y - H:i') }}</span>
+	    		</p>
+	    		<p class="countdown-title text-{{$tournament->game->platform->color}}-600">
+					Inicio de carrera en...
+	    		</p>
 				<ul class="countdown">
 					<li><span id="days">-</span>días</li>
 					<li><span id="hours">-</span>horas</li>
 					<li><span id="minutes">-</span>minutos</li>
 					<li><span id="seconds">-</span>segundos</li>
 				</ul>
+				<p class="w-full text-center mt-6">
+					<button type="button" class="bg-{{$tournament->game->platform->color}}-500 text-white active:bg-{{$tournament->game->platform->color}}-600 hover:bg-{{$tournament->game->platform->color}}-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="window.location.href = '{{ route('tournament.schedule.race', [$tournament, $racing->nextRace()->slug]) }}'">
+						Accede a la carrera
+					</button>
+				</p>
 	    	</div>
 	    </div>
 	@endif
@@ -87,7 +52,7 @@
 	            	<a href="{{ route('tournament.schedule.race', [$tournament, $race->slug]) }}">
 			            <li class="race">
 			            	@if ($race->finished())
-			            		<div class="ribbon"><span>FINALIZADA</span></div>
+			            		<div class="ribbon gray"><span>FINALIZADA</span></div>
 			            	@endif
 
 			            	<div class="item-header">
