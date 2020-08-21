@@ -20097,6 +20097,20 @@ a.disable, button.disable, input.disable, select.disable {
   font-size: 13px;
 }
 
+.tournament .wrapper .content .index-content .empty-view {
+  padding: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+  text-align: center;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
 .tournament .wrapper .content .rules-content {
   margin-top: 0.75rem;
   margin-bottom: 0.75rem;
@@ -20109,6 +20123,16 @@ a.disable, button.disable, input.disable, select.disable {
   --text-opacity: 1;
   color: #4a5568;
   color: rgba(74, 85, 104, var(--text-opacity));
+}
+
+.tournament .wrapper .content .rules-content .empty-view {
+  border-radius: 0.25rem;
+  text-align: center;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .tournament .wrapper .content .participants-content {

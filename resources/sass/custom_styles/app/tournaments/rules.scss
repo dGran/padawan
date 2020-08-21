@@ -1,3 +1,6 @@
 .rules-content {
 	@apply my-3 bg-white border rounded p-3 text-gray-700;
+	.empty-view {
+		@apply rounded text-center text-gray-700 font-bold font-roboto-condensed;
+	}
 }

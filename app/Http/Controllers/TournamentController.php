@@ -77,6 +77,11 @@ class TournamentController extends Controller
 		$phase = $race->racing->group->phase;
 		$group = $race->racing->group;
 
+        // $results = null;
+        // if ($race->finished()) {
+        //     $results = $race->results->orderBy()
+        // }
+
 		return view('tournament.schedule.races.race', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     }
 }

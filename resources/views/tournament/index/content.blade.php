@@ -3,19 +3,25 @@
     {{-- <div class="w-full md:w-3/4"> --}}
     <h2>últimas noticias</h2>
     <div class="index-content">
-        <ul>
-            @foreach ($tournament->seasons->first()->seasons_posts as $post)
-                <li>
-                    <div class="item-container">
-                        <img src="{{ $post->img() }}">
-                        <div class="text">
-                            <p class="post-title text-{{ $tournament->game->platform->color }}-700">{{ $post->title }}</p>
-                            <p class="post-content">{!! nl2br(e($post->content)) !!}</p>
+        @if ($tournament->seasons->first()->seasons_posts->count() >0)
+            <ul>
+                @foreach ($tournament->seasons->first()->seasons_posts as $post)
+                    <li>
+                        <div class="item-container">
+                            <img src="{{ $post->img() }}">
+                            <div class="text">
+                                <p class="post-title text-{{ $tournament->game->platform->color }}-700">{{ $post->title }}</p>
+                                <p class="post-content">{!! nl2br(e($post->content)) !!}</p>
+                            </div>
                         </div>
-                    </div>
-                </li>
-            @endforeach
-        </ul>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <div class="empty-view">
+                No se han encontado noticias
+            </div>
+        @endif
     </div>
     {{-- </div> --}}
 </div>

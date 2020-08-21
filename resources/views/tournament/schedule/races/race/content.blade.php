@@ -45,43 +45,52 @@
 	<div class="submenu bg-white shadow border-b p-2 text-center">
 		<ul>
 			<li class="inline-block text-center">
-				<i class="icon-economy block text-25"></i>
+				{{-- <i class="icon-economy block text-25"></i> --}}
+				<img src="https://image.flaticon.com/icons/svg/1074/1074666.svg" class="h-8 w-8 m-auto">
 				<span class="text-10 uppercase">Circuito</span>
 			</li>
 			<li class="inline-block ml-3 text-center">
-				<i class="icon-economy block text-25"></i>
+				{{-- <i class="icon-economy block text-25"></i> --}}
+				<img src="https://image.flaticon.com/icons/svg/1789/1789066.svg" class="h-8 w-8 m-auto">
 				<span class="text-10 uppercase">Clasificación</span>
 			</li>
 			<li class="inline-block ml-3 text-center">
-				<i class="icon-economy block text-25"></i>
+				{{-- <i class="icon-economy block text-25"></i> --}}
+				<img src="https://image.flaticon.com/icons/svg/1016/1016068.svg" class="h-8 w-8 m-auto">
 				<span class="text-10 uppercase">Carrera</span>
 			</li>
 		</ul>
 
 	</div>
 
-	<div class="grid grid-cols-3 gap-2 md:gap-4 px-4 sm:px-24 md:px-32 lg:px-48 xl:px-64 py-4">
-		<div class="border rounded-r bg-white border-l-0 relative">
-			<div class="border-l-2 border-yellow-400 px-3 py-1">
-				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRlxu7rHTW625hNZbSDqzPFxNp2I1rQr9r2tw&usqp=CAU" class="m-auto h-16 w-16 sm:w-20 sm:h-20 md:h-24 md:w-24 p-1 object-cover rounded-full shadow">
-				<p class="pt-1 font-roboto-condensed font-semibold truncate text-11 sm:text-12 md:text-13 lg:text-14 text-center">Airton Senna</p>
-				<img src="https://image.flaticon.com/icons/svg/199/199533.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
-			</div>
+	@if ($race->finished())
+		<div class="grid grid-cols-3 gap-2 md:gap-4 px-4 sm:px-24 md:px-32 lg:px-48 xl:px-64 py-4">
+			@foreach ($race->results->sortBy('position')->take(3) as $result)
+				<div class="border rounded-r bg-white border-l-0 relative">
+					<div class="border-l-2 border-yellow-400 px-3 py-1">
+						<img src="{{ $result->group_participant->participant->presenter()['img'] }}" class="m-auto h-16 w-16 sm:w-20 sm:h-20 md:h-24 md:w-24 p-1 object-cover rounded-full shadow">
+						<p class="pt-1 font-roboto-condensed font-semibold truncate text-11 sm:text-12 md:text-13 lg:text-14 text-center">
+							{{ $result->group_participant->participant->presenter()['name'] }}
+						</p>
+						@if ($loop->iteration == 1)
+							<img src="https://image.flaticon.com/icons/svg/199/199533.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
+						@endif
+						@if ($loop->iteration == 2)
+							<img src="https://image.flaticon.com/icons/svg/199/199563.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
+						@endif
+						@if ($loop->iteration == 3)
+							<img src="https://image.flaticon.com/icons/svg/199/199573.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
+						@endif
+					</div>
+				</div>
+			@endforeach
 		</div>
-		<div class="border rounded-r bg-white border-l-0 relative">
-			<div class="border-l-2 border-gray-400 px-3 py-1">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Anonymous.svg/1200px-Anonymous.svg.png" class="m-auto h-16 w-16 sm:w-20 sm:h-20 md:h-24 md:w-24 p-1 object-cover rounded-full shadow">
-				<p class="pt-1 font-roboto-condensed font-semibold truncate text-11 sm:text-12 md:text-13 lg:text-14 text-center">Airton Senna</p>
-				<img src="https://image.flaticon.com/icons/svg/199/199563.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
-			</div>
-		</div>
-		<div class="border rounded-r bg-white border-l-0 relative">
-			<div class="border-l-2 border-orange-700 px-3 py-1">
-				<img src="//as01.epimg.net/img/comunes/fotos/fichas/deportistas/v/val/100/24352.jpg" class="m-auto h-16 w-16 sm:w-20 sm:h-20 md:h-24 md:w-24 p-1 object-cover rounded-full shadow">
-				<p class="pt-1 font-roboto-condensed font-semibold truncate text-11 sm:text-12 md:text-13 lg:text-14 text-center">Airton Senna</p>
-				<img src="https://image.flaticon.com/icons/svg/199/199573.svg" style="position: absolute; top: 3px; left: 5px" class="w-6 h-6 md:w-8 md:h-8">
-			</div>
-		</div>
+	@endif
 
-	</div>
-</div>
+	<ul>
+	@foreach ($race->results->sortBy('position') as $result)
+		<li>{{ $result->position }}</li>
+	@endforeach
+	</ul>
+
+</div> {{-- content --}}
