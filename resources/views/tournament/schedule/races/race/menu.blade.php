@@ -49,17 +49,22 @@
 				<li class="inline-block text-center">
 					{{-- <i class="icon-economy block text-25"></i> --}}
 					<img src="https://image.flaticon.com/icons/svg/1074/1074666.svg" class="h-8 w-8 m-auto">
-					<span class="text-10 uppercase">Circuito</span>
+					<span class="text-9 uppercase">Circuito</span>
 				</li>
-				<li class="inline-block ml-3 text-center">
+				<li class="inline-block ml-6 text-center">
 					{{-- <i class="icon-economy block text-25"></i> --}}
 					<img src="https://image.flaticon.com/icons/svg/1789/1789066.svg" class="h-8 w-8 m-auto">
-					<span class="text-10 uppercase">Clasificación</span>
+					<span class="text-9 uppercase">Clasific.</span>
 				</li>
-				<li class="inline-block ml-3 text-center">
+				<li class="inline-block ml-6 text-center">
 					{{-- <i class="icon-economy block text-25"></i> --}}
 					<img src="https://image.flaticon.com/icons/svg/1016/1016068.svg" class="h-8 w-8 m-auto">
-					<span class="text-10 uppercase">Carrera</span>
+					<span class="text-9 uppercase">Carrera</span>
+				</li>
+				<li class="inline-block ml-6 text-center">
+					{{-- <i class="icon-economy block text-25"></i> --}}
+					<img src="https://image.flaticon.com/icons/svg/833/833409.svg" class="h-8 w-8 m-auto">
+					<span class="text-9 uppercase">Multimedia</span>
 				</li>
 			</ul>
 
