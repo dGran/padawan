@@ -20832,6 +20832,154 @@ a.disable, button.disable, input.disable, select.disable {
   }
 }
 
+.tournament .wrapper .content .race-content .race-standing-content {
+  border-width: 1px;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .title {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background: #f9f9f9;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap {
+  overflow-x: auto;
+  border-top-width: 1px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table {
+  width: 100%;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table thead {
+  border-bottom-width: 1px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table thead th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  vertical-align: bottom;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table thead .pos {
+  width: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table thead .participant {
+  text-align: left;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table thead .pts {
+  text-align: center;
+  min-width: 32px;
+  width: 42px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr {
+  border-top: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr:hover {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr td {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .pos {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
+  padding-right: 0.5rem;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .pos span {
+  padding-right: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name {
+  min-width: 230px;
+  max-width: 230px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name .name-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 13px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name .name-container img {
+  border-radius: 9999px;
+  height: 2rem;
+  width: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name .name-container div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-name {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-subname {
+  display: block;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 9px;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .pts-total {
+  text-align: center;
+  font-weight: 700;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 15px;
+  --bg-opacity: 1;
+  background-color: #fffaf0;
+  background-color: rgba(255, 250, 240, var(--bg-opacity));
+  font-family: "Roboto Condensed", sans-serif;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .table-wrap table tbody tr .pts {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-left: 1px solid #f2f2f2;
+}
+
 .tournament .wrapper .sponsors {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;

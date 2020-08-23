@@ -6,11 +6,7 @@
 
     <nav class="breadcrumb">
         <ol class="list-reset">
-            <li class="link"><a href="{{ route('home') }}">Padawan</a></li>
-            <li class="separator"></li>
-            <li class="link"><a href="{{ route('tournaments') }}">Torneos</a></li>
-            <li class="separator"></li>
-            <li class="current">{{ $tournament->name }}</li>
+            @yield('breadcrumb')
         </ol>
     </nav>
 
@@ -30,15 +26,27 @@
 
     <div class="menu overflow-x-auto">
         <ul>
-            <li class="{{ Request::route()->getName() == 'tournament' ? 'active' : 'item' }}"><a href="{{ route('tournament', $tournament) }}">Inicio</a></li>
-            <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}"><a href="{{ route('tournament.rules', $tournament) }}">Normativa</a></li>
+            <li class="{{ Request::route()->getName() == 'tournament' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament', $tournament) }}">Inicio</a>
+            </li>
+            <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.rules', $tournament) }}">Normativa</a>
+            </li>
             @if ($tournament->seasons->first()->competitions->count() > 1)
-                <li class="item"><a href="#">Competiciones</a></li>
+                <li class="item">
+                    <a href="#">Competiciones</a>
+                </li>
             @else
-                <li class="{{ Request::route()->getName() == 'tournament.schedule' ? 'active' : 'item' }}"><a href="{{ route('tournament.schedule', $tournament) }}">Calendario</a></li>
-                <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}"><a href="{{ route('tournament.standing', $tournament) }}">Clasificación</a></li>
+                <li class="{{ Request::route()->getName() == 'tournament.schedule' || Request::route()->getName() == 'tournament.schedule.race' ? 'active' : 'item' }}">
+                    <a href="{{ route('tournament.schedule', $tournament) }}">Calendario</a>
+                </li>
+                <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
+                    <a href="{{ route('tournament.standing', $tournament) }}">Clasificación</a>
+                </li>
             @endif
-            <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}"><a href="{{ route('tournament.participants', $tournament) }}">Participantes</a></li>
+            <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.participants', $tournament) }}">Participantes</a>
+            </li>
         </ul>
     </div>
 

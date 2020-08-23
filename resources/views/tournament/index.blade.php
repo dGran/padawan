@@ -1,5 +1,9 @@
 @extends('layouts.app', ['title' => $tournament->name])
 
+@section('breadcrumb')
+	@include('tournament.index.breadcrumb')
+@endsection
+
 @section('content')
 
 	<div class="tournament">

@@ -1,5 +1,9 @@
 @extends('layouts.app', ['title' => $tournament->name . ' - Normativa'])
 
+@section('breadcrumb')
+	@include('tournament.rules.breadcrumb')
+@endsection
+
 @section('content')
 
 	<div class="tournament">
