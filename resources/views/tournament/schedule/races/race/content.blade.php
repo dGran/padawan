@@ -5,7 +5,7 @@
 
 		@if ($race->finished())
 
-			<div class="grid grid-cols-3 gap-2 md:gap-4 px-4 sm:px-24 md:px-32 lg:px-48 xl:px-64 pt-4 pb-2">
+			<div class="grid grid-cols-3 gap-2 md:gap-4 px-4 sm:px-24 md:px-32 lg:px-48 xl:px-64 pt-4">
 				@foreach ($race->results->sortBy('position')->take(3) as $result)
 					<div class="border rounded-r bg-white border-l-0 relative">
 						<div class="px-3 py-1 {{ $loop->iteration == 1 ? 'border-l-2 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-2 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-2 border-orange-700' : '' }}">
@@ -27,10 +27,10 @@
 				@endforeach
 			</div>
 
-			<div class="px-2 pb-2">
+			<div class="px-2 pb-2 pt-1 m-auto sm:px-24 md:px-32 lg:px-48 xl:px-64">
 				<div class="race-standing-content">
 			    	<div class="title">
-			    		clasificacion pilotos
+			    		carrera
 			    	</div>
 			    	<div class="table-wrap">
 						<table>
