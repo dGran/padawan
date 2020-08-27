@@ -37,7 +37,7 @@
                     <a href="#">Competiciones</a>
                 </li>
             @else
-                <li class="{{ Request::route()->getName() == 'tournament.schedule' || Request::route()->getName() == 'tournament.schedule.race' ? 'active' : 'item' }}">
+                <li class="{{ stripos(Request::route()->getName(), 'tournament.schedule') !== false ? 'active' : 'item' }}">
                     <a href="{{ route('tournament.schedule', $tournament) }}">Calendario</a>
                 </li>
                 <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
