@@ -25,6 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-race_live:before {
+  content: "\e933";
+}
+.icon-multimedia:before {
+  content: "\e934";
+}
+.icon-qualy:before {
+  content: "\e935";
+}
+.icon-race:before {
+  content: "\e936";
+}
+.icon-circuit:before {
+  content: "\e937";
+}
 .icon-logo:before {
   content: "\e92c";
 }
@@ -41,19 +56,19 @@
   content: "\e91a";
 }
 .icon-dice:before {
-  content: "\e933";
+  content: "\e938";
 }
 .icon-dices:before {
-  content: "\e934";
+  content: "\e939";
 }
 .icon-replace:before {
-  content: "\e935";
+  content: "\e93a";
 }
 .icon-kick:before {
-  content: "\e936";
+  content: "\e93b";
 }
 .icon-magic:before {
-  content: "\e937";
+  content: "\e93c";
 }
 .icon-gamepad:before {
   content: "\e92f";
@@ -194,34 +209,34 @@
   content: "\e905";
 }
 .icon-discord:before {
-  content: "\e938";
+  content: "\e93d";
   color: #7289da;
 }
 .icon-facebook:before {
-  content: "\e939";
+  content: "\e93e";
   color: #1877f2;
 }
 .icon-origin:before {
-  content: "\e93a";
+  content: "\e93f";
   color: #f56c2d;
 }
 .icon-steam:before {
-  content: "\e93b";
+  content: "\e940";
 }
 .icon-twitch:before {
-  content: "\e93c";
+  content: "\e941";
   color: #6441a4;
 }
 .icon-twitter:before {
-  content: "\e93d";
+  content: "\e942";
   color: #1da1f2;
 }
 .icon-xbox:before {
-  content: "\e93e";
+  content: "\e943";
   color: #107c10;
 }
 .icon-youtube:before {
-  content: "\e93f";
+  content: "\e944";
   color: #f00;
 }
 .icon-toggle-off:before {

@@ -57,10 +57,7 @@
 							}
 						}
 						.active {
-							@apply text-red-700 cursor-not-allowed;
-							a {
-								pointer-events: none;
-							}
+							@apply text-red-700;
 						}
 					}
 				}
@@ -129,13 +126,240 @@
 					}
 				}
 			}
+			&.gray {
+				background: linear-gradient(180deg, #2d3748 0%, darken(#2d3748, 1) 50%, darken(#2d3748, 4) 75%, darken(#2d3748, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-gray-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-gray-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-gray-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-gray-200;
+					ul {
+						.item {
+							@apply bg-gray-800 border-gray-900;
+							&:hover {
+								@apply bg-gray-300 text-gray-700;
+							}
+						}
+						.active {
+							@apply text-gray-700;
+						}
+					}
+				}
+			}
+			&.orange {
+				background: linear-gradient(180deg, #9c4221 0%, darken(#9c4221, 1) 50%, darken(#9c4221, 4) 75%, darken(#9c4221, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-orange-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-orange-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-orange-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-orange-200;
+					ul {
+						.item {
+							@apply bg-orange-800 border-orange-900;
+							&:hover {
+								@apply bg-orange-300 text-orange-700;
+							}
+						}
+						.active {
+							@apply text-orange-700;
+						}
+					}
+				}
+			}
+			&.yellow {
+				background: linear-gradient(180deg, #975a16 0%, darken(#975a16, 1) 50%, darken(#975a16, 4) 75%, darken(#975a16, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-yellow-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-yellow-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-yellow-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-yellow-200;
+					ul {
+						.item {
+							@apply bg-yellow-800 border-yellow-900;
+							&:hover {
+								@apply bg-yellow-300 text-yellow-700;
+							}
+						}
+						.active {
+							@apply text-yellow-700;
+						}
+					}
+				}
+			}
+			&.teal {
+				background: linear-gradient(180deg, #285e61 0%, darken(#285e61, 1) 50%, darken(#285e61, 4) 75%, darken(#285e61, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-teal-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-teal-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-teal-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-teal-200;
+					ul {
+						.item {
+							@apply bg-teal-800 border-teal-900;
+							&:hover {
+								@apply bg-teal-300 text-teal-700;
+							}
+						}
+						.active {
+							@apply text-teal-700;
+						}
+					}
+				}
+			}
+			&.indigo {
+				background: linear-gradient(180deg, #434190 0%, darken(#434190, 1) 50%, darken(#434190, 4) 75%, darken(#434190, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-indigo-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-indigo-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-indigo-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-indigo-200;
+					ul {
+						.item {
+							@apply bg-indigo-800 border-indigo-900;
+							&:hover {
+								@apply bg-indigo-300 text-indigo-700;
+							}
+						}
+						.active {
+							@apply text-indigo-700;
+						}
+					}
+				}
+			}
+			&.purple {
+				background: linear-gradient(180deg, #553c9a 0%, darken(#553c9a, 1) 50%, darken(#553c9a, 4) 75%, darken(#553c9a, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-purple-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-purple-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-purple-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-purple-200;
+					ul {
+						.item {
+							@apply bg-purple-800 border-purple-900;
+							&:hover {
+								@apply bg-purple-300 text-purple-700;
+							}
+						}
+						.active {
+							@apply text-purple-700;
+						}
+					}
+				}
+			}
+			&.pink {
+				background: linear-gradient(180deg, #97266d 0%, darken(#97266d, 1) 50%, darken(#97266d, 4) 75%, darken(#97266d, 10) 100%);
+				.breadcrumb {
+					ol {
+						@apply text-pink-400;
+					}
+				}
+				.tournament-info {
+					.logo {
+						@apply border-pink-900;
+					}
+					.info {
+						.game, .platform, .participation {
+							@apply text-pink-400;
+						}
+					}
+				}
+				.menu {
+					@apply text-pink-200;
+					ul {
+						.item {
+							@apply bg-pink-800 border-pink-900;
+							&:hover {
+								@apply bg-pink-300 text-pink-700;
+							}
+						}
+						.active {
+							@apply text-pink-700;
+						}
+					}
+				}
+			}
 
 			.breadcrumb {
 				@apply px-2;
 				border-top: 1px solid rgba(200,200,200,0.1);
 				border-bottom: 1px solid rgba(0,0,0,0.1);
 				ol {
-					@apply flex py-1 font-roboto-condensed text-13;
+					@apply flex py-1 font-roboto-condensed text-13 truncate;
+					li {
+						@apply truncate;
+					}
 					.link {
 						@apply font-bold;
 					}
@@ -146,7 +370,7 @@
 						}
 					}
 					.current {
-						@apply truncate;
+						// @apply truncate;
 					}
 				}
 			}
@@ -203,9 +427,10 @@
 						}
 					}
 					.active {
-						@apply border border-transparent rounded bg-white mr-1 text-center;
+						@apply border border-transparent rounded bg-white mr-1 text-center cursor-not-allowed;
 						a {
 							@apply block px-3;
+							pointer-events: none;
 						}
 					}
 				}

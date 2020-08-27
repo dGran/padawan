@@ -71,17 +71,56 @@ class TournamentController extends Controller
 
     public function scheduleRace(Tournament $tournament, $race_slug)
     {
+        $race = Race::where('slug', $race_slug)->first();
+
+        if ($race->finished()) {
+            return redirect()->route('tournament.schedule.race.result', [$tournament, $race_slug]);
+        }
+
+        return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
+    }
+
+    public function scheduleRaceCircuit(Tournament $tournament, $race_slug)
+    {
 		$race = Race::where('slug', $race_slug)->first();
 		$season = $race->racing->group->phase->competition->season;
 		$competition = $race->racing->group->phase->competition;
 		$phase = $race->racing->group->phase;
 		$group = $race->racing->group;
 
-        // $results = null;
-        // if ($race->finished()) {
-        //     $results = $race->results->orderBy()
-        // }
+		return view('tournament.schedule.races.race.circuit', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    }
 
-		return view('tournament.schedule.races.race', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    public function scheduleRaceQualy(Tournament $tournament, $race_slug)
+    {
+        $race = Race::where('slug', $race_slug)->first();
+        $season = $race->racing->group->phase->competition->season;
+        $competition = $race->racing->group->phase->competition;
+        $phase = $race->racing->group->phase;
+        $group = $race->racing->group;
+
+        return view('tournament.schedule.races.race.qualy', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    }
+
+    public function scheduleRaceResult(Tournament $tournament, $race_slug)
+    {
+        $race = Race::where('slug', $race_slug)->first();
+        $season = $race->racing->group->phase->competition->season;
+        $competition = $race->racing->group->phase->competition;
+        $phase = $race->racing->group->phase;
+        $group = $race->racing->group;
+
+        return view('tournament.schedule.races.race.result', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    }
+
+    public function scheduleRaceMultimedia(Tournament $tournament, $race_slug)
+    {
+        $race = Race::where('slug', $race_slug)->first();
+        $season = $race->racing->group->phase->competition->season;
+        $competition = $race->racing->group->phase->competition;
+        $phase = $race->racing->group->phase;
+        $group = $race->racing->group;
+
+        return view('tournament.schedule.races.race.multimedia', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     }
 }

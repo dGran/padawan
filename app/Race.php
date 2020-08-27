@@ -30,12 +30,33 @@ class Race extends Model
         return new \Date($date);
     }
 
-    public function finished() {
+    public function finished()
+    {
         $result = RaceResult::where('race_id', '=', $this->id)->where('position', '=', 1)->count();
         if ($result > 0) {
             return true;
         }
         return false;
+    }
+
+    public function has_media()
+    {
+        if (is_null($this->twitch_video_id) && is_null($this->youtube_video_id)) {
+            return false;
+        }
+        return true;
+    }
+
+    public function fastest_lap()
+    {
+        $fastest_lap = RaceResult::where('race_id', '=', $this->id)->where('fastest_lap', '=', 1)->first();
+        return $fastest_lap->group_participant->participant;
+    }
+
+    public function pole()
+    {
+        $pole = RaceResult::where('race_id', '=', $this->id)->where('pole', '=', 1)->first();
+        return $pole->group_participant->participant;
     }
 
     public function score_participant($id)

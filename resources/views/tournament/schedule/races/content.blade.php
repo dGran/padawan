@@ -4,7 +4,7 @@
 	    <div class="races-schedule-content">
 	    	<div class="countdown-content">
 		    	<p class="race">
-		    		<img src="https://image.flaticon.com/icons/svg/1505/1505471.svg" alt="" width="32" class="m-auto">
+		    		<img src="{{ asset('img/tournaments/other/race_flag.png') }}" alt="" width="32" class="m-auto">
 		    		{{ $racing->nextRace()->name }}
 		    	</p>
 		    	<figure>
@@ -31,8 +31,8 @@
 					<li><span id="minutes">-</span>minutos</li>
 					<li><span id="seconds">-</span>segundos</li>
 				</ul>
-				<p class="w-full text-center mt-6">
-					<button type="button" class="bg-{{$tournament->game->platform->color}}-500 text-white active:bg-{{$tournament->game->platform->color}}-600 hover:bg-{{$tournament->game->platform->color}}-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1" type="button" style="transition: all .15s ease" onclick="window.location.href = '{{ route('tournament.schedule.race', [$tournament, $racing->nextRace()->slug]) }}'">
+				<p class="race-link">
+					<button type="button" class="bg-{{$tournament->game->platform->color}}-500 active:bg-{{$tournament->game->platform->color}}-600 hover:bg-{{$tournament->game->platform->color}}-600" onclick="window.location.href = '{{ route('tournament.schedule.race', [$tournament, $racing->nextRace()->slug]) }}'">
 						Accede a la carrera
 					</button>
 				</p>
@@ -65,7 +65,7 @@
 			            				@endif
 			            			</span>
 			            			<div class="bottom">
-			            				<span class="month uppercase">
+			            				<span class="month">
 			            					@if (!is_null($race->date))
 			            						{{ str_replace(".", "", $race->date->format('M')) }} |
 			            					@else

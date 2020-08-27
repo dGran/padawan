@@ -1,0 +1,109 @@
+@include('tournament.schedule.races.race.menu')
+
+<div class="content">
+	<div class="race-content">
+
+		@if ($race->finished())
+
+			<div class="race-standing-tops">
+				@foreach ($race->results->sortBy('position')->take(3) as $result)
+					<div class="items">
+						<div class="item {{ $loop->iteration == 1 ? 'border-l-2 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-2 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-2 border-orange-700' : '' }}">
+							<img class="img" src="{{ $result->group_participant->participant->presenter()['img'] }}">
+							<p class="name">
+								{{ $result->group_participant->participant->presenter()['name'] }}
+							</p>
+							@if ($loop->iteration == 1)
+								<img class="position-indicator" src="{{ asset('img/tournaments/other/gold.png') }}">
+							@endif
+							@if ($loop->iteration == 2)
+								<img class="position-indicator" src="{{ asset('img/tournaments/other/silver.png') }}">
+							@endif
+							@if ($loop->iteration == 3)
+								<img class="position-indicator" src="{{ asset('img/tournaments/other/bronze.png') }}">
+							@endif
+						</div>
+					</div>
+				@endforeach
+			</div> {{-- race-standing-tops --}}
+
+			<div class="race-standing-content">
+				<div class="race-standing-results mt-4">
+			    	<div class="title">
+			    		carrera
+			    	</div>
+			    	<div class="table-wrap">
+						<table>
+						    <thead>
+								<tr>
+									<th class="pos">Pos</th>
+									<th class="participant">Piloto</th>
+									<th class="pts">PTS</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($race->results->sortBy('position') as $position)
+									<tr>
+										<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
+											<span>{{ $loop->iteration }}</span>
+										</td>
+						                <td class="participant-name">
+						                	<div class="name-container">
+							                    <img src="{{ $position->group_participant->participant->presenter()['img'] }}">
+							                    <div>
+								                    <span class="text-name">{{ $position->group_participant->participant->presenter()['name'] }}</span>
+								                    {{-- <sapn class="text-subname">Mercedes</span> --}}
+							                    </div>
+						                	</div>
+						                </td>
+								        <td class="pts-total">
+							        		{{ $race->score_participant($position->group_participant->id) }}
+										</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div> {{-- race-standing-results --}}
+
+				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
+
+					<div class="race-standing-results">
+				    	<div class="title text-center">
+				    		vuelta rápida
+				    	</div>
+				    	<div class="sub-results-content">
+				    		<img src="{{ $race->fastest_lap()->presenter()['img'] }}">
+							<p>
+								{{ $race->fastest_lap()->presenter()['name'] }}
+							</p>
+				    	</div>
+					</div> {{-- race-standing-results --}}
+
+					<div class="race-standing-results">
+				    	<div class="title text-center">
+				    		pole position
+				    	</div>
+				    	<div class="sub-results-content">
+				    		<img src="{{ $race->pole()->presenter()['img'] }}">
+							<p>
+								{{ $race->pole()->presenter()['name'] }}
+							</p>
+				    	</div>
+					</div> {{-- race-standing-results --}}
+
+				</div> {{-- grid --}}
+
+			</div> {{-- race-standing-content --}}
+
+		@else
+			<div class="race-standing-content pt-5">
+				<p class="empty-data">
+					<b>Información no disponible</b>, la carrera aún no se ha disputado.
+				</p>
+			</div>
+		@endif
+
+	</div> {{-- race-content --}}
+
+</div> {{-- content --}}
