@@ -12,9 +12,14 @@
 					@apply py-4;
 				}
 				.circuit-flag {
-					@apply h-10 w-10 rounded-full border border-white object-cover mr-2;
+					@apply h-10 w-10 rounded-full object-cover mr-2;
+					border: 1px solid rgba(0,0,0,0.1);
 					@screen md {
 						@apply h-12 w-12;
+					}
+					img {
+						@apply h-full w-full rounded-full object-cover;
+						border: 1px solid rgba(200,200,200,0.1);
 					}
 				}
 				.bloql {

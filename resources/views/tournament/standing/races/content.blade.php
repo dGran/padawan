@@ -28,7 +28,10 @@
 						<th class="participant">Piloto</th>
 						<th class="pts">PTS</th>
 						@foreach ($racing->races as $race)
-							<th class="pts">{{ $race->short_name() }}</th>
+							<th class="pts">
+								<img src="{{ $race->circuit->flag() }}" class="w-6 object-cover rounded border m-auto mb-1">
+								{{ $race->short_name() }}
+							</th>
 						@endforeach
 					</tr>
 				</thead>

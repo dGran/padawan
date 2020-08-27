@@ -20,6 +20,8 @@ class CircuitsImport implements ToModel, WithHeadingRow
                 $circuit = GameCircuit::create([
                    'game_id'    => $row['game_id'],
                    'name'       => $row['name'],
+                   'length'     => $row['length'],
+                   'country_id' => $row['country_id'],
                 ]);
                 return $circuit;
             }

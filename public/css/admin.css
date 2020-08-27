@@ -20348,6 +20348,17 @@ input:focus, select:focus, textarea:focus {
   border-radius: 9999px;
 }
 
+.form .thumbnail.original-size {
+  height: auto;
+  width: auto;
+}
+
+@media (min-width: 1024px) {
+  .form .thumbnail.original-size {
+    max-width: 640px;
+  }
+}
+
 .form .field-group {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -20430,6 +20441,17 @@ input:focus, select:focus, textarea:focus {
   overflow: hidden;
   border-width: 4px;
   border-radius: 0.5rem;
+}
+
+.view .image.original-size {
+  height: auto;
+  width: auto;
+}
+
+@media (min-width: 1024px) {
+  .view .image.original-size {
+    max-width: 640px;
+  }
 }
 
 .view .image img {

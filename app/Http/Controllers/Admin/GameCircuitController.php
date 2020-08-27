@@ -12,6 +12,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use App\GameCircuit;
 use App\Game;
+use App\Country;
 
 class GameCircuitController extends Controller
 {
@@ -22,6 +23,7 @@ class GameCircuitController extends Controller
         $order = request()->order ? request()->order : 'id';
         $filterName = request()->filterName;
         $filterGame = request()->filterGame;
+        $filterCountry = request()->filterCountry;
         $page = request()->page;
         if (!$page) {
             if (request()->session()->get('circuit_page')) {
@@ -42,15 +44,18 @@ class GameCircuitController extends Controller
             if (request()->session()->get('circuit_filterGame')) {
                 $filterGame = request()->session()->get('circuit_filterGame');
             }
+            if (request()->session()->get('circuit_filterCountry')) {
+                $filterCountry = request()->session()->get('circuit_filterCountry');
+            }
         }
 
         $order_ext = $this->getOrder($order);
 
-        $circuits = GameCircuit::name($filterName)->game($filterGame)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
+        $circuits = GameCircuit::name($filterName)->game($filterGame)->country($filterCountry)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage);
         if ($page > $circuits->lastPage()) {
             $page = $circuits->lastPage();
         }
-        $circuits = GameCircuit::name($filterName)->game($filterGame)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
+        $circuits = GameCircuit::name($filterName)->game($filterGame)->country($filterCountry)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->Paginate($perPage, ['*'], 'page', $page);
 
         $games = Game::where('circuits', true)->orderBy('name')->get();
         if (!$filterGame == 0) {
@@ -60,13 +65,21 @@ class GameCircuitController extends Controller
             $filterGameName = null;
         }
 
+        $countries = Country::orderBy('name')->get();
+        if (!$filterCountry == 0) {
+            $filterCountryName = Country::find($filterCountry)->name;
+        } else {
+            $filterCountryName = null;
+        }
+
         session(['circuit_perPage' => $perPage]);
         session(['circuit_page' => $page]);
         session(['circuit_order' => $order]);
         session(['circuit_filterName' => $filterName]);
         session(['circuit_filterGame' => $filterGame]);
+        session(['circuit_filterCountry' => $filterCountry]);
 
-    	return view('admin.circuits.list', ['circuits' => $circuits, 'games' => $games, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterGame' => $filterGame, 'filterGameName' => $filterGameName, 'order' => $order]);
+    	return view('admin.circuits.list', ['circuits' => $circuits, 'games' => $games, 'countries' => $countries, 'page' => $page, 'perPage' => $perPage, 'filterName' => $filterName, 'filterGame' => $filterGame, 'filterGameName' => $filterGameName, 'filterCountry' => $filterCountry, 'filterCountryName' => $filterCountryName, 'order' => $order]);
     }
 
     public function view($id)
@@ -78,8 +91,9 @@ class GameCircuitController extends Controller
     public function add()
     {
     	$games = Game::where('circuits', true)->orderBy('name')->get();
+        $countries = Country::orderBy('name')->get();
         if ($games->count() > 0) {
-            return view('admin.circuits.add', ['games' => $games]);
+            return view('admin.circuits.add', ['games' => $games, 'countries' => $countries]);
         } else {
             flash()->error('No existen juegos que admitan circuitos, debe existir al menos uno para poder crear un nuevo circuito');
             return back();
@@ -125,8 +139,9 @@ class GameCircuitController extends Controller
     {
         $circuit = GameCircuit::findOrFail($id);
         $games = Game::where('circuits', true)->orderBy('name')->get();
+        $countries = Country::orderBy('name')->get();
 
-		return view('admin.circuits.edit', ['circuit' => $circuit, 'games' => $games]);
+		return view('admin.circuits.edit', ['circuit' => $circuit, 'games' => $games, 'countries' => $countries]);
     }
 
     public function update($id, Request $request)

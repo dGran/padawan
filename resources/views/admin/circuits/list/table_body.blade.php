@@ -9,9 +9,9 @@
     </td>
     <td onclick="rowSelect(this)">
         <div class="flex items-center">
-            <div class="flex-shrink-0 w-10 h-10">
-                <img class="object-cover w-full h-full rounded"
-                    src="{{ $circuit->img() }}"
+            <div class="flex-shrink-0 ">
+                <img class="object-cover w-full h-full rounded border"
+                    src="{{ $circuit->flag() }}"
                     alt="" />
             </div>
             <div class="ml-3">

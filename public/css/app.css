@@ -21071,12 +21071,20 @@ a.disable, button.disable, input.disable, select.disable {
 }
 
 .tournament .wrapper .content .races-schedule-content .empty-view {
+  padding: 0.75rem;
+  margin-top: 0.75rem;
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
-  border-radius: 0.25rem;
   border-width: 1px;
-  padding: 0.75rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  position: relative;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
 }
 
 .tournament .wrapper .content .races-schedule-content .races {
@@ -21254,13 +21262,10 @@ a.disable, button.disable, input.disable, select.disable {
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 9999px;
-  border-width: 1px;
-  --border-opacity: 1;
-  border-color: #fff;
-  border-color: rgba(255, 255, 255, var(--border-opacity));
   -o-object-fit: cover;
      object-fit: cover;
   margin-right: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -21268,6 +21273,15 @@ a.disable, button.disable, input.disable, select.disable {
     height: 3rem;
     width: 3rem;
   }
+}
+
+.tournament .wrapper .content .race-content .race-title .race-title-banner .race-title-container .circuit-flag img {
+  height: 100%;
+  width: 100%;
+  border-radius: 9999px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border: 1px solid rgba(200, 200, 200, 0.1);
 }
 
 .tournament .wrapper .content .race-content .race-title .race-title-banner .race-title-container .bloql {

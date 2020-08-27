@@ -5,7 +5,9 @@
 		<div class="race-title">
 			<div class="race-title-banner" style="background: url('{{ asset('img/tournaments/other/race_banner.png') }}') no-repeat 0 0;">
 				<div class="race-title-container">
-					<img class="circuit-flag" src="https://as01.epimg.net/img/comunes/fotos/fichas/paises/svg/aut.svg">
+					<figure class="circuit-flag">
+						<img src="{{ $race->circuit->flag() }}">
+					</figure>
 					<div class="bloql flex-1">
 						<div>
 							<span class="race-name">

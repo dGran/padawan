@@ -21,6 +21,12 @@ class CreateGamesCircuitsTable extends Migration
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->references('id')
+                ->on('countries')
+                ->onDelete('cascade');
+            $table->string('length')->nullable();
         });
     }
 

@@ -281,6 +281,12 @@ input, select, textarea {
 		&.circle {
 			@apply rounded-full;
 		}
+		&.original-size {
+			@apply h-auto w-auto;
+			@screen lg {
+				@apply max-w-screen-sm;
+			}
+		}
 	}
 	.field-group {
 		@apply -mx-3 flex-col flex;
@@ -308,6 +314,12 @@ input, select, textarea {
 	@apply bg-white shadow overflow-hidden rounded-lg my-4 py-4 flex-1;
 	.image {
 		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 rounded-lg;
+		&.original-size {
+			@apply h-auto w-auto;
+			@screen lg {
+				@apply max-w-screen-sm;
+			}
+		}
 		img {
 			@apply object-cover w-full h-full;
 		}

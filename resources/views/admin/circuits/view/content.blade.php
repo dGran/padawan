@@ -2,7 +2,7 @@
 
 	<div class="view">
 
-		<div class="image">
+		<div class="image original-size">
         	<img src="{{ $circuit->img() }}">
 		</div>
 		<div class="title">
@@ -29,6 +29,26 @@
 				<dt>Juego</dt>
 				<dd>{{ $circuit->game->name }}
 					<span class="block text-xs text-gray-600">{{ $circuit->game->platform->name }}</span>
+				</dd>
+			</div>
+			<div>
+				<dt>Longitud</dt>
+				<dd>
+					@if ($circuit->length)
+						{{ number_format($circuit->length, 0, ',', '.') }} km
+					@else
+						N/D
+					@endif
+				</dd>
+			</div>
+			<div>
+				<dt>País</dt>
+				<dd>
+					@if ($circuit->country)
+						{{ $circuit->country->name }}
+					@else
+						N/D
+					@endif
 				</dd>
 			</div>
 	    </dl>

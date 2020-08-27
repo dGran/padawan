@@ -24,6 +24,7 @@ class CreateRacesTable extends Migration
                 ->on('games_circuits')
                 ->onDelete('cascade');
             $table->string('name');
+            $table->string('short_name');
             $table->dateTime('date')->nullable();
             $table->integer('laps')->nullable();
             $table->string('twitch_video_id')->nullable();

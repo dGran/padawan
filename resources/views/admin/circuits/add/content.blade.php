@@ -8,7 +8,7 @@
             <input type="hidden" name="deleteImg" id="deleteImg" value=0>
             <div class="flex flex-row mb-3 rounded justify-center">
                 <div class="relative">
-                    <img id="thumbnail" src="{{ asset('img/circuits/default.png') }}" alt="img" class="thumbnail">
+                    <img id="thumbnail" src="{{ asset('img/circuits/default.png') }}" alt="img" class="thumbnail original-size">
                     <a id="delete_img" class="hidden absolute rounded-full h-8 w-8 flex items-center justify-center bg-red-500 text-white active:bg-red-600 font-bold outline-none focus:outline-none text-xl cursor-pointer" onclick="deleteImage()" style="top: -5px; right: -10px">
                         <i class="fas fa-times"></i>
                     </a>
@@ -37,6 +37,32 @@
                             @foreach ($games as $game)
                                 <option {{ old('game_id') == $game->id ? 'selected' : '' }} value="{{ $game->id }}">
                                     {{ $game->name }} ({{ $game->platform->name }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="field-group">
+                <div class="element">
+                    <label for="length">Longitud</label>
+                    <input type="number" class="placeholder-gray-400" id="length" name="length" placeholder="Longitud (metros)" value="{{ old('length') }}">
+                </div>
+                <div class="element">
+                    <label for="country_id">País</label>
+                    <div class="relative">
+                        <select name="country_id" id="country_id">
+                            <option value="">*Desconocido</option>
+                            @foreach ($countries as $country)
+                                <option {{ old('country_id') == $country->id ? 'selected' : '' }} value="{{ $country->id }}">
+                                    {{ $country->name }}
                                 </option>
                             @endforeach
                         </select>

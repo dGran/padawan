@@ -1,6 +1,8 @@
-<figure class="banner">
-    <img src="{{ asset('img/games/' . $tournament->game->banner) }}" alt="{{ $tournament->name }}">
-</figure>
+@if ($tournament->game->banner)
+    <figure class="banner">
+        <img src="{{ asset('img/games/' . $tournament->game->banner) }}" alt="{{ $tournament->name }}">
+    </figure>
+@endif
 
 <div class="platform-content {{ $tournament->game->platform->color }}">
 

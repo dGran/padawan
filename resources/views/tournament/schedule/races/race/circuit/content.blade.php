@@ -11,10 +11,10 @@
 		    	<div class="content">
 		    		<ul>
 		    			<li>
-							<i class="fas fa-dot-circle mr-2 text-{{ $tournament->game->platform->color }}-700"></i><b>País:</b><img class="mx-1 h-6 w-6 inline-block" src="https://as01.epimg.net/img/comunes/fotos/fichas/paises/svg/aut.svg">Japón
+							<i class="fas fa-dot-circle mr-2 text-{{ $tournament->game->platform->color }}-700"></i><b>País: </b> {{ $race->circuit->country_name() }}
 		    			</li>
 		    			<li>
-							<i class="fas fa-dot-circle mr-2 text-{{ $tournament->game->platform->color }}-700"></i><b>Longitud: </b> 1300 m.
+							<i class="fas fa-dot-circle mr-2 text-{{ $tournament->game->platform->color }}-700"></i><b>Longitud: </b> {{ $race->circuit->length() }}
 		    			</li>
 		    			<li>
 							<i class="fas fa-dot-circle mr-2 text-{{ $tournament->game->platform->color }}-700"></i><b>Vueltas: </b> {{ $race->laps }}

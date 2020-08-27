@@ -12,6 +12,11 @@
         applyFilters();
     }
 
+    function cancelFilterCountry() {
+        $("#filterCountry").val('0');
+        applyFilters();
+    }
+
     $("#form-filter").submit(function(event) {
         disabledActionsButtons();
     });
