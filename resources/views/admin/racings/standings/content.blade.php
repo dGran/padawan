@@ -11,15 +11,15 @@
 			    <table class="admin-tables">
 			        <thead>
 						<tr>
-							<th class="sticky" style="width: 60px; min-width: 60px; max-width: 60px; left: 0px;">
+							<th class="w-12">
 								Pos.
 							</th>
-							<th class="sticky text-left" style="width: 150px; min-width: 150px; max-width: 150px; left: 60px;">Piloto</th>
-							<th class="text-center">Puntos</th>
+							<th class="text-left" style="min-width: 202px;">Piloto</th>
+							<th class="text-center w-10">Pts</th>
 							@foreach ($racing->races as $race)
-								<th class="text-center">
-									<div class="whitespace-no-wrap text-center w-full" style="font-size: 10px;">
-										{{ $race->name }}
+								<th class="text-center w-10">
+									<div class="whitespace-no-wrap text-center text-10">
+										{{ $race->short_name }}
 									</div>
 								</th>
 							@endforeach
@@ -28,10 +28,10 @@
 					<tbody>
 						@foreach ($positions as $position)
 							<tr>
-								<td class="text-center sticky" style="width: 50px; min-width: 50px; max-width: 50px; left: 0px;">
+								<td class="text-center">
 									<span class="font-bold text-base text-gray-600">{{ $loop->iteration }}</span>
 								</td>
-				                <td class="sticky" style="width: 150px; min-width: 150px; max-width: 150px; left: 60px;">
+				                <td class="">
 				                	<div class="flex flex-row items-center">
 					                    <img src="{{ $position['participant']->participant->presenter()['img'] }}" alt="" width=30>
 					                    <span class="mx-2 truncate">{{ $position['participant']->participant->presenter()['name'] }}</span>
@@ -41,7 +41,7 @@
 						        	{{ $position['pts'] }}
 								</td>
 								@foreach ($racing->races as $race)
-									<td class="text-center">
+									<td class="text-center text-10">
 										{{ $race->score_participant($position['participant']->id) }}
 									</td>
 								@endforeach

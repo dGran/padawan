@@ -7,7 +7,7 @@
             </div>
         </label>
     </th>
-    <th class="">
+    <th class="text-left">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'name' ? 'name_desc' : 'name' }}')">Nombre</span>
         @if ($order == 'name')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -17,10 +17,12 @@
         @endif
     </th>
     @if ($tournament->use_teams)
-        @if ($tournament->participant_type == "individual")
-            <th>Usuario</th>
-        @else
-            <th>E-Team</th>
-        @endif
+        <th class="text-left">
+            @if ($tournament->participant_type == "individual")
+                Usuario
+            @else
+                E-Team
+            @endif
+        </th>
     @endif
 </tr>

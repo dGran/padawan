@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Racing extends Model
 {
-	protected $fillable = ['group_id', 'num_races', 'fastest_lap'];
+	protected $fillable = ['group_id', 'fastest_lap', 'score_fastest_lap', 'pre_qualifying', 'qualifying', 'score_pole', 'times', 'show_circuit_flags'];
     public $timestamps = false;
 
     public function group()

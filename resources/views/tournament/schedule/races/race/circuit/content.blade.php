@@ -23,7 +23,7 @@
 			    	<figure>
 			    		<img src="{{ $race->circuit->img() }}">
 			    	</figure>
-		    	</div>
+			    </div>
 			</div>
 		</div>
 

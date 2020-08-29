@@ -5,7 +5,7 @@
     <div class="index-content">
         @if ($tournament->seasons->first()->seasons_posts->count() >0)
             <ul>
-                @foreach ($tournament->seasons->first()->seasons_posts as $post)
+                @foreach ($tournament->seasons->first()->seasons_posts->sortByDesc('created_at') as $post)
                     <li>
                         <div class="item-container">
                             <img src="{{ $post->img() }}">

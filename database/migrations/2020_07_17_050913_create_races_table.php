@@ -24,11 +24,11 @@ class CreateRacesTable extends Migration
                 ->on('games_circuits')
                 ->onDelete('cascade');
             $table->string('name');
-            $table->string('short_name');
+            $table->string('short_name')->nullable();
             $table->dateTime('date')->nullable();
             $table->integer('laps')->nullable();
-            $table->string('twitch_video_id')->nullable();
-            $table->string('youtube_video_id')->nullable();
+            $table->boolean('pre_qualifying')->default(false);
+            $table->boolean('qualifying')->default(false);
             $table->string('slug');
         });
     }

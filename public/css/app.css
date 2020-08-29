@@ -19426,6 +19426,26 @@ a.disable, button.disable, input.disable, select.disable {
   border-top: 3px solid #808080;
 }
 
+.video-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.video-container::after {
+  padding-top: 56.25%;
+  display: block;
+  content: "";
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .swal-footer {
   --bg-opacity: 1;
   background-color: #edf2f7;
@@ -20679,112 +20699,6 @@ a.disable, button.disable, input.disable, select.disable {
   padding: 0.5rem;
   border-radius: 0.25rem;
   background: #f9f9f9;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops {
-  text-align: center;
-  border-top-width: 1px;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-  margin-bottom: 3rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure {
-  position: relative;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .img-participant {
-  width: 5rem;
-  height: 5rem;
-  border-radius: 9999px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .img-position {
-  width: 2rem;
-  height: 2rem;
-  position: absolute;
-  border-width: 1px;
-  --border-opacity: 1;
-  border-color: #fff;
-  border-color: rgba(255, 255, 255, var(--border-opacity));
-  border-radius: 0.25rem;
-  padding: 0.25rem;
-  top: -5px;
-  left: 3px;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  border-width: 1px;
-  --border-opacity: 1;
-  border-color: #fff;
-  border-color: rgba(255, 255, 255, var(--border-opacity));
-  width: 6rem;
-  border-radius: 0.25rem;
-  font-size: 10px;
-  padding: 0.25rem;
-  text-align: center;
-  position: absolute;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  bottom: -5px;
-  left: 0px;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure .pts {
-  font-size: 28px;
-  font-weight: 700;
-  font-family: "Roboto Condensed", sans-serif;
-  width: 100%;
-  text-align: center;
-  position: absolute;
-  bottom: -45px;
-  left: 0px;
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.first .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.first .name {
-  --bg-opacity: 1;
-  background-color: #f6e05e;
-  background-color: rgba(246, 224, 94, var(--bg-opacity));
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second .name {
-  --bg-opacity: 1;
-  background-color: #cbd5e0;
-  background-color: rgba(203, 213, 224, var(--bg-opacity));
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .img-position, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .name {
-  --bg-opacity: 1;
-  background-color: #c05621;
-  background-color: rgba(192, 86, 33, var(--bg-opacity));
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third .name {
-  --text-opacity: 1;
-  color: #fff;
-  color: rgba(255, 255, 255, var(--text-opacity));
-}
-
-.tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third {
-  margin-left: 0.75rem;
-}
-
-@media (min-width: 768px) {
-  .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.second, .tournament .wrapper .content .races-standing-content .races-tops .wrap figure.third {
-    margin-left: 2rem;
-  }
 }
 
 .tournament .wrapper .content .races-standing-content .table-wrap {

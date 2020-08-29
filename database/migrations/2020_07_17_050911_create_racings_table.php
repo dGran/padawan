@@ -19,9 +19,13 @@ class CreateRacingsTable extends Migration
                 ->references('id')
                 ->on('groups')
                 ->onDelete('cascade');
-            $table->integer("num_races")->nullable()->default(1);
             $table->boolean('fastest_lap')->default(false);
-            $table->boolean('pole')->default(false);
+            $table->integer('score_fastest_lap')->default(0);
+            $table->boolean('pre_qualifying')->default(false);
+            $table->boolean('qualifying')->default(false);
+            $table->integer('score_pole')->default(0);
+            $table->boolean('times')->default(false);
+            $table->boolean('show_circuit_flags')->default(false);
         });
     }
 

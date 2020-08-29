@@ -7,7 +7,7 @@
             </div>
         </label>
     </th>
-    <th>
+    <th class="text-left">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'name' ? 'name_desc' : 'name' }}')">Nombre</span>
         @if ($order == 'name')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -16,10 +16,10 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden xl:table-cell">
+    <th class="hidden xl:table-cell text-left">
         <span>Liga</span>
     </th>
-    <th>
+    <th class="text-left">
         <span>Juego</span>
     </th>
 </tr>

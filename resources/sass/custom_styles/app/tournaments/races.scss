@@ -4,57 +4,6 @@
 		@apply uppercase text-13 font-bold p-2 rounded;
 		background: #f9f9f9;
 	}
-	.races-tops {
-		@apply text-center border-t;
-		.wrap {
-			@apply flex justify-center mt-4 mb-12 mx-2;
-			figure {
-				@apply relative;
-				.img-participant {
-					@apply w-20 h-20 rounded-full object-cover m-2 shadow-md;
-				}
-				.img-position {
-					@apply w-8 h-8 absolute border border-white rounded p-1;
-					top: -5px;
-					left: 3px;
-				}
-				.name {
-					@apply truncate border border-white w-24 rounded text-10 p-1 text-center absolute shadow-md;
-					bottom: -5px;
-					left: 0px;
-				}
-				.pts {
-					@apply text-28 font-bold font-roboto-condensed w-full text-center absolute;
-					bottom: -45px;
-					left: 0px;
-				}
-				&.first {
-					.img-position, .name {
-						@apply bg-yellow-400;
-					}
-				}
-				&.second {
-					.img-position, .name {
-						@apply bg-gray-400;
-					}
-				}
-				&.third {
-					.img-position, .name {
-						@apply bg-orange-700;
-					}
-					.name {
-						@apply text-white;
-					}
-				}
-				&.second, &.third {
-					@apply ml-3;
-					@screen md {
-						@apply ml-8;
-					}
-				}
-			}
-		}
-	}
 	.table-wrap {
 		@apply overflow-x-auto border-t;
 		table {

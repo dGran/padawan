@@ -1,8 +1,6 @@
 <script>
-	var routeEdit = "{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
-	var routeDestroy = "{{ route('admin.racing.schedule.races.destroy', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
-    var routeEditResults = "{{ route('admin.racing.schedule.races.edit.results', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
-    var routeVideos = "{{ route('admin.racing.schedule.races.videos', [$tournament, $season, $competition, $phase, $group, ':ID']) }}";
+	var routeEdit = "{{ route('admin.racing.schedule.races.videos.edit', [$tournament, $season, $competition, $phase, $group, $race->id, ':ID']) }}";
+	var routeDestroy = "{{ route('admin.racing.schedule.races.videos.destroy', [$tournament, $season, $competition, $phase, $group, $race->id, ':ID']) }}";
 
     //edit
     function edit(id) {
@@ -11,24 +9,12 @@
         window.location.href=url;
     }
 
-    function editResults(id) {
-        var route = routeEditResults;
-        var url = route.replace(':ID', id);
-        window.location.href=url;
-    }
-
-    function videos(id) {
-        var route = routeVideos;
-        var url = route.replace(':ID', id);
-        window.location.href=url;
-    }
-
     //destroy
-    function destroy(id, name) {
+    function destroy(id) {
         disabledActionsButtons();
         swal({
             title: "Confirmación de borrado",
-            text: 'Se va a eliminar la carrera "' + name + '". No se podrán deshacer los cambios!',
+            text: 'Se va a eliminar el video. No se podrán deshacer los cambios!',
             buttons: {
                 confirm: {
                     text: "Eliminar",

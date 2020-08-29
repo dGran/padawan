@@ -4,22 +4,6 @@
     	<div class="title">
     		clasificacion pilotos
     	</div>
-{{--     	<section class="races-tops">
-    		<div class="wrap">
-			    @for ($i = 0; $i < 3; $i++)
-					<figure class="{{ $i == 0 ? 'first' : '' }} {{ $i == 1 ? 'second' : '' }} {{ $i == 2 ? 'third' : '' }}">
-						<img src="{{ $positions[$i]['participant']->participant->presenter()['img'] }}" class="img-participant">
-						<img src="{{ $i == 0 ? 'https://image.flaticon.com/icons/svg/2502/2502795.svg' : '' }} {{ $i == 1 ? 'https://image.flaticon.com/icons/svg/2502/2502798.svg' : '' }} {{ $i == 2 ? 'https://image.flaticon.com/icons/svg/2502/2502804.svg' : '' }}" class="img-position">
-						<div class="name">
-							{{ $positions[$i]['participant']->participant->presenter()['name'] }}
-						</div>
-						<div class="pts">
-							{{ $positions[$i]['pts'] }}
-						</div>
-					</figure>
-    			@endfor
-			</div>
-    	</section> --}}
     	<div class="table-wrap">
 			<table>
 			    <thead>
@@ -29,7 +13,9 @@
 						<th class="pts">PTS</th>
 						@foreach ($racing->races as $race)
 							<th class="pts">
-								<img src="{{ $race->circuit->flag() }}" class="w-6 object-cover rounded border m-auto mb-1">
+								@if ($race->racing->show_circuit_flag)
+									<img src="{{ $race->circuit->flag() }}" class="w-6 object-cover rounded border m-auto mb-1">
+								@endif
 								{{ $race->short_name() }}
 							</th>
 						@endforeach

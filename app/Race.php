@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Race extends Model
 {
-	protected $fillable = ['racing_id', 'circuit_id', 'name', 'date', 'laps', 'twitch_video_id', 'youtube_video_id', 'slug'];
+	protected $fillable = ['racing_id', 'circuit_id', 'name', 'short_name', 'date', 'laps', 'pre_qualifying', 'qualifying', 'slug'];
     public $timestamps = false;
 
     public function racing()
@@ -23,6 +23,11 @@ class Race extends Model
     public function results()
     {
         return $this->hasMany('App\RaceResult', 'race_id', 'id');
+    }
+
+    public function videos()
+    {
+        return $this->hasMany('App\RaceVideo', 'race_id', 'id');
     }
 
     public function getDateAttribute($date)
@@ -41,9 +46,9 @@ class Race extends Model
 
     public function has_media()
     {
-        if (is_null($this->twitch_video_id) && is_null($this->youtube_video_id)) {
-            return false;
-        }
+        // if (is_null($this->twitch_video_id) && is_null($this->youtube_video_id)) {
+        //     return false;
+        // }
         return true;
     }
 
@@ -88,8 +93,11 @@ class Race extends Model
 
     public function short_name()
     {
-        $race = str_replace(' ', '', $this->name);
-        return substr($race, 0, 3);
+        if (!$this->short_name) {
+            $race = str_replace(' ', '', $this->name);
+            return substr($race, 0, 3);
+        }
+        return $this->short_name;
     }
 
     public function canDestroy()

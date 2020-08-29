@@ -8,7 +8,7 @@ class RaceResult extends Model
 {
 	protected $table = 'races_results';
 
-	protected $fillable = ['race_id', 'group_participant_id', 'user_id', 'eteam_id', 'position', 'time', 'fastest_lap', 'pole'];
+	protected $fillable = ['race_id', 'group_participant_id', 'user_id', 'eteam_id', 'type', 'position', 'time', 'fastest_lap', 'sanction'];
 
     public function race()
     {

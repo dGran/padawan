@@ -14,9 +14,6 @@
         <button class="hint--top hint--rounded hint--info hint--bounce info-btn mr-2" type="button" aria-label="Temporadas" id="seasons" onclick="seasons()">
             <i class="icon-seasons"></i>
         </button>
-        <button class="hidden hint--top hint--rounded hint--success hint--bounce teal-btn mr-2" type="button" aria-label="Participantes" id="participants" onclick="participants()">
-            <i class="icon-groups_participants"></i>
-        </button>
         <button class="hidden hint--top hint--rounded hint--success hint--bounce teal-btn mr-2" type="button" aria-label="Competición" id="competition" onclick="competition()">
             <i class="icon-gamepad"></i>
         </button>

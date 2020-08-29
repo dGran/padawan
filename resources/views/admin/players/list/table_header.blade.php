@@ -7,7 +7,7 @@
             </div>
         </label>
     </th>
-    <th>
+    <th class="text-left">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'name' ? 'name_desc' : 'name' }}')">Nombre</span>
         @if ($order == 'name')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -16,13 +16,13 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden xl:table-cell">
+    <th class="hidden xl:table-cell text-left">
         <span>Nacionalidad</span>
     </th>
-    <th class="hidden xl:table-cell" style="text-align: center">
+    <th class="hidden xl:table-cell">
         <span>Posición</span>
     </th>
-    <th class="hidden xl:table-cell" style="text-align: center">
+    <th class="hidden xl:table-cell">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'overall' ? 'overall_desc' : 'overall' }}')">Media</span>
         @if ($order == 'overall')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -31,7 +31,7 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden xl:table-cell" style="text-align: center">
+    <th class="hidden xl:table-cell">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'age' ? 'age_desc' : 'age' }}')">Edad</span>
         @if ($order == 'age')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -40,7 +40,7 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden xl:table-cell" style="text-align: center">
+    <th class="hidden xl:table-cell">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'height' ? 'height_desc' : 'height' }}')">Altura</span>
         @if ($order == 'height')
             <i class="fas fa-sort-amount-up-alt"></i>
@@ -49,10 +49,10 @@
             <i class="fas fa-sort-amount-down"></i>
         @endif
     </th>
-    <th class="hidden xl:table-cell" style="text-align: center">
+    <th class="hidden xl:table-cell">
         <span>Pie</span>
     </th>
-    <th>
+    <th class="text-left">
         <span>Database</span>
     </th>
 </tr>

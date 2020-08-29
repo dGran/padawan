@@ -18,6 +18,7 @@ use App\Racing;
 use App\RacingScore;
 use App\Race;
 use App\RaceResult;
+use App\RaceVideo;
 
 class RacingController extends Controller
 {
@@ -32,7 +33,31 @@ class RacingController extends Controller
     public function configUpdate(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, Request $request)
     {
 		$racing = $group->racing;
-		dd('update!');
+
+        $data = $request->all();
+        $data['fastest_lap'] = $request->fastest_lap == 'on' ? 1 : 0;
+        $data['score_fastest_lap'] = $request->fastest_lap == 'on' ? $request->score_fastest_lap : 0;
+        $data['pre_qualifying'] = $request->pre_qualifying == 'on' ? 1 : 0;
+        $data['qualifying'] = $request->qualifying == 'on' ? 1 : 0;
+        $data['score_pole'] = $request->qualifying == 'on' ? $request->score_pole : 0;
+        $data['times'] = $request->times == 'on' ? 1 : 0;
+        $data['show_circuit_flags'] = $request->show_circuit_flags == 'on' ? 1 : 0;
+
+        $racing->fill($data);
+
+        if ($racing->isDirty()) {
+            $racing->update($data);
+            if ($racing->update()) {
+                flash()->success('Cambios guardados correctamente');
+                return back();
+            } else {
+                flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
+                return back();
+            }
+        } else {
+            flash()->info('No se han detectado cambios');
+            return back();
+        }
     }
 
     public function configUpdateScore($id, Request $request)
@@ -81,6 +106,8 @@ class RacingController extends Controller
 
         $data = $request->all();
         $data['racing_id'] = $group->racing->id;
+        $data['pre_qualifying'] = $request->pre_qualifying == 'on' ? 1 : 0;
+        $data['qualifying'] = $request->qualifying == 'on' ? 1 : 0;
         $data['slug'] = Str::slug($request->name, '-');
 
         $race = Race::create($data);
@@ -111,6 +138,9 @@ class RacingController extends Controller
         ]);
 
         $data = $request->all();
+        $data['racing_id'] = $group->racing->id;
+        $data['pre_qualifying'] = $request->pre_qualifying == 'on' ? 1 : 0;
+        $data['qualifying'] = $request->qualifying == 'on' ? 1 : 0;
         $data['slug'] = Str::slug($request->name, '-');
 
         $race->fill($data);
@@ -128,6 +158,110 @@ class RacingController extends Controller
         return redirect()->route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]);
     }
 
+    public function scheduleDestroyRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+        if ($race && $race->canDestroy()) {
+            $race->delete();
+            flash()->success('Registro eliminado correctamente');
+            return back();
+        } else {
+            flash()->error('Acción cancelada. El registro no ha podido ser eliminado.');
+            return back();
+        }
+    }
+
+    public function scheduleRaceVideos(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+
+        return view('admin.racings.schedule.videos', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+    }
+
+    public function scheduleRaceVideosAdd(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
+    {
+        $race = Race::findOrFail($id);
+
+        return view('admin.racings.schedule.videos.add', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+    }
+
+    public function scheduleRaceVideosSave(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id, Request $request)
+    {
+        $data = $request->validate([
+            'title'    => 'required',
+            'provider' => 'required',
+            'video_id' => 'required',
+        ],
+        [
+            'title.required' => 'El título es obligatorio',
+            'provider.required' => 'El proveedor del video es obligatorio',
+            'video_id.required' => 'La ID del video es obligatoria',
+        ]);
+
+        $data = $request->all();
+        $data['race_id'] = $id;
+
+        $video = RaceVideo::create($data);
+
+        if ($video->save()) {
+            flash()->success('Video registrado correctamente');
+            return redirect()->route('admin.racing.schedule.races.videos', [$tournament, $season, $competition, $phase, $group, $id]);
+        }
+    }
+
+    public function scheduleRaceVideosEdit(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $race_id, $id)
+    {
+        $race = Race::findOrFail($race_id);
+        $video = RaceVideo::findOrFail($id);
+
+        return view('admin.racings.schedule.videos.edit', ['video' => $video, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group, 'race' => $race]);
+    }
+
+    public function scheduleRaceVideosUpdate(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $race_id, $id, Request $request)
+    {
+        $video = RaceVideo::findOrFail($id);
+
+        $data = $request->validate([
+            'title'    => 'required',
+            'provider' => 'required',
+            'video_id' => 'required',
+        ],
+        [
+            'title.required' => 'El título es obligatorio',
+            'provider.required' => 'El proveedor del video es obligatorio',
+            'video_id.required' => 'La ID del video es obligatoria',
+        ]);
+
+        $data = $request->all();
+
+        $video->fill($data);
+
+        if ($video->isDirty()) {
+            $video->update($data);
+            if ($video->update()) {
+                flash()->success('Video editado correctamente');
+            } else {
+                flash()->error('No se han guardado los datos, se ha producido un error en el servidor');
+            }
+        } else {
+            flash()->info('No se han detectado cambios en el registro');
+        }
+        return redirect()->route('admin.racing.schedule.races.videos', [$tournament, $season, $competition, $phase, $group, $race_id]);
+    }
+
+    public function scheduleRaceVideosDestroy(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $race_id, $id)
+    {
+        $video = RaceVideo::findOrFail($id);
+        if ($video) {
+            $video->delete();
+            flash()->success('Video eliminado correctamente');
+            return back();
+        } else {
+            flash()->error('Acción cancelada. El video no ha podido ser eliminado.');
+            return back();
+        }
+    }
+
     public function scheduleEditRaceResults(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
     {
         $race = Race::findOrFail($id);
@@ -142,7 +276,6 @@ class RacingController extends Controller
                     'eteam_id'             => $group_participant->participant->eteam_id,
                 ]);
             }
-
         }
 
         $results = RaceResult::where('race_id', '=', $race->id)->orderBy('position', 'asc')->get();
@@ -157,30 +290,29 @@ class RacingController extends Controller
         if (RaceResult::where('race_id', $result->race->id)->where('position', $request->position)->count() > 0) {
             $request->position = 0;
         }
+        $result->type = 'race';
         $result->position = $request->position == null || $request->position > $last_position ? 0 : $request->position;
-        $result->fastest_lap = $request->fastest_lap;
-        $result->pole = $request->pole;
 
         $data = $result;
 
-        if ($result->fastest_lap == 1 ) {
-            $prev_fastest_lap = RaceResult::where('race_id', '=', $result->race_id)->where('fastest_lap', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
-            if ($prev_fastest_lap->count() > 0) {
-                foreach ($prev_fastest_lap as $prev) {
-                    $prev->fastest_lap = 0;
-                    $prev->save();
-                }
-            }
-        }
-        if ($result->pole == 1 ) {
-            $prev_pole = RaceResult::where('race_id', '=', $result->race_id)->where('pole', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
-            if ($prev_pole->count() > 0) {
-                foreach ($prev_pole as $prev) {
-                    $prev->pole = 0;
-                    $prev->save();
-                }
-            }
-        }
+        // if ($result->fastest_lap == 1 ) {
+        //     $prev_fastest_lap = RaceResult::where('race_id', '=', $result->race_id)->where('fastest_lap', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
+        //     if ($prev_fastest_lap->count() > 0) {
+        //         foreach ($prev_fastest_lap as $prev) {
+        //             $prev->fastest_lap = 0;
+        //             $prev->save();
+        //         }
+        //     }
+        // }
+        // if ($result->pole == 1 ) {
+        //     $prev_pole = RaceResult::where('race_id', '=', $result->race_id)->where('pole', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
+        //     if ($prev_pole->count() > 0) {
+        //         foreach ($prev_pole as $prev) {
+        //             $prev->pole = 0;
+        //             $prev->save();
+        //         }
+        //     }
+        // }
 
         $result->save();
 
@@ -200,18 +332,6 @@ class RacingController extends Controller
         exit;
     }
 
-    public function scheduleDestroyRace(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
-    {
-        $race = Race::findOrFail($id);
-        if ($race && $race->canDestroy()) {
-            $race->delete();
-            flash()->success('Registro eliminado correctamente');
-            return back();
-        } else {
-            flash()->error('Acción cancelada. El registro no ha podido ser eliminado.');
-            return back();
-        }
-    }
 
     public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
     {

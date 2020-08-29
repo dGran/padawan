@@ -307,6 +307,13 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/editar-resultados/{id}', 'Admin\RacingController@scheduleEditRaceResults')->name('admin.racing.schedule.races.edit.results');
 	Route::post('/torneos/gestion-de-carreras/guardar-resultados/{id}', 'Admin\RacingController@scheduleUpdateRaceResults')->name('admin.racing.schedule.races.update.results');
 	Route::get('/torneos/gestion-de-carreras/resetear-resultados/{id}', 'Admin\RacingController@scheduleResetRaceResults')->name('admin.racing.schedule.races.reset.results');
+	//Schedule::races::videos
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{id}', 'Admin\RacingController@scheduleRaceVideos')->name('admin.racing.schedule.races.videos');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{id}/nuevo', 'Admin\RacingController@scheduleRaceVideosAdd')->name('admin.racing.schedule.races.videos.add');
+	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{id}/nuevo', 'Admin\RacingController@scheduleRaceVideosSave')->name('admin.racing.schedule.races.videos.save');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{race_id}/editar/{id}', 'Admin\RacingController@scheduleRaceVideosEdit')->name('admin.racing.schedule.races.videos.edit');
+	Route::put('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{race_id}/editar/{id}', 'Admin\RacingController@scheduleRaceVideosUpdate')->name('admin.racing.schedule.races.videos.update');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{race_id}/eliminar/{id}', 'Admin\RacingController@scheduleRaceVideosDestroy')->name('admin.racing.schedule.races.videos.destroy');
 	//Standings
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/clasificaciones', 'Admin\RacingController@standings')->name('admin.racing.standings');
 

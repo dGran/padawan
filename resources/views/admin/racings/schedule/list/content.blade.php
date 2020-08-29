@@ -3,61 +3,11 @@
 	    padding: 5px 8px;
 	    font-size: 11px;
 	}
-	.box {
-	  width: 200px; height: 300px;
-	  position: relative;
-	  border: 1px solid #BBB;
-	  background: #EEE;
-	}
-	.ribbon {
-	  position: absolute;
-	  left: -5px; top: -5px;
-	  z-index: 1;
-	  overflow: hidden;
-	  width: 75px; height: 75px;
-	  text-align: right;
-	}
-	.ribbon span {
-	  font-size: 10px;
-	  font-weight: bold;
-	  color: #FFF;
-	  text-transform: uppercase;
-	  text-align: center;
-	  line-height: 20px;
-	  transform: rotate(-45deg);
-	  -webkit-transform: rotate(-45deg);
-	  width: 100px;
-	  display: block;
-	  background: #79A70A;
-	  background: linear-gradient(#B6BAC9 0%, #808080 100%);
-	  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
-	  position: absolute;
-	  top: 19px; left: -21px;
-	}
-	.ribbon span::before {
-	  content: "";
-	  position: absolute; left: 0px; top: 100%;
-	  z-index: -1;
-	  border-left: 3px solid #808080;
-	  border-right: 3px solid transparent;
-	  border-bottom: 3px solid transparent;
-	  border-top: 3px solid #808080;
-	}
-	.ribbon span::after {
-	  content: "";
-	  position: absolute; right: 0px; top: 100%;
-	  z-index: -1;
-	  border-left: 3px solid transparent;
-	  border-right: 3px solid #808080;
-	  border-bottom: 3px solid transparent;
-	  border-top: 3px solid #808080;
-	}
 </style>
 
 <div class="antialiased font-sans w-full px-4 md:px-8">
     <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 pt-4 pb-2">
         @include('admin.racings.menu')
-        {{-- <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"> --}}
         <div class="flex-auto">
             <div class="border-b border-gray-400">
 				<a href="{{ route('admin.racing.schedule.races.add', [$tournament, $season, $competition, $phase, $group]) }}" class="my-3 bg-teal-500 text-white hover:bg-teal-600 active:bg-teal-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none" type="button" style="transition: all .15s ease">
@@ -67,23 +17,6 @@
 					</div>
 				</a>
             </div>
-
-
-<!-- Add a placeholder for the Twitch embed -->
-{{-- <div id="twitch-embed"></div> --}}
-
-<!-- Load the Twitch embed script -->
-{{-- <script src="https://player.twitch.tv/js/embed/v1.js"></script> --}}
-
-<!-- Create a Twitch.Player object. This will render within the placeholder div -->
-{{-- <script type="text/javascript">
-  new Twitch.Player("twitch-embed", {
-    video: "691748254",
-    width: "800",
-    height: "350",
-  });
-</script> --}}
-
             <h3 class="font-bold uppercase text-sm mt-2 mb-4">
                 Calendario de carreras
             </h3>
@@ -135,7 +68,10 @@
 								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->finished() ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="editResults('{{ $race->id }}')">
 									Editar resultados
 								</button>
-								<button href="{{ route('admin.racing.schedule.races.edit', [$tournament, $season, $competition, $phase, $group, $race->id]) }}" class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar" onclick="edit('{{ $race->id }}')">
+								<button class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 88px" aria-label="Videos" onclick="videos('{{ $race->id }}')">
+									<i class="icon-multimedia"></i>
+								</button>
+								<button class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 48px" aria-label="Editar" onclick="edit('{{ $race->id }}')">
 									<i class="icon-edit"></i>
 								</button>
 								<button class="bg-red-500 text-white hover:bg-red-600 active:bg-red-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--error hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 8px" aria-label="Eliminar" onclick="destroy('{{ $race->id }}', '{{ $race->name }}')">

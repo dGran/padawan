@@ -7,7 +7,7 @@
             </div>
         </label>
     </th>
-    <th>
+    <th class="text-left">
         <span class="cursor-pointer" onclick="changeSort('{{ $order == 'name' ? 'name_desc' : 'name' }}')">Nombre</span>
         @if ($order == 'name')
             <i class="fas fa-sort-amount-up-alt"></i>

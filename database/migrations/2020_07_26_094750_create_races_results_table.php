@@ -33,9 +33,11 @@ class CreateRacesResultsTable extends Migration
                 ->references('id')
                 ->on('eteams')
                 ->onDelete('cascade');
+            $table->enum('type', array('pre-qualy', 'qualy', 'race'));
             $table->integer('position')->nullable();
-            $table->boolean('fastest_lap')->default(false);
-            $table->boolean('pole')->default(false);
+            $table->time('time')->nullable();
+            $table->time('fastest_lap')->nullable();
+            $table->integer('sanction')->default(0);
             $table->timestamps();
         });
     }
