@@ -122,17 +122,24 @@ class GameController extends Controller
         if ($request->hasFile('img')) {
             $this->validate($request,[
                 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
                 'img.image' => 'El logo debe ser una imagen',
                 'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
+                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes',
+                'banner.image' => 'El banner debe ser una imagen',
+                'banner.mimes' => 'El banner debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                'banner.max' => 'El tamaño del banner no puede ser mayor a 2048 bytes'
             ]);
 
             $img_name = $data['slug'] . '.' . $request->img->extension();
             \Storage::disk('games')->put($img_name, \File::get($request->file('img')));
-
             $data['img'] = $img_name;
+
+            $banner_name = 'banner_' . $data['slug'] . '.' . $request->banner->extension();
+            \Storage::disk('games')->put($banner_name, \File::get($request->file('banner')));
+            $data['banner'] = $banner_name;
         }
         $data['mode_league'] = $request->mode_league == 'on' ? 1 : 0;
         $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
@@ -199,6 +206,30 @@ class GameController extends Controller
                 $data['img'] = $img_name;
             }
         }
+        if ($request->deleteBanner) {
+            // remove image from Storage
+            \Storage::disk('games')->delete($game->banner);
+            $data['banner'] = null;
+        } else {
+            if ($request->hasFile('banner')) {
+                $this->validate($request,[
+                    'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ],
+                [
+                    'banner.image' => 'El banner debe ser una imagen',
+                    'banner.mimes' => 'El banner debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                    'banner.max' => 'El tamaño del banner no puede ser mayor a 2048 bytes'
+                ]);
+
+                // remove image from Storage
+                \Storage::disk('games')->delete($game->banner);
+
+                $banner_name = 'banner_' . $data['slug'] . '.' . $request->banner->extension();
+                \Storage::disk('games')->put($banner_name, \File::get($request->file('banner')));
+
+                $data['banner'] = $banner_name;
+            }
+        }
         $data['mode_league'] = $request->mode_league == 'on' ? 1 : 0;
         $data['mode_playoffs'] = $request->mode_playoffs == 'on' ? 1 : 0;
         $data['mode_races'] = $request->mode_races == 'on' ? 1 : 0;
@@ -234,6 +265,7 @@ class GameController extends Controller
                 $counter++;
                 // remove image from Storage
                 \Storage::disk('games')->delete($game->img);
+                \Storage::disk('games')->delete($game->banner);
                 $game->delete();
             }
         }
@@ -267,6 +299,11 @@ class GameController extends Controller
                     \Storage::disk('games')->copy($original->img, $img_name);
                     $game->img = $img_name;
                 }
+                if ($original->banner) {
+                    $banner_name = "copy_" . $random_numer . "_" . $original->banner;
+                    \Storage::disk('games')->copy($original->banner, $banner_name);
+                    $game->banner = $banner_name;
+                }
                 $game->slug = Str::slug($game->name . ' ' . $original->platform->name, '-');
                 $game->save();
             }
@@ -289,7 +326,7 @@ class GameController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $games = Game::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $games->makeHidden(['img', 'slug']);
+        $games->makeHidden(['img', 'banner', 'slug']);
 
         switch ($format) {
             case 'xls':
@@ -310,7 +347,7 @@ class GameController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $games = Game::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $games->makeHidden(['img', 'slug']);
+        $games->makeHidden(['img', 'banner', 'slug']);
 
         switch ($format) {
             case 'xls':

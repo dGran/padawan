@@ -175,7 +175,7 @@ class RacingController extends Controller
     {
         $race = Race::findOrFail($id);
 
-        return view('admin.racings.schedule.videos', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+        return view('admin.racings.schedule.videos.list', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function scheduleRaceVideosAdd(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group, $id)
@@ -267,52 +267,80 @@ class RacingController extends Controller
         $race = Race::findOrFail($id);
         $group_participants = GroupParticipant::where('group_id', '=', $group->id)->get();
 
-        if ($race->results->count() == 0) {
+        if ($race->qualifying) {
+            $qualy_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'qualy')->orderBy('position', 'asc')->get();
+            if ($qualy_results->count() == 0)
+            {
+                foreach ($group_participants as $group_participant) {
+                    RaceResult::create([
+                        'race_id'              => $race->id,
+                        'group_participant_id' => $group_participant->id,
+                        'user_id'              => $group_participant->participant->user_id,
+                        'eteam_id'             => $group_participant->participant->eteam_id,
+                        'type'                 => 'qualy',
+                        'position'             => 0,
+                    ]);
+                }
+                $qualy_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'qualy')->orderBy('position', 'asc')->get();
+            }
+            if ($race->pre_qualifying) {
+                $prequaly_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'pre-qualy')->orderBy('position', 'asc')->get();
+                if ($prequaly_results->count() == 0)
+                {
+                    foreach ($group_participants as $group_participant) {
+                        RaceResult::create([
+                            'race_id'              => $race->id,
+                            'group_participant_id' => $group_participant->id,
+                            'user_id'              => $group_participant->participant->user_id,
+                            'eteam_id'             => $group_participant->participant->eteam_id,
+                            'type'                 => 'pre-qualy',
+                            'position'             => 0,
+                        ]);
+                    }
+                    $prequaly_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'pre-qualy')->orderBy('position', 'asc')->get();
+                }
+            } else {
+                $prequaly_results = null;
+            }
+        } else {
+            $qualy_results = null;
+            $prequaly_results = null;
+        }
+
+        $race_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'race')->orderBy('position', 'asc')->get();
+        if ($race_results->count() == 0) {
             foreach ($group_participants as $group_participant) {
                 RaceResult::create([
                     'race_id'              => $race->id,
                     'group_participant_id' => $group_participant->id,
                     'user_id'              => $group_participant->participant->user_id,
                     'eteam_id'             => $group_participant->participant->eteam_id,
+                    'type'                 => 'race',
+                    'position'             => 0,
                 ]);
             }
+            $race_results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'race')->orderBy('position', 'asc')->get();
         }
 
-        $results = RaceResult::where('race_id', '=', $race->id)->orderBy('position', 'asc')->get();
-
-        return view('admin.racings.schedule.results', ['race' => $race, 'results' => $results, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
+        return view('admin.racings.schedule.results', ['race' => $race, 'race_results' => $race_results, 'qualy_results' => $qualy_results, 'prequaly_results' => $prequaly_results, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function scheduleUpdateRaceResults($id, Request $request)
     {
         $result = RaceResult::findOrFail($id);
         $last_position = $result->race->racing->group->num_participants;
-        if (RaceResult::where('race_id', $result->race->id)->where('position', $request->position)->count() > 0) {
-            $request->position = 0;
+
+        if ($request->position > 0) {
+            $position = RaceResult::where('race_id', $result->race_id)
+                ->where('type', '=', $result->type)
+                ->where('position', '=', $request->position)
+                ->where('group_participant_id', '!=', $result->group_participant_id)
+                ->get();
+            if ($position->count() > 0) {
+                $request->position = 0;
+            }
         }
-        $result->type = 'race';
-        $result->position = $request->position == null || $request->position > $last_position ? 0 : $request->position;
-
-        $data = $result;
-
-        // if ($result->fastest_lap == 1 ) {
-        //     $prev_fastest_lap = RaceResult::where('race_id', '=', $result->race_id)->where('fastest_lap', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
-        //     if ($prev_fastest_lap->count() > 0) {
-        //         foreach ($prev_fastest_lap as $prev) {
-        //             $prev->fastest_lap = 0;
-        //             $prev->save();
-        //         }
-        //     }
-        // }
-        // if ($result->pole == 1 ) {
-        //     $prev_pole = RaceResult::where('race_id', '=', $result->race_id)->where('pole', '=', 1)->where('group_participant_id', '!=', $result->group_participant_id)->get();
-        //     if ($prev_pole->count() > 0) {
-        //         foreach ($prev_pole as $prev) {
-        //             $prev->pole = 0;
-        //             $prev->save();
-        //         }
-        //     }
-        // }
+        $result->position = ($request->position == null) || ($request->position > $last_position) ? 0 : $request->position;
 
         $result->save();
 

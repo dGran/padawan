@@ -5,14 +5,14 @@
 @endsection
 
 @section('breadcrumb')
-    @include('admin.racings.schedule.videos.breadcrumb')
+    @include('admin.racings.schedule.videos.list.breadcrumb')
 @endsection
 
 @section('content')
 	@include('layouts.partials.flash_errors')
-    @include('admin.racings.schedule.videos.content')
+    @include('admin.racings.schedule.videos.list.content')
 @endsection
 
 @section('js')
-    @include('admin.racings.schedule.videos.js')
+    @include('admin.racings.schedule.videos.list.js')
 @endsection

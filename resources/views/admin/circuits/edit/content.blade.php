@@ -20,11 +20,14 @@
 					<i class="fas fa-upload mr-2"></i>Cargar imagen
 				</label>
 			</div>
-			<div class="flex flex-row mt-2 mb-6 text-gray-500 text-xs justify-center">
-				<span class="">
-					Archivos válidos: .jpeg, .png, .jpg, .gif, .svg
-				</span>
-			</div>
+            <div class="flex flex-col mt-2 mb-6 text-gray-500 text-xs justify-center items-center text-center">
+                <span>
+                    Archivos válidos: .jpeg, .png, .jpg, .gif, .svg
+                </span>
+                <span class="font-bold">
+                    Dimensiones recomendadas: 960x540px
+                </span>
+            </div>
 
             <div class="field-group">
                 <div class="element">

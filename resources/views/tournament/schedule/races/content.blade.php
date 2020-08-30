@@ -44,7 +44,7 @@
     <div class="races-schedule-content">
 		@if ($racing->races->count() == 0)
 		    <div class="empty-view">
-				No existen carreras
+				Configuración del calendario pendiente
 		    </div>
 		@else
 			<ul class="races">

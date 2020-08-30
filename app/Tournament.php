@@ -7,7 +7,7 @@ use App\Http\Traits\DatesTranslator;
 
 class Tournament extends Model
 {
-	protected $fillable = ['game_id', 'name', 'img', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents', 'rules', 'slug'];
+	protected $fillable = ['game_id', 'name', 'img', 'banner', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents', 'rules', 'slug'];
 
     public function game()
     {
@@ -61,6 +61,37 @@ class Tournament extends Model
             }
         }
         return $default;
+    }
+
+    public function getLogo()
+    {
+        if ($this->img) {
+            return $this->img();
+        } else {
+            return $this->game->img();
+        }
+    }
+
+    public function banner()
+    {
+        $default = asset('img/tournaments/default_banner.png');
+        $custom = asset('img/tournaments/' . $this->banner);
+
+        if ($this->banner) {
+            if ($this->check_img($custom)) {
+                return $custom;
+            }
+        }
+        return $default;
+    }
+
+    public function getBanner()
+    {
+        if ($this->banner) {
+            return $this->banner();
+        } else {
+            return $this->game->banner();
+        }
     }
 
     protected function check_img($image) {

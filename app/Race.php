@@ -37,7 +37,7 @@ class Race extends Model
 
     public function finished()
     {
-        $result = RaceResult::where('race_id', '=', $this->id)->where('position', '=', 1)->count();
+        $result = RaceResult::where('race_id', '=', $this->id)->where('type', '=', 'race')->where('position', '=', 1)->count();
         if ($result > 0) {
             return true;
         }
@@ -46,10 +46,10 @@ class Race extends Model
 
     public function has_media()
     {
-        // if (is_null($this->twitch_video_id) && is_null($this->youtube_video_id)) {
-        //     return false;
-        // }
-        return true;
+        if ($this->videos->count() > 0) {
+            return true;
+        }
+        return false;
     }
 
     public function fastest_lap()
@@ -66,7 +66,7 @@ class Race extends Model
 
     public function score_participant($id)
     {
-        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->first();
+        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->where('type', '=', 'race')->first();
         if ($position) {
             if ($position->position == 0) {
                 return '-';
@@ -81,7 +81,7 @@ class Race extends Model
 
     public function position_participant($id)
     {
-        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->first();
+        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->where('type', '=', 'race')->first();
         if ($position) {
             if ($position->position == 0) {
                 return null;

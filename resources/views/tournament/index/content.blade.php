@@ -19,7 +19,7 @@
             </ul>
         @else
             <div class="empty-view">
-                No se han encontado noticias
+                No se han encontrado noticias
             </div>
         @endif
     </div>

@@ -13,10 +13,12 @@
 						<th class="pts">PTS</th>
 						@foreach ($racing->races as $race)
 							<th class="pts">
-								@if ($race->racing->show_circuit_flag)
-									<img src="{{ $race->circuit->flag() }}" class="w-6 object-cover rounded border m-auto mb-1">
-								@endif
-								{{ $race->short_name() }}
+								<a href="{{ route('tournament.schedule.race', [$tournament, $race->slug]) }}">
+									@if ($race->racing->show_circuit_flags)
+										<img src="{{ $race->circuit->flag() }}" class="w-6 object-cover rounded border m-auto mb-1">
+									@endif
+									{{ $race->short_name() }}
+								</a>
 							</th>
 						@endforeach
 					</tr>

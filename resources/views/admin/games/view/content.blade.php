@@ -1,14 +1,23 @@
 <div class="antialiased font-sans flex px-4 md:px-8 pb-2">
 
 	<div class="view">
-		<div class="image">
-        	<img src="{{ $game->img() }}">
-		</div>
 		<div class="title">
 			<p class="text-lg font-semibold">
 				{{ $game->name }}
 			</p>
-	    	<div class="pt-6 pb-3">
+		</div>
+		<div class="image">
+			<p class="text-center font-bold text-11 uppercase">Logo</p>
+        	<img src="{{ $game->img() }}">
+		</div>
+		<div class="mt-3 mx-3">
+			<div class="image original-size">
+				<p class="text-center font-bold text-11 uppercase">Banner</p>
+	        	<img src="{{ $game->banner() }}">
+			</div>
+		</div>
+		<div class="title">
+	    	<div class="pt-3 pb-3">
 				<a href="{{ route('admin.games.edit', $game->id) }}" class="edit">
 		  			Editar
 				</a>

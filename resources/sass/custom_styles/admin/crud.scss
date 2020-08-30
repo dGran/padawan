@@ -276,6 +276,9 @@ input, select, textarea {
 
 .form {
 	@apply bg-white shadow-md rounded-lg p-6 mb-4 flex flex-col my-4 flex-1;
+	.label-img {
+		@apply uppercase tracking-wide text-xs font-bold text-gray-500 mb-2 text-center;
+	}
 	.thumbnail {
 		@apply shadow mx-auto h-24 w-24 border-white overflow-hidden border-4 object-cover rounded-lg;
 		&.circle {

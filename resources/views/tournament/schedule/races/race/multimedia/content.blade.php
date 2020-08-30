@@ -1,32 +1,29 @@
 @include('tournament.schedule.races.race.menu')
 
 <div class="content">
-	<div class="race-content">
+	<div class="race-content pb-6">
 
-{{-- //FALTA CREAR LAS CLASES CSS --}}
-		<div class="pt-4">
-			@foreach ($race->videos as $video)
-				<div class="race-circuit-content">
-					<div class="race-circuit-wrapper">
-				    	<div class="title">
-				    		{{ $video->title }}
-				    	</div>
-				    	<div class="p-3 border-t">
-							<div class="video-container">
-								@if ($video->provider == "youtube")
-									<iframe src="https://www.youtube.com/embed/{{ $video->video_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-								@endif
-							</div>
-							@if ($video->description)
-								<p class="pt-3">
-									{!! nl2br(e($video->description)) !!}
-								</p>
+		@foreach ($race->videos as $video)
+			<div class="race-multimedia-content">
+				<div class="race-multimedia-wrapper">
+			    	<div class="title">
+			    		{{ $video->title }}
+			    	</div>
+			    	<div class="content">
+						<div class="video-container">
+							@if ($video->provider == "youtube")
+								<iframe src="https://www.youtube.com/embed/{{ $video->video_id }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 							@endif
-				    	</div>
-					</div>
+						</div>
+						@if ($video->description)
+							<p class="description">
+								{!! nl2br(e($video->description)) !!}
+							</p>
+						@endif
+			    	</div>
 				</div>
-			@endforeach
-		</div>
+			</div>
+		@endforeach
 
 	</div> {{-- race-content --}}
 

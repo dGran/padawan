@@ -3,22 +3,6 @@
 
 	function update_result(id) {
         var position = $("#position"+id).val();
-        var fastest_lap = 0;
-        if ($('#fastest_lap'+id).is(':checked')) {
-        	$(".fastest_lap").prop('checked', false);
-        	$('#fastest_lap'+id).prop("checked", true);
-        	var fastest_lap = 1;
-        }
-        var pole = 0;
-        if ($('#pole'+id).is(':checked')) {
-        	$(".pole").prop('checked', false);
-        	$('#pole'+id).prop("checked", true);
-        	var pole = 1;
-        }
-        if (position == 0) {
-        	$('#fastest_lap'+id).prop("checked", false);
-        	$('#pole'+id).prop("checked", false);
-        }
         var route = "{{ route('admin.racing.schedule.races.update.results', [':ID']) }}"
         var url = route.replace(':ID', id);
 
@@ -27,18 +11,10 @@
 			method: 'POST',
 			data: {
 				_token: CSRF_TOKEN,
-           		position: position,
-           		fastest_lap: fastest_lap,
-           		pole: pole
+           		position: position
            	},
 			success:function(data) {
 				$("#position" + id).val(data['position']);
-				if (data['fastest_lap'] == 1) {
-					$("#fastest_lap" + id).attr("checked", true);
-				}
-				if (data['pole'] == 1) {
-					$("#pole" + id).attr("checked", true);
-				}
 			}
 		});
 	}
@@ -68,8 +44,6 @@
         })
         .then((value) => {
             if (value) {
-            	$(".fastest_lap").prop('checked', false);
-            	$(".pole").prop('checked', false);
             	$(".position").val(0);
 		        var route = "{{ route('admin.racing.schedule.races.reset.results', [':ID']) }}"
 		        var url = route.replace(':ID', id);

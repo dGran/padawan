@@ -20738,6 +20738,22 @@ a.disable, button.disable, input.disable, select.disable {
   width: 42px;
 }
 
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .pts a:hover {
+  text-decoration: underline;
+}
+
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .pts a:hover img {
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+}
+
+.tournament .wrapper .content .races-standing-content .table-wrap table thead .pts a:active img {
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+}
+
 .tournament .wrapper .content .races-standing-content .table-wrap table tbody tr {
   border-top: 1px solid #f2f2f2;
 }
@@ -21916,6 +21932,8 @@ a.disable, button.disable, input.disable, select.disable {
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
 }
 
 @media (min-width: 640px) {
@@ -21938,6 +21956,84 @@ a.disable, button.disable, input.disable, select.disable {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.tournament .wrapper .content .race-content .race-multimedia-content {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 1rem;
+  margin: auto;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content {
+    padding-left: 8rem;
+    padding-right: 8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content {
+    padding-left: 12rem;
+    padding-right: 12rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content {
+    padding-left: 16rem;
+    padding-right: 16rem;
+  }
+}
+
+.tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper {
+  border-width: 1px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper .title {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background: #f9f9f9;
+}
+
+.tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper .content {
+  padding: 1rem;
+  border-top-width: 1px;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper .content {
+    padding: 1.5rem;
+  }
+}
+
+.tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper .content .description {
+  padding-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .race-content .race-multimedia-content .race-multimedia-wrapper .content .description {
+    padding-top: 1.5rem;
+  }
 }
 
 .tournament .wrapper .sponsors {

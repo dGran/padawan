@@ -397,7 +397,7 @@
 				background: #f9f9f9;
 			}
 			.content {
-				@apply border-t p-4 relative bg-white;
+				@apply border-t p-4 relative bg-white rounded-b;
 				@screen sm {
 					@apply p-6;
 				}
@@ -416,6 +416,40 @@
 		}
 	}
 
+	.race-multimedia-content {
+		@apply px-2 pt-4 m-auto;
+		@screen sm {
+			@apply px-24;
+		}
+		@screen md {
+			@apply px-32;
+		}
+		@screen lg {
+			@apply px-48;
+		}
+		@screen xl {
+			@apply px-64;
+		}
 
+		.race-multimedia-wrapper {
+			@apply border bg-white rounded;
+			.title {
+				@apply uppercase text-13 font-bold p-2 rounded;
+				background: #f9f9f9;
+			}
+			.content {
+				@apply p-4 border-t bg-white rounded-b;
+				@screen sm {
+					@apply p-6;
+				}
+				.description {
+					@apply pt-4;
+					@screen sm {
+						@apply pt-6;
+					}
+				}
+			}
+		}
+	}
 
 }

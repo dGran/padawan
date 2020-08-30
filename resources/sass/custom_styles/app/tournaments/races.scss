@@ -23,6 +23,19 @@
 					@apply text-center;
 					min-width: 32px;
 					width: 42px;
+					a {
+						&:hover {
+							@apply underline;
+							img {
+								@apply border-gray-400;
+							}
+						}
+						&:active {
+							img {
+								@apply border-gray-400;
+							}
+						}
+					}
 				}
 			}
 			tbody {

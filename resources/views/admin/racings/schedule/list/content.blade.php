@@ -65,7 +65,7 @@
 			            	</div>
 			            	<div class="">
 			            		<img src="{{ $race->circuit->img() }}" alt="{{ $race->circuit->name }}" class="object-cover w-full h-auto rounded shadow-lg" style="{{ $race->finished() ? 'filter: grayscale(100%);' : '' }}">
-								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ $race->finished() ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="editResults('{{ $race->id }}')">
+								<button class="mt-4 w-full text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none {{ !$race->finished() ? 'bg-teal-500 hover:bg-teal-600 active:bg-teal-600' : 'bg-gray-500 hover:bg-gray-600 active:bg-gray-600' }}" type="button" style="transition: all .15s ease" onclick="editResults('{{ $race->id }}')">
 									Editar resultados
 								</button>
 								<button class="bg-gray-500 text-white hover:bg-gray-600 active:bg-gray-600 font-bold uppercase text-xs py-2 px-3 rounded-full shadow hover:shadow-md outline-none focus:outline-none hint--bottom hint--rounded hint--bounce" type="button" style="transition: all .15s ease; position: absolute; top: -10px; right: 88px" aria-label="Videos" onclick="videos('{{ $race->id }}')">

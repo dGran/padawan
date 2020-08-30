@@ -5,7 +5,7 @@
 		<div class="race-title">
 			<div class="race-title-banner" style="background: url('{{ asset('img/tournaments/other/race_banner.png') }}') no-repeat 0 0;">
 				<div class="race-title-container">
-					@if ($race->racing->show_circuit_flag)
+					@if ($race->racing->show_circuit_flags)
 						<figure class="circuit-flag">
 							<img src="{{ $race->circuit->flag() }}">
 						</figure>

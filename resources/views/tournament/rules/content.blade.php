@@ -5,7 +5,7 @@
     		{!! nl2br(e($tournament->rules)) !!}
     	@else
 	    	<div class="empty-view">
-	    		No se ha definido normativa para este torneo
+	    		No se ha definido normativa
 	    	</div>
     	@endif
     </div>

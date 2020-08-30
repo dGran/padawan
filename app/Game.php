@@ -68,6 +68,19 @@ class Game extends Model
 		return $default;
     }
 
+    public function banner()
+    {
+        $default = asset('img/games/default_banner.png');
+        $custom = asset('img/games/' . $this->banner);
+
+        if ($this->banner) {
+            if ($this->check_img($custom)) {
+                return $custom;
+            }
+        }
+        return $default;
+    }
+
     protected function check_img($image) {
         if (!$image) return FALSE;
         $headers = get_headers($image);

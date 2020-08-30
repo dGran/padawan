@@ -79,14 +79,14 @@
                         @if ($season->inscription_price > 0)
                             <div class="ribbon"><span>PREMIADO</span></div>
                         @endif
-                        <img src="{{ asset('img/games/' . $season->tournament->game->banner) }}" alt="" class="rounded-t-md">
+                        <img src="{{ asset($season->tournament->getBanner()) }}" alt="" class="rounded-t-md">
     {{--                     <div class="platform-logo h-16 w-16 rounded-full bg-white border border-{{ $season->tournament->game->platform->color }}-600 p-0 p-2" style="position: absolute; top:10px; right: 10px">
                             <img class="object-cover w-full h-full" src="{{ $season->tournament->game->platform->img() }}" alt="">
                         </div> --}}
                     </div>
                     <div class="relative">
                         <div class="flex items-center p-3 pb-0">
-                            <img src="{{ $season->tournament->game->img() }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
+                            <img src="{{ asset($season->tournament->getLogo()) }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
                             <div class="ml-3">
                                 <span class="block font-fjalla tracking-wider font-light uppercase text-yellow-500 text-11">{{ $season->tournament->game->name }}</span>
                                 <span class="block font-semibold tracking-tight uppercase text-14">{{ $season->tournament->name }}</span>

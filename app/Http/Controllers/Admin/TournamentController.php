@@ -118,15 +118,23 @@ class TournamentController extends Controller
         if ($request->hasFile('img')) {
             $this->validate($request,[
                 'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ],
             [
                 'img.image' => 'El logo debe ser una imagen',
                 'img.mimes' => 'El logo debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes'
+                'img.max' => 'El tamaño del logo no puede ser mayor a 2048 bytes',
+                'banner.image' => 'El banner debe ser una imagen',
+                'banner.mimes' => 'El banner debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                'banner.max' => 'El tamaño del banner no puede ser mayor a 2048 bytes'
             ]);
             $img_name = $data['slug'] . '.' . $request->img->extension();
             \Storage::disk('tournaments')->put($img_name, \File::get($request->file('img')));
             $data['img'] = $img_name;
+
+            $banner_name = 'banner_' . $data['slug'] . '.' . $request->banner->extension();
+            \Storage::disk('tournaments')->put($banner_name, \File::get($request->file('banner')));
+            $data['banner'] = $banner_name;
         }
         $data['use_teams'] = $request->use_teams == 'on' ? 1 : 0;
         $data['use_rosters'] = $request->use_rosters == 'on' ? 1 : 0;
@@ -270,6 +278,31 @@ class TournamentController extends Controller
             }
         }
 
+        if ($request->deleteBanner) {
+            // remove image from Storage
+            \Storage::disk('tournaments')->delete($tournament->banner);
+            $data['banner'] = null;
+        } else {
+            if ($request->hasFile('banner')) {
+                $this->validate($request,[
+                    'banner' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                ],
+                [
+                    'banner.image' => 'El banner debe ser una imagen',
+                    'banner.mimes' => 'El banner debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                    'banner.max' => 'El tamaño del banner no puede ser mayor a 2048 bytes'
+                ]);
+
+                // remove image from Storage
+                \Storage::disk('tournaments')->delete($tournament->banner);
+
+                $banner_name = 'banner_' . $data['slug'] . time() . '.' . $request->banner->extension();
+                \Storage::disk('tournaments')->put($banner_name, \File::get($request->file('banner')));
+
+                $data['banner'] = $banner_name;
+            }
+        }
+
         $data['use_teams'] = $request->use_teams == 'on' ? 1 : 0;
         $data['use_rosters'] = $request->use_rosters == 'on' ? 1 : 0;
         $data['use_economy'] = $request->use_economy == 'on' ? 1 : 0;
@@ -306,6 +339,7 @@ class TournamentController extends Controller
                 $counter++;
                 // remove image from Storage
                 \Storage::disk('tournaments')->delete($tournament->img);
+                \Storage::disk('tournaments')->delete($game->banner);
                 $tournament->delete();
             }
         }
@@ -339,6 +373,11 @@ class TournamentController extends Controller
                     \Storage::disk('tournaments')->copy($original->img, $img_name);
                     $tournament->img = $img_name;
                 }
+                if ($original->banner) {
+                    $banner_name = "copy_" . $random_numer . "_" . $original->banner;
+                    \Storage::disk('tournaments')->copy($original->banner, $banner_name);
+                    $game->banner = $banner_name;
+                }
                 $tournament->slug = Str::slug($tournament->name . ' ' . $original->game->name . ' ' . $original->game->platform->name, '-');
                 $tournament->save();
             }
@@ -361,7 +400,7 @@ class TournamentController extends Controller
         $ids=explode(",",$ids);
         $order_ext = $this->getOrder($order);
         $tournaments = Tournament::whereIn('id', $ids)->orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $tournaments->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
+        $tournaments->makeHidden(['img', 'banner', 'rules','slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':
@@ -382,7 +421,7 @@ class TournamentController extends Controller
     public function exportGlobal($format, $filename, $order) {
         $order_ext = $this->getOrder($order);
         $tournaments = Tournament::orderBy($order_ext['sortField'], $order_ext['sortDirection'])->get();
-        $tournaments->makeHidden(['img','rules','slug', 'created_at', 'updated_at']);
+        $tournaments->makeHidden(['img', 'banner', 'rules','slug', 'created_at', 'updated_at']);
 
         switch ($format) {
             case 'xls':

@@ -56,7 +56,7 @@ class Racing extends Model
         $table_participants = collect();
 
         foreach ($group_participants as $key => $participant) {
-            $race_results = RaceResult::where('group_participant_id', '=', $participant->id)->get();
+            $race_results = RaceResult::where('group_participant_id', '=', $participant->id)->where('type', '=', 'race')->get();
             $pts = 0;
             foreach ($race_results as $result) {
                 $score = RacingScore::where('racing_id', '=', $this->id)->where('position', '=', $result->position)->first();

@@ -46,7 +46,7 @@
 							</div>
 						</div>
 		                <div class="py-4 text-center mt-4 border-t bg-gray-100 rounded-b">
-		                    <button type="button" class="bg-blue-500 text-white active:bg-blue-600 focus:bg-blue-600 hover:bg-blue-600 font-bold uppercase text-xs md:text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease" onclick="edit({{ $video->id }})">
+		                    <button type="button" class="bg-teal-500 text-white active:bg-teal-600 focus:bg-teal-600 hover:bg-teal-600 font-bold uppercase text-xs md:text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease" onclick="edit({{ $video->id }})">
 		                        Editar
 		                    </button>
 		                    <button type="button" class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs md:text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease" onclick="destroy({{ $video->id }})">
