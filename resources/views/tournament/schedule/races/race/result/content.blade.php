@@ -6,7 +6,7 @@
 		@if ($race->finished())
 
 			<div class="race-standing-tops">
-				@foreach ($race->results->sortBy('position')->take(3) as $result)
+				@foreach ($results->take(3) as $result)
 					<div class="items">
 						<div class="item {{ $loop->iteration == 1 ? 'border-l-2 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-2 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-2 border-orange-700' : '' }}">
 							<img class="img" src="{{ $result->group_participant->participant->presenter()['img'] }}">
@@ -42,7 +42,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach ($race->results->sortBy('position') as $position)
+								@foreach ($results as $position)
 									<tr>
 										<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
 											<span>{{ $loop->iteration }}</span>
@@ -66,7 +66,7 @@
 					</div>
 				</div> {{-- race-standing-results --}}
 
-				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
+{{-- 				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
 
 					<div class="race-standing-results">
 				    	<div class="title text-center">
@@ -78,7 +78,7 @@
 								{{ $race->fastest_lap()->presenter()['name'] }}
 							</p>
 				    	</div>
-					</div> {{-- race-standing-results --}}
+					</div>
 
 					<div class="race-standing-results">
 				    	<div class="title text-center">
@@ -90,9 +90,9 @@
 								{{ $race->pole()->presenter()['name'] }}
 							</p>
 				    	</div>
-					</div> {{-- race-standing-results --}}
+					</div>
 
-				</div> {{-- grid --}}
+				</div>  --}}
 
 			</div> {{-- race-standing-content --}}
 

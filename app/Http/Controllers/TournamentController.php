@@ -9,6 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Tournament;
 use App\Season;
 use App\Race;
+use App\RaceResult;
 
 class TournamentController extends Controller
 {
@@ -110,7 +111,9 @@ class TournamentController extends Controller
         $phase = $race->racing->group->phase;
         $group = $race->racing->group;
 
-        return view('tournament.schedule.races.race.result', ['race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+        $results = RaceResult::where('race_id', '=', $race->id)->where('type', '=', 'race')->orderByRaw('position = 0, position ASC')->get();
+
+        return view('tournament.schedule.races.race.result', ['results' => $results, 'race' => $race, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     }
 
     public function scheduleRaceMultimedia(Tournament $tournament, $race_slug)

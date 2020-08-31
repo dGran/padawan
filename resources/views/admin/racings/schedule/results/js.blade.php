@@ -3,6 +3,9 @@
 
 	function update_result(id) {
         var position = $("#position"+id).val();
+        var time = $("#time"+id).val();
+        var fastest_lap = $("#fastest_lap"+id).val();
+        var sanction = $("#sanction"+id).val();
         var route = "{{ route('admin.racing.schedule.races.update.results', [':ID']) }}"
         var url = route.replace(':ID', id);
 
@@ -11,10 +14,16 @@
 			method: 'POST',
 			data: {
 				_token: CSRF_TOKEN,
-           		position: position
+           		position: position,
+                time: time,
+                fastest_lap: fastest_lap,
+                sanction: sanction
            	},
 			success:function(data) {
 				$("#position" + id).val(data['position']);
+                $("#time" + id).val(data['time']);
+                $("#fastest_lap" + id).val(data['fastest_lap']);
+                $("#sanction" + id).val(data['sanction']);
 			}
 		});
 	}

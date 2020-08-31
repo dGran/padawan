@@ -44,6 +44,15 @@ class Race extends Model
         return false;
     }
 
+    public function qualys_finished()
+    {
+        $result = RaceResult::where('race_id', '=', $this->id)->where('type', 'LIKE', '%'.'qualy'.'%')->where('position', '=', 1)->count();
+        if ($result > 0) {
+            return true;
+        }
+        return false;
+    }
+
     public function has_media()
     {
         if ($this->videos->count() > 0) {
@@ -52,17 +61,17 @@ class Race extends Model
         return false;
     }
 
-    public function fastest_lap()
-    {
-        $fastest_lap = RaceResult::where('race_id', '=', $this->id)->where('fastest_lap', '=', 1)->first();
-        return $fastest_lap->group_participant->participant;
-    }
+    // public function fastest_lap()
+    // {
+    //     $fastest_lap = RaceResult::where('race_id', '=', $this->id)->where('fastest_lap', '=', 1)->first();
+    //     return $fastest_lap->group_participant->participant;
+    // }
 
-    public function pole()
-    {
-        $pole = RaceResult::where('race_id', '=', $this->id)->where('pole', '=', 1)->first();
-        return $pole->group_participant->participant;
-    }
+    // public function pole()
+    // {
+    //     $pole = RaceResult::where('race_id', '=', $this->id)->where('pole', '=', 1)->first();
+    //     return $pole->group_participant->participant;
+    // }
 
     public function score_participant($id)
     {

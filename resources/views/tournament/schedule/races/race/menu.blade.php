@@ -55,7 +55,7 @@
 						<span>Circuito</span>
 					</a>
 				</li>
-				<li class="{{ !$race->finished() ? 'disable' : '' }} {{ Request::route()->getName() == 'tournament.schedule.race.qualy' ? 'current' : '' }}">
+				<li class="{{ !$race->qualys_finished() ? 'disable' : '' }} {{ Request::route()->getName() == 'tournament.schedule.race.qualy' ? 'current' : '' }}">
 					<a href="{{ route('tournament.schedule.race.qualy', [$tournament, $race->slug]) }}">
 						<i class="icon-qualy"></i>
 						<span>Calificación</span>
