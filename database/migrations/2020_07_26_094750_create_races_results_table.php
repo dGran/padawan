@@ -35,8 +35,8 @@ class CreateRacesResultsTable extends Migration
                 ->onDelete('cascade');
             $table->enum('type', array('pre-qualy', 'qualy', 'race'));
             $table->integer('position')->nullable();
-            $table->time('time')->nullable();
-            $table->time('fastest_lap')->nullable();
+            $table->time('time', 3)->nullable();
+            $table->time('fastest_lap', 3)->nullable();
             $table->integer('sanction')->default(0);
             $table->boolean('not_shown')->default(false);
             $table->boolean('retired')->default(false);

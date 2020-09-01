@@ -61,7 +61,11 @@ class Racing extends Model
             foreach ($race_results as $result) {
                 $score = RacingScore::where('racing_id', '=', $this->id)->where('position', '=', $result->position)->first();
                 if ($score) {
-                    $pts += $score->score;
+                    if ($result->race->fastest_lap()->group_participant->id == $result->group_participant->id) {
+                        $pts += $score->score - $result->sanction + $this->score_fastest_lap;
+                    } else {
+                        $pts += $score->score - $result->sanction;
+                    }
                 }
             }
             $table_participants->push([

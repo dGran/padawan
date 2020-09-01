@@ -42,20 +42,20 @@
                                                     <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
                                                 </div>
                                                 <div class="flex-initial mr-5">
-                                                    <input type="number" class="position w-16" id="position{{ $result->id }}" min="1" placeholder="Posición" class="w-24" autofocus value="{{ $result->position }}" onchange="update_result('{{ $result->id }}')">
+                                                    <input type="number" class="position w-16" id="position{{ $result->id }}" min="1" placeholder="Posición" class="w-24" autofocus value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
                                                 </div>
                                                 @if ($race->racing->times)
                                                     <div class="flex-initial mr-5">
-                                                        <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->time }}" onchange="update_result('{{ $result->id }}')">
+                                                        <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" class="w-24" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
                                                     </div>
                                                 @endif
                                                 @if ($race->racing->fastest_lap)
                                                     <div class="flex-initial mr-5">
-                                                        <input type="time" class="fastest_lap" id="fastest_lap{{ $result->id }}" placeholder="Vuelta rápida" class="w-24" value="{{ $result->fastest_lap }}" onchange="update_result('{{ $result->id }}')">
+                                                        <input type="time" class="fastest_lap" id="fastest_lap{{ $result->id }}" placeholder="Vuelta rápida" class="w-24" step="0.001" value="{{ $result->fastest_lap }}" onBlur="update_result('{{ $result->id }}')">
                                                     </div>
                                                 @endif
                                                 <div class="flex-initial mr-5">
-                                                    <input type="number" class="sanction w-16" id="sanction{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->sanction }}" onchange="update_result('{{ $result->id }}')">
+                                                    <input type="number" class="sanction w-16" id="sanction{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->sanction }}" onBlur="update_result('{{ $result->id }}')">
                                                 </div>
                                                 <div class="flex-initial mr-5">
                                                     <select name="state">

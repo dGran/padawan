@@ -298,6 +298,17 @@
 						.participant {
 							@apply text-left;
 						}
+						.time {
+							@apply text-center;
+							min-width: 32px;
+							width: 42px;
+						}
+						.sanction
+						{
+							@apply text-center;
+							min-width: 32px;
+							width: 42px;
+						}
 						.pts {
 							@apply text-center;
 							min-width: 32px;
@@ -307,6 +318,18 @@
 					tbody {
 						tr {
 							border-top: 1px solid #f2f2f2;
+							&:nth-child(odd) {
+								background: #FBFBFB;
+							}
+							&:last-child {
+								@apply rounded-b;
+								.pos {
+									@apply rounded-bl;
+								}
+								.pts-total {
+									@apply rounded-br;
+								}
+							}
 							&:hover {
 								@apply bg-yellow-100;
 							}
@@ -338,12 +361,20 @@
 									}
 								}
 							}
-							.pts-total {
-								@apply text-center font-bold px-2 text-15 bg-orange-100 font-roboto-condensed;
+							.time {
+								@apply text-center text-12 px-2;
+								border-left: 1px solid #f2f2f2;
+							}
+							.sanction {
+								@apply text-center text-12 px-2;
 								border-left: 1px solid #f2f2f2;
 							}
 							.pts {
 								@apply text-center text-12 px-1;
+								border-left: 1px solid #f2f2f2;
+							}
+							.pts-total {
+								@apply text-center font-bold px-2 text-15 bg-orange-100 font-roboto-condensed;
 								border-left: 1px solid #f2f2f2;
 							}
 						}
@@ -353,7 +384,7 @@
 			.sub-results-content {
 				@apply border-t p-2 text-center;
 				img {
-					@apply m-auto h-12 w-12 p-1 object-cover rounded-full shadow;
+					@apply m-auto h-16 w-16 p-1 object-cover rounded-full shadow;
 				}
 				p {
 					@apply pt-1 text-11 font-semibold font-roboto-condensed truncate;

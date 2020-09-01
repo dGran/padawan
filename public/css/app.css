@@ -20758,6 +20758,10 @@ a.disable, button.disable, input.disable, select.disable {
   border-top: 1px solid #f2f2f2;
 }
 
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:nth-child(odd) {
+  background: #FBFBFB;
+}
+
 .tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:hover {
   --bg-opacity: 1;
   background-color: #fffff0;
@@ -21723,6 +21727,18 @@ a.disable, button.disable, input.disable, select.disable {
   text-align: left;
 }
 
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table thead .time {
+  text-align: center;
+  min-width: 32px;
+  width: 42px;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table thead .sanction {
+  text-align: center;
+  min-width: 32px;
+  width: 42px;
+}
+
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table thead .pts {
   text-align: center;
   min-width: 32px;
@@ -21731,6 +21747,23 @@ a.disable, button.disable, input.disable, select.disable {
 
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr {
   border-top: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr:nth-child(odd) {
+  background: #FBFBFB;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr:last-child .pos {
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr:last-child .pts-total {
+  border-bottom-right-radius: 0.25rem;
 }
 
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr:hover {
@@ -21800,6 +21833,30 @@ a.disable, button.disable, input.disable, select.disable {
   color: rgba(113, 128, 150, var(--text-opacity));
 }
 
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr .time {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr .sanction {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr .pts {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-left: 1px solid #f2f2f2;
+}
+
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr .pts-total {
   text-align: center;
   font-weight: 700;
@@ -21813,14 +21870,6 @@ a.disable, button.disable, input.disable, select.disable {
   border-left: 1px solid #f2f2f2;
 }
 
-.tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table tbody tr .pts {
-  text-align: center;
-  font-size: 12px;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-  border-left: 1px solid #f2f2f2;
-}
-
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .sub-results-content {
   border-top-width: 1px;
   padding: 0.5rem;
@@ -21829,8 +21878,8 @@ a.disable, button.disable, input.disable, select.disable {
 
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .sub-results-content img {
   margin: auto;
-  height: 3rem;
-  width: 3rem;
+  height: 4rem;
+  width: 4rem;
   padding: 0.25rem;
   -o-object-fit: cover;
      object-fit: cover;

@@ -38,7 +38,15 @@
 								<tr>
 									<th class="pos">Pos</th>
 									<th class="participant">Piloto</th>
-									<th class="pts">PTS</th>
+									<th class="pts md:hidden">PTS</th>
+									@if ($race->racing->times)
+										<th class="time">Tiempo</th>
+									@endif
+									@if ($race->racing->fastest_lap)
+										<th class="time">V.R.</th>
+									@endif
+									<th class="sanction">San</th>
+									<th class="pts hidden md:table-cell">PTS</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -56,7 +64,27 @@
 							                    </div>
 						                	</div>
 						                </td>
-								        <td class="pts-total">
+								        <td class="pts-total md:hidden">
+							        		{{ $race->score_participant($position->group_participant->id) }}
+										</td>
+						                @if ($race->racing->times)
+							                <td class="time">
+						                		{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('h:i:s.v') : '-' }}
+							                </td>
+							            @endif
+						                @if ($race->racing->fastest_lap)
+							                <td class="time">
+						                		<span class="{{ $race->fastest_lap()->group_participant->id == $position->group_participant->id ? 'text-gray-800 font-bold' : 'text-gray-900 text-opacity-50' }}">
+						                			{{ $position->fastest_lap ? \Carbon\Carbon::parse($position->fastest_lap)->Format('i:s.v') : '-' }}
+						                		</span>
+							                </td>
+							            @endif
+								        <td class="sanction">
+							        		<span class="{{ $position->sanction > 0 ? 'text-red-600 font-bold' : 'text-gray-900 text-opacity-50' }}">
+							        			{{ $position->sanction > 0 ? $position->sanction : '-' }}
+							        		</span>
+										</td>
+								        <td class="pts-total hidden md:table-cell">
 							        		{{ $race->score_participant($position->group_participant->id) }}
 										</td>
 									</tr>
@@ -65,22 +93,32 @@
 						</table>
 					</div>
 				</div> {{-- race-standing-results --}}
+				<p class="text-11 pt-1">* El piloto que consigue la vuelta rápida suma un punto</p>
 
-{{-- 				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
+				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
 
-					<div class="race-standing-results">
-				    	<div class="title text-center">
-				    		vuelta rápida
-				    	</div>
-				    	<div class="sub-results-content">
-				    		<img src="{{ $race->fastest_lap()->presenter()['img'] }}">
-							<p>
-								{{ $race->fastest_lap()->presenter()['name'] }}
-							</p>
-				    	</div>
-					</div>
 
-					<div class="race-standing-results">
+					{{-- @if ($race->fastest_lap()) --}}
+						<div class="race-standing-results">
+					    	<div class="title text-center">
+					    		vuelta rápida
+					    	</div>
+					    	<div class="sub-results-content">
+					    		<img src="{{ $race->fastest_lap()->group_participant->participant->presenter()['img'] }}">
+								<p class="text-gray-600">
+									{{ $race->fastest_lap()->group_participant->participant->presenter()['name'] }}
+								</p>
+								<p>
+									{{ \Carbon\Carbon::parse($race->fastest_lap()->fastest_lap)->Format('i\m s\s v\m\s') }}
+								</p>
+								<p>
+									+{{ $race->racing->score_fastest_lap }} {{ $race->racing->score_fastest_lap == 1 ? 'punto' : 'puntos' }}
+								</p>
+					    	</div>
+						</div>
+					{{-- @endif --}}
+
+{{-- 					<div class="race-standing-results">
 				    	<div class="title text-center">
 				    		pole position
 				    	</div>
@@ -90,9 +128,9 @@
 								{{ $race->pole()->presenter()['name'] }}
 							</p>
 				    	</div>
-					</div>
+					</div> --}}
 
-				</div>  --}}
+				</div>
 
 			</div> {{-- race-standing-content --}}
 
