@@ -6,6 +6,7 @@
         var time = $("#time"+id).val();
         var fastest_lap = $("#fastest_lap"+id).val();
         var sanction = $("#sanction"+id).val();
+        var state = $("#state"+id).val();
         var route = "{{ route('admin.racing.schedule.races.update.results', [':ID']) }}"
         var url = route.replace(':ID', id);
 
@@ -17,13 +18,31 @@
            		position: position,
                 time: time,
                 fastest_lap: fastest_lap,
-                sanction: sanction
+                sanction: sanction,
+                state: state
            	},
 			success:function(data) {
 				$("#position" + id).val(data['position']);
                 $("#time" + id).val(data['time']);
                 $("#fastest_lap" + id).val(data['fastest_lap']);
                 $("#sanction" + id).val(data['sanction']);
+                if (data['position'] == 0) {
+                    $("#state"+ id + " option[value='finished']").attr('disabled', 'disabled');
+                    $("#state"+ id +" option[value='retired']").removeAttr('disabled');
+                    $("#state"+ id + " option[value='disqualified']").removeAttr('disabled');
+                    $("#state"+ id + " option[value='not_shown']").removeAttr('disabled');
+
+                    $("#state"+ id + " option[value='finished'").attr("selected",false);
+                    $("#state"+ id + " option[value='not_shown'").attr("selected",true);
+                } else {
+                    $("#state"+ id + " option[value='finished']").removeAttr('disabled');
+                    $("#state"+ id + " option[value='retired']").attr('disabled', 'disabled');
+                    $("#state"+ id + " option[value='disqualified']").attr('disabled', 'disabled');
+                    $("#state"+ id + " option[value='not_shown']").attr('disabled', 'disabled');
+
+                    $("#state"+ id + " option[value='not_shown'").attr("selected",false);
+                    $("#state"+ id + " option[value='finished'").attr("selected",true);
+                }
 			}
 		});
 	}

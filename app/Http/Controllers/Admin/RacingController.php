@@ -346,10 +346,12 @@ class RacingController extends Controller
             $result->fastest_lap = null;
             $result->time = null;
             $result->sanction = 0;
+            $result->state = "not_shown";
         } else {
             $result->fastest_lap = $request->fastest_lap;
             $result->time = $request->time;
             $result->sanction = $request->sanction;
+            $result->state = "finished";
         }
 
         $result->save();

@@ -93,12 +93,14 @@
 						</table>
 					</div>
 				</div> {{-- race-standing-results --}}
-				<p class="text-11 pt-1">* El piloto que consigue la vuelta rápida suma un punto</p>
+				@if ($race->racing->score_fastest_lap > 0)
+					<p class="text-11 pt-1">* El piloto que consigue la vuelta rápida suma {{ $race->racing->score_fastest_lap }} punto</p>
+				@endif
 
 				<div class="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-4">
 
 
-					{{-- @if ($race->fastest_lap()) --}}
+					@if ($race->racing->fastest_lap)
 						<div class="race-standing-results">
 					    	<div class="title text-center">
 					    		vuelta rápida
@@ -111,12 +113,14 @@
 								<p>
 									{{ \Carbon\Carbon::parse($race->fastest_lap()->fastest_lap)->Format('i\m s\s v\m\s') }}
 								</p>
-								<p>
-									+{{ $race->racing->score_fastest_lap }} {{ $race->racing->score_fastest_lap == 1 ? 'punto' : 'puntos' }}
-								</p>
+								@if ($race->racing->score_fastest_lap > 0)
+									<p>
+										+{{ $race->racing->score_fastest_lap }} {{ $race->racing->score_fastest_lap == 1 ? 'punto' : 'puntos' }}
+									</p>
+								@endif
 					    	</div>
 						</div>
-					{{-- @endif --}}
+					@endif
 
 {{-- 					<div class="race-standing-results">
 				    	<div class="title text-center">

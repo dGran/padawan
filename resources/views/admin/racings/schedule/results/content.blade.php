@@ -18,7 +18,7 @@
                             Qualy
                         </a>
                     </li>
-                    <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                    <li class="-mb-px last:mr-0 flex-auto text-center">
                         <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-teal-500 bg-white" onclick="changeAtiveTab(event,'tab-prequaly')">
                             Pre-Qualy
                         </a>
@@ -33,12 +33,12 @@
                                     @if ($race_results->count()>0)
                                         @foreach ($race_results as $result)
                                             <div class="block md:hidden mb-2 flex flex-row items-center">
-                                                <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-8 inline-block mr-2">
+                                                <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-8 w-8 object-cover shadow inline-block mr-2">
                                                 <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
                                             </div>
                                             <div class="flex flex-row items-center pb-4 mb-4 border-b px-4 pb-5 ">
                                                 <div class="flex-initial hidden md:block w-48 mr-5 truncate">
-                                                    <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-10 hidden md:inline-block mr-2">
+                                                    <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden md:inline-block mr-2">
                                                     <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
                                                 </div>
                                                 <div class="flex-initial mr-5">
@@ -58,11 +58,11 @@
                                                     <input type="number" class="sanction w-16" id="sanction{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->sanction }}" onBlur="update_result('{{ $result->id }}')">
                                                 </div>
                                                 <div class="flex-initial mr-5">
-                                                    <select name="state">
-                                                        <option value="">Carrera disputada</option>
-                                                        <option value="">No presentado</option>
-                                                        <option value="">Retirado</option>
-                                                        <option value="">Descalificado</option>
+                                                    <select id="state{{ $result->id }}" onChange="update_result('{{ $result->id }}')">
+                                                        <option value="finished">Carrera finalizada</option>
+                                                        <option value="not_shown">No presentado</option>
+                                                        <option value="retired">Retirado</option>
+                                                        <option value="disqualified">Descalificado</option>
                                                     </select>
                                                 </div>
                                             </div>

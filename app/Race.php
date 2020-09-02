@@ -82,11 +82,12 @@ class Race extends Model
             }
             $score = RacingScore::where('racing_id', '=', $this->racing->id)->where('position', '=', $position->position)->first();
             if ($score) {
-                if ($this->fastest_lap()->group_participant->id == $position->group_participant->id) {
-                    return $score->score - $position->sanction + $this->racing->score_fastest_lap;
-                } else {
-                    return $score->score - $position->sanction;
+                if ($this->racing->fastest_lap) {
+                    if ($this->fastest_lap()->group_participant->id == $position->group_participant->id) {
+                        return $score->score - $position->sanction + $this->racing->score_fastest_lap;
+                    }
                 }
+                return $score->score - $position->sanction;
             }
         }
         return '-';

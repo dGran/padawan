@@ -20762,6 +20762,19 @@ a.disable, button.disable, input.disable, select.disable {
   background: #FBFBFB;
 }
 
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:last-child .pos {
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:last-child .pts {
+  border-bottom-right-radius: 0.25rem;
+}
+
 .tournament .wrapper .content .races-standing-content .table-wrap table tbody tr:hover {
   --bg-opacity: 1;
   background-color: #fffff0;

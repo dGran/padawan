@@ -44,6 +44,15 @@
 					&:nth-child(odd) {
 						background: #FBFBFB;
 					}
+					&:last-child {
+						@apply rounded-b;
+						.pos {
+							@apply rounded-bl;
+						}
+						.pts {
+							@apply rounded-br;
+						}
+					}
 					&:hover {
 						@apply bg-yellow-100;
 					}
