@@ -32,15 +32,21 @@
                     $("#state"+ id + " option[value='disqualified']").removeAttr('disabled');
                     $("#state"+ id + " option[value='not_shown']").removeAttr('disabled');
 
-                    $("#state"+ id + " option[value='finished'").attr("selected",false);
-                    $("#state"+ id + " option[value='not_shown'").attr("selected",true);
+                    if (data['state'] == 'not_shown') {
+                        $("#state"+ id + " option[value='not_shown'").attr("selected",true);
+                    }
+                    if (data['state'] == 'retired') {
+                        $("#state"+ id + " option[value='retired'").attr("selected",true);
+                    }
+                    if (data['state'] == 'disqualified') {
+                        $("#state"+ id + " option[value='disqualified'").attr("selected",true);
+                    }
                 } else {
                     $("#state"+ id + " option[value='finished']").removeAttr('disabled');
                     $("#state"+ id + " option[value='retired']").attr('disabled', 'disabled');
                     $("#state"+ id + " option[value='disqualified']").attr('disabled', 'disabled');
                     $("#state"+ id + " option[value='not_shown']").attr('disabled', 'disabled');
 
-                    $("#state"+ id + " option[value='not_shown'").attr("selected",false);
                     $("#state"+ id + " option[value='finished'").attr("selected",true);
                 }
 			}
@@ -51,7 +57,7 @@
         disabledActionsButtons();
         swal({
             title: "Confirmación de reseteo",
-            text: 'Se van a resetear los resultados de la carrera. No se podrán deshacer los cambios!',
+            text: 'Se van a resetear todos los resultados. No se podrán deshacer los cambios!',
             buttons: {
                 confirm: {
                     text: "Resetear",
@@ -73,6 +79,10 @@
         .then((value) => {
             if (value) {
             	$(".position").val(0);
+                $(".time").val('');
+                $(".fastest_lap").val('');
+                $(".sanction").val(0);
+                $(".state option[value='not_shown'").attr("selected",true);
 		        var route = "{{ route('admin.racing.schedule.races.reset.results', [':ID']) }}"
 		        var url = route.replace(':ID', id);
 

@@ -340,18 +340,24 @@ class RacingController extends Controller
                 $request->position = 0;
             }
         }
-
         $result->position = ($request->position == null) || ($request->position > $last_position) ? 0 : $request->position;
+
         if ($result->position == 0) {
             $result->fastest_lap = null;
             $result->time = null;
             $result->sanction = 0;
-            $result->state = "not_shown";
+            if ($result->type == 'race') {
+                $result->state = $request->state;
+            } else {
+                $result->state = 'not_shown';
+            }
         } else {
-            $result->fastest_lap = $request->fastest_lap;
+            if ($result->type == 'race') {
+                $result->fastest_lap = $request->fastest_lap;
+                $result->sanction = $request->sanction;
+                $result->state = "finished";
+            }
             $result->time = $request->time;
-            $result->sanction = $request->sanction;
-            $result->state = "finished";
         }
 
         $result->save();
@@ -365,8 +371,10 @@ class RacingController extends Controller
         $results = RaceResult::where('race_id', '=', $id)->get();
         foreach ($results as $result) {
             $result->position = 0;
-            $result->fastest_lap = 0;
-            $result->pole = 0;
+            $result->fastest_lap = null;
+            $result->time = null;
+            $result->sanction = 0;
+            $result->state = "not_shown";
             $result->save();
         }
         exit;

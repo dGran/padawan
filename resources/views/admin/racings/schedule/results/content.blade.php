@@ -24,130 +24,159 @@
                         </a>
                     </li>
                 </ul>
-                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+
+                <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
                     <div class="flex-auto">
                         <div class="tab-content tab-space">
 
-                            <div class="block" id="tab-race">
-                                <div class="overflow-x-auto pt-5">
-                                    @if ($race_results->count()>0)
-                                        @foreach ($race_results as $result)
-                                            <div class="block md:hidden mb-2 flex flex-row items-center">
-                                                <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-8 w-8 object-cover shadow inline-block mr-2">
-                                                <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                            </div>
-                                            <div class="flex flex-row items-center pb-4 mb-4 border-b px-4 pb-5 ">
-                                                <div class="flex-initial hidden md:block w-48 mr-5 truncate">
-                                                    <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden md:inline-block mr-2">
-                                                    <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                                </div>
-                                                <div class="flex-initial mr-5">
-                                                    <input type="number" class="position w-16" id="position{{ $result->id }}" min="1" placeholder="Posición" class="w-24" autofocus value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
-                                                </div>
+                            <div class="block overflow-x-auto" id="tab-race">
+                                @if ($race_results->count()>0)
+                                    <div class="table-wrap">
+                                        <table class="admin-tables">
+
+                                            <thead>
+                                                <th class="text-left">Participante</th>
+                                                <th>Posición</th>
                                                 @if ($race->racing->times)
-                                                    <div class="flex-initial mr-5">
-                                                        <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" class="w-24" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
-                                                    </div>
+                                                    <th class="text-left">Tiempo</th>
                                                 @endif
                                                 @if ($race->racing->fastest_lap)
-                                                    <div class="flex-initial mr-5">
-                                                        <input type="time" class="fastest_lap" id="fastest_lap{{ $result->id }}" placeholder="Vuelta rápida" class="w-24" step="0.001" value="{{ $result->fastest_lap }}" onBlur="update_result('{{ $result->id }}')">
-                                                    </div>
+                                                    <th class="text-left">Vuelta Rápida</th>
                                                 @endif
-                                                <div class="flex-initial mr-5">
-                                                    <input type="number" class="sanction w-16" id="sanction{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->sanction }}" onBlur="update_result('{{ $result->id }}')">
-                                                </div>
-                                                <div class="flex-initial mr-5">
-                                                    <select id="state{{ $result->id }}" onChange="update_result('{{ $result->id }}')">
-                                                        <option value="finished">Carrera finalizada</option>
-                                                        <option value="not_shown">No presentado</option>
-                                                        <option value="retired">Retirado</option>
-                                                        <option value="disqualified">Descalificado</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div class="px-4 pb-4">
-                                        <a href="{{ route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]) }}" class="bg-gray-500 text-white active:bg-gray-600 focus:bg-gray-600 hover:bg-gray-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
-                                            Volver
-                                        </a>
-                                        <button class="bg-transparent text-red-500 active:text-red-600 focus:text-red-600 hover:text-red-600 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}')">
-                                            Resetear
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
+                                                <th>Sanción</th>
+                                                <th class="text-left">Estado</th>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($race_results as $result)
+                                                    <tr class="border-t">
+                                                        <td class="truncate" style="min-width: 12rem">
+                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
+                                                        </td>
+                                                        <td class="">
+                                                            <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
+                                                        </td>
+                                                        @if ($race->racing->times)
+                                                            <td class="">
+                                                                <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                            </td>
+                                                        @endif
+                                                        @if ($race->racing->fastest_lap)
+                                                            <td class="flex-initial mr-5">
+                                                                <input type="time" class="fastest_lap" id="fastest_lap{{ $result->id }}" placeholder="Vuelta rápida" step="0.001" value="{{ $result->fastest_lap }}" onBlur="update_result('{{ $result->id }}')">
+                                                            </td>
+                                                        @endif
+                                                        <td class="">
+                                                            <input type="number" class="sanction w-16 m-auto" id="sanction{{ $result->id }}" value="{{ $result->sanction }}" min="0" onBlur="update_result('{{ $result->id }}')">
+                                                        </td>
+                                                        <td style="min-width: 11rem">
+                                                            <div class="relative">
+                                                                <select class="state w-full" id="state{{ $result->id }}" onChange="update_result('{{ $result->id }}')">
+                                                                    <option {{ $result->position > 0 ? 'selected' : 'disabled' }} value="finished">Carrera finalizada</option>
+                                                                    <option {{ $result->position > 0 ? 'disabled' : '' }} {{ $result->state == 'not_shown' ? 'selected' : '' }} value="not_shown">No participa</option>
+                                                                    <option {{ $result->position > 0 ? 'disabled' : '' }} {{ $result->state == 'retired' ? 'selected' : '' }} value="retired">Retirado</option>
+                                                                    <option {{ $result->position > 0 ? 'disabled' : '' }} {{ $result->state == 'disqualified' ? 'selected' : '' }} value="disqualified">Descalificado</option>
+                                                                </select>
+                                                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                                    </svg>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                        </table>
+                                    </div> {{-- table-wrap --}}
+
+                                @endif
+
+                            </div> {{-- tab-race --}}
 
                             <div class="hidden" id="tab-qualy">
-                                <div class="overflow-x-auto">
-                                    @if ($qualy_results->count()>0)
-                                        @foreach ($qualy_results as $result)
-                                            <div class="block md:hidden mb-2 flex flex-row items-center">
-                                                <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-8 inline-block mr-2">
-                                                <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                            </div>
-                                            <div class="flex flex-row items-center pb-4 mb-4 border-b">
-                                                <div class="flex-initial hidden md:block w-48 mr-5 truncate">
-                                                    <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-10 hidden md:inline-block mr-2">
-                                                    <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                                </div>
-                                                <div class="flex-initial mr-5">
-                                                    <input type="number" class="position" id="position{{ $result->id }}" min="1" placeholder="Posición" class="w-24" autofocus value="{{ $result->position }}" onblur="update_result('{{ $result->id }}')">
-                                                </div>
+                                @if ($qualy_results->count()>0)
+                                    <div class="table-wrap not-w-full">
+                                        <table class="admin-tables">
+
+                                            <thead>
+                                                <th class="text-left">Participante</th>
+                                                <th>Posición</th>
                                                 @if ($race->racing->times)
-                                                    <div class="flex-initial mr-5">
-                                                        <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->time }}" onblur="update_result('{{ $result->id }}')">
-                                                    </div>
+                                                    <th class="text-left">Tiempo</th>
                                                 @endif
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div class="pt-4">
-                                        <a href="{{ route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]) }}" class="bg-gray-500 text-white active:bg-gray-600 focus:bg-gray-600 hover:bg-gray-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
-                                            Volver
-                                        </a>
-                                        <button class="bg-transparent text-red-500 active:text-red-600 focus:text-red-600 hover:text-red-600 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}')">
-                                            Resetear
-                                        </button>
-                                    </div>
-                                </div>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($qualy_results as $result)
+                                                    <tr class="border-t">
+                                                        <td class="truncate" style="min-width: 12rem">
+                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
+                                                        </td>
+                                                        <td class="">
+                                                            <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
+                                                        </td>
+                                                        @if ($race->racing->times)
+                                                            <td class="">
+                                                                <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                        </table>
+                                    </div> {{-- table-wrap --}}
+
+                                @endif
                             </div> {{-- tab-qualy --}}
 
                             <div class="hidden" id="tab-prequaly">
-                                <div class="overflow-x-auto">
-                                    @if ($prequaly_results->count()>0)
-                                        @foreach ($prequaly_results as $result)
-                                            <div class="block md:hidden mb-2 flex flex-row items-center">
-                                                <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-8 inline-block mr-2">
-                                                <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                            </div>
-                                            <div class="flex flex-row items-center pb-4 mb-4 border-b">
-                                                <div class="flex-initial hidden md:block w-48 mr-5 truncate">
-                                                    <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="w-10 hidden md:inline-block mr-2">
-                                                    <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                                </div>
-                                                <div class="flex-initial mr-5">
-                                                    <input type="number" class="position" id="position{{ $result->id }}" min="1" placeholder="Posición" class="w-24" autofocus value="{{ $result->position }}" onblur="update_result('{{ $result->id }}')">
-                                                </div>
+                                @if ($prequaly_results->count()>0)
+                                    <div class="table-wrap not-w-full">
+                                        <table class="admin-tables">
+
+                                            <thead>
+                                                <th class="text-left">Participante</th>
+                                                <th>Posición</th>
                                                 @if ($race->racing->times)
-                                                    <div class="flex-initial mr-5">
-                                                        <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" class="w-24" value="{{ $result->time }}" onblur="update_result('{{ $result->id }}')">
-                                                    </div>
+                                                    <th class="text-left">Tiempo</th>
                                                 @endif
-                                            </div>
-                                        @endforeach
-                                    @endif
-                                    <div class="pt-4">
-                                        <a href="{{ route('admin.racing.schedule', [$tournament, $season, $competition, $phase, $group]) }}" class="bg-gray-500 text-white active:bg-gray-600 focus:bg-gray-600 hover:bg-gray-600 font-bold uppercase text-sm px-5 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none" style="transition: all .15s ease">
-                                            Volver
-                                        </a>
-                                        <button class="bg-transparent text-red-500 active:text-red-600 focus:text-red-600 hover:text-red-600 font-bold uppercase text-sm px-4 py-3 rounded outline-none focus:outline-none ml-2" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}')">
-                                            Resetear
-                                        </button>
-                                    </div>
-                                </div>
+                                            </thead>
+
+                                            <tbody>
+                                                @foreach ($prequaly_results as $result)
+                                                    <tr class="border-t">
+                                                        <td class="truncate" style="min-width: 12rem">
+                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
+                                                        </td>
+                                                        <td class="">
+                                                            <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
+                                                        </td>
+                                                        @if ($race->racing->times)
+                                                            <td class="">
+                                                                <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                            </td>
+                                                        @endif
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+
+                                        </table>
+                                    </div> {{-- table-wrap --}}
+
+                                @endif
                             </div> {{-- tab-prequaly --}}
+
+                            <div class="mt-3">
+                                <button class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs px-3 py-2 rounded outline-none focus:outline-none" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}')">
+                                    Resetear todos los resultados
+                                </button>
+                            </div>
 
                         </div> {{-- tab-content --}}
                     </div>

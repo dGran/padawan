@@ -21660,7 +21660,6 @@ a.disable, button.disable, input.disable, select.disable {
 .tournament .wrapper .content .race-content .race-standing-content {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  padding-bottom: 1.5rem;
   margin: auto;
 }
 
@@ -21742,6 +21741,8 @@ a.disable, button.disable, input.disable, select.disable {
 
 .tournament .wrapper .content .race-content .race-standing-content .race-standing-results .table-wrap table thead .time {
   text-align: center;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   min-width: 32px;
   width: 42px;
 }

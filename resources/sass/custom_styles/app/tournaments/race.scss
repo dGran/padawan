@@ -263,7 +263,7 @@
 	}
 
 	.race-standing-content {
-		@apply px-2 pb-6 m-auto;
+		@apply px-2 m-auto;
 		@screen sm {
 			@apply px-24;
 		}
@@ -299,7 +299,7 @@
 							@apply text-left;
 						}
 						.time {
-							@apply text-center;
+							@apply text-center px-2;
 							min-width: 32px;
 							width: 42px;
 						}

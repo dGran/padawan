@@ -16,4 +16,4 @@
 <li title="Grupos"><a href="{{ route('admin.groups', [$tournament, $season, $competition, $phase]) }}" class="breadcrumb-link icon-groups mr-2"></a></li>
 <li>{{ $group->name }}</li>
 <li><span class="breadcrumb-separator">/</span></li>
-<li>Gestión de carreras</li>
+<li>Gestión de carreras - Configuración</li>

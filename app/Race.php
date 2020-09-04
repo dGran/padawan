@@ -67,11 +67,11 @@ class Race extends Model
         return $fastest_lap;
     }
 
-    // public function pole()
-    // {
-    //     $pole = RaceResult::where('race_id', '=', $this->id)->where('pole', '=', 1)->first();
-    //     return $pole->group_participant->participant;
-    // }
+    public function pole()
+    {
+        $pole = RaceResult::where('race_id', '=', $this->id)->whereNotNull('time')->where('type', '=', 'qualy')->orderBy('position', 'asc')->first();
+        return $pole;
+    }
 
     public function score_participant($id)
     {
@@ -82,12 +82,18 @@ class Race extends Model
             }
             $score = RacingScore::where('racing_id', '=', $this->racing->id)->where('position', '=', $position->position)->first();
             if ($score) {
+                $score = $score->score - $position->sanction;
                 if ($this->racing->fastest_lap) {
-                    if ($this->fastest_lap()->group_participant->id == $position->group_participant->id) {
-                        return $score->score - $position->sanction + $this->racing->score_fastest_lap;
+                    if ($this->fastest_lap() && $this->fastest_lap()->group_participant->id == $position->group_participant->id) {
+                        $score += $this->racing->score_fastest_lap;
                     }
                 }
-                return $score->score - $position->sanction;
+                if ($this->racing->qualifying) {
+                    if ($this->pole() && $this->pole()->group_participant->id == $position->group_participant->id) {
+                        $score += $this->racing->score_pole;
+                    }
+                }
+                return $score;
             }
         }
         return '-';

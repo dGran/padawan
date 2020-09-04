@@ -38,7 +38,7 @@ class CreateRacesResultsTable extends Migration
             $table->time('time', 3)->nullable();
             $table->time('fastest_lap', 3)->nullable();
             $table->integer('sanction')->default(0);
-            $table->enum('state', array('finished', 'retired', 'disqualified', 'not_shown'));
+            $table->enum('state', array('finished', 'retired', 'disqualified', 'not_shown'))->default('not_shown');
             $table->timestamps();
         });
     }

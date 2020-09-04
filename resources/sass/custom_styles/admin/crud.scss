@@ -8,10 +8,10 @@ input, select, textarea {
 }
 
 .table-wrap {
-	@apply inline-block min-w-full w-full overflow-auto shadow rounded-lg border border-gray-400 text-xs;
-	// &.scrollable {
-	// 	@apply relative overflow-auto ;
-	// }
+	@apply inline-block min-w-full w-full overflow-x-auto shadow rounded-lg border border-gray-400 text-xs;
+	&.not-w-full {
+		@apply w-auto min-w-0 mx-auto;
+	}
 	@screen md {
 		@apply text-sm;
 	}
