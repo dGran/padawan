@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeaguesTable extends Migration
+class CreatePlayoffsRoundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,21 @@ class CreateLeaguesTable extends Migration
      */
     public function up()
     {
-        Schema::create('leagues', function (Blueprint $table) {
+        Schema::create('playoffs_rounds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')
+            $table->foreignId('playoff_id')
                 ->references('id')
-                ->on('groups')
+                ->on('playoffs')
                 ->onDelete('cascade');
-            $table->boolean('allow_draws')->default(true);
-            $table->float('win_points', 8, 2)->nullable()->default(3);
-            $table->float('draw_points', 8, 2)->nullable()->default(1);
-            $table->float('lose_points', 8, 2)->nullable()->default(0);
+            $table->string("name");
+            $table->integer("num_participants")->nullable();
+            $table->boolean("round_trip")->default(false);
+            $table->boolean("double_value")->default(false);
+            $table->dateTime('date_limit')->nullable();
+            $table->integer("order")->default(1);
             $table->float('play_amount', 8, 2)->nullable();
             $table->float('play_ontime_amount', 8, 2)->nullable();
             $table->float('win_amount', 8, 2)->nullable();
-            $table->float('draw_amount', 8, 2)->nullable();
             $table->float('lose_amount', 8, 2)->nullable();
         });
     }
@@ -38,6 +39,6 @@ class CreateLeaguesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leagues');
+        Schema::dropIfExists('playoffs_rounds');
     }
 }

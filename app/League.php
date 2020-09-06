@@ -14,4 +14,14 @@ class League extends Model
         return $this->belongsTo('App\Group');
     }
 
+    public function days()
+    {
+        return $this->hasMany('App\LeagueDay', 'league_id');
+    }
+
+    public function tablezones()
+    {
+        return $this->hasMany('App\LeagueTablezone', 'league_id');
+    }
+
 }

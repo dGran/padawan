@@ -97,6 +97,12 @@ class GroupController extends Controller
                 $league = \App\League::create([
                     'group_id'      => $group->id
                 ]);
+                for ($i=1; $i < $group->num_participants+1 ; $i++) {
+                    \App\LeagueTablezone::create([
+                        'league_id'     => $league->id,
+                        'position'      => $i,
+                    ]);
+                }
                 break;
             case 'playoff':
                 $playoff = \App\Playoff::create([
@@ -110,7 +116,7 @@ class GroupController extends Controller
                 for ($i=1; $i < $group->num_participants+1 ; $i++) {
                     \App\RacingScore::create([
                         'racing_id'     => $racing->id,
-                        'position'      => 'Posición ' . $i,
+                        'position'      => $i,
                     ]);
                 }
                 break;

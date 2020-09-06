@@ -13,4 +13,9 @@ class Playoff extends Model
     {
         return $this->belongsTo('App\Group');
     }
+
+    public function rounds()
+    {
+    	return $this->hasMany('App\PlayoffRound', 'id', 'playoff_id');
+    }
 }

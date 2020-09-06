@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Competition extends Model
 {
     public $timestamps = false;
-    protected $fillable = ['season_id', 'name', 'img', 'slug'];
+    protected $fillable = ['season_id', 'name', 'img', 'stats_mvp', 'stats_goals', 'stats_assists', 'stats_yellow_cards', 'stats_red_cards', 'slug'];
 
     public function season()
     {

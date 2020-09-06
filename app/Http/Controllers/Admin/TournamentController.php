@@ -193,6 +193,12 @@ class TournamentController extends Controller
                     $league = \App\League::create([
                         'group_id'      => $group->id
                     ]);
+                    for ($i=1; $i < $group->num_participants+1 ; $i++) {
+                        \App\LeagueTablezone::create([
+                            'league_id'     => $league->id,
+                            'position'      => $i,
+                        ]);
+                    }
                     break;
                 case 'playoff':
                     $playoff = \App\Playoff::create([
@@ -339,7 +345,7 @@ class TournamentController extends Controller
                 $counter++;
                 // remove image from Storage
                 \Storage::disk('tournaments')->delete($tournament->img);
-                \Storage::disk('tournaments')->delete($game->banner);
+                \Storage::disk('tournaments')->delete($tournament->game->banner);
                 $tournament->delete();
             }
         }

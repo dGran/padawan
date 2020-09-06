@@ -133,25 +133,27 @@
 						</div>
 					@endif
 
-					<div class="race-standing-results">
-				    	<div class="title text-center">
-				    		pole position
-				    	</div>
-				    	<div class="sub-results-content">
-				    		<img src="{{ $race->pole()->group_participant->participant->presenter()['img'] }}">
-							<p class="text-gray-600">
-								{{ $race->pole()->group_participant->participant->presenter()['name'] }}
-							</p>
-							<p>
-								{{ \Carbon\Carbon::parse($race->pole()->time)->Format('i\m s\s v\m\s') }}
-							</p>
-							@if ($race->racing->score_pole > 0)
-								<p class="text-teal-500">
-									+{{ $race->racing->score_pole }} {{ $race->racing->score_pole == 1 ? 'punto' : 'puntos' }}
+					@if ($race->racing->qualifying && $race->pole())
+						<div class="race-standing-results">
+					    	<div class="title text-center">
+					    		pole position
+					    	</div>
+					    	<div class="sub-results-content">
+					    		<img src="{{ $race->pole()->group_participant->participant->presenter()['img'] }}">
+								<p class="text-gray-600">
+									{{ $race->pole()->group_participant->participant->presenter()['name'] }}
 								</p>
-							@endif
-				    	</div>
-					</div>
+								<p>
+									{{ \Carbon\Carbon::parse($race->pole()->time)->Format('i\m s\s v\m\s') }}
+								</p>
+								@if ($race->racing->score_pole > 0)
+									<p class="text-teal-500">
+										+{{ $race->racing->score_pole }} {{ $race->racing->score_pole == 1 ? 'punto' : 'puntos' }}
+									</p>
+								@endif
+					    	</div>
+						</div>
+					@endif
 
 				</div>
 
