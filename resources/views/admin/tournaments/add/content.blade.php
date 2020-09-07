@@ -193,7 +193,7 @@
            <div class="field-group m-3">
                 <div class="element">
                     <label for="num_participants">*Número de participantes</label>
-                    <input type="number" min="0" step="2" class="placeholder-gray-400 disable" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants', 0) }}">
+                    <input type="number" min="0" class="placeholder-gray-400 disable" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants', 0) }}">
                     <p class="info_num_participants block text-blue-500 text-xs pt-2">0 para participantes ilimitados</p>
                 </div>
                 <div class="element">

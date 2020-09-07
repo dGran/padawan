@@ -24,4 +24,21 @@ class League extends Model
         return $this->hasMany('App\LeagueTablezone', 'league_id');
     }
 
+    public function played_matches()
+    {
+        $played_matches = 0;
+        if ($this->days->count() > 0) {
+            foreach ($this->days as $day) {
+                if ($day->matches->count() > 0) {
+                    foreach ($day->matches as $match) {
+                        if (!is_null($match->local_score) && !is_null($match->visitor_score)) {
+                            $played_matches++;
+                        }
+                    }
+                }
+            }
+        }
+        return $played_matches;
+    }
+
 }

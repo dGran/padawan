@@ -62,4 +62,12 @@ class Match extends Model
     {
     	return $this->belongsTo('App\GroupParticipant', 'sanctioned_id');
     }
+
+    public function played()
+    {
+        if ($this->local_score && $this->visitor_score) {
+            return true;
+        }
+        return false;
+    }
 }

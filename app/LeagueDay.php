@@ -15,4 +15,14 @@ class LeagueDay extends Model
         return $this->belongsTo('App\League');
     }
 
+    public function matches()
+    {
+    	return $this->hasMany('App\Match', 'day_id');
+    }
+
+    public function name()
+    {
+        return "Jornada " . $this->order;
+    }
+
 }

@@ -11,7 +11,7 @@
                 </div>
                 <div class="element">
                     <label for="num_participants">*Número de participantes</label>
-                    <input type="number" min="0" value="0" step="2" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants') }}">
+                    <input type="number" min="0" value="0" class="placeholder-gray-400" id="num_participants" name="num_participants" placeholder="Número de participantes" value="{{ old('num_participants') }}">
                     <p class="block text-blue-500 text-xs pt-2">0 para participantes ilimitados</p>
                 </div>
                 <div class="element">
