@@ -65,9 +65,14 @@ class Match extends Model
 
     public function played()
     {
-        if ($this->local_score && $this->visitor_score) {
-            return true;
+        if (is_null($this->local_score) && is_null($this->visitor_score)) {
+            return false;
         }
-        return false;
+        return true;
+    }
+
+    public function result()
+    {
+        return $this->local_score . '-' . $this->visitor_score;
     }
 }

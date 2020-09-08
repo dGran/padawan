@@ -22099,6 +22099,354 @@ a.disable, button.disable, input.disable, select.disable {
   }
 }
 
+.tournament .wrapper .content .leagues-standing-content {
+  border-width: 1px;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .title {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  background: #f9f9f9;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap {
+  overflow-x: auto;
+  border-top-width: 1px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table {
+  width: 100%;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead {
+  border-bottom-width: 1px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  vertical-align: bottom;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .pos {
+  width: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .participant {
+  text-align: left;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .pts {
+  text-align: center;
+  min-width: 32px;
+  width: 42px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .pts a:hover {
+  text-decoration: underline;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .pts a:hover img {
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table thead .pts a:active img {
+  --border-opacity: 1;
+  border-color: #cbd5e0;
+  border-color: rgba(203, 213, 224, var(--border-opacity));
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr {
+  border-top: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr:nth-child(odd) {
+  background: #FBFBFB;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr:last-child .pos {
+  border-bottom-left-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr:last-child .pts {
+  border-bottom-right-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr:hover {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr td {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .pos {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #a0aec0;
+  color: rgba(160, 174, 192, var(--text-opacity));
+  padding-right: 0.5rem;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .pos span {
+  padding-right: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name {
+  min-width: 230px;
+  max-width: 230px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 13px;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container img {
+  border-radius: 9999px;
+  height: 2rem;
+  width: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-name {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container div .text-subname {
+  display: block;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-size: 9px;
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .pts-total {
+  text-align: center;
+  font-weight: 700;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 15px;
+  --bg-opacity: 1;
+  background-color: #fffaf0;
+  background-color: rgba(255, 250, 240, var(--bg-opacity));
+  font-family: "Roboto Condensed", sans-serif;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .pts {
+  text-align: center;
+  font-size: 12px;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  border-left: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .leagues-schedule-content {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .empty-view {
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-width: 1px;
+  border-radius: 0.25rem;
+  text-align: center;
+  position: relative;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  grid-gap: 0.75rem;
+  gap: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .leagues-schedule-content .days-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .tournament .wrapper .content .leagues-schedule-content .days-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-radius: 0.25rem;
+  position: relative;
+  border-width: 1px;
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day h4 {
+  font-weight: 700;
+  font-size: 13px;
+  padding: 0.5rem;
+  border-bottom-width: 1px;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  background: #F2F4F8;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match:hover {
+  --bg-opacity: 1;
+  background-color: #fffff0;
+  background-color: rgba(255, 255, 240, var(--bg-opacity));
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match:last-child {
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom: none;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .local {
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .local .img {
+  width: 1.5rem;
+  height: 1.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 9999px;
+  order: 9999;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .local .name {
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .result {
+  width: 3rem;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+  text-align: center;
+  font-weight: 700;
+  flex: 0 1 auto;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .result.played {
+  --bg-opacity: 1;
+  background-color: #c53030;
+  background-color: rgba(197, 48, 48, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  border-radius: 0.25rem;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .visitor {
+  flex: 1 1 0%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .visitor .img {
+  width: 1.5rem;
+  height: 1.5rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 9999px;
+}
+
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .visitor .name {
+  font-weight: 700;
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  order: 9999;
+}
+
 .tournament .wrapper .sponsors {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;

@@ -68,7 +68,7 @@ class TournamentController extends Controller
 				return view('tournament.schedule.races', ['racing' => $racing, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
     		}
 
-            if ($tournament->one_scpg_mode() == 'race') {
+            if ($tournament->one_scpg_mode() == 'league') {
                 $league = $group->league;
                 // $positions = $racing->generate_table();
 
