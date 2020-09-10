@@ -1,6 +1,6 @@
-<div class="inline-block">
+<div class="selector-container">
 	<label for="group_selector">Grupo</label>
-	<div class="inline-block relative w-64">
+	<div class="relative">
 	    <select name="group_selector" id="group_selector">
 	        @foreach ($phase->groups as $pgroup)
 	            <option {{ $pgroup->id == $group->id ? 'selected' : '' }} value="{{ route($route_name, [$tournament, $season, $competition, $phase, $pgroup]) }}">

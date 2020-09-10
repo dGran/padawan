@@ -20363,30 +20363,25 @@ a.disable, button.disable, input.disable, select.disable {
   pointer-events: none;
 }
 
-.tournament .wrapper .content {
-  --bg-opacity: 1;
-  background-color: #f7fafc;
-  background-color: rgba(247, 250, 252, var(--bg-opacity));
-  --text-opacity: 1;
-  color: #2d3748;
-  color: rgba(45, 55, 72, var(--text-opacity));
-  font-family: "Roboto", sans-serif;
-}
-
-@media (min-width: 768px) {
-}
-
-.tournament .wrapper .content .selector {
+.tournament .wrapper .selector {
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
   border-bottom-width: 1px;
-  padding: 0.75rem;
+  padding: 0.5rem;
   font-family: "Roboto", sans-serif;
   font-size: 12px;
+  white-space: nowrap;
+  overflow-x: auto;
 }
 
-.tournament .wrapper .content .selector label {
+.tournament .wrapper .selector .selector-container {
+  display: inline-block;
+  width: 10rem;
+  padding-right: 0.25rem;
+}
+
+.tournament .wrapper .selector .selector-container label {
   display: block;
   font-weight: 700;
   font-size: 11px;
@@ -20396,7 +20391,7 @@ a.disable, button.disable, input.disable, select.disable {
   margin-bottom: 0.25rem;
 }
 
-.tournament .wrapper .content .selector select {
+.tournament .wrapper .selector .selector-container select {
   display: block;
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -20421,16 +20416,29 @@ a.disable, button.disable, input.disable, select.disable {
   white-space: nowrap;
 }
 
-.tournament .wrapper .content .selector select:hover {
+.tournament .wrapper .selector .selector-container select:hover {
   --border-opacity: 1;
   border-color: #a0aec0;
   border-color: rgba(160, 174, 192, var(--border-opacity));
 }
 
-.tournament .wrapper .content .selector select:focus {
+.tournament .wrapper .selector .selector-container select:focus {
   --border-opacity: 1;
   border-color: #a0aec0;
   border-color: rgba(160, 174, 192, var(--border-opacity));
+}
+
+.tournament .wrapper .content {
+  --bg-opacity: 1;
+  background-color: #f7fafc;
+  background-color: rgba(247, 250, 252, var(--bg-opacity));
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+  font-family: "Roboto", sans-serif;
+}
+
+@media (min-width: 768px) {
 }
 
 .tournament .wrapper .content h2 {

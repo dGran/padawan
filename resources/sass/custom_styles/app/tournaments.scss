@@ -437,14 +437,10 @@
 			}
 		}
 
-		.content {
-			@apply bg-gray-100 text-gray-800 font-roboto;
-			@screen md {
-				// border-left: 1px solid rgba(0,0,0,0.1);
-				// border-right: 1px solid rgba(0,0,0,0.1);
-			}
-			.selector {
-				@apply bg-white border-b p-3 font-roboto text-12;
+		.selector {
+			@apply bg-white border-b p-2 font-roboto text-12 whitespace-no-wrap overflow-x-auto;
+			.selector-container {
+				@apply inline-block w-40 pr-1;
 				label {
 					@apply block font-bold text-11 text-gray-800 mb-1;
 				}
@@ -457,6 +453,13 @@
 						@apply border-gray-500;
 					}
 				}
+			}
+		}
+		.content {
+			@apply bg-gray-100 text-gray-800 font-roboto;
+			@screen md {
+				// border-left: 1px solid rgba(0,0,0,0.1);
+				// border-right: 1px solid rgba(0,0,0,0.1);
 			}
 			h2 {
 				@apply uppercase bg-gray-900 rounded text-16 text-white font-bold font-roboto-condensed px-3 flex items-center;
