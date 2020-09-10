@@ -1,7 +1,7 @@
 @extends('layouts.app', ['title' => $tournament->name])
 
 @section('breadcrumb')
-	@include('tournament.schedule.races.breadcrumb')
+	@include('tournament.standing.leagues.breadcrumb')
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
 			@include('tournament.partials.tournament_header')
 
 	        <div class="content">
-	            @include('tournament.schedule.races.content')
+	            @include('tournament.standing.leagues.content')
 	        </div>
 
 			@if ($tournament->has_sponsors())
@@ -28,5 +28,4 @@
 
 @section('js')
 	@include('tournament.partials.js')
-	@include('tournament.schedule.races.js')
 @endsection

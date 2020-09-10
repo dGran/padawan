@@ -29,25 +29,19 @@
     <div class="menu overflow-x-auto">
         <ul>
             <li class="{{ Request::route()->getName() == 'tournament' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament', $tournament) }}">Inicio</a>
+                <a href="{{ route('tournament', [$tournament, $season]) }}">Inicio</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.rules', $tournament) }}">Normativa</a>
+                <a href="{{ route('tournament.rules', [$tournament, $season]) }}">Normativa</a>
             </li>
-            @if ($tournament->seasons->first()->competitions->count() > 1)
-                <li class="item">
-                    <a href="#">Competiciones</a>
-                </li>
-            @else
-                <li class="{{ stripos(Request::route()->getName(), 'tournament.schedule') !== false ? 'active' : 'item' }}">
-                    <a href="{{ route('tournament.schedule', $tournament) }}">Calendario</a>
-                </li>
-                <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
-                    <a href="{{ route('tournament.standing', $tournament) }}">Clasificación</a>
-                </li>
-            @endif
+            <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.standing', [$tournament, $season]) }}">Clasificación</a>
+            </li>
+            <li class="{{ stripos(Request::route()->getName(), 'tournament.schedule') !== false ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.schedule', [$tournament, $season]) }}">Calendario</a>
+            </li>
             <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.participants', $tournament) }}">Participantes</a>
+                <a href="{{ route('tournament.participants', [$tournament, $season]) }}">Participantes</a>
             </li>
         </ul>
     </div>

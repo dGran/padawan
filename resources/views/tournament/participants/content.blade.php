@@ -1,3 +1,7 @@
+@if ($tournament->seasons->count() > 1)
+    @include('tournament.partials.selector', ['route_name' => 'tournament.participants', 'season_selector' => true, 'competition_selector' => false])
+@endif
+
 <div class="content p-2">
     <h2>
     	<span class="flex-none">participantes</span>

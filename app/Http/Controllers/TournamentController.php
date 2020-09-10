@@ -8,6 +8,9 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 use App\Tournament;
 use App\Season;
+use App\Competition;
+use App\Phase;
+use App\Group;
 use App\Race;
 use App\RaceResult;
 
@@ -20,40 +23,71 @@ class TournamentController extends Controller
     	return view('tournaments.list', ['tournaments' => $tournaments, 'seasons' => $seasons]);
     }
 
-    public function view(Tournament $tournament)
+    public function view(Tournament $tournament, Season $season = null)
     {
-        return view('tournament.index', ['tournament' => $tournament]);
+        $season = $this->checkSeason($tournament, $season);
+        if (!$season) {
+            flash()->info('Torneo en fase de configuración, todavía no accesible');
+            return redirect()->route('tournaments');
+        }
+
+        return view('tournament.index', ['tournament' => $tournament, 'season' => $season]);
     }
 
-    public function rules(Tournament $tournament)
+    public function rules(Tournament $tournament, Season $season)
     {
-        return view('tournament.rules', ['tournament' => $tournament]);
+        return view('tournament.rules', ['tournament' => $tournament, 'season' => $season]);
     }
 
-    public function participants(Tournament $tournament)
+    public function participants(Tournament $tournament, Season $season)
     {
-    	$season = $tournament->seasons->first();
         return view('tournament.participants', ['tournament' => $tournament, 'season' => $season ]);
     }
 
-    public function standing(Tournament $tournament)
+    public function standing(Tournament $tournament, Season $season, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
-    	if ($tournament->is_one_scpg()) {
-    		$season = $tournament->one_scpg_model()['season'];
-    		$competition = $tournament->one_scpg_model()['competition'];
-    		$phase = $tournament->one_scpg_model()['phase'];
-    		$group = $tournament->one_scpg_model()['group'];
+        if (!isset($competition)) {
+            $competition = $season->competitions->first();
+        }
+        if (!isset($phase)) {
+            $phase = $competition->phases->first();
+        }
+        if (!isset($group)) {
+            $group = $phase->groups->first();
+        }
 
-    		if ($tournament->one_scpg_mode() == 'race') {
-		        $racing = $group->racing;
-		        $positions = $racing->generate_table();
+        switch ($phase->mode) {
+            case 'race':
+                $racing = $group->racing;
+                $positions = $racing->generate_table();
+                return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                break;
+            case 'league':
+                $league = $group->league;
+                return view('tournament.standing.leagues', ['league' => $league, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                break;
+            case 'playoff':
+                flash()->info('Clasificación de playoffs en desarrollo...');
+                return back();
+                break;
+        }
 
-				return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
-    		}
-    	}
+    // 	if ($tournament->is_one_scpg()) {
+    // 		$season = $tournament->one_scpg_model()['season'];
+    // 		$competition = $tournament->one_scpg_model()['competition'];
+    // 		$phase = $tournament->one_scpg_model()['phase'];
+    // 		$group = $tournament->one_scpg_model()['group'];
+
+    // 		if ($tournament->one_scpg_mode() == 'race') {
+		  //       $racing = $group->racing;
+		  //       $positions = $racing->generate_table();
+
+				// return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    // 		}
+    // 	}
     }
 
-    public function schedule(Tournament $tournament)
+    public function schedule(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
     	if ($tournament->is_one_scpg()) {
     		$season = $tournament->one_scpg_model()['season'];
@@ -77,7 +111,7 @@ class TournamentController extends Controller
     	}
     }
 
-    public function scheduleRace(Tournament $tournament, $race_slug)
+    public function scheduleRace(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
     {
         $race = Race::where('slug', $race_slug)->first();
 
@@ -88,7 +122,7 @@ class TournamentController extends Controller
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
     }
 
-    public function scheduleRaceCircuit(Tournament $tournament, $race_slug)
+    public function scheduleRaceCircuit(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
     {
 		$race = Race::where('slug', $race_slug)->first();
 
@@ -122,7 +156,7 @@ class TournamentController extends Controller
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
     }
 
-    public function scheduleRaceResult(Tournament $tournament, $race_slug)
+    public function scheduleRaceResult(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
     {
         $race = Race::where('slug', $race_slug)->first();
 
@@ -139,7 +173,7 @@ class TournamentController extends Controller
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
     }
 
-    public function scheduleRaceMultimedia(Tournament $tournament, $race_slug)
+    public function scheduleRaceMultimedia(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
     {
         $race = Race::where('slug', $race_slug)->first();
 
@@ -153,5 +187,17 @@ class TournamentController extends Controller
         }
 
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
+    }
+
+
+    // helpers functions
+
+    protected function checkSeason($tournament, $season)
+    {
+        if (isset($season)) {
+            return Season::findOrFail($season->id);
+        } else {
+            return $tournament->currentSeason();
+        }
     }
 }

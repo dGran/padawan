@@ -35,16 +35,16 @@ Route::prefix('/posts')->group(function () {
 
 Route::prefix('/torneos')->group(function () {
 	Route::get('/', 'TournamentController@index')->name('tournaments');
-	Route::get('/{tournament:slug}', 'TournamentController@view')->name('tournament');
-	Route::get('/{tournament:slug}/normativa', 'TournamentController@rules')->name('tournament.rules');
-	Route::get('/{tournament:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
-	Route::get('/{tournament:slug}/clasificacion', 'TournamentController@standing')->name('tournament.standing');
-	Route::get('/{tournament:slug}/calendario', 'TournamentController@schedule')->name('tournament.schedule');
-	Route::get('/{tournament:slug}/calendario/{race_slug}', 'TournamentController@scheduleRace')->name('tournament.schedule.race');
-	Route::get('/{tournament:slug}/calendario/{race_slug}/circuito', 'TournamentController@scheduleRaceCircuit')->name('tournament.schedule.race.circuit');
-	Route::get('/{tournament:slug}/calendario/{race_slug}/calificación', 'TournamentController@scheduleRaceQualy')->name('tournament.schedule.race.qualy');
-	Route::get('/{tournament:slug}/calendario/{race_slug}/carrera', 'TournamentController@scheduleRaceResult')->name('tournament.schedule.race.result');
-	Route::get('/{tournament:slug}/calendario/{race_slug}/multimedia', 'TournamentController@scheduleRaceMultimedia')->name('tournament.schedule.race.multimedia');
+	Route::get('/{tournament:slug}/{season:slug?}', 'TournamentController@view')->name('tournament');
+	Route::get('/{tournament:slug}/{season:slug}/normativa', 'TournamentController@rules')->name('tournament.rules');
+	Route::get('/{tournament:slug}/{season:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
+	Route::get('/{tournament:slug}/{season:slug}/clasificacion/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@standing')->name('tournament.standing');
+	Route::get('/{tournament:slug}/{season:slug}/calendario/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@schedule')->name('tournament.schedule');
+	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}', 'TournamentController@scheduleRace')->name('tournament.schedule.race');
+	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/circuito', 'TournamentController@scheduleRaceCircuit')->name('tournament.schedule.race.circuit');
+	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/calificación', 'TournamentController@scheduleRaceQualy')->name('tournament.schedule.race.qualy');
+	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/carrera', 'TournamentController@scheduleRaceResult')->name('tournament.schedule.race.result');
+	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/multimedia', 'TournamentController@scheduleRaceMultimedia')->name('tournament.schedule.race.multimedia');
 });
 
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {

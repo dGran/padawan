@@ -25,3 +25,7 @@
 	</div> {{-- tournament --}}
 
 @endsection
+
+@section('js')
+	@include('tournament.partials.js')
+@endsection

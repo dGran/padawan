@@ -1,11 +1,13 @@
-<div class="content p-2">
+@if ($tournament->seasons->count() > 1)
+    @include('tournament.partials.selector', ['route_name' => 'tournament', 'season_selector' => true, 'competition_selector' => false])
+@endif
 
-    {{-- <div class="w-full md:w-3/4"> --}}
+<div class="content p-2">
     <h2>últimas noticias</h2>
     <div class="index-content">
-        @if ($tournament->seasons->first()->seasons_posts->count() >0)
+        @if ($season->seasons_posts->count() >0)
             <ul>
-                @foreach ($tournament->seasons->first()->seasons_posts->sortByDesc('created_at') as $post)
+                @foreach ($season->seasons_posts->sortByDesc('created_at') as $post)
                     <li>
                         <div class="item-container">
                             <img src="{{ $post->img() }}">
@@ -23,5 +25,4 @@
             </div>
         @endif
     </div>
-    {{-- </div> --}}
 </div>

@@ -7,11 +7,16 @@ use App\Http\Traits\DatesTranslator;
 
 class Tournament extends Model
 {
-	protected $fillable = ['game_id', 'name', 'img', 'banner', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents', 'rules', 'slug'];
+	protected $fillable = ['game_id', 'current_season_id', 'name', 'img', 'banner', 'participant_type', 'use_teams', 'use_rosters', 'use_economy', 'use_salaries', 'use_transfers', 'use_clauses', 'use_free_agents', 'rules', 'slug'];
 
     public function game()
     {
         return $this->belongsTo('App\Game');
+    }
+
+    public function current_season()
+    {
+        return $this->belongsTo('App\Season', 'current_season_id');
     }
 
     public function seasons() {
@@ -48,6 +53,17 @@ class Tournament extends Model
                   ->orWhere("use_clauses", "=", 1)
                   ->orWhere("use_free_agents", "=", 1);
         }
+    }
+
+    public function currentSeason()
+    {
+        if (!is_null($this->current_season_id)) {
+            return $this->current_season;
+        }
+        if ($this->seasons->count() > 0) {
+            return $this->seasons->first();
+        }
+        return null;
     }
 
     public function img()

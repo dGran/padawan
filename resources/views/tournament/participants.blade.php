@@ -21,5 +21,6 @@
 @endsection
 
 @section('js')
+	@include('tournament.partials.js')
 	@include('tournament.participants.js')
 @endsection

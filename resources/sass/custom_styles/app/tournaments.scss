@@ -443,6 +443,21 @@
 				// border-left: 1px solid rgba(0,0,0,0.1);
 				// border-right: 1px solid rgba(0,0,0,0.1);
 			}
+			.selector {
+				@apply bg-white border-b p-3 font-roboto text-12;
+				label {
+					@apply block font-bold text-11 text-gray-800 mb-1;
+				}
+				select {
+					@apply block appearance-none w-full bg-gray-100 border border-gray-400 px-3 py-2 pr-6 rounded leading-tight truncate;
+					&:hover {
+						@apply border-gray-500;
+					}
+					&:focus {
+						@apply border-gray-500;
+					}
+				}
+			}
 			h2 {
 				@apply uppercase bg-gray-900 rounded text-16 text-white font-bold font-roboto-condensed px-3 flex items-center;
 				height: 32px;
