@@ -35,10 +35,10 @@
                 <a href="{{ route('tournament.rules', [$tournament, $season]) }}">Normativa</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.standing', [$tournament, $season]) }}">Clasificación</a>
+                <a href="{{ route('tournament.standing', [$tournament, $season, isset($competition) && $competition->season == $season ? $competition : null, isset($phase) && $competition->season == $season ? $phase : null, isset($group) && $competition->season == $season ? $group : null]) }}">Clasificación</a>
             </li>
             <li class="{{ stripos(Request::route()->getName(), 'tournament.schedule') !== false ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.schedule', [$tournament, $season]) }}">Calendario</a>
+                <a href="{{ route('tournament.schedule', [$tournament, $season, isset($competition) && $competition->season == $season ? $competition : null, isset($phase) && $competition->season == $season ? $phase : null, isset($group) && $competition->season == $season ? $group : null]) }}">Calendario</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
                 <a href="{{ route('tournament.participants', [$tournament, $season]) }}">Participantes</a>

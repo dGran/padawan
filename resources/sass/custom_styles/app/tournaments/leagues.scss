@@ -1,11 +1,23 @@
 .leagues-standing-content {
 	@apply border my-3 bg-white rounded;
+	@screen sm {
+		@apply mx-24;
+	}
+	@screen md {
+		@apply mx-32;
+	}
+	@screen lg {
+		@apply mx-48;
+	}
+	@screen xl {
+		@apply mx-64;
+	}
 	.title {
 		@apply uppercase text-13 font-bold p-2 rounded;
 		background: #f9f9f9;
 	}
 	.table-wrap {
-		@apply overflow-x-auto border-t;
+		@apply overflow-x-auto border-t m-auto;
 		table {
 			@apply w-full;
 			thead {

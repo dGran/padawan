@@ -31,17 +31,71 @@ class TournamentController extends Controller
             return redirect()->route('tournaments');
         }
 
-        return view('tournament.index', ['tournament' => $tournament, 'season' => $season]);
+        $competition = null;
+        if (request()->session()->get('user_competition')) {
+            $competition = request()->session()->get('user_competition');
+        }
+        session(['user_competition' => $competition]);
+
+        $phase = null;
+        if (request()->session()->get('user_phase')) {
+            $phase = request()->session()->get('user_phase');
+        }
+        session(['user_phase' => $phase]);
+
+        $group = null;
+        if (request()->session()->get('user_group')) {
+            $group = request()->session()->get('user_group');
+        }
+        session(['user_group' => $group]);
+
+        return view('tournament.index', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function rules(Tournament $tournament, Season $season)
     {
-        return view('tournament.rules', ['tournament' => $tournament, 'season' => $season]);
+        $competition = null;
+        if (request()->session()->get('user_competition')) {
+            $competition = request()->session()->get('user_competition');
+        }
+        session(['user_competition' => $competition]);
+
+        $phase = null;
+        if (request()->session()->get('user_phase')) {
+            $phase = request()->session()->get('user_phase');
+        }
+        session(['user_phase' => $phase]);
+
+        $group = null;
+        if (request()->session()->get('user_group')) {
+            $group = request()->session()->get('user_group');
+        }
+        session(['user_group' => $group]);
+
+        return view('tournament.rules', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function participants(Tournament $tournament, Season $season)
     {
-        return view('tournament.participants', ['tournament' => $tournament, 'season' => $season ]);
+        $competition = null;
+        if (request()->session()->get('user_competition')) {
+            $competition = request()->session()->get('user_competition');
+        }
+        session(['user_competition' => $competition]);
+
+        $phase = null;
+        if (request()->session()->get('user_phase')) {
+            $phase = request()->session()->get('user_phase');
+        }
+        session(['user_phase' => $phase]);
+
+        $group = null;
+        if (request()->session()->get('user_group')) {
+            $group = request()->session()->get('user_group');
+        }
+        session(['user_group' => $group]);
+
+        return view('tournament.participants', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
 
     public function standing(Tournament $tournament, Season $season, Competition $competition = null, Phase $phase = null, Group $group = null)
@@ -49,66 +103,83 @@ class TournamentController extends Controller
         if (!isset($competition)) {
             $competition = $season->competitions->first();
         }
+        session(['user_competition' => $competition]);
+
         if (!isset($phase)) {
             $phase = $competition->phases->first();
         }
+        session(['user_phase' => $phase]);
+
         if (!isset($group)) {
             $group = $phase->groups->first();
         }
+        session(['user_group' => $group]);
 
         switch ($phase->mode) {
             case 'race':
-                $racing = $group->racing;
-                $positions = $racing->generate_table();
-                return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                if ($group && $group->racing) {
+                    $racing = $group->racing;
+                    $positions = $racing->generate_table();
+                    return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                }
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
                 break;
             case 'league':
-                $league = $group->league;
-                return view('tournament.standing.leagues', ['league' => $league, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                if ($group && $group->league) {
+                    $league = $group->league;
+                    $positions = $league->generate_table();
+                    return view('tournament.standing.leagues', ['league' => $league, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                }
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
                 break;
             case 'playoff':
                 flash()->info('Clasificación de playoffs en desarrollo...');
                 return back();
                 break;
         }
-
-    // 	if ($tournament->is_one_scpg()) {
-    // 		$season = $tournament->one_scpg_model()['season'];
-    // 		$competition = $tournament->one_scpg_model()['competition'];
-    // 		$phase = $tournament->one_scpg_model()['phase'];
-    // 		$group = $tournament->one_scpg_model()['group'];
-
-    // 		if ($tournament->one_scpg_mode() == 'race') {
-		  //       $racing = $group->racing;
-		  //       $positions = $racing->generate_table();
-
-				// return view('tournament.standing.races', ['racing' => $racing, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
-    // 		}
-    // 	}
     }
 
     public function schedule(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
-    	if ($tournament->is_one_scpg()) {
-    		$season = $tournament->one_scpg_model()['season'];
-    		$competition = $tournament->one_scpg_model()['competition'];
-    		$phase = $tournament->one_scpg_model()['phase'];
-    		$group = $tournament->one_scpg_model()['group'];
+        if (!isset($competition)) {
+            $competition = $season->competitions->first();
+        }
+        session(['user_competition' => $competition]);
 
-    		if ($tournament->one_scpg_mode() == 'race') {
-		        $racing = $group->racing;
-		        // $positions = $racing->generate_table();
+        if (!isset($phase)) {
+            $phase = $competition->phases->first();
+        }
+        session(['user_phase' => $phase]);
 
-				return view('tournament.schedule.races', ['racing' => $racing, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
-    		}
+        if (!isset($group)) {
+            $group = $phase->groups->first();
+        }
+        session(['user_group' => $group]);
 
-            if ($tournament->one_scpg_mode() == 'league') {
-                $league = $group->league;
-                // $positions = $racing->generate_table();
-
-                return view('tournament.schedule.leagues', ['league' => $league, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
-            }
-    	}
+        switch ($phase->mode) {
+            case 'race':
+                if ($group && $group->racing) {
+                    $racing = $group->racing;
+                    return view('tournament.schedule.races', ['racing' => $racing, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                }
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+                break;
+            case 'league':
+                if ($group && $group->league) {
+                    $league = $group->league;
+                    return view('tournament.schedule.leagues', ['league' => $league, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                }
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+                break;
+            case 'playoff':
+                flash()->info('Calendario de playoffs en desarrollo...');
+                return back();
+                break;
+        }
     }
 
     public function scheduleRace(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
