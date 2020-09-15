@@ -32,64 +32,37 @@ class TournamentController extends Controller
         }
 
         $competition = null;
-        if (request()->session()->get($season->id . '_user_competition')) {
-            $competition = request()->session()->get($season->id . '_user_competition');
+        if ($season->competitions->count() > 1) {
+            if (request()->session()->get($season->id . '_user_competition')) {
+                $competition = request()->session()->get($season->id . '_user_competition');
+                if ($competition->season_id != $season->id) {
+                    $competition = null;
+                }
+            }
         }
         session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get($season->id . '_user_phase')) {
-            $phase = request()->session()->get($season->id . '_user_phase');
+        if ($competition && $competition->phases->count() > 1) {
+            if (request()->session()->get($season->id . '_user_phase')) {
+                $phase = request()->session()->get($season->id . '_user_phase');
+                if ($phase->competition_id != $competition->id) {
+                    $phase = null;
+                }
+            }
         }
         session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get($season->id . '_user_group')) {
-            $group = request()->session()->get($season->id . '_user_group');
+        if ($phase && $phase->groups->count() > 1) {
+            if (request()->session()->get($season->id . '_user_group')) {
+                $group = request()->session()->get($season->id . '_user_group');
+                if ($group->phase_id != $phase->id) {
+                    $group = null;
+                }
+            }
         }
         session([$season->id . '_user_group' => $group]);
-
-
-        // $season = $this->checkSeason($tournament, $season);
-        // if (!$season) {
-        //     flash()->info('Torneo en fase de configuración, todavía no accesible');
-        //     return redirect()->route('tournaments');
-        // }
-
-        // $competition = null;
-        // if ($season->competitions->count() > 1) {
-        //     if (request()->session()->get($season->id . '_user_competition')) {
-        //         $competition = request()->session()->get($season->id . '_user_competition');
-        //         if ($competition->season_id != $season->id) {
-        //             $competition = null;
-        //         }
-        //     }
-        // }
-        // session([$season->id . '_user_competition' => $competition]);
-
-        // $phase = null;
-        // if ($competition && $competition->phases->count() > 1) {
-        //     if (request()->session()->get($season->id . '_user_phase')) {
-        //         $phase = request()->session()->get($season->id . '_user_phase');
-        //         if ($phase->competition_id != $competition->id) {
-        //             $phase = null;
-        //         }
-        //     }
-        // }
-        // session([$season->id . '_user_phase' => $phase]);
-
-        // $group = null;
-        // if ($phase && $phase->groups->count() > 1) {
-        //     if (request()->session()->get($season->id . '_user_group')) {
-        //         $group = request()->session()->get($season->id . '_user_group');
-        //         if ($group->phase_id != $phase->id) {
-        //             $group = null;
-        //         }
-        //     }
-        // }
-        // session([$season->id . '_user_group' => $group]);
-
-
 
         return view('tournament.index', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
@@ -97,20 +70,35 @@ class TournamentController extends Controller
     public function rules(Tournament $tournament, Season $season)
     {
         $competition = null;
-        if (request()->session()->get($season->id . '_user_competition')) {
-            $competition = request()->session()->get($season->id . '_user_competition');
+        if ($season->competitions->count() > 1) {
+            if (request()->session()->get($season->id . '_user_competition')) {
+                $competition = request()->session()->get($season->id . '_user_competition');
+                if ($competition->season_id != $season->id) {
+                    $competition = null;
+                }
+            }
         }
         session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get($season->id . '_user_phase')) {
-            $phase = request()->session()->get($season->id . '_user_phase');
+        if ($competition && $competition->phases->count() > 1) {
+            if (request()->session()->get($season->id . '_user_phase')) {
+                $phase = request()->session()->get($season->id . '_user_phase');
+                if ($phase->competition_id != $competition->id) {
+                    $phase = null;
+                }
+            }
         }
         session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get($season->id . '_user_group')) {
-            $group = request()->session()->get($season->id . '_user_group');
+        if ($phase && $phase->groups->count() > 1) {
+            if (request()->session()->get($season->id . '_user_group')) {
+                $group = request()->session()->get($season->id . '_user_group');
+                if ($group->phase_id != $phase->id) {
+                    $group = null;
+                }
+            }
         }
         session([$season->id . '_user_group' => $group]);
 
@@ -120,20 +108,35 @@ class TournamentController extends Controller
     public function participants(Tournament $tournament, Season $season)
     {
         $competition = null;
-        if (request()->session()->get($season->id . '_user_competition')) {
-            $competition = request()->session()->get($season->id . '_user_competition');
+        if ($season->competitions->count() > 1) {
+            if (request()->session()->get($season->id . '_user_competition')) {
+                $competition = request()->session()->get($season->id . '_user_competition');
+                if ($competition->season_id != $season->id) {
+                    $competition = null;
+                }
+            }
         }
         session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get($season->id . '_user_phase')) {
-            $phase = request()->session()->get($season->id . '_user_phase');
+        if ($competition && $competition->phases->count() > 1) {
+            if (request()->session()->get($season->id . '_user_phase')) {
+                $phase = request()->session()->get($season->id . '_user_phase');
+                if ($phase->competition_id != $competition->id) {
+                    $phase = null;
+                }
+            }
         }
         session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get($season->id . '_user_group')) {
-            $group = request()->session()->get($season->id . '_user_group');
+        if ($phase && $phase->groups->count() > 1) {
+            if (request()->session()->get($season->id . '_user_group')) {
+                $group = request()->session()->get($season->id . '_user_group');
+                if ($group->phase_id != $phase->id) {
+                    $group = null;
+                }
+            }
         }
         session([$season->id . '_user_group' => $group]);
 
