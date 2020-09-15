@@ -40,11 +40,11 @@ Route::prefix('/torneos')->group(function () {
 	Route::get('/{tournament:slug}/{season:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
 	Route::get('/{tournament:slug}/{season:slug}/clasificacion/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@standing')->name('tournament.standing');
 	Route::get('/{tournament:slug}/{season:slug}/calendario/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@schedule')->name('tournament.schedule');
-	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}', 'TournamentController@scheduleRace')->name('tournament.schedule.race');
-	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/circuito', 'TournamentController@scheduleRaceCircuit')->name('tournament.schedule.race.circuit');
-	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/calificación', 'TournamentController@scheduleRaceQualy')->name('tournament.schedule.race.qualy');
-	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/carrera', 'TournamentController@scheduleRaceResult')->name('tournament.schedule.race.result');
-	Route::get('/{tournament:slug}/{season:slug?}/{competition:slug?}/{phase:slug?}/{group:slug?}/calendario/{race_slug}/multimedia', 'TournamentController@scheduleRaceMultimedia')->name('tournament.schedule.race.multimedia');
+	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/circuito/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceCircuit')->name('tournament.schedule.race.circuit');
+	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/resultados-calificación/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceQualy')->name('tournament.schedule.race.qualy');
+	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/resultados-carrera/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceResult')->name('tournament.schedule.race.result');
+	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/multimedia/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceMultimedia')->name('tournament.schedule.race.multimedia');
+	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRace')->name('tournament.schedule.race');
 });
 
 Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->group(function () {
@@ -308,7 +308,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	//Schedule::results
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/editar-resultados/{id}', 'Admin\RacingController@scheduleEditRaceResults')->name('admin.racing.schedule.races.edit.results');
 	Route::post('/torneos/gestion-de-carreras/guardar-resultados/{id}', 'Admin\RacingController@scheduleUpdateRaceResults')->name('admin.racing.schedule.races.update.results');
-	Route::get('/torneos/gestion-de-carreras/resetear-resultados/{id}', 'Admin\RacingController@scheduleResetRaceResults')->name('admin.racing.schedule.races.reset.results');
+	Route::get('/torneos/gestion-de-carreras/resetear-resultados/{id}/{type}', 'Admin\RacingController@scheduleResetRaceResults')->name('admin.racing.schedule.races.reset.results');
 	//Schedule::races::videos
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{id}', 'Admin\RacingController@scheduleRaceVideos')->name('admin.racing.schedule.races.videos');
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-carreras/calendario/videos-carrera/{id}/nuevo', 'Admin\RacingController@scheduleRaceVideosAdd')->name('admin.racing.schedule.races.videos.add');

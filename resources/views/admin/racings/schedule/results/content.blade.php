@@ -13,16 +13,20 @@
                             Carrera
                         </a>
                     </li>
-                    <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-teal-500 bg-white" onclick="changeAtiveTab(event,'tab-qualy')">
-                            Qualy
-                        </a>
-                    </li>
-                    <li class="-mb-px last:mr-0 flex-auto text-center">
-                        <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-teal-500 bg-white" onclick="changeAtiveTab(event,'tab-prequaly')">
-                            Pre-Qualy
-                        </a>
-                    </li>
+                    @if ($race->qualifying)
+                        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-teal-500 bg-white" onclick="changeAtiveTab(event,'tab-qualy')">
+                                Qualy
+                            </a>
+                        </li>
+                    @endif
+                    @if ($race->pre_qualifying)
+                        <li class="-mb-px last:mr-0 flex-auto text-center">
+                            <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-teal-500 bg-white" onclick="changeAtiveTab(event,'tab-prequaly')">
+                                Pre-Qualy
+                            </a>
+                        </li>
+                    @endif
                 </ul>
 
                 <div class="relative flex flex-col min-w-0 break-words w-full mb-6">
@@ -51,8 +55,8 @@
                                                 @foreach ($race_results as $result)
                                                     <tr class="border-t">
                                                         <td class="truncate" style="min-width: 12rem">
-                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
-                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
+                                                            <img src="{{ $result->group_participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                            <span>{{ $result->group_participant->presenter()['name'] }}</span>
                                                         </td>
                                                         <td class="">
                                                             <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
@@ -92,91 +96,107 @@
                                         </table>
                                     </div> {{-- table-wrap --}}
 
+                                    <div class="mt-3">
+                                        <button class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs px-4 py-3 rounded outline-none focus:outline-none" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}', 'race')">
+                                            Resetear resultados
+                                        </button>
+                                    </div>
+
                                 @endif
 
                             </div> {{-- tab-race --}}
 
-                            <div class="hidden" id="tab-qualy">
-                                @if ($qualy_results->count()>0)
-                                    <div class="table-wrap not-w-full">
-                                        <table class="admin-tables">
+                            @if ($race->qualifying)
+                                <div class="hidden" id="tab-qualy">
+                                    @if ($qualy_results->count()>0)
+                                        <div class="table-wrap not-w-full">
+                                            <table class="admin-tables">
 
-                                            <thead>
-                                                <th class="text-left">Participante</th>
-                                                <th>Posición</th>
-                                                @if ($race->racing->times)
-                                                    <th class="text-left">Tiempo</th>
-                                                @endif
-                                            </thead>
+                                                <thead>
+                                                    <th class="text-left">Participante</th>
+                                                    <th>Posición</th>
+                                                    @if ($race->racing->times)
+                                                        <th class="text-left">Tiempo</th>
+                                                    @endif
+                                                </thead>
 
-                                            <tbody>
-                                                @foreach ($qualy_results as $result)
-                                                    <tr class="border-t">
-                                                        <td class="truncate" style="min-width: 12rem">
-                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
-                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                                        </td>
-                                                        <td class="">
-                                                            <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
-                                                        </td>
-                                                        @if ($race->racing->times)
-                                                            <td class="">
-                                                                <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                <tbody>
+                                                    @foreach ($qualy_results as $result)
+                                                        <tr class="border-t">
+                                                            <td class="truncate" style="min-width: 12rem">
+                                                                <img src="{{ $result->group_participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                                <span>{{ $result->group_participant->presenter()['name'] }}</span>
                                                             </td>
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-
-                                        </table>
-                                    </div> {{-- table-wrap --}}
-
-                                @endif
-                            </div> {{-- tab-qualy --}}
-
-                            <div class="hidden" id="tab-prequaly">
-                                @if ($prequaly_results->count()>0)
-                                    <div class="table-wrap not-w-full">
-                                        <table class="admin-tables">
-
-                                            <thead>
-                                                <th class="text-left">Participante</th>
-                                                <th>Posición</th>
-                                                @if ($race->racing->times)
-                                                    <th class="text-left">Tiempo</th>
-                                                @endif
-                                            </thead>
-
-                                            <tbody>
-                                                @foreach ($prequaly_results as $result)
-                                                    <tr class="border-t">
-                                                        <td class="truncate" style="min-width: 12rem">
-                                                            <img src="{{ $result->group_participant->participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
-                                                            <span>{{ $result->group_participant->participant->presenter()['name'] }}</span>
-                                                        </td>
-                                                        <td class="">
-                                                            <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
-                                                        </td>
-                                                        @if ($race->racing->times)
                                                             <td class="">
-                                                                <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                                <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
                                                             </td>
-                                                        @endif
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
+                                                            @if ($race->racing->times)
+                                                                <td class="">
+                                                                    <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
 
-                                        </table>
-                                    </div> {{-- table-wrap --}}
+                                            </table>
+                                        </div> {{-- table-wrap --}}
 
-                                @endif
-                            </div> {{-- tab-prequaly --}}
+                                        <div class="mt-3">
+                                            <button class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs px-4 py-3 rounded outline-none focus:outline-none" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}', 'qualy')">
+                                                Resetear resultados
+                                            </button>
+                                        </div>
 
-                            <div class="mt-3">
-                                <button class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs px-3 py-2 rounded outline-none focus:outline-none" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}')">
-                                    Resetear todos los resultados
-                                </button>
-                            </div>
+                                    @endif
+                                </div> {{-- tab-qualy --}}
+                            @endif
+
+                            @if ($race->pre_qualifying)
+                                <div class="hidden" id="tab-prequaly">
+                                    @if ($prequaly_results->count()>0)
+                                        <div class="table-wrap not-w-full">
+                                            <table class="admin-tables">
+
+                                                <thead>
+                                                    <th class="text-left">Participante</th>
+                                                    <th>Posición</th>
+                                                    @if ($race->racing->times)
+                                                        <th class="text-left">Tiempo</th>
+                                                    @endif
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach ($prequaly_results as $result)
+                                                        <tr class="border-t">
+                                                            <td class="truncate" style="min-width: 12rem">
+                                                                <img src="{{ $result->group_participant->presenter()['img'] }}" alt="" class="rounded-full h-10 w-10 object-cover shadow hidden lg:inline-block mr-2">
+                                                                <span>{{ $result->group_participant->presenter()['name'] }}</span>
+                                                            </td>
+                                                            <td class="">
+                                                                <input type="number" class="position w-16 m-auto" id="position{{ $result->id }}" min="1" value="{{ $result->position }}" onBlur="update_result('{{ $result->id }}')">
+                                                            </td>
+                                                            @if ($race->racing->times)
+                                                                <td class="">
+                                                                    <input type="time" class="time" id="time{{ $result->id }}" placeholder="Tiempo" step="0.001" value="{{ $result->time }}" onBlur="update_result('{{ $result->id }}')">
+                                                                </td>
+                                                            @endif
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody>
+
+                                            </table>
+                                        </div> {{-- table-wrap --}}
+
+                                        <div class="mt-3">
+                                            <button class="bg-red-500 text-white active:bg-red-600 focus:bg-red-600 hover:bg-red-600 font-bold uppercase text-xs px-4 py-3 rounded outline-none focus:outline-none" style="transition: all .15s ease" type="button" onclick="reset('{{ $race->id }}', 'pre-qualy')">
+                                                Resetear resultados
+                                            </button>
+                                        </div>
+
+                                    @endif
+                                </div> {{-- tab-prequaly --}}
+                            @endif
 
                         </div> {{-- tab-content --}}
                     </div>

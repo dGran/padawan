@@ -20,6 +20,7 @@ class CreateGroupsParticipantsTable extends Migration
                 ->on('groups')
                 ->onDelete('cascade');
             $table->foreignId('participant_id')
+                ->nullable()
                 ->references('id')
                 ->on('participants')
                 ->onDelete('cascade');

@@ -44,6 +44,31 @@ class GroupParticipant extends Model
         }
     }
 
+    public function presenter()
+    {
+        $presenter = [];
+        if ($this->participant) {
+            $presenter = $this->participant->presenter();
+        } else {
+            if ($this->group->phase->competition->season->tournament->use_teams) {
+                $presenter['defined'] = false;
+                $presenter['name'] = 'No definido';
+                $presenter['img'] = asset('img/teams/default.png');
+            } else {
+                if ($this->group->phase->competition->season->tournament->participant_type == "individual") {
+                    $presenter['defined'] = false;
+                    $presenter['name'] = 'No definido';
+                    $presenter['img'] = asset('img/avatars/default.png');
+                } else {
+                    $presenter['defined'] = false;
+                    $presenter['name'] = 'No definido';
+                    $presenter['img'] = asset('img/eteams/default.png');
+                }
+            }
+        }
+        return $presenter;
+    }
+
     public function canDestroy()
     {
         // apply logic...

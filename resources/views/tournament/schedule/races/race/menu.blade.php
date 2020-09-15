@@ -50,25 +50,25 @@
 		<div class="race-menu {{ $tournament->game->platform->color }}">
 			<ul>
 				<li class="{{ Request::route()->getName() == 'tournament.schedule.race.circuit' ? 'current' : '' }}">
-					<a href="{{ route('tournament.schedule.race.circuit', [$tournament, $race->slug]) }}">
+					<a href="{{ route('tournament.schedule.race.circuit', [$tournament, $season, $race->slug]) }}">
 						<i class="icon-circuit"></i>
 						<span>Circuito</span>
 					</a>
 				</li>
 				<li class="{{ !$race->qualys_finished() ? 'disable' : '' }} {{ Request::route()->getName() == 'tournament.schedule.race.qualy' ? 'current' : '' }}">
-					<a href="{{ route('tournament.schedule.race.qualy', [$tournament, $race->slug]) }}">
+					<a href="{{ route('tournament.schedule.race.qualy', [$tournament, $season, $race->slug]) }}">
 						<i class="icon-qualy"></i>
 						<span>Calificación</span>
 					</a>
 				</li>
 				<li class="{{ !$race->finished() ? 'disable' : '' }} {{ Request::route()->getName() == 'tournament.schedule.race.result' ? 'current' : '' }}">
-					<a href="{{ route('tournament.schedule.race.result', [$tournament, $race->slug]) }}">
+					<a href="{{ route('tournament.schedule.race.result', [$tournament, $season, $race->slug]) }}">
 						<i class="icon-race"></i>
 						<span>Carrera</span>
 					</a>
 				</li>
 				<li class="{{ !$race->has_media() ? 'disable' : '' }} {{ Request::route()->getName() == 'tournament.schedule.race.multimedia' ? 'current' : '' }}">
-					<a href="{{ route('tournament.schedule.race.multimedia', [$tournament, $race->slug]) }}">
+					<a href="{{ route('tournament.schedule.race.multimedia', [$tournament, $season, $race->slug]) }}">
 						<i class="icon-multimedia"></i>
 						<span>Multimedia</span>
 					</a>

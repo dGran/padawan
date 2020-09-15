@@ -3,7 +3,7 @@
 	<div class="view">
 		<div class="title">
 			<p class="text-lg font-semibold">
-				{{ $group_participant->participant->presenter()["name"] }}
+				{{ $group_participant->presenter()["name"] }}
 			</p>
 	    	<div class="pt-6 pb-3">
 				<a href="{{ route('admin.groups_participants.edit', [$tournament, $season, $competition, $phase, $group, $group_participant->id]) }}" class="edit">
@@ -23,7 +23,7 @@
 			</div>
 			<div>
 				<dt>Participante</dt>
-				<dd>{{ $group_participant->participant->presenter()['name'] }}</dd>
+				<dd>{{ $group_participant->presenter()['name'] }}</dd>
 			</div>
 	    </dl>
 

@@ -313,8 +313,8 @@ class RacingController extends Controller
                 RaceResult::create([
                     'race_id'              => $race->id,
                     'group_participant_id' => $group_participant->id,
-                    'user_id'              => $group_participant->participant->user_id,
-                    'eteam_id'             => $group_participant->participant->eteam_id,
+                    'user_id'              => $group_participant->participant ? $group_participant->participant->user_id : null,
+                    'eteam_id'             => $group_participant->participant ? $group_participant->participant->eteam_id : null,
                     'type'                 => 'race',
                     'position'             => 0,
                 ]);
@@ -346,7 +346,7 @@ class RacingController extends Controller
             $result->fastest_lap = null;
             $result->time = null;
             $result->sanction = 0;
-            if ($result->type == 'race') {
+            if ($result->type == 'race' && $request->state != 'finished') {
                 $result->state = $request->state;
             } else {
                 $result->state = 'not_shown';
@@ -366,9 +366,9 @@ class RacingController extends Controller
         exit;
     }
 
-    public function scheduleResetRaceResults($id)
+    public function scheduleResetRaceResults($id, $type)
     {
-        $results = RaceResult::where('race_id', '=', $id)->get();
+        $results = RaceResult::where('race_id', $id)->where('type', $type)->get();
         foreach ($results as $result) {
             $result->position = 0;
             $result->fastest_lap = null;
@@ -377,7 +377,20 @@ class RacingController extends Controller
             $result->state = "not_shown";
             $result->save();
         }
-        exit;
+        switch ($type) {
+            case 'race':
+                flash()->success('Posiciones de carrera reseteadas correctamente.');
+                return back();
+                break;
+            case 'qualy':
+                flash()->success('Posiciones de qualy reseteadas correctamente.');
+                return back();
+                break;
+            case 'pre_qualy':
+                flash()->success('Posiciones de pre-qualy reseteadas correctamente.');
+                return back();
+                break;
+        }
     }
 
 

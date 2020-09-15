@@ -32,22 +32,64 @@ class TournamentController extends Controller
         }
 
         $competition = null;
-        if (request()->session()->get('user_competition')) {
-            $competition = request()->session()->get('user_competition');
+        if (request()->session()->get($season->id . '_user_competition')) {
+            $competition = request()->session()->get($season->id . '_user_competition');
         }
-        session(['user_competition' => $competition]);
+        session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get('user_phase')) {
-            $phase = request()->session()->get('user_phase');
+        if (request()->session()->get($season->id . '_user_phase')) {
+            $phase = request()->session()->get($season->id . '_user_phase');
         }
-        session(['user_phase' => $phase]);
+        session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get('user_group')) {
-            $group = request()->session()->get('user_group');
+        if (request()->session()->get($season->id . '_user_group')) {
+            $group = request()->session()->get($season->id . '_user_group');
         }
-        session(['user_group' => $group]);
+        session([$season->id . '_user_group' => $group]);
+
+
+        // $season = $this->checkSeason($tournament, $season);
+        // if (!$season) {
+        //     flash()->info('Torneo en fase de configuración, todavía no accesible');
+        //     return redirect()->route('tournaments');
+        // }
+
+        // $competition = null;
+        // if ($season->competitions->count() > 1) {
+        //     if (request()->session()->get($season->id . '_user_competition')) {
+        //         $competition = request()->session()->get($season->id . '_user_competition');
+        //         if ($competition->season_id != $season->id) {
+        //             $competition = null;
+        //         }
+        //     }
+        // }
+        // session([$season->id . '_user_competition' => $competition]);
+
+        // $phase = null;
+        // if ($competition && $competition->phases->count() > 1) {
+        //     if (request()->session()->get($season->id . '_user_phase')) {
+        //         $phase = request()->session()->get($season->id . '_user_phase');
+        //         if ($phase->competition_id != $competition->id) {
+        //             $phase = null;
+        //         }
+        //     }
+        // }
+        // session([$season->id . '_user_phase' => $phase]);
+
+        // $group = null;
+        // if ($phase && $phase->groups->count() > 1) {
+        //     if (request()->session()->get($season->id . '_user_group')) {
+        //         $group = request()->session()->get($season->id . '_user_group');
+        //         if ($group->phase_id != $phase->id) {
+        //             $group = null;
+        //         }
+        //     }
+        // }
+        // session([$season->id . '_user_group' => $group]);
+
+
 
         return view('tournament.index', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
@@ -55,22 +97,22 @@ class TournamentController extends Controller
     public function rules(Tournament $tournament, Season $season)
     {
         $competition = null;
-        if (request()->session()->get('user_competition')) {
-            $competition = request()->session()->get('user_competition');
+        if (request()->session()->get($season->id . '_user_competition')) {
+            $competition = request()->session()->get($season->id . '_user_competition');
         }
-        session(['user_competition' => $competition]);
+        session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get('user_phase')) {
-            $phase = request()->session()->get('user_phase');
+        if (request()->session()->get($season->id . '_user_phase')) {
+            $phase = request()->session()->get($season->id . '_user_phase');
         }
-        session(['user_phase' => $phase]);
+        session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get('user_group')) {
-            $group = request()->session()->get('user_group');
+        if (request()->session()->get($season->id . '_user_group')) {
+            $group = request()->session()->get($season->id . '_user_group');
         }
-        session(['user_group' => $group]);
+        session([$season->id . '_user_group' => $group]);
 
         return view('tournament.rules', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
@@ -78,22 +120,22 @@ class TournamentController extends Controller
     public function participants(Tournament $tournament, Season $season)
     {
         $competition = null;
-        if (request()->session()->get('user_competition')) {
-            $competition = request()->session()->get('user_competition');
+        if (request()->session()->get($season->id . '_user_competition')) {
+            $competition = request()->session()->get($season->id . '_user_competition');
         }
-        session(['user_competition' => $competition]);
+        session([$season->id . '_user_competition' => $competition]);
 
         $phase = null;
-        if (request()->session()->get('user_phase')) {
-            $phase = request()->session()->get('user_phase');
+        if (request()->session()->get($season->id . '_user_phase')) {
+            $phase = request()->session()->get($season->id . '_user_phase');
         }
-        session(['user_phase' => $phase]);
+        session([$season->id . '_user_phase' => $phase]);
 
         $group = null;
-        if (request()->session()->get('user_group')) {
-            $group = request()->session()->get('user_group');
+        if (request()->session()->get($season->id . '_user_group')) {
+            $group = request()->session()->get($season->id . '_user_group');
         }
-        session(['user_group' => $group]);
+        session([$season->id . '_user_group' => $group]);
 
         return view('tournament.participants', ['tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group]);
     }
@@ -101,19 +143,37 @@ class TournamentController extends Controller
     public function standing(Tournament $tournament, Season $season, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         if (!isset($competition)) {
+            if (!$season->competitions) {
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+            }
             $competition = $season->competitions->first();
         }
-        session(['user_competition' => $competition]);
+        if ($season->competitions->count() > 1) {
+            session([$season->id . '_user_competition' => $competition]);
+        }
 
         if (!isset($phase)) {
+            if (!$competition->phases) {
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+            }
             $phase = $competition->phases->first();
         }
-        session(['user_phase' => $phase]);
+        if ($competition->phases->count() > 1) {
+            session([$season->id . '_user_phase' => $phase]);
+        }
 
         if (!isset($group)) {
+            if (!$phase->groups) {
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+            }
             $group = $phase->groups->first();
         }
-        session(['user_group' => $group]);
+        if ($phase->groups->count() > 1) {
+            session([$season->id . '_user_group' => $group]);
+        }
 
         switch ($phase->mode) {
             case 'race':
@@ -144,19 +204,37 @@ class TournamentController extends Controller
     public function schedule(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         if (!isset($competition)) {
+            if (!$season->competitions) {
+                flash()->info('Estructura de la competición en configuración...competiciones');
+                return back();
+            }
             $competition = $season->competitions->first();
         }
-        session(['user_competition' => $competition]);
+        if ($season->competitions->count() > 1) {
+            session([$season->id . '_user_competition' => $competition]);
+        }
 
         if (!isset($phase)) {
+            if (!$competition->phases) {
+                flash()->info('Estructura de la competición en configuración...fases');
+                return back();
+            }
             $phase = $competition->phases->first();
         }
-        session(['user_phase' => $phase]);
+        if ($competition->phases->count() > 1) {
+            session([$season->id . '_user_phase' => $phase]);
+        }
 
         if (!isset($group)) {
+            if (!$phase->groups) {
+                flash()->info('Estructura de la competición en configuración...grupos');
+                return back();
+            }
             $group = $phase->groups->first();
         }
-        session(['user_group' => $group]);
+        if ($phase->groups->count() > 1) {
+            session([$season->id . '_user_group' => $group]);
+        }
 
         switch ($phase->mode) {
             case 'race':
@@ -182,18 +260,18 @@ class TournamentController extends Controller
         }
     }
 
-    public function scheduleRace(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
+    public function scheduleRace(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         $race = Race::where('slug', $race_slug)->first();
 
         if ($race->finished()) {
-            return redirect()->route('tournament.schedule.race.result', [$tournament, $race_slug]);
+            return redirect()->route('tournament.schedule.race.result', [$tournament, $season, $race_slug]);
         }
 
-        return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
+        return redirect()->route('tournament.schedule.race.circuit', [$tournament, $season, $race_slug]);
     }
 
-    public function scheduleRaceCircuit(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
+    public function scheduleRaceCircuit(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
 		$race = Race::where('slug', $race_slug)->first();
 
@@ -209,7 +287,7 @@ class TournamentController extends Controller
         }
     }
 
-    public function scheduleRaceQualy(Tournament $tournament, $race_slug)
+    public function scheduleRaceQualy(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         $race = Race::where('slug', $race_slug)->first();
 
@@ -227,7 +305,7 @@ class TournamentController extends Controller
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
     }
 
-    public function scheduleRaceResult(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
+    public function scheduleRaceResult(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         $race = Race::where('slug', $race_slug)->first();
 
@@ -244,7 +322,7 @@ class TournamentController extends Controller
         return redirect()->route('tournament.schedule.race.circuit', [$tournament, $race_slug]);
     }
 
-    public function scheduleRaceMultimedia(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null, $race_slug)
+    public function scheduleRaceMultimedia(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)
     {
         $race = Race::where('slug', $race_slug)->first();
 

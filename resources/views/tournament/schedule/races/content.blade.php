@@ -1,4 +1,10 @@
+@if ($tournament->seasons->count() > 1 || $season->competitions->count() > 1)
+    @include('tournament.partials.selector', ['route_name' => 'tournament.schedule', 'season_selector' => true, 'competition_selector' => true])
+@endif
+
 <div class="content p-2">
+    @include('tournament.partials.competition_info')
+
 	@if ($racing->nextRace() && \Carbon\Carbon::parse($racing->nextRace()->date) > \Carbon\Carbon::now())
 	    <h2>próxima carrera</h2>
 	    <div class="races-schedule-content">
@@ -32,7 +38,7 @@
 					<li><span id="seconds">-</span>segundos</li>
 				</ul>
 				<p class="race-link">
-					<button type="button" class="bg-{{$tournament->game->platform->color}}-500 active:bg-{{$tournament->game->platform->color}}-600 hover:bg-{{$tournament->game->platform->color}}-600" onclick="window.location.href = '{{ route('tournament.schedule.race', [$tournament, $racing->nextRace()->slug]) }}'">
+					<button type="button" class="bg-{{$tournament->game->platform->color}}-500 active:bg-{{$tournament->game->platform->color}}-600 hover:bg-{{$tournament->game->platform->color}}-600" onclick="window.location.href = '{{ route('tournament.schedule.race', [$tournament, $season, $racing->nextRace()->slug]) }}'">
 						Accede a la carrera
 					</button>
 				</p>
@@ -49,7 +55,7 @@
 		@else
 			<ul class="races">
 				@foreach ($racing->races->sortBy('date') as $race)
-	            	<a href="{{ route('tournament.schedule.race', [$tournament, $race->slug]) }}">
+	            	<a href="{{ route('tournament.schedule.race', [$tournament, $season, $race->slug]) }}">
 			            <li class="race">
 			            	@if ($race->finished())
 			            		<div class="ribbon gray"><span>FINALIZADA</span></div>

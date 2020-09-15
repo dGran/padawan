@@ -11,12 +11,12 @@
         <div class="flex items-center">
             <div class="flex-shrink-0 w-10 h-10">
                 <img class="object-cover w-full h-full rounded"
-                    src="{{ $group_participant->participant->presenter()['img'] }}"
+                    src="{{ $group_participant->presenter()['img'] }}"
                     alt="" />
             </div>
             <div class="ml-3">
                 {{-- <p class="text-gray-900 whitespace-no-wrap"> --}}
-                    <span class="name {{ !$group_participant->participant->presenter()['defined'] ? 'text-gray-500' : '' }}">{{ $group_participant->participant->presenter()['name'] }}</span>
+                    <span class="name {{ !$group_participant->presenter()['defined'] ? 'text-gray-500' : '' }}">{{ $group_participant->presenter()['name'] }}</span>
                     <span class="block text-gray-600" style="font-size: 9px">ID:{{ $group_participant->id }}</span>
                 {{-- </p> --}}
             </div>
@@ -24,7 +24,7 @@
     </td>
     @if ($tournament->use_teams)
         <td onclick="rowSelect(this)">
-            {{ $group_participant->participant->name_without_team() }}
+            {{ $group_participant->name_without_team() }}
         </td>
     @endif
 </tr>

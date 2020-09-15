@@ -53,7 +53,7 @@
 		});
 	}
 
-    function reset(id) {
+    function reset(id, type) {
         disabledActionsButtons();
         swal({
             title: "Confirmación de reseteo",
@@ -78,21 +78,9 @@
         })
         .then((value) => {
             if (value) {
-            	$(".position").val(0);
-                $(".time").val('');
-                $(".fastest_lap").val('');
-                $(".sanction").val(0);
-                $(".state option[value='not_shown'").attr("selected",true);
-		        var route = "{{ route('admin.racing.schedule.races.reset.results', [':ID']) }}"
-		        var url = route.replace(':ID', id);
-
-		        $.ajax({
-					url: url,
-					method: 'GET',
-					success:function(data) {
-						enabledActionsButtons();
-					}
-				});
+		        var route = "{{ route('admin.racing.schedule.races.reset.results', [':ID', ':TYPE']) }}"
+		        var url = route.replace(':ID', id).replace(':TYPE', type);
+                window.location.href=url;
             } else {
                 enabledActionsButtons();
             }

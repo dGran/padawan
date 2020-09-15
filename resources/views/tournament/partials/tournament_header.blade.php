@@ -1,8 +1,6 @@
-@if ($tournament->game->banner)
-    <figure class="banner">
-        <img src="{{ asset($tournament->getBanner()) }}" alt="{{ $tournament->name }}">
-    </figure>
-@endif
+<figure class="banner">
+    <img src="{{ asset($tournament->getBanner()) }}" alt="{{ $tournament->name }}">
+</figure>
 
 <div class="platform-content {{ $tournament->game->platform->color }}">
 
@@ -35,10 +33,10 @@
                 <a href="{{ route('tournament.rules', [$tournament, $season]) }}">Normativa</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.standing', [$tournament, $season, isset($competition) && $competition->season == $season ? $competition : null, isset($phase) && $competition->season == $season ? $phase : null, isset($group) && $competition->season == $season ? $group : null]) }}">Clasificación</a>
+                <a href="{{ route('tournament.standing', [$tournament, $season, isset($competition) ? $competition : '', isset($phase) ? $phase : '', isset($group) ? $group : '']) }}">Clasificación</a>
             </li>
             <li class="{{ stripos(Request::route()->getName(), 'tournament.schedule') !== false ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.schedule', [$tournament, $season, isset($competition) && $competition->season == $season ? $competition : null, isset($phase) && $competition->season == $season ? $phase : null, isset($group) && $competition->season == $season ? $group : null]) }}">Calendario</a>
+                <a href="{{ route('tournament.schedule', [$tournament, $season, isset($competition) ? $competition : '', isset($phase) ? $phase : '', isset($group) ? $group : '']) }}">Calendario</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
                 <a href="{{ route('tournament.participants', [$tournament, $season]) }}">Participantes</a>

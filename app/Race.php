@@ -37,7 +37,7 @@ class Race extends Model
 
     public function finished()
     {
-        $result = RaceResult::where('race_id', '=', $this->id)->where('type', '=', 'race')->where('position', '=', 1)->count();
+        $result = RaceResult::where('race_id', $this->id)->where('type', '=', 'race')->where('position', '=', 1)->count();
         if ($result > 0) {
             return true;
         }
@@ -46,7 +46,7 @@ class Race extends Model
 
     public function qualys_finished()
     {
-        $result = RaceResult::where('race_id', '=', $this->id)->where('type', 'LIKE', '%'.'qualy'.'%')->where('position', '=', 1)->count();
+        $result = RaceResult::where('race_id', $this->id)->where('type', 'LIKE', '%'.'qualy'.'%')->where('position', '=', 1)->count();
         if ($result > 0) {
             return true;
         }
@@ -63,13 +63,13 @@ class Race extends Model
 
     public function fastest_lap()
     {
-        $fastest_lap = RaceResult::where('race_id', '=', $this->id)->whereNotNull('fastest_lap')->orderBy('fastest_lap', 'asc')->first();
+        $fastest_lap = RaceResult::where('race_id', $this->id)->whereNotNull('fastest_lap')->orderBy('fastest_lap', 'asc')->first();
         return $fastest_lap;
     }
 
     public function pole()
     {
-        $pole = RaceResult::where('race_id', '=', $this->id)->whereNotNull('time')->where('type', '=', 'qualy')->orderBy('position', 'asc')->first();
+        $pole = RaceResult::where('race_id', $this->id)->where('type', 'qualy')->where('position', '1')->first();
         return $pole;
     }
 
@@ -93,6 +93,22 @@ class Race extends Model
                         $score += $this->racing->score_pole;
                     }
                 }
+                return $score;
+            }
+        }
+        return '-';
+    }
+
+    public function clean_score_participant($id)
+    {
+        $position = RaceResult::where('race_id', $this->id)->where('group_participant_id', $id)->where('type', '=', 'race')->first();
+        if ($position) {
+            if ($position->position == 0) {
+                return '-';
+            }
+            $score = RacingScore::where('racing_id', '=', $this->racing->id)->where('position', '=', $position->position)->first();
+            if ($score) {
+                $score = $score->score;
                 return $score;
             }
         }

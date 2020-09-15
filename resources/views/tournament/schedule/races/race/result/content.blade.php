@@ -8,18 +8,18 @@
 			<div class="race-standing-tops">
 				@foreach ($results->take(3) as $result)
 					<div class="items">
-						<div class="item {{ $loop->iteration == 1 ? 'border-l-2 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-2 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-2 border-orange-700' : '' }}">
-							<img class="img" src="{{ $result->group_participant->participant->presenter()['img'] }}">
+						<div class="item {{ $result->position == 1 ? 'border-l-2 border-yellow-400' : '' }} {{ $result->position == 2 ? 'border-l-2 border-gray-400' : '' }} {{ $result->position == 3 ? 'border-l-2 border-orange-700' : '' }}">
+							<img class="img" src="{{ $result->group_participant->presenter()['img'] }}">
 							<p class="name">
-								{{ $result->group_participant->participant->presenter()['name'] }}
+								{{ $result->group_participant->presenter()['name'] }}
 							</p>
-							@if ($loop->iteration == 1)
+							@if ($result->position == 1)
 								<img class="position-indicator" src="{{ asset('img/tournaments/other/gold.png') }}">
 							@endif
-							@if ($loop->iteration == 2)
+							@if ($result->position == 2)
 								<img class="position-indicator" src="{{ asset('img/tournaments/other/silver.png') }}">
 							@endif
-							@if ($loop->iteration == 3)
+							@if ($result->position == 3)
 								<img class="position-indicator" src="{{ asset('img/tournaments/other/bronze.png') }}">
 							@endif
 						</div>
@@ -30,7 +30,7 @@
 			<div class="race-standing-content">
 				<div class="race-standing-results mt-4">
 			    	<div class="title">
-			    		carrera
+			    		<i class="far fa-bullseye text-{{ $tournament->game->platform->color }}-500 font-bold text-11 mr-2"></i>carrera
 			    	</div>
 			    	<div class="table-wrap">
 						<table>
@@ -51,26 +51,39 @@
 							</thead>
 							<tbody>
 								@foreach ($results as $position)
-									<tr>
-										<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
-											<span>{{ $position->position > 0 ? $loop->iteration : '-' }}</span>
+									<tr class="{{ $position->position == 0 ? 'text-gray-500' : '' }}">
+										<td class="pos {{ $position->position == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $position->position == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $position->position == 3 ? 'border-l-4 border-orange-700' : '' }}">
+											<span>{{ $position->position > 0 ? $position->position : '-' }}</span>
 										</td>
 						                <td class="participant-name">
 						                	<div class="name-container">
-							                    <img src="{{ $position->group_participant->participant->presenter()['img'] }}">
+							                    <img src="{{ $position->group_participant->presenter()['img'] }}">
 							                    <div>
-								                    <span class="text-name">{{ $position->group_participant->participant->presenter()['name'] }}</span>
+								                    <span class="text-name">{{ $position->group_participant->presenter()['name'] }}</span>
 								                    {{-- <sapn class="text-subname">Mercedes</span> --}}
 							                    </div>
 						                	</div>
 						                </td>
-								        <td class="pts-total md:hidden">
+								        <td class="pts-total md:hidden relative">
 							        		{{ $race->score_participant($position->group_participant->id) }}
+							        		@if ($race->racing->score_fastest_lap > 0 || $race->racing->score_pole > 0)
+							                	@if ( ($race->pole() && $race->pole()->group_participant->id == $position->group_participant->id) || ($race->fastest_lap() && $race->fastest_lap()->group_participant->id == $position->group_participant->id) )
+							                		@if ($race->pole()->group_participant->id == $position->group_participant->id && $race->fastest_lap()->group_participant->id == $position->group_participant->id)
+							                			<div class="text-center leading-none absolute text-8 mr-2 mt-3 uppercase w-full" style="bottom: 3px; left: 0">
+							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +2</span><span class="text-red-500"> -1</span>
+							                			</div>
+							                		@else
+							                			<div class="text-center leading-none absolute text-8 mr-2 mt-3 uppercase w-full" style="bottom: 3px; left: 0">
+							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +1</span><span class="text-red-500"> -1</span>
+							                			</div>
+							                		@endif
+							                	@endif
+							                @endif
 										</td>
 						                @if ($race->racing->times)
 							                <td class="time whitespace-no-wrap">
 							                	@if ($position->position > 0)
-						                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('h:i:s.v') : '-' }}
+						                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('H:i:s.v') : '-' }}
 						                		@else
 						                			{{ $position->state() }}
 						                		@endif
@@ -88,8 +101,21 @@
 							        			{{ $position->sanction > 0 ? $position->sanction : '-' }}
 							        		</span>
 										</td>
-								        <td class="pts-total hidden md:table-cell">
+								        <td class="pts-total hidden md:table-cell relative">
 							        		{{ $race->score_participant($position->group_participant->id) }}
+							        		@if ($race->racing->score_fastest_lap > 0 || $race->racing->score_pole > 0)
+							                	@if ( ($race->pole() && $race->pole()->group_participant->id == $position->group_participant->id) || ($race->fastest_lap() && $race->fastest_lap()->group_participant->id == $position->group_participant->id) )
+							                		@if ($race->pole()->group_participant->id == $position->group_participant->id && $race->fastest_lap()->group_participant->id == $position->group_participant->id)
+							                			<div class="text-center leading-none absolute text-8 mr-2 mt-3 uppercase w-full" style="bottom: 2px; left: 0">
+							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +2</span><span class="text-red-500"> -1</span>
+							                			</div>
+							                		@else
+							                			<div class="text-center leading-none absolute text-8 mr-2 mt-3 uppercase w-full" style="bottom: 2px; left: 0">
+							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +1</span><span class="text-red-500"> -1</span>
+							                			</div>
+							                		@endif
+							                	@endif
+							                @endif
 										</td>
 									</tr>
 								@endforeach
@@ -117,9 +143,9 @@
 					    		vuelta rápida
 					    	</div>
 					    	<div class="sub-results-content">
-					    		<img src="{{ $race->fastest_lap()->group_participant->participant->presenter()['img'] }}">
+					    		<img src="{{ $race->fastest_lap()->group_participant->presenter()['img'] }}">
 								<p class="text-gray-600">
-									{{ $race->fastest_lap()->group_participant->participant->presenter()['name'] }}
+									{{ $race->fastest_lap()->group_participant->presenter()['name'] }}
 								</p>
 								<p>
 									{{ \Carbon\Carbon::parse($race->fastest_lap()->fastest_lap)->Format('i\m s\s v\m\s') }}
@@ -139,12 +165,18 @@
 					    		pole position
 					    	</div>
 					    	<div class="sub-results-content">
-					    		<img src="{{ $race->pole()->group_participant->participant->presenter()['img'] }}">
+					    		<img src="{{ $race->pole()->group_participant->presenter()['img'] }}">
 								<p class="text-gray-600">
-									{{ $race->pole()->group_participant->participant->presenter()['name'] }}
+									{{ $race->pole()->group_participant->presenter()['name'] }}
 								</p>
 								<p>
-									{{ \Carbon\Carbon::parse($race->pole()->time)->Format('i\m s\s v\m\s') }}
+									@if ($race->racing->times)
+										@if ($race->pole()->time)
+											{{ \Carbon\Carbon::parse($race->pole()->time)->Format('i\m s\s v\m\s') }}
+										@else
+											<span class="italic">*Tiempo no registrado</span>
+										@endif
+									@endif
 								</p>
 								@if ($race->racing->score_pole > 0)
 									<p class="text-teal-500">

@@ -75,7 +75,7 @@
 	}
 
 	.race-menu {
-		@apply bg-white shadow border-b p-2 text-center;
+		@apply bg-white border-b p-2 text-center;
 		&.red {
 			.current {
 				a {
@@ -161,6 +161,7 @@
 				}
 				&.disable {
 					@apply cursor-not-allowed;
+					pointer-events: none;
 					a {
 						@apply text-gray-400;
 						pointer-events: none;

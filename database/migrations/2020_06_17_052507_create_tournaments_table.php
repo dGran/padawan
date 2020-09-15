@@ -20,10 +20,7 @@ class CreateTournamentsTable extends Migration
                 ->on('games')
                 ->onDelete('cascade');
             $table->foreignId('current_season_id')
-                ->nullable()
-                ->references('id')
-                ->on('seasons')
-                ->onDelete('cascade');
+                ->nullable();
             $table->string('name');
             $table->string('img')->nullable();
             $table->string('banner')->nullable();

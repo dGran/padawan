@@ -5,10 +5,11 @@
 
 		@if ($race->qualys_finished())
 
-			<div class="race-standing-content">
+			<div class="race-standing-content {{ !$race->pre_qualy ? 'pb-6' : '' }}">
+
 				<div class="race-standing-results mt-4">
-			    	<div class="title">
-			    		qualy
+			    	<div class="title flex items-center">
+			    		<i class="far fa-bullseye text-{{ $tournament->game->platform->color }}-500 font-bold text-11 mr-2"></i>qualy
 			    	</div>
 			    	<div class="table-wrap">
 						<table>
@@ -23,7 +24,7 @@
 							</thead>
 							<tbody>
 								@foreach ($qualy_results as $position)
-									<tr>
+									<tr class="{{ $position->position == 0 ? 'text-gray-500' : '' }}">
 										<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
 											<span>{{ $position->position > 0 ? $loop->iteration : '-' }}</span>
 										</td>
@@ -36,9 +37,13 @@
 							                    </div>
 						                	</div>
 						                </td>
-						                @if ($race->racing->times)
+					                	@if ($race->racing->times)
 							                <td class="time whitespace-no-wrap">
-					                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('i:s.v') : '-' }}
+							                	@if ($position->position > 0)
+						                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('i:s.v') : '-' }}
+						                		@else
+						                			<span>{{ $position->state() }}</span>
+						                		@endif
 							                </td>
 							            @endif
 									</tr>
@@ -50,50 +55,56 @@
 
 			</div> {{-- race-standing-content --}}
 
-			<div class="race-standing-content pb-6">
-				<div class="race-standing-results mt-4">
-			    	<div class="title">
-			    		pre-qualy
-			    	</div>
-			    	<div class="table-wrap">
-						<table>
-						    <thead>
-								<tr>
-									<th class="pos">Pos</th>
-									<th class="participant">Piloto</th>
-									@if ($race->racing->times)
-										<th class="time">Tiempo</th>
-									@endif
-								</tr>
-							</thead>
-							<tbody>
-								@foreach ($prequaly_results as $position)
+			@if ($race->pre_qualy)
+				<div class="race-standing-content pb-6">
+					<div class="race-standing-results mt-4">
+				    	<div class="title">
+				    		<i class="far fa-bullseye text-{{ $tournament->game->platform->color }}-500 font-bold text-11 mr-2"></i>pre-qualy
+				    	</div>
+				    	<div class="table-wrap">
+							<table>
+							    <thead>
 									<tr>
-										<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
-											<span>{{ $position->position > 0 ? $loop->iteration : '-' }}</span>
-										</td>
-						                <td class="participant-name">
-						                	<div class="name-container">
-							                    <img src="{{ $position->group_participant->participant->presenter()['img'] }}">
-							                    <div>
-								                    <span class="text-name">{{ $position->group_participant->participant->presenter()['name'] }}</span>
-								                    {{-- <sapn class="text-subname">Mercedes</span> --}}
-							                    </div>
-						                	</div>
-						                </td>
-						                @if ($race->racing->times)
-							                <td class="time whitespace-no-wrap">
-					                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('i:s.v') : '-' }}
-							                </td>
-							            @endif
+										<th class="pos">Pos</th>
+										<th class="participant">Piloto</th>
+										@if ($race->racing->times)
+											<th class="time">Tiempo</th>
+										@endif
 									</tr>
-								@endforeach
-							</tbody>
-						</table>
-					</div>
-				</div> {{-- race-standing-results --}}
+								</thead>
+								<tbody>
+									@foreach ($prequaly_results as $position)
+										<tr class="{{ $position->position == 0 ? 'text-gray-500' : '' }}">
+											<td class="pos {{ $loop->iteration == 1 ? 'border-l-4 border-yellow-400' : '' }} {{ $loop->iteration == 2 ? 'border-l-4 border-gray-400' : '' }} {{ $loop->iteration == 3 ? 'border-l-4 border-orange-700' : '' }}">
+												<span>{{ $position->position > 0 ? $loop->iteration : '-' }}</span>
+											</td>
+							                <td class="participant-name">
+							                	<div class="name-container">
+								                    <img src="{{ $position->group_participant->participant->presenter()['img'] }}">
+								                    <div>
+									                    <span class="text-name">{{ $position->group_participant->participant->presenter()['name'] }}</span>
+									                    {{-- <sapn class="text-subname">Mercedes</span> --}}
+								                    </div>
+							                	</div>
+							                </td>
+						                	@if ($race->racing->times)
+								                <td class="time whitespace-no-wrap">
+								                	@if ($position->position > 0)
+							                			{{ $position->time ? \Carbon\Carbon::parse($position->time)->Format('i:s.v') : '-' }}
+							                		@else
+							                			{{ $position->state() }}
+							                		@endif
+								                </td>
+								            @endif
+										</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div> {{-- race-standing-results --}}
 
-			</div> {{-- race-standing-content --}}
+				</div> {{-- race-standing-content --}}
+			@endif
 
 		@else
 			<div class="race-standing-content pt-5">

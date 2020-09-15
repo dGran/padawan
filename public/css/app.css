@@ -21421,7 +21421,6 @@ a.disable, button.disable, input.disable, select.disable {
   --bg-opacity: 1;
   background-color: #fff;
   background-color: rgba(255, 255, 255, var(--bg-opacity));
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border-bottom-width: 1px;
   padding: 0.5rem;
   text-align: center;
@@ -21509,6 +21508,7 @@ a.disable, button.disable, input.disable, select.disable {
 
 .tournament .wrapper .content .race-content .race-menu ul li.disable {
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 .tournament .wrapper .content .race-content .race-menu ul li.disable a {

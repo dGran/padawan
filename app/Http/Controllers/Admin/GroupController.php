@@ -10,6 +10,7 @@ use App\Imports\GroupsImport;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
+use App\GroupParticipant;
 use App\Group;
 use App\Phase;
 use App\Tournament;
@@ -91,6 +92,12 @@ class GroupController extends Controller
 		$data['active'] = 0;
 
         $group = Group::create($data);
+
+        for ($i=0; $i < $group->num_participants; $i++) {
+            $group_participant = GroupParticipant::create([
+                'group_id' => $group->id
+            ]);
+        }
 
         switch ($group->phase->mode) {
             case 'league':

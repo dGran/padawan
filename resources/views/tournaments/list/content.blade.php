@@ -73,7 +73,7 @@
         </h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-4">
             @foreach ($seasons as $season)
-                <a href="{{ route('tournament', $season->tournament->slug) }}">
+                <a href="{{ route('tournament', [$season->tournament, $season]) }}">
                 <div class="rounded-md relative bg-gray-800 border border-gray-900" onmouseover="show_details('{{ $season->id }}')" onmouseout="hide_details('{{ $season->id }}')">
                     <div class="border-b-2 border-yellow-500 ">
                         @if ($season->inscription_price > 0)
