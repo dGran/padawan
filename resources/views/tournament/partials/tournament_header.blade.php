@@ -29,9 +29,6 @@
             <li class="{{ Request::route()->getName() == 'tournament' ? 'active' : 'item' }}">
                 <a href="{{ route('tournament', [$tournament, $season]) }}">Inicio</a>
             </li>
-            <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}">
-                <a href="{{ route('tournament.rules', [$tournament, $season]) }}">Normativa</a>
-            </li>
             <li class="{{ Request::route()->getName() == 'tournament.standing' ? 'active' : 'item' }}">
                 <a href="{{ route('tournament.standing', [$tournament, $season, isset($competition) ? $competition : '', isset($phase) ? $phase : '', isset($group) ? $group : '']) }}">Clasificación</a>
             </li>
@@ -39,7 +36,13 @@
                 <a href="{{ route('tournament.schedule', [$tournament, $season, isset($competition) ? $competition : '', isset($phase) ? $phase : '', isset($group) ? $group : '']) }}">Calendario</a>
             </li>
             <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.participants', [$tournament, $season]) }}">Estadísticas</a>
+            </li>
+            <li class="{{ Request::route()->getName() == 'tournament.participants' ? 'active' : 'item' }}">
                 <a href="{{ route('tournament.participants', [$tournament, $season]) }}">Participantes</a>
+            </li>
+            <li class="{{ Request::route()->getName() == 'tournament.rules' ? 'active' : 'item' }}">
+                <a href="{{ route('tournament.rules', [$tournament, $season]) }}">Normativa</a>
             </li>
         </ul>
     </div>

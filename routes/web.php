@@ -40,6 +40,9 @@ Route::prefix('/torneos')->group(function () {
 	Route::get('/{tournament:slug}/{season:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
 	Route::get('/{tournament:slug}/{season:slug}/clasificacion/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@standing')->name('tournament.standing');
 	Route::get('/{tournament:slug}/{season:slug}/calendario/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@schedule')->name('tournament.schedule');
+	//match
+	Route::get('/{tournament:slug}/{season:slug}/partido/{match_id}', 'TournamentController@scheduleMatch')->name('tournament.schedule.match');
+	//race
 	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/circuito/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceCircuit')->name('tournament.schedule.race.circuit');
 	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/resultados-calificación/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceQualy')->name('tournament.schedule.race.qualy');
 	Route::get('/{tournament:slug}/{season:slug}/{race_slug}/resultados-carrera/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@scheduleRaceResult')->name('tournament.schedule.race.result');

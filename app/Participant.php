@@ -53,9 +53,15 @@ class Participant extends Model
                 $presenter['defined'] = true;
                 $presenter['name'] = $this->team->name;
                 $presenter['img'] = $this->team->img();
+                if ($this->season->tournament->participant_type == "individual") {
+                    $presenter['subname'] = $this->user ? $this->user->name : 'no definido';
+                } else {
+                    $presenter['subname'] = $this->eteam ? $this->eteam->name : 'no definido';
+                }
             } else {
                 $presenter['defined'] = false;
                 $presenter['name'] = 'No definido';
+                $presenter['subname'] = 'No definido';
                 $presenter['img'] = asset('img/teams/default.png');
             }
         } else {
@@ -63,20 +69,24 @@ class Participant extends Model
                 if ($this->user) {
                     $presenter['defined'] = true;
                     $presenter['name'] = $this->user->name;
+                    $presenter['subname'] = null;
                     $presenter['img'] = $this->user->profile->avatar();
                 } else {
                     $presenter['defined'] = false;
                     $presenter['name'] = 'No definido';
+                    $presenter['subname'] = null;
                     $presenter['img'] = asset('img/avatars/default.png');
                 }
             } else {
                 if ($this->eteam) {
                     $presenter['defined'] = true;
                     $presenter['name'] = $this->eteam->name;
+                    $presenter['subname'] = null;
                     $presenter['img'] = $this->eteam->img();
                 } else {
                     $presenter['defined'] = false;
                     $presenter['name'] = 'No definido';
+                    $presenter['subname'] = null;
                     $presenter['img'] = asset('img/eteams/default.png');
                 }
             }

@@ -1,17 +1,17 @@
 .leagues-standing-content {
 	@apply border my-3 bg-white rounded;
-	@screen sm {
-		@apply mx-24;
-	}
-	@screen md {
-		@apply mx-32;
-	}
-	@screen lg {
-		@apply mx-48;
-	}
-	@screen xl {
-		@apply mx-64;
-	}
+	// @screen sm {
+	// 	@apply mx-24;
+	// }
+	// @screen md {
+	// 	@apply mx-32;
+	// }
+	// @screen lg {
+	// 	@apply mx-48;
+	// }
+	// @screen xl {
+	// 	@apply mx-64;
+	// }
 	.title {
 		@apply uppercase text-13 font-bold p-2 rounded;
 		background: #f9f9f9;
@@ -84,6 +84,9 @@
 							@apply flex flex-row items-center text-13;
 							img {
 								@apply rounded-full h-8 w-8 object-cover;
+								&.no-rounded {
+									@apply rounded-none;
+								}
 							}
 							div {
 								@apply truncate;
@@ -144,6 +147,9 @@
 						@apply flex-1 flex items-center justify-end truncate;
 						.img {
 							@apply w-6 h-6 object-cover rounded-full order-last;
+							&.no-rounded {
+								@apply rounded-none;
+							}
 						}
 						.name {
 							@apply font-bold text-gray-700 mx-2 truncate text-13;
@@ -162,6 +168,9 @@
 						@apply flex-1 flex items-center truncate;
 						.img {
 							@apply w-6 h-6 object-cover rounded-full;
+							&.no-rounded {
+								@apply rounded-none;
+							}
 						}
 						.name {
 							@apply font-bold text-gray-700 mx-2 truncate text-13 order-last;

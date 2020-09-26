@@ -75,4 +75,14 @@ class Match extends Model
     {
         return $this->local_score . '-' . $this->visitor_score;
     }
+
+    public function name()
+    {
+        return $this->local_participant->presenter()['name'] . ' vs ' . $this->visitor_participant->presenter()['name'];
+    }
+
+    public function day_name()
+    {
+        return "Jornada " . $this->day->order;
+    }
 }

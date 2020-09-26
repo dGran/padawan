@@ -21,9 +21,10 @@
 		            	</h4>
 		            	<div class="matches">
 			            	@foreach ($day->matches as $match)
+			            		<a href="{{ route('tournament.schedule.match', [$tournament, $season, $match->id]) }}">
 			            		<div class="match">
 			            			<div class="local">
-			            				<img class="img" src="{{ $match->local_participant->participant->presenter()['img'] }}">
+			            				<img class="img {{ $tournament->use_teams ? 'no-rounded' : '' }}" src="{{ $match->local_participant->participant->presenter()['img'] }}">
 		            					<span class="name">
 		            						{{ $match->local_participant->participant->presenter()['name'] }}
 		            					</span>
@@ -36,12 +37,13 @@
 			            				@endif
 			            			</div>
 			            			<div class="visitor">
-			            				<img class="img" src="{{ $match->visitor_participant->participant->presenter()['img'] }}">
+			            				<img class="img {{ $tournament->use_teams ? 'no-rounded' : '' }}" src="{{ $match->visitor_participant->participant->presenter()['img'] }}">
 		            					<span class="name">
 		            						{{ $match->visitor_participant->participant->presenter()['name'] }}
 		            					</span>
 			            			</div>
 			            		</div>
+			            		</a>
 			            	@endforeach
 		            	</div>
 		            </li>

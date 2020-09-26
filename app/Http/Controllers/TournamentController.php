@@ -11,6 +11,7 @@ use App\Season;
 use App\Competition;
 use App\Phase;
 use App\Group;
+use App\Match;
 use App\Race;
 use App\RaceResult;
 
@@ -261,6 +262,13 @@ class TournamentController extends Controller
                 return back();
                 break;
         }
+    }
+
+    public function scheduleMatch(Tournament $tournament, Season $season, $match_id)
+    {
+        $match = Match::findOrFail($match_id);
+
+        return view('tournament.schedule.leagues.match', ['match' => $match, 'tournament' => $tournament, 'season' => $season, 'competition' => $match->competition, 'phase' => $match->group->phase, 'group' => $match->group]);
     }
 
     public function scheduleRace(Tournament $tournament, Season $season, $race_slug, Competition $competition = null, Phase $phase = null, Group $group = null)

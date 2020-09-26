@@ -1,0 +1,148 @@
+.match-content {
+	.match-title {
+		@apply bg-gray-900 px-4;
+		.match-title-banner {
+			@apply text-white font-bold font-roboto-condensed truncate;
+			@screen sm {
+				@apply text-24;
+			}
+		}
+	}
+
+	.match-menu {
+		@apply bg-white border-b p-2 text-center;
+		&.red {
+			.current {
+				a {
+					@apply text-red-700;
+				}
+			}
+		}
+		&.blue {
+			.current {
+				a {
+					@apply text-blue-700;
+				}
+			}
+		}
+		&.green {
+			.current {
+				a {
+					@apply text-green-700;
+				}
+			}
+		}
+		&.gray {
+			.current {
+				a {
+					@apply text-gray-700;
+				}
+			}
+		}
+		&.orange {
+			.current {
+				a {
+					@apply text-orange-700;
+				}
+			}
+		}
+		&.yellow {
+			.current {
+				a {
+					@apply text-yellow-700;
+				}
+			}
+		}
+		&.teal {
+			.current {
+				a {
+					@apply text-teal-700;
+				}
+			}
+		}
+		&.indigo {
+			.current {
+				a {
+					@apply text-indigo-700;
+				}
+			}
+		}
+		&.purple {
+			.current {
+				a {
+					@apply text-purple-700;
+				}
+			}
+		}
+		&.pink {
+			.current {
+				a {
+					@apply text-pink-700;
+				}
+			}
+		}
+		ul {
+			li {
+				@apply inline-block text-center ml-6 pt-1;
+				&:first-child {
+					@apply ml-0;
+				}
+				&.current {
+					@apply cursor-not-allowed;
+					a {
+						pointer-events: none;
+						transition: all .15s ease;
+					}
+				}
+				&.disable {
+					@apply cursor-not-allowed;
+					pointer-events: none;
+					a {
+						@apply text-gray-400;
+						pointer-events: none;
+					}
+				}
+				@screen sm {
+					@apply ml-8;
+				}
+				@screen md {
+					@apply ml-10;
+				}
+				@screen lg {
+					@apply ml-12;
+				}
+				@screen xl {
+					@apply ml-16;
+				}
+				a {
+					@apply text-gray-600;
+					transition: all .15s ease;
+					&:hover {
+						@apply text-gray-800;
+					}
+					&:focus {
+						@apply text-gray-800;
+					}
+					i {
+						@apply text-2xl block;
+						@screen sm {
+							@apply text-3xl;
+						}
+						@screen lg {
+							@apply text-4xl;
+						}
+					}
+					span {
+						@apply text-9 uppercase;
+						@screen sm {
+							@apply text-10;
+						}
+						@screen lg {
+							@apply text-11;
+						}
+					}
+				}
+			}
+		}
+	}
+}

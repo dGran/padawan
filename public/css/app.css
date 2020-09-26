@@ -22174,34 +22174,6 @@ a.disable, button.disable, input.disable, select.disable {
   border-radius: 0.25rem;
 }
 
-@media (min-width: 640px) {
-  .tournament .wrapper .content .leagues-standing-content {
-    margin-left: 6rem;
-    margin-right: 6rem;
-  }
-}
-
-@media (min-width: 768px) {
-  .tournament .wrapper .content .leagues-standing-content {
-    margin-left: 8rem;
-    margin-right: 8rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .tournament .wrapper .content .leagues-standing-content {
-    margin-left: 12rem;
-    margin-right: 12rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .tournament .wrapper .content .leagues-standing-content {
-    margin-left: 16rem;
-    margin-right: 16rem;
-  }
-}
-
 .tournament .wrapper .content .leagues-standing-content .title {
   text-transform: uppercase;
   font-size: 13px;
@@ -22330,6 +22302,10 @@ a.disable, button.disable, input.disable, select.disable {
   width: 2rem;
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container img.no-rounded {
+  border-radius: 0;
 }
 
 .tournament .wrapper .content .leagues-standing-content .table-wrap table tbody tr .participant-name .name-container div {
@@ -22474,6 +22450,10 @@ a.disable, button.disable, input.disable, select.disable {
   order: 9999;
 }
 
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .local .img.no-rounded {
+  border-radius: 0;
+}
+
 .tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .local .name {
   font-weight: 700;
   --text-opacity: 1;
@@ -22527,6 +22507,10 @@ a.disable, button.disable, input.disable, select.disable {
   border-radius: 9999px;
 }
 
+.tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .visitor .img.no-rounded {
+  border-radius: 0;
+}
+
 .tournament .wrapper .content .leagues-schedule-content .days-list .day .matches .match .visitor .name {
   font-weight: 700;
   --text-opacity: 1;
@@ -22539,6 +22523,209 @@ a.disable, button.disable, input.disable, select.disable {
   white-space: nowrap;
   font-size: 13px;
   order: 9999;
+}
+
+.tournament .wrapper .content .match-content .match-title {
+  --bg-opacity: 1;
+  background-color: #1a202c;
+  background-color: rgba(26, 32, 44, var(--bg-opacity));
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.tournament .wrapper .content .match-content .match-title .match-title-banner {
+  --text-opacity: 1;
+  color: #fff;
+  color: rgba(255, 255, 255, var(--text-opacity));
+  font-weight: 700;
+  font-family: "Roboto Condensed", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .match-content .match-title .match-title-banner {
+    font-size: 24px;
+  }
+}
+
+.tournament .wrapper .content .match-content .match-menu {
+  --bg-opacity: 1;
+  background-color: #fff;
+  background-color: rgba(255, 255, 255, var(--bg-opacity));
+  border-bottom-width: 1px;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.tournament .wrapper .content .match-content .match-menu.red .current a {
+  --text-opacity: 1;
+  color: #c53030;
+  color: rgba(197, 48, 48, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.blue .current a {
+  --text-opacity: 1;
+  color: #2b6cb0;
+  color: rgba(43, 108, 176, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.green .current a {
+  --text-opacity: 1;
+  color: #2f855a;
+  color: rgba(47, 133, 90, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.gray .current a {
+  --text-opacity: 1;
+  color: #4a5568;
+  color: rgba(74, 85, 104, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.orange .current a {
+  --text-opacity: 1;
+  color: #c05621;
+  color: rgba(192, 86, 33, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.yellow .current a {
+  --text-opacity: 1;
+  color: #b7791f;
+  color: rgba(183, 121, 31, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.teal .current a {
+  --text-opacity: 1;
+  color: #2c7a7b;
+  color: rgba(44, 122, 123, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.indigo .current a {
+  --text-opacity: 1;
+  color: #4c51bf;
+  color: rgba(76, 81, 191, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.purple .current a {
+  --text-opacity: 1;
+  color: #6b46c1;
+  color: rgba(107, 70, 193, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu.pink .current a {
+  --text-opacity: 1;
+  color: #b83280;
+  color: rgba(184, 50, 128, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li {
+  display: inline-block;
+  text-align: center;
+  margin-left: 1.5rem;
+  padding-top: 0.25rem;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li:first-child {
+  margin-left: 0;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li.current {
+  cursor: not-allowed;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li.current a {
+  pointer-events: none;
+  transition: all 0.15s ease;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li.disable {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li.disable a {
+  --text-opacity: 1;
+  color: #cbd5e0;
+  color: rgba(203, 213, 224, var(--text-opacity));
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .match-content .match-menu ul li {
+    margin-left: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .tournament .wrapper .content .match-content .match-menu ul li {
+    margin-left: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tournament .wrapper .content .match-content .match-menu ul li {
+    margin-left: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .tournament .wrapper .content .match-content .match-menu ul li {
+    margin-left: 4rem;
+  }
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li a {
+  --text-opacity: 1;
+  color: #718096;
+  color: rgba(113, 128, 150, var(--text-opacity));
+  transition: all 0.15s ease;
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li a:hover {
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li a:focus {
+  --text-opacity: 1;
+  color: #2d3748;
+  color: rgba(45, 55, 72, var(--text-opacity));
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li a i {
+  font-size: 1.5rem;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .match-content .match-menu ul li a i {
+    font-size: 1.875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tournament .wrapper .content .match-content .match-menu ul li a i {
+    font-size: 2.25rem;
+  }
+}
+
+.tournament .wrapper .content .match-content .match-menu ul li a span {
+  font-size: 9px;
+  text-transform: uppercase;
+}
+
+@media (min-width: 640px) {
+  .tournament .wrapper .content .match-content .match-menu ul li a span {
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tournament .wrapper .content .match-content .match-menu ul li a span {
+    font-size: 11px;
+  }
 }
 
 .tournament .wrapper .sponsors {
