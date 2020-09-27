@@ -38,8 +38,32 @@
 		</div> {{-- match-title --}}
 
 		<div class="match-menu {{ $tournament->game->platform->color }}">
-{{-- 			<ul>
-				<li class="{{ Request::route()->getName() == 'tournament.schedule.match.circuit' ? 'current' : '' }}">
+			<ul>
+				<li class="">
+					<a href="">
+						<i class="far fa-chart-bar"></i>
+						<span>Previa</span>
+					</a>
+				</li>
+				<li class="">
+					<a href="">
+						<i class="fas fa-futbol"></i>
+						<span>Partido</span>
+					</a>
+				</li>
+				<li class="">
+					<a href="">
+						<i class="icon-multimedia"></i>
+						<span>Multimedia</span>
+					</a>
+				</li>
+				<li class="">
+					<a href="">
+						<i class="fas fa-file-signature"></i>
+						<span>Reporte</span>
+					</a>
+				</li>
+{{-- 				<li class="{{ Request::route()->getName() == 'tournament.schedule.match.circuit' ? 'current' : '' }}">
 					<a href="{{ route('tournament.schedule.match.circuit', [$tournament, $season, $match->slug]) }}">
 						<i class="icon-circuit"></i>
 						<span>Circuito</span>
@@ -62,8 +86,8 @@
 						<i class="icon-multimedia"></i>
 						<span>Multimedia</span>
 					</a>
-				</li>
-			</ul> --}}
+				</li> --}}
+			</ul>
 		</div> {{-- match-menu --}}
 
 	</div> {{-- match-content --}}
