@@ -102,6 +102,13 @@ class LeagueController extends Controller
         return back();
     }
 
+    public function standings(Tournament $tournament, Season $season, Competition $competition, Phase $phase, Group $group)
+    {
+        $league = $group->league;
+        $positions = $league->generate_table();
+        return view('admin.leagues.standings', ['league' => $league, 'positions' => $positions, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+    }
+
 
 
     // helper functions

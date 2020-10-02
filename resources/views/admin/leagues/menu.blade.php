@@ -2,7 +2,7 @@
     <div class="w-full mx-auto overflow-x-auto">
         <ul class="racing-menu">
             <li class="ml-2 {{ \Request::route()->getName() == 'admin.league.standings' ? 'current order-first' : '' }}">
-                <a href="{{ route('admin.league.standings', [$tournament, $season, $competition, $phase, $group]) }}">Clasificaciones</a>
+                <a href="{{ route('admin.league.standings', [$tournament, $season, $competition, $phase, $group]) }}">Clasificación</a>
             </li>
             <li class="ml-2 {{ stripos(Request::route()->getName(), 'admin.league.schedule') !== false ? 'current order-first' : '' }}">
                 <a href="{{ route('admin.league.schedule', [$tournament, $season, $competition, $phase, $group]) }}">Calendario</a>

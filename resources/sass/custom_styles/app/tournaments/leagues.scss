@@ -26,7 +26,12 @@
 					@apply py-2 align-bottom uppercase text-11;
 				}
 				.pos {
-					@apply w-8 px-2;
+					@apply px-2 w-6;
+					&.tablezones {
+						width: 58px;
+						min-width: 58px;
+						max-width: 58px;
+					}
 				}
 				.participant {
 					@apply text-left;
@@ -72,9 +77,16 @@
 						@apply py-1;
 					}
 					.pos {
-						@apply text-right text-13 font-bold text-gray-500 pr-2 font-roboto-condensed;
-						span {
+						@apply text-right text-13 font-bold text-gray-500 pr-2 font-roboto-condensed whitespace-no-wrap;
+						p {
+							@apply w-4 text-center;
+						}
+						figure {
 							@apply pr-1;
+							img {
+								@apply h-6 w-6;
+								min-width: 1.5rem;
+							}
 						}
 					}
 					.participant-name {

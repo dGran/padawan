@@ -287,7 +287,7 @@ Route::prefix('/admin')->middleware(['auth', 'isAdmin', 'password.confirm'])->gr
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/calendario', 'Admin\LeagueController@schedule')->name('admin.league.schedule');
 	Route::post('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/generar-calendario', 'Admin\LeagueController@scheduleGenerate')->name('admin.league.schedule.generate');
 
-	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/clasificaciones', 'Admin\LeagueController@clasificaciones')->name('admin.league.standings');
+	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-liga/clasificacion', 'Admin\LeagueController@standings')->name('admin.league.standings');
 
 	//Playoffs
 	Route::get('/torneos/{tournament:slug}/{season:slug}/{competition:slug}/{phase:slug}/{group:slug}/gestion-de-eliminatorias', 'Admin\PlayoffController@config')->name('admin.playoff.config');

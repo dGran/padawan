@@ -112,28 +112,30 @@ class League extends Model
 
         $table_participants = $table_participants->sortByDesc('gf')->sortByDesc('avg')->sortByDesc('avg_p')->sortByDesc('pts')->values();
 
-        $table_participants2 = collect();
-        $zones = [];
-        foreach ($this->tablezones as $key => $tablezone) {
-            $zones[$key] = \App\LeagueTablezone::where('league_id', '=', $this->id)->where('position', '=', $key+1)->first()->tablezone;
-        }
+        if ($this->has_tablezones()) {
+            $table_participants2 = collect();
+            $zones = [];
+            foreach ($this->tablezones as $key => $tablezone) {
+                $zones[$key] = \App\LeagueTablezone::where('league_id', '=', $this->id)->where('position', '=', $key+1)->first()->tablezone;
+            }
 
-        foreach ($table_participants as $key => $tp) {
-            $table_participants2->push([
-                'participant' => $table_participants[$key]['participant'],
-                'pj' => $table_participants[$key]['pj'],
-                'pg' => $table_participants[$key]['pg'],
-                'pe' => $table_participants[$key]['pe'],
-                'pp' => $table_participants[$key]['pp'],
-                'ps' => $table_participants[$key]['ps'],
-                'gf' => $table_participants[$key]['gf'],
-                'gc' => $table_participants[$key]['gc'],
-                'avg' => $table_participants[$key]['avg'],
-                'pts' => $table_participants[$key]['pts'],
-                'table_zone' => $zones[$key],
-            ]);
+            foreach ($table_participants as $key => $tp) {
+                $table_participants2->push([
+                    'participant' => $table_participants[$key]['participant'],
+                    'pj' => $table_participants[$key]['pj'],
+                    'pg' => $table_participants[$key]['pg'],
+                    'pe' => $table_participants[$key]['pe'],
+                    'pp' => $table_participants[$key]['pp'],
+                    'ps' => $table_participants[$key]['ps'],
+                    'gf' => $table_participants[$key]['gf'],
+                    'gc' => $table_participants[$key]['gc'],
+                    'avg' => $table_participants[$key]['avg'],
+                    'pts' => $table_participants[$key]['pts'],
+                    'table_zone' => $zones[$key],
+                ]);
+            }
+            $table_participants = $table_participants2;
         }
-        $table_participants = $table_participants2;
 
         return $table_participants;
     }
@@ -237,6 +239,14 @@ class League extends Model
                 return true;
             }
             return false;
+        }
+        return false;
+    }
+
+    public function has_tablezones()
+    {
+        if (LeagueTablezone::where('league_id', $this->id)->whereNotNull('tablezone_id')->count() > 0) {
+            return true;
         }
         return false;
     }

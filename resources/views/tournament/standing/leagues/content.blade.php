@@ -17,8 +17,7 @@
 				<table>
 				    <thead>
 						<tr>
-							<th class="w-auto"></th>
-							<th class="pos">Pos</th>
+							<th class="pos {{ $league->has_tablezones() ? 'tablezones' : '' }}">Pos</th>
 							<th class="participant">Participante</th>
 							<th class="pts">PTS</th>
 							<th class="pts">PJ</th>
@@ -33,13 +32,17 @@
 					<tbody>
 						@foreach ($positions as $position)
 							<tr>
-								<td class="">
-									@if ($loop->iteration < 5)
-										<img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Uefa_champions_league_logo.png" class="h-4 w-4 m-auto">
-									@endif
-								</td>
 								<td class="pos">
-									<span>{{ $loop->iteration }}</span>
+									<div class="flex items-center justify-end">
+										@if ($league->has_tablezones())
+											@if ($position['table_zone'])
+												<figure>
+													<img src="{{ $position['table_zone']->img() }}">
+												</figure>
+											@endif
+										@endif
+										<p>{{ $loop->iteration }}</p>
+									</div>
 								</td>
 				                <td class="participant-name">
 				                	<div class="name-container">
@@ -78,13 +81,36 @@
 						@endforeach
 					</tbody>
 				</table>
-
 			</div>
-			Total partidos: {{ $group->league->total_matches() }} - Jugados: {{ $group->league->played_matches() }} - Pendientes: {{ $group->league->pending_matches() }}
 		</div>
 
-		<div class="">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat sapiente laborum hic. Expedita veritatis molestiae, magni voluptas accusamus, repudiandae ullam saepe dolorem, nihil placeat unde excepturi pariatur debitis? Fuga, cumque?
+		<div class="md:pt-3 pb-3">
+			<ul class="md:ml-3 border bg-white rounded p-3 font-roboto text-12 leading-6">
+				<li class="flex items-center">
+					equipo mas goleador
+				</li>
+				<li class="flex items-center">
+					equipo menos goleado
+				</li>
+				<li class="flex items-center">
+					mejor diferencia de goles
+				</li>
+			</ul>
+
+			<ul class="mt-3 md:ml-3 border bg-white rounded p-3 font-roboto text-12 leading-6">
+				<li class="flex items-center">
+					<p class="w-4 text-right mr-2 inline-block text-13 font-bold">{{ $group->league->total_matches() }}</p>
+					<span>Total partidos</span>
+				</li>
+				<li class="flex items-center">
+					<p class="w-4 text-right mr-2 inline-block text-13 font-bold">{{ $group->league->played_matches() }}</p>
+					<span>Partidos jugados</span>
+				</li>
+				<li class="flex items-center">
+					<p class="w-4 text-right mr-2 inline-block text-13 font-bold">{{ $group->league->pending_matches() }}</p>
+					<span>Partidos pendientes</span>
+				</li>
+			</ul>
 		</div>
 
 	</div>
