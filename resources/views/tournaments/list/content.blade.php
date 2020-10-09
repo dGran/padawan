@@ -67,12 +67,12 @@
         </div>
     </div>
  --}}
-    <div class="py-4 mb-8 bg-gray-800 rounded-md p-3 shadow-lg" style="background: #242c39">
+    {{-- <div class="py-4 mb-4 bg-gray-800 rounded-md p-3 shadow-lg" style="background: #242c39"> --}}
         <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold">
-            Torneos nuevos
+            Últimos torneos
         </h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-4">
-            @foreach ($seasons as $season)
+            @foreach ($seasons->take(3) as $season)
                 <a href="{{ route('tournament', [$season->tournament, $season]) }}">
                 <div class="rounded-md relative bg-gray-800 border border-gray-900" onmouseover="show_details('{{ $season->id }}')" onmouseout="hide_details('{{ $season->id }}')">
                     <div class="border-b-2 border-yellow-500 ">
@@ -86,7 +86,7 @@
                     </div>
                     <div class="relative">
                         <div class="flex items-center p-3 pb-0">
-                            <img src="{{ asset($season->tournament->getLogo()) }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
+                            <img src="{{ asset($season->tournament->getLogo())vue }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
                             <div class="ml-3">
                                 <span class="block font-fjalla tracking-wider font-light uppercase text-yellow-500 text-11">{{ $season->tournament->game->name }}</span>
                                 <span class="block font-semibold tracking-tight uppercase text-14">{{ $season->tournament->name }}</span>
@@ -134,17 +134,15 @@
             @endforeach
 
         </div>
-        <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold pt-6 my-3">
-            Listado completo
-        </h1>
-        <table class="bg-gray-800 w-full rounded-md">
-            @foreach ($seasons as $season)
-                <tr>
-                    <td class="p-2">
-                        {{ $season->tournament->name }}
-                    </td>
-                </tr>
-            @endforeach
-        </table>
+    {{-- </div> --}}
+
+    <div class="py-4 mb-4 bg-gray-800 rounded-md p-3 shadow-lg" style="background: #242c39">
+        <div class="relative flex w-full flex-wrap items-stretch mb-3">
+          <input type="text" placeholder="Buscar torneos" class="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm border border-gray-400 outline-none focus:outline-none focus:shadow-outline w-full pr-10"/>
+          <span class="z-10 h-full leading-snug font-normal absolute text-center text-gray-400 absolute bg-transparent rounded text-base items-center justify-center w-8 right-0 pr-3 py-3">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
     </div>
+
 </div>
