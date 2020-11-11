@@ -86,7 +86,7 @@
                     </div>
                     <div class="relative">
                         <div class="flex items-center p-3 pb-0">
-                            <img src="{{ asset($season->tournament->getLogo())vue }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
+                            <img src="{{ asset($season->tournament->getLogo()) }}" alt="" class="flex-initial w-12 h-12 rounded shadow-lg">
                             <div class="ml-3">
                                 <span class="block font-fjalla tracking-wider font-light uppercase text-yellow-500 text-11">{{ $season->tournament->game->name }}</span>
                                 <span class="block font-semibold tracking-tight uppercase text-14">{{ $season->tournament->name }}</span>
