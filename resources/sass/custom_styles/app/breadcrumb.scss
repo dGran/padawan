@@ -1,7 +1,10 @@
 .breadcrumb-nav {
-	@apply max-w-screen-xl px-4 mx-auto mt-2 text-gray-700;
+	@apply max-w-screen-xl px-4 mx-auto mt-2 text-gray-700 whitespace-no-wrap overflow-x-auto;
 	.breadcrumb-list {
 		@apply flex text-xs py-4;
+		li {
+			@apply text-gray-500;
+		}
 		.breadcrumb-link {
 			@apply font-bold text-gray-700;
 			&:hover {
@@ -18,9 +21,12 @@
 }
 
 .breadcrumb-nav-dark {
-	@apply max-w-screen-xl px-4 mx-auto mt-2 text-white;
+	@apply max-w-screen-xl px-4 mx-auto mt-2 text-white whitespace-no-wrap overflow-x-auto;
 	.breadcrumb-list {
 		@apply flex text-xs py-4;
+		li {
+			@apply text-gray-400;
+		}
 		.breadcrumb-link {
 			@apply font-bold text-white;
 			&:hover {

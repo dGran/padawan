@@ -52,6 +52,11 @@ a, button, input, select {
 		@apply px-10;
 	}
 }
+
+.custom-container-no-padding {
+	@apply max-w-screen-xl mx-auto;
+}
+
 .below-fixed-header {
 	margin-top: 63px;
 	@screen lg {

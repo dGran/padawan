@@ -13,9 +13,28 @@ class ETeam extends Model
         return $this->belongsTo('App\Game');
     }
 
+    public function players()
+    {
+        return $this->hasMany('App\ETeamPlayer', 'eteam_id');
+    }
+
     public function owner()
     {
-        return $this->belongsTo('App\User', 'id', 'owner_id');
+        return $this->belongsTo('App\User', 'owner_id', 'id');
+    }
+
+    public function scopeName($query, $name)
+    {
+        if (trim($name) !="") {
+            $query->where("name", "LIKE", "%$name%");
+        }
+    }
+
+    public function scopeGame($query, $game)
+    {
+        if (!$game == null) {
+            $query->where("game_id", "=", $game);
+        }
     }
 
     public function img()

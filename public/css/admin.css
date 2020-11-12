@@ -19116,6 +19116,12 @@ a.disable, button.disable, input.disable, select.disable {
   }
 }
 
+.custom-container-no-padding {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .below-fixed-header {
   margin-top: 63px;
 }

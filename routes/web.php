@@ -33,6 +33,14 @@ Route::prefix('/posts')->group(function () {
 	Route::get('{post:id}/destroy', 'PostController@destroy')->name('posts.destroy')->middleware('permission:destroy_posts');
 });
 
+Route::prefix('/esports')->group(function () {
+	Route::get('/', 'EsportsController@index')->name('esports');
+	Route::get('/{eteam:slug}', 'EsportsController@eteam')->name('eteam');
+	Route::get('/{eteam:slug}/miembros', 'EsportsController@eteamMembers')->name('eteam.members');
+	Route::get('/{eteam:slug}/estadisticas', 'EsportsController@eteamStats')->name('eteam.stats');
+	Route::get('/{eteam:slug}/administracion', 'EsportsController@eteamAdmin')->name('eteam.admin');
+});
+
 Route::prefix('/torneos')->group(function () {
 	Route::get('/', 'TournamentController@index')->name('tournaments');
 	Route::get('/{tournament:slug}/{season:slug?}', 'TournamentController@view')->name('tournament');
