@@ -16,8 +16,7 @@ class CreateTournamentsTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('game_id')
-                ->references('id')
-                ->on('games')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('current_season_id')
                 ->nullable();

@@ -16,8 +16,7 @@ class CreateCompetitionsTable extends Migration
         Schema::create('competitions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')
-                ->references('id')
-                ->on('seasons')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();

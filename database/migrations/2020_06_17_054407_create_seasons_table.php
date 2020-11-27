@@ -16,8 +16,7 @@ class CreateSeasonsTable extends Migration
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tournament_id')
-                ->references('id')
-                ->on('tournaments')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->enum('state', ['inscriptions', 'active', 'finished']);
@@ -26,8 +25,7 @@ class CreateSeasonsTable extends Migration
             $table->boolean('free_inscription')->default(false);
             $table->foreignId('players_databases_id')
                 ->nullable()
-                ->references('id')
-                ->on('players_databases')
+                ->constrained('players_databases')
                 ->onDelete('cascade');
             $table->integer('min_players')->nullable();
             $table->integer('max_players')->nullable();

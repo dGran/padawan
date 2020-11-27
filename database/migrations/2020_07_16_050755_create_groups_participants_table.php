@@ -16,13 +16,11 @@ class CreateGroupsParticipantsTable extends Migration
         Schema::create('groups_participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')
-                ->references('id')
-                ->on('groups')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('participant_id')
                 ->nullable()
-                ->references('id')
-                ->on('participants')
+                ->constrained()
                 ->onDelete('cascade');
         });
     }

@@ -29,6 +29,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne('App\Profile');
     }
 
+    public function positions()
+    {
+        return $this->hasMany('App\UserPosition', 'user_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany('App\Notification', 'user_id');
+    }
+
     public function scopeName($query, $name)
     {
         if (trim($name) !="") {
@@ -68,6 +78,11 @@ class User extends Authenticatable implements MustVerifyEmail
         // apply logic...
         // defaults return true
 
+        return true;
+    }
+
+    public function notifications_unread()
+    {
         return true;
     }
 }

@@ -97,6 +97,12 @@ return [
             'visibility' => 'public',
         ],
 
+        'eteams' => [
+            'driver' => 'local',
+            'root' => public_path('img/eteams'),
+            'visibility' => 'public',
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

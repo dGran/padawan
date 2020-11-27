@@ -16,8 +16,7 @@ class CreatePlayersTable extends Migration
         Schema::create('players', function (Blueprint $table) {
             $table->id();
             $table->foreignId('players_databases_id')
-                ->references('id')
-                ->on('players_databases')
+                ->constrained('players_databases')
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();
@@ -25,8 +24,7 @@ class CreatePlayersTable extends Migration
             $table->string('nation_name')->nullable();
             $table->string('league_name')->nullable();
             $table->foreignId('position_id')->nullable()
-                ->references('id')
-                ->on('games_positions')
+                ->constrained('games_positions')
                 ->onDelete('cascade');
             $table->integer('height')->nullable();
             $table->integer('age')->nullable();

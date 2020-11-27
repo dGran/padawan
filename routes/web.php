@@ -19,8 +19,9 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/', 'HomeController@home')->name('home');
 // password confirm middleware example
 // Route::get('/', 'HomeController@home')->name('home')->middleware('password.confirm');
-Route::get('/usuarios/perfil', 'HomeController@profile')->name('profile')->middleware('auth', 'verified');
-Route::put('/usuarios/perfil', 'HomeController@profileUpdate')->name('profile.update')->middleware('auth', 'verified');
+Route::get('/cuenta/perfil', 'HomeController@profile')->name('profile')->middleware('auth', 'verified');
+Route::put('/cuenta/perfil', 'HomeController@profileUpdate')->name('profile.update')->middleware('auth', 'verified');
+Route::get('/cuenta/notificaciones', 'HomeController@notifications')->name('notifications')->middleware('auth', 'verified');
 
 Route::get('/contacto', 'ContactController@index')->name('contact');
 Route::post('/contacto', 'ContactController@send')->name('contact.send')->middleware(ProtectAgainstSpam::class);
@@ -35,10 +36,14 @@ Route::prefix('/posts')->group(function () {
 
 Route::prefix('/esports')->group(function () {
 	Route::get('/', 'EsportsController@index')->name('esports');
+	Route::get('/nuevo-equipo-e-sport', 'EsportsController@eteamAdd')->middleware('auth')->name('eteam.add');
+	Route::post('/nuevo-equipo-e-sport', 'EsportsController@eteamStore')->middleware('auth')->name('eteam.store');
 	Route::get('/{eteam:slug}', 'EsportsController@eteam')->name('eteam');
 	Route::get('/{eteam:slug}/miembros', 'EsportsController@eteamMembers')->name('eteam.members');
 	Route::get('/{eteam:slug}/estadisticas', 'EsportsController@eteamStats')->name('eteam.stats');
 	Route::get('/{eteam:slug}/administracion', 'EsportsController@eteamAdmin')->name('eteam.admin');
+	Route::post('/{eteam:slug}/solicitud-de-ingreso', 'EsportsController@eteamUserRequest')->name('eteam.user_request');
+	Route::post('/{eteam:slug}/invitacion-de-ingreso', 'EsportsController@eteamUserInvitation')->name('eteam.user_invitation');
 });
 
 Route::prefix('/torneos')->group(function () {
@@ -48,6 +53,7 @@ Route::prefix('/torneos')->group(function () {
 	Route::get('/{tournament:slug}/{season:slug}/participantes', 'TournamentController@participants')->name('tournament.participants');
 	Route::get('/{tournament:slug}/{season:slug}/clasificacion/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@standing')->name('tournament.standing');
 	Route::get('/{tournament:slug}/{season:slug}/calendario/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@schedule')->name('tournament.schedule');
+	Route::get('/{tournament:slug}/{season:slug}/estadisticas/{competition:slug?}/{phase:slug?}/{group:slug?}', 'TournamentController@stats')->name('tournament.stats');
 	//match
 	Route::get('/{tournament:slug}/{season:slug}/partido/{match_id}', 'TournamentController@scheduleMatch')->name('tournament.schedule.match');
 	//race

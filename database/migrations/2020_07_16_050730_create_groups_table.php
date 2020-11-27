@@ -16,8 +16,7 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->foreignId('phase_id')
-                ->references('id')
-                ->on('phases')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->integer('num_participants');

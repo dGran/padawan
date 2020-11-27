@@ -3,19 +3,26 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class ETeam extends Model
 {
     protected $table = "eteams";
+    protected $fillable = ['game_id', 'name', 'img', 'location', 'short_name', 'owner_id', 'slug'];
 
     public function game()
     {
         return $this->belongsTo('App\Game');
     }
 
-    public function players()
+    public function users()
     {
-        return $this->hasMany('App\ETeamPlayer', 'eteam_id');
+        return $this->hasMany('App\ETeamUser', 'eteam_id');
+    }
+
+    public function requests()
+    {
+        return $this->hasMany('App\ETeamRequest', 'eteam_id');
     }
 
     public function owner()
@@ -54,5 +61,28 @@ class ETeam extends Model
         if (!$image) return FALSE;
         $headers = get_headers($image);
         return stripos($headers[0], "200 OK") ? TRUE : FALSE;
+    }
+
+    public function userIsMember() {
+        $member = ETeamUser::
+            where('eteam_id', $this->id)
+            ->where('user_id', Auth::id())
+            ->count();
+        if ($member) {
+            return true;
+        }
+        return false;
+    }
+
+    public function userIsAdmin() {
+        $admin = ETeamUser::
+            where('eteam_id', $this->id)
+            ->where('user_id', Auth::id())
+            ->where('admin', 1)
+            ->count();
+        if ($admin) {
+            return true;
+        }
+        return false;
     }
 }

@@ -1,3 +1,23 @@
+.swal-content__input, .swal-content__textarea {
+	color: #4a5568;
+    font-size: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+}
+
+.swal-content__input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #cbd5e0;
+  opacity: 1; /* Firefox */
+}
+
+.swal-content__input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #cbd5e0;
+}
+
+.swal-content__input::-ms-input-placeholder { /* Microsoft Edge */
+  color: #cbd5e0;
+}
+
 .swal-footer {
 	@apply bg-gray-200 border-t border-gray-400;
 	margin-top: 32px;

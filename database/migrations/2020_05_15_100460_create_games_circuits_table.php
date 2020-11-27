@@ -16,15 +16,13 @@ class CreateGamesCircuitsTable extends Migration
         Schema::create('games_circuits', function (Blueprint $table) {
             $table->id();
             $table->foreignId('game_id')
-                ->references('id')
-                ->on('games')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();
             $table->foreignId('country_id')
                 ->nullable()
-                ->references('id')
-                ->on('countries')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('length')->nullable();
         });

@@ -13,13 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(CountriesSeeder::class);
 
-        $this->call(UserSeeder::class);
         $this->call(PlatformSeeder::class);
         $this->call(GameSeeder::class);
         $this->call(GamePositionSeeder::class);
         $this->call(GameCircuitSeeder::class);
-        $this->call(PlayerDatabaseSeeder::class);
-        $this->call(eTeamSeeder::class);
         $this->call(TeamSeeder::class);
+        $this->call(PlayerDatabaseSeeder::class);
+
+        $this->call(UserSeeder::class);
+        $this->call(eTeamSeeder::class);
     }
 }

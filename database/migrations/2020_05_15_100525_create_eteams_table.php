@@ -16,12 +16,10 @@ class CreateEteamsTable extends Migration
         Schema::create('eteams', function (Blueprint $table) {
             $table->id();
             $table->foreignId('game_id')
-                ->references('id')
-                ->on('games')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('owner_id')
-                ->references('id')
-                ->on('users')
+                ->constrained('users')
                 ->onDelete('cascade');
             $table->string('name')->unique();
             $table->string('img')->nullable();

@@ -71,6 +71,11 @@ class HomeController extends Controller
         return back();
     }
 
+    public function notifications()
+    {
+        return view('users.notifications');
+    }
+
     public function privacy_policy()
     {
         return view('home.privacy_policy');

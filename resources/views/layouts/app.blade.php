@@ -12,6 +12,8 @@
 		{{-- Tooltips --}}
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hint.css/2.6.0/hint.min.css">
 		<link rel="stylesheet" href="{{ asset('fonts/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}"/>
+		<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 		<link rel="stylesheet" href="{{ asset('fonts/vendor/iconmoon.css') }}"/>
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		@yield('styles')
@@ -45,9 +47,6 @@
 						@include('layouts.partials.app.breadcrumb')
 					@endif
 				@endisset
-		        @if (flash()->message)
-		            @include('layouts.partials.flash_message')
-		        @endif
 				@yield('content')
 			</main>
 
@@ -57,9 +56,17 @@
 		</div>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
 
 		@include('layouts.partials.app.javascript')
 		@yield('modals')
+        @if (flash()->message)
+            @include('layouts.partials.flash_message')
+        @endif
+		@if ($errors->any())
+			@include('layouts.partials.flash_errors')
+		@endif
+
 		@yield('js')
 	</body>
 

@@ -8,10 +8,12 @@
 					{{ $match->day_name() }}
 				</div>
 				<div class="flex items-start md:items-center">
-					<div class="flex-1 local flex flex-col justify-end md:flex-row items-center truncate">
-				    	<div class="title md:mr-3 order-last md:order-first pt-1 md:pt-0 truncate leading-4 md:leading-5">
-				    		{{ $match->local_participant->presenter()['name'] }}
-				    		<p class="subname text-11 md:text-13 text-center md:text-right">{{ $match->local_participant->presenter()['subname'] }}</p>
+					<div class="flex-1 local flex flex-col md:flex-row justify-end items-center truncate">
+				    	<div class="title md:mr-3 order-last md:order-first pt-1 md:pt-0 leading-4 md:leading-5">
+				    		<p class="truncate">{{ $match->local_participant->presenter()['name'] }}</p>
+				    		<p class="subname text-11 md:text-13 text-center md:text-right">
+				    			{{ $match->local_participant->presenter()['subname'] }}
+				    		</p>
 				    	</div>
 				    	<div class="img">
 				    		<img src="{{ $match->local_participant->presenter()['img'] }}" style="height: 3rem; width: 3rem; min-width: 3rem">

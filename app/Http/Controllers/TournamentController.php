@@ -264,6 +264,61 @@ class TournamentController extends Controller
         }
     }
 
+    public function stats(Tournament $tournament, Season $season = null, Competition $competition = null, Phase $phase = null, Group $group = null)
+    {
+        if (!isset($competition)) {
+            if (!$season->competitions) {
+                flash()->info('Estructura de la competición en configuración...competiciones');
+                return back();
+            }
+            $competition = $season->competitions->first();
+        }
+        if ($season->competitions->count() > 1) {
+            session([$season->id . '_user_competition' => $competition]);
+        }
+
+        if (!isset($phase)) {
+            if (!$competition->phases) {
+                flash()->info('Estructura de la competición en configuración...fases');
+                return back();
+            }
+            $phase = $competition->phases->first();
+        }
+        if ($competition->phases->count() > 1) {
+            session([$season->id . '_user_phase' => $phase]);
+        }
+
+        if (!isset($group)) {
+            if (!$phase->groups) {
+                flash()->info('Estructura de la competición en configuración...grupos');
+                return back();
+            }
+            $group = $phase->groups->first();
+        }
+        if ($phase->groups->count() > 1) {
+            session([$season->id . '_user_group' => $group]);
+        }
+
+        switch ($phase->mode) {
+            case 'race':
+                flash()->info('Estadísticas de carreras en desarrollo...');
+                return back();
+                break;
+            case 'league':
+                if ($group && $group->league) {
+                    $league = $group->league;
+                    return view('tournament.stats.leagues', ['league' => $league, 'tournament' => $tournament, 'season' => $season, 'competition' => $competition, 'phase' => $phase, 'group' => $group ]);
+                }
+                flash()->info('Estructura de la competición en configuración...');
+                return back();
+                break;
+            case 'playoff':
+                flash()->info('Estadísticas de playoffs en desarrollo...');
+                return back();
+                break;
+        }
+    }
+
     public function scheduleMatch(Tournament $tournament, Season $season, $match_id)
     {
         $match = Match::findOrFail($match_id);

@@ -16,8 +16,7 @@ class CreatePhasesTable extends Migration
         Schema::create('phases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('competition_id')
-                ->references('id')
-                ->on('competitions')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->enum('mode', ['league', 'playoff', 'race']);

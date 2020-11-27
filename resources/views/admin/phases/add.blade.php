@@ -9,7 +9,6 @@
 @endsection
 
 @section('content')
-	@include('layouts.partials.flash_errors')
     @include('admin.phases.add.content')
 @endsection
 

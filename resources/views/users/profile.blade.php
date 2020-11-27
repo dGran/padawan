@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => 'Profile', 'breadcrumb' => 'light', 'wrap_bg' => 'bg-gray-200'])
+@extends('layouts.app', ['title' => 'Perfil de usuario', 'breadcrumb' => 'light', 'wrap_bg' => 'bg-gray-200'])
 
 @section('styles')
 	<style>

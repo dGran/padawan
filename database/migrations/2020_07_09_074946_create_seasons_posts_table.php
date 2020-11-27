@@ -16,8 +16,7 @@ class CreateSeasonsPostsTable extends Migration
         Schema::create('seasons_posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')
-                ->references('id')
-                ->on('seasons')
+                ->constrained()
                 ->onDelete('cascade');
             $table->enum('type', ['default', 'participation', 'transfer', 'result', 'champion', 'press'])->nullable();
             $table->string('img')->nullable();

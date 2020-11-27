@@ -16,8 +16,7 @@ class CreatePlayoffsTable extends Migration
         Schema::create('playoffs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')
-                ->references('id')
-                ->on('groups')
+                ->constrained()
                 ->onDelete('cascade');
             $table->integer("num_rounds")->nullable();
             $table->boolean("predefined_rounds")->default(true);

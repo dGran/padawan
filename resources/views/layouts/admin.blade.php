@@ -52,9 +52,6 @@
 				</div>
 			@endisset
 			@include('layouts.partials.admin.header')
-	        @if (flash()->message)
-	            @include('layouts.partials.flash_message')
-	        @endif
 			@yield('content')
 		</div>
 
@@ -69,6 +66,13 @@
 
 		@include('layouts.partials.admin.javascript')
 		@yield('modals')
+        @if (flash()->message)
+            @include('layouts.partials.flash_message')
+        @endif
+		@if ($errors->any())
+			@include('layouts.partials.flash_errors')
+		@endif
+
 		@yield('js')
 	</body>
 

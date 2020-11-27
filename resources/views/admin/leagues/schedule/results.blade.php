@@ -13,7 +13,6 @@
 @endsection
 
 @section('content')
-	@include('layouts.partials.flash_errors')
     @include('admin.leagues.schedule.results.content')
 @endsection
 

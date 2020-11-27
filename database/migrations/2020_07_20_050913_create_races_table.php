@@ -16,12 +16,10 @@ class CreateRacesTable extends Migration
         Schema::create('races', function (Blueprint $table) {
             $table->id();
             $table->foreignId('racing_id')
-                ->references('id')
-                ->on('racings')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('circuit_id')
-                ->references('id')
-                ->on('games_circuits')
+                ->constrained('games_circuits')
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('short_name')->nullable();

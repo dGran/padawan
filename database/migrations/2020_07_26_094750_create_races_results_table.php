@@ -16,22 +16,18 @@ class CreateRacesResultsTable extends Migration
         Schema::create('races_results', function (Blueprint $table) {
             $table->id();
             $table->foreignId('race_id')
-                ->references('id')
-                ->on('races')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('group_participant_id')
-                ->references('id')
-                ->on('groups_participants')
+                ->constrained('groups_participants')
                 ->onDelete('cascade');
             $table->foreignId('user_id')
                 ->nullable()
-                ->references('id')
-                ->on('users')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('eteam_id')
                 ->nullable()
-                ->references('id')
-                ->on('eteams')
+                ->constrained()
                 ->onDelete('cascade');
             $table->enum('type', array('pre-qualy', 'qualy', 'race'));
             $table->integer('position')->nullable();

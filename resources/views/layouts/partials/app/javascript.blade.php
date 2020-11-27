@@ -26,4 +26,15 @@
 
 	    node.addEventListener('animationend', handleAnimationEnd)
 	}
+
+    //disable buttons
+    function disabledActionsButtons() {
+        $('a').addClass('disable');
+        $('button').addClass("disable");
+    }
+
+    function enabledActionsButtons() {
+        $('a').removeClass('disable');
+        $('button').removeClass("disable");
+    }
 </script>

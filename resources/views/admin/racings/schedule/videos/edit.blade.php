@@ -9,6 +9,5 @@
 @endsection
 
 @section('content')
-	@include('layouts.partials.flash_errors')
     @include('admin.racings.schedule.videos.edit.content')
 @endsection

@@ -2,12 +2,22 @@
 	<button @click="open = !open" class="focus:outline-none align-middle md:pl-4">
 		<img src="{{ auth()->user()->profile->avatar() }}" class="object-cover rounded-full w-8 h-8 lg:w-10 lg:h-10 bg-gray-200 hover:bg-white" style="padding: 1px">
 	</button>
+
+    @if (auth()->user()->notifications_unread())
+        <i class='bx bxs-bell-ring animate__animated animate__tada animate__infinite animate__slow text-yellow-500 text-22 absolute bottom-0 right-0 -mb-1 -mr-3'></i>
+    @endif
+
 	<div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 origin-top-right rounded-md shadow-lg w-48 z-50">
 		<ul class="bg-white rounded-md shadow mt-1 text-sm font-semibold">
 			<li>
 				<span class="text-gray-800 block px-4 py-2 text-sm font-semibold border-b border-gray-400 bg-gray-300 rounded-t-lg">
 					Hola, {{ auth()->user()->name }}
 				</span>
+			</li>
+			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 border-b border-gray-200">
+				<a class="block px-4 py-2 border-l-2 border-transparent hover:border-orange-500 focus:border-orange-500 text-gray-800 hover:text-orange-500 focus:text-orange-500 focus:outline-none" href="{{ route('notifications') }}">
+					<i class="bx bxs-bell-ring mr-2 w-4 text-center {{ auth()->user()->notifications_unread() ? 'animate__animated animate__tada animate__infinite animate__slow text-red-600' : '' }}"></i>Notificaciones
+				</a>
 			</li>
 			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 border-b border-gray-200">
 				<a class="block px-4 py-2 border-l-2 border-transparent hover:border-orange-500 focus:border-orange-500 text-gray-800 hover:text-orange-500 focus:text-orange-500 focus:outline-none" href="{{ route('profile') }}">

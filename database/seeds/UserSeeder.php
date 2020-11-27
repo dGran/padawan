@@ -21,6 +21,26 @@ class UserSeeder extends Seeder
 	        'updated_at' => now(),
 	    ]);
 
+	    DB::table('users')->insert([
+	        'name' => 'Marcel',
+	        'email' => 'marcel@gmail.com',
+	        'password' => Hash::make('1234'),
+	        'is_admin' => 1,
+	        'email_verified_at' => now(),
+	        'created_at' => now(),
+	        'updated_at' => now(),
+	    ]);
+
+	    DB::table('users')->insert([
+	        'name' => 'Gabri',
+	        'email' => 'gabri@gmail.com',
+	        'password' => Hash::make('1234'),
+	        'is_admin' => 1,
+	        'email_verified_at' => now(),
+	        'created_at' => now(),
+	        'updated_at' => now(),
+	    ]);
+
 		for ($i=0; $i < 100; $i++) {
 			$name = 'user_test_' . $i;
 		    DB::table('users')->insert([
@@ -39,6 +59,16 @@ class UserSeeder extends Seeder
 		        'user_id' => $user->id,
 		        'location' => $faker->city,
 		        'birthdate' => $faker->dateTimeBetween('1970-01-01', '1999-12-31')
+		    ]);
+			$user->positions()->create([
+		        'user_id' => $user->id,
+		        'game_id' => 1,
+		        'position_id' => mt_rand(1, 14)
+		    ]);
+			$user->positions()->create([
+		        'user_id' => $user->id,
+		        'game_id' => 4,
+		        'position_id' => mt_rand(46, 58)
 		    ]);
 		}
     }

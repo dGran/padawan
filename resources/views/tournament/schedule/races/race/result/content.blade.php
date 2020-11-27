@@ -67,7 +67,7 @@
 								        <td class="pts-total md:hidden relative">
 							        		{{ $race->score_participant($position->group_participant->id) }}
 							        		@if ($race->racing->score_fastest_lap > 0 || $race->racing->score_pole > 0)
-							                	@if ( ($race->pole() && $race->pole()->group_participant->id == $position->group_participant->id) || ($race->fastest_lap() && $race->fastest_lap()->group_participant->id == $position->group_participant->id) )
+{{-- 							                	@if ( ($race->pole() && $race->pole()->group_participant->id == $position->group_participant->id) || ($race->fastest_lap() && $race->fastest_lap()->group_participant->id == $position->group_participant->id) )
 							                		@if ($race->pole()->group_participant->id == $position->group_participant->id && $race->fastest_lap()->group_participant->id == $position->group_participant->id)
 							                			<div class="text-center leading-none absolute text-8 mr-2 mt-3 uppercase w-full" style="bottom: 3px; left: 0">
 							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +2</span><span class="text-red-500"> -1</span>
@@ -77,7 +77,7 @@
 							                				<span class="text-gray-600">{{ $race->clean_score_participant($position->group_participant->id) }}</span><span class="text-teal-500"> +1</span><span class="text-red-500"> -1</span>
 							                			</div>
 							                		@endif
-							                	@endif
+							                	@endif --}}
 							                @endif
 										</td>
 						                @if ($race->racing->times)

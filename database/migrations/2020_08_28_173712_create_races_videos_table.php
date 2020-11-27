@@ -16,8 +16,7 @@ class CreateRacesVideosTable extends Migration
         Schema::create('races_videos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('race_id')
-                ->references('id')
-                ->on('races')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('title');
             $table->enum('provider', array('youtube', 'twitch'));

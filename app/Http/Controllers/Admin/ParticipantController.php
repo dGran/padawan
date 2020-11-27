@@ -140,6 +140,7 @@ class ParticipantController extends Controller
 	    	if ($tournament->participant_type == 'eteam') {
 	    		$eteams = ETeam::select('*')->orderBy('name')->get();
 		        $eteams = \DB::table("eteams")->select('*')
+                        ->where('game_id', $tournament->game_id)
 		                ->whereNotIn('id', function($query) use ($season) {
 		                   $query->select('eteam_id')->from('participants')->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
 		                })
@@ -212,26 +213,27 @@ class ParticipantController extends Controller
 
     	if ($tournament->participant_type == 'individual') {
 	        $users = \DB::table("users")->select('*')
-	                ->whereNotIn('id', function($query) use ($season, $participant) {
-	                   $query->select('user_id')->from('participants')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
-	                })
-	                ->whereNotIn('id', function($query) use ($season, $participant) {
-	                   $query->select('user_id')->from('reserves')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
-	                })
-	                ->orderBy('name', 'asc')
-	                ->get();
+                ->whereNotIn('id', function($query) use ($season, $participant) {
+                   $query->select('user_id')->from('participants')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
+                })
+                ->whereNotIn('id', function($query) use ($season, $participant) {
+                   $query->select('user_id')->from('reserves')->where('user_id', '!=', $participant->user_id)->whereNotNull('user_id')->where('season_id', '=', $season->id);
+                })
+                ->orderBy('name', 'asc')
+                ->get();
     	}
     	if ($tournament->participant_type == 'eteam') {
     		$eteams = ETeam::select('*')->orderBy('name')->get();
 	        $eteams = \DB::table("eteams")->select('*')
-	                ->whereNotIn('id', function($query) use ($season, $participant) {
-	                   $query->select('eteam_id')->from('participants')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
-	                })
-	                ->whereNotIn('id', function($query) use ($season, $participant) {
-	                   $query->select('eteam_id')->from('reserves')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
-	                })
-	                ->orderBy('name', 'asc')
-	                ->get();
+                ->where('game_id', $tournament->game_id)
+                ->whereNotIn('id', function($query) use ($season, $participant) {
+                   $query->select('eteam_id')->from('participants')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+                })
+                ->whereNotIn('id', function($query) use ($season, $participant) {
+                   $query->select('eteam_id')->from('reserves')->where('eteam_id', '!=', $participant->eteam_id)->whereNotNull('eteam_id')->where('season_id', '=', $season->id);
+                })
+                ->orderBy('name', 'asc')
+                ->get();
     	}
     	if ($tournament->use_teams) {
 	        $teams = \DB::table("teams")->select('*')

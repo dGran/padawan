@@ -16,8 +16,7 @@ class CreateRacingsScoresTable extends Migration
         Schema::create('racings_scores', function (Blueprint $table) {
             $table->id();
             $table->foreignId('racing_id')
-                ->references('id')
-                ->on('racings')
+                ->constrained()
                 ->onDelete('cascade');
             $table->integer('position');
             $table->integer('score')->default(0);

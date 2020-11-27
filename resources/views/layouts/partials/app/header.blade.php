@@ -1,5 +1,3 @@
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-
 <div class="w-full fixed border-b border-gray-900 z-50 bg-gray-900" style="background: #131619">
     <div x-data="{ open: false }" class="flex flex-col custom-container md:items-center md:justify-between md:flex-row">
         <div class="py-4 flex flex-row items-center justify-between">
@@ -8,7 +6,7 @@
                 <i class="icon-logo text-3xl lg:text-4xl text-orange-500"></i>
                 <span class="ml-4 mr-2 hover:text-orange-200">{{ env('APP_NAME') }}</span>
             </a>
-            <div class="md:hidden flex">
+            <div class="md:hidden flex items-center">
                 @guest
                     @include('layouts.partials.app.guest_menu')
                 @endguest

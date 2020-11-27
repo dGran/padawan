@@ -16,8 +16,7 @@ class CreateLeaguesDaysTable extends Migration
         Schema::create('leagues_days', function (Blueprint $table) {
             $table->id();
             $table->foreignId('league_id')
-                ->references('id')
-                ->on('leagues')
+                ->constrained()
                 ->onDelete('cascade');
             $table->integer('order');
             $table->dateTime('date_limit')->nullable();

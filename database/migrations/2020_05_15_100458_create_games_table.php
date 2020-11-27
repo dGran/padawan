@@ -16,8 +16,7 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->id();
             $table->foreignId('platform_id')
-                ->references('id')
-                ->on('platforms')
+                ->constrained()
                 ->onDelete('cascade');
             $table->string('name');
             $table->string('img')->nullable();

@@ -16,8 +16,7 @@ class CreateRacingsTable extends Migration
         Schema::create('racings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')
-                ->references('id')
-                ->on('groups')
+                ->constrained()
                 ->onDelete('cascade');
             $table->boolean('fastest_lap')->default(false);
             $table->integer('score_fastest_lap')->default(0);

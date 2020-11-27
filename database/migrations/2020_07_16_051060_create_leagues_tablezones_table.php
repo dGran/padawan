@@ -16,13 +16,11 @@ class CreateLeaguesTablezonesTable extends Migration
         Schema::create('leagues_tablezones', function (Blueprint $table) {
             $table->id();
             $table->foreignId('league_id')
-                ->references('id')
-                ->on('leagues')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('tablezone_id')
                 ->nullable()
-                ->references('id')
-                ->on('tablezones')
+                ->constrained('tablezones')
                 ->onDelete('cascade');
             $table->integer('position');
         });

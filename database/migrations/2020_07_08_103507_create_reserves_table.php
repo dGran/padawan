@@ -16,18 +16,15 @@ class CreateReservesTable extends Migration
         Schema::create('reserves', function (Blueprint $table) {
             $table->id();
             $table->foreignId('season_id')
-                ->references('id')
-                ->on('seasons')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('user_id')
                 ->nullable()
-                ->references('id')
-                ->on('users')
+                ->constrained()
                 ->onDelete('cascade');
             $table->foreignId('eteam_id')
                 ->nullable()
-                ->references('id')
-                ->on('eteams')
+                ->constrained()
                 ->onDelete('cascade');
             $table->timestamps();
         });

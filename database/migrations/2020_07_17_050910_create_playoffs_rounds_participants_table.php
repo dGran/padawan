@@ -16,11 +16,10 @@ class CreatePlayoffsRoundsParticipantsTable extends Migration
         Schema::create('playoffs_rounds_participants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('round_id')
-                ->references('id')
-                ->on('playoffs_rounds')
+                ->constrained('playoffs_rounds')
                 ->onDelete('cascade');
             $table->foreignId('participant_id')
-                ->references('id')
+                ->constrained('groups_participants')
                 ->on('groups_participants')
                 ->onDelete('cascade');
         });

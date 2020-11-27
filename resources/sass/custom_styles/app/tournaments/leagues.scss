@@ -132,11 +132,8 @@
 	}
 	.days-list {
 		@apply grid grid-cols-1 gap-3;
-		@screen sm {
-			@apply grid-cols-2;
-		}
 		@screen lg {
-			@apply grid-cols-3;
+			@apply grid-cols-2;
 		}
 		.day {
 			@apply bg-white rounded relative border font-roboto-condensed;

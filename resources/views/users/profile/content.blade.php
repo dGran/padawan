@@ -1,5 +1,5 @@
 <div class="custom-container text-gray-800">
-    <div class="my-8">
+    <div class="mt-4 mb-8">
         <div class="flex flex-wrap" id="tabs-id">
         	<div class="w-full md:max-w-lg md:mx-auto">
 		        <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold">
