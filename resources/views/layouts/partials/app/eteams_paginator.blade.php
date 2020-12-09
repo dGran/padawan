@@ -11,7 +11,7 @@
                     </svg>
                 </span>
             @else
-                <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white cursor-pointer transition duration-150 ease-in" href="{{ $paginator->previousPageUrl() }}" rel="previous">
+                <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white cursor-pointer transition duration-150 ease-in" rel="previous"  wire:click="setPreviousPage">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
@@ -54,7 +54,7 @@
                             @if ($page == $paginator->currentPage())
                                 <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 rounded-full bg-pink-600 text-white">{{ $page }}</span>
                             @else
-                                <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white" href="{{ $url }}">{{ $page }}</a>
+                                <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white"  wire:click="gotoPage({{ $page }})">{{ $page }}</a>
                             @endif
                         @endforeach
                     @endif
@@ -63,7 +63,7 @@
 
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
-                <a class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white transition duration-150 ease-in" href="{{ $paginator->nextPageUrl() }}" rel="next">
+                <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 hover:bg-pink-600 hover:text-white focus:bg-pink-600 focus:text-white cursor-pointer transition duration-150 ease-in" rel="previous"  wire:click="setNextPage">
                     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>

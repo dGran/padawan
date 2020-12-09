@@ -1,0 +1,98 @@
+<div>
+	<div class="custom-container">
+	    <div class="mt-4 mb-8">
+	        <h1 class="font-fjalla uppercase tracking-wider text-orange-500 text-lg font-semibold">
+	            e-Sports
+	        </h1>
+			@auth
+	        	<div class="mt-4 mb-8">
+	        		<a href="{{ route('eteam.add') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none">
+	        			Crea tu equipo
+	        		</a>
+	        	</div>
+	    	@endauth
+
+	        <h1 class="my-4 font-fjalla uppercase tracking-wider text-orange-500 text-base font-semibold">
+	            Listado de equipos
+	        </h1>
+	        <p class="mt-4">
+		        {{-- <form action="{{ route('esports') }}" method="GET"> --}}
+
+	                <div class="element mb-2">
+	                    <div class="relative flex items-center">
+	                    	<input type="text" class="flex-1 appearance-none text-gray-700 block w-1/2 border border-gray-300 rounded py-2 px-3 focus:border-gray-500 text-xs" placeholder="Buscar..." autofocus wire:model="filterName">
+	                    	<div class="ml-2 flex-1 relative">
+		                        <select id="filterGame" class="bg-white appearance-none text-gray-700 block w-full border border-gray-300 rounded py-2 pl-3 pr-5 focus:border-gray-500 text-xs truncate" wire:model="filterGame" wire:change="setFilterGame">
+	                            	<option class="truncate" value="all">Todos los juegos</option>
+		                            @foreach ($games as $game)
+		                                <option value="{{ $game->id }}" class="truncate">
+		                                    {{ $game->name }} - {{ $game->platform->name }}
+		                                </option>
+		                            @endforeach
+		                        </select>
+		                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+		                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+		                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+		                            </svg>
+		                        </div>
+	                        </div>
+	                		{{-- <button type="submit" class="flex-none ml-2 py-2 px-3 bg-teal-500 text-white text-xs rounded">Buscar</button> --}}
+	                    </div>
+	                </div>
+		        {{-- </form> --}}
+
+				<div class="mt-4 mb-8">
+					@if ($filterGame !== "all")
+						<h4 class="mb-4">
+							Nombre: {{ $filterGameName }}
+						</h4>
+					@endif
+					@if ($eteams->count() > 0)
+						<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+							@foreach ($eteams as $eteam)
+								<a class="bg-gray-800 hover:bg-gray-700 relative shadow rounded" href="{{ route('eteam', $eteam->slug) }}">
+									<div class="p-3 flex items-center text-gray-500 rounded text-xs">
+										<figure class="rounded-full h-20 w-20">
+											<img src="{{ $eteam->img() }}" class=" object cover rounded-full">
+										</figure>
+										<div class="flex flex-col ml-3 truncate">
+											<span class="absolute top-0 right-0 mt-2 mr-2 text-xxs px-2 py-1 bg-gray-600 text-gray-400 rounded">
+												{{ $eteam->short_name }}
+											</span>
+											<p class="pb-2 text-orange-500 text-sm pr-10 truncate">
+												{{ $eteam->name }}
+											</p>
+											<p class="text-gray-400">
+												{{ $eteam->location }}
+											</p>
+											<p class="text-gray-400">
+												<span class="mr-1 font-medium">Propietario:</span>{{ $eteam->owner->name }}
+											</p>
+											<p class="text-gray-500 text-xxs">
+												{{ $eteam->users->count() + 1 }} {{ $eteam->users->count() +1 == 1 ? 'miembro' : 'miembros' }}
+											</p>
+										</div>
+									</div>
+									@if ($filterGame == 0)
+										<div class="px-3 pb-3 pt-2 flex items-center ">
+											<img src="{{ $eteam->game->img() }}" alt="{{ $eteam->game->name }}" class="flex-inital h-10 w-10 rounded-full object-cover">
+											<div class="ml-2 flex-none text-{{ $eteam->game->platform->color }}-200 flex flex-col">
+												<span class="text-xs">{{ $eteam->game->name }}</span>
+												<span class="text-xxs">{{ $eteam->game->platform->name }}</span>
+											</div>
+										</div>
+									@endif
+								</a>
+							@endforeach
+						</ul>
+						{{ $eteams->links('layouts.partials.app.eteams_paginator') }}
+					@else
+						<div class="p-3 bg-gray-800 text-gray-500 rounded font-source-sans shadow text-md">
+							No existen e-teams
+						</div>
+					@endif
+				</div>
+	        </p>
+	    </div>
+	</div>
+</div>

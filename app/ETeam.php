@@ -39,7 +39,7 @@ class ETeam extends Model
 
     public function scopeGame($query, $game)
     {
-        if (!$game == null) {
+        if ($game !== "all") {
             $query->where("game_id", "=", $game);
         }
     }

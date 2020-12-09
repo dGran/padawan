@@ -27,6 +27,8 @@
 			- {{ $title }}
 			@endisset
 		</title>
+
+		@stack('styles')
 	</head>
 
 	<body class="font-roboto bg-gray-900 text-gray-200" style="background-image: radial-gradient(#242e3f .5px, transparent .5px),radial-gradient(#101318 .5px, transparent .5px);
@@ -68,6 +70,8 @@
 		@endif
 
 		@yield('js')
+
+		@stack('scripts')
 	</body>
 
 </html>
