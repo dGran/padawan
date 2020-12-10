@@ -11,6 +11,8 @@ use App\ETeam;
 use App\ETeamUser;
 use App\ETeamRequest;
 
+use App\Events\RequestEteam;
+
 class EsportsController extends Controller
 {
     public function index()
@@ -120,26 +122,43 @@ class EsportsController extends Controller
 				// 			->where('phases.id', '=', $phase->id);
 	   //              })
 	    // dd($users);
-        return view('esports.eteams.eteam.admin', ['eteam' => $eteam]);
+        $requestsReceived = ETeamRequest::where('eteam_id', $eteam->id)->where('send_by', 'user')->where('state', 'pending')->orderBy('created_at', 'desc')->get();
+        $requestsSent = ETeamRequest::where('eteam_id', $eteam->id)->where('send_by', 'eteam')->where('state', 'pending')->orderBy('created_at', 'desc')->get();
+
+        return view('esports.eteams.eteam.admin', ['eteam' => $eteam, 'requestsReceived' => $requestsReceived, 'requestsSent' => $requestsSent]);
     }
 
     public function eteamUserRequest(ETeam $eteam, Request $request)
     {
     	$request = ETeamRequest::create([
-    		'eteam_id'	=> $eteam,
+    		'eteam_id'	=> $eteam->id,
     		'user_id'	=> Auth::id(),
     		'send_by'	=> 'user',
     		'state'		=> 'pending',
     		'message'	=> $request->message
     	]);
 
-    	// sendNotification();
+        //message to mailbox to team admins
+        event(new RequestEteam($request));
+
 		flash()->success('Solicitud de ingreso enviada');
     	return back();
     }
 
-    public function eteamUserInvitation()
+    public function eteamUserInvitation($user_id)
     {
+        $request = ETeamRequest::create([
+            'eteam_id'  => $eteam->id,
+            'user_id'   => $user_id,
+            'send_by'   => 'user',
+            'state'     => 'pending',
+            'message'   => $request->message
+        ]);
 
+        //message to mailbox to team admins
+        event(new RequestEteam($request));
+
+        flash()->success('Solicitud de ingreso enviada');
+        return back();
     }
 }

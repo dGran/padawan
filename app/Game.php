@@ -85,6 +85,7 @@ class Game extends Model
         if (!$image) return FALSE;
         $headers = get_headers($image);
         return stripos($headers[0], "200 OK") ? TRUE : FALSE;
+        return true;
     }
 
     public function canDestroy()

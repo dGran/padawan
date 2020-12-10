@@ -83,6 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function notifications_unread()
     {
-        return true;
+        if (Notification::where('user_id', $this->id)->where('read', 0)->count() > 0) {
+            return true;
+        }
+        return false;
     }
 }

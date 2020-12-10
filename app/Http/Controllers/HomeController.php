@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
+use App\Notification;
+
 class HomeController extends Controller
 {
     public function home()
@@ -73,7 +76,8 @@ class HomeController extends Controller
 
     public function notifications()
     {
-        return view('users.notifications');
+        $notifications = Notification::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
+        return view('users.notifications', ['notifications' => $notifications]);
     }
 
     public function privacy_policy()

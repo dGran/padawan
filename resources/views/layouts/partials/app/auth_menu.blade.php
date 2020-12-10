@@ -16,7 +16,8 @@
 			</li>
 			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 border-b border-gray-200">
 				<a class="block px-4 py-2 border-l-2 border-transparent hover:border-orange-500 focus:border-orange-500 text-gray-800 hover:text-orange-500 focus:text-orange-500 focus:outline-none" href="{{ route('notifications') }}">
-					<i class="bx bxs-bell-ring mr-2 w-4 text-center {{ auth()->user()->notifications_unread() ? 'animate__animated animate__tada animate__infinite animate__slow text-red-600' : '' }}"></i>Notificaciones
+					<i class="bx bxs-bell-ring mr-2 w-4 text-center {{ auth()->user()->notifications_unread() ? 'animate__animated animate__tada animate__infinite animate__slow text-red-600' : '' }}"></i>
+					Notificaciones
 				</a>
 			</li>
 			<li class="block bg-transparent hover:bg-gray-100 focus:bg-gray-100 border-b border-gray-200">

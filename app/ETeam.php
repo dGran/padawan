@@ -59,8 +59,9 @@ class ETeam extends Model
 
     protected function check_img($image) {
         if (!$image) return FALSE;
-        $headers = get_headers($image);
-        return stripos($headers[0], "200 OK") ? TRUE : FALSE;
+        // $headers = get_headers($image);
+        // return stripos($headers[0], "200 OK") ? TRUE : FALSE;
+        return true;
     }
 
     public function userIsMember() {
@@ -69,6 +70,18 @@ class ETeam extends Model
             ->where('user_id', Auth::id())
             ->count();
         if ($member) {
+            return true;
+        }
+        return false;
+    }
+
+    public function userRequest() {
+        $request = ETeamRequest::
+            where('eteam_id', $this->id)
+            ->where('user_id', Auth::id())
+            ->where('state', 'pending')
+            ->count();
+        if ($request) {
             return true;
         }
         return false;
