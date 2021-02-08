@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use Auth;
 
 class ETeam extends Model
@@ -30,11 +31,19 @@ class ETeam extends Model
         return $this->belongsTo('App\User', 'owner_id', 'id');
     }
 
-    public function scopeName($query, $name)
+    public function scopeName($query, $value)
     {
-        if (trim($name) !="") {
-            $query->where("name", "LIKE", "%$name%");
+        if (trim($value) != "") {
+            return $query->where(function($q) use ($value) {
+                            $q->where('eteams.name', 'LIKE', "%{$value}%")
+                                ->orWhere('eteams.location', 'LIKE', "%{$value}%")
+                                ->orWhere('users.name', 'LIKE', "%{$value}%")
+                                ->orWhere('eteams.short_name', 'LIKE', "%{$value}%");
+                            });
         }
+        // if (trim($name) !="") {
+        //     $query->where("name", "LIKE", "%$name%");
+        // }
     }
 
     public function scopeGame($query, $game)
@@ -62,6 +71,18 @@ class ETeam extends Model
         // $headers = get_headers($image);
         // return stripos($headers[0], "200 OK") ? TRUE : FALSE;
         return true;
+    }
+
+    public function getCreatedAtDate()
+    {
+        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
+        return $date->isoFormat("D MMMM YYYY");
+    }
+
+    public function getCreatedAtTime()
+    {
+        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
+        return $date->isoFormat("kk[:]mm");
     }
 
     public function userIsMember() {

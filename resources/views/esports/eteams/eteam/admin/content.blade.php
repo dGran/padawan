@@ -10,15 +10,15 @@
 	</h4>
 	<div class="grid grid-cols-1 md:grid-cols-2 gap-2">
 		@foreach($requestsReceived as $request)
-			<div>
-				<div class="border rounded bg-white flex flex-col">
-					<div class="pt-1 px-3 mt-3"><span class="font-bold">Fecha:</span> {{ $request->created_at }}</div>
+			<div class='border rounded bg-white'>
+				<div class="flex flex-col">
+					<div class="pt-1 px-3 mt-3"><span class="font-bold">Fecha:</span> {{ $request->getCreatedAtDate() }}, {{ $request->getCreatedAtTime() }}</div>
 					<div class="pt-1 px-3"><span class="font-bold">Usuario:</span> {{ $request->user->name }}</div>
 					@if ($request->message)
 						<div class="pt-1 px-3">
 							<span class="block font-bold">Mensaje</span>
 							{{-- <textarea readonly rows="5" class="w-full mt-1 border rounded p-2">{{  $request->message }}</textarea> --}}
-							<div class="text-gray-600 pl-4 py-1">
+							<div class="text-gray-600 pl-4 pt-2">
 								"{!! nl2br($request->message) !!}"
 							</div>
 						</div>

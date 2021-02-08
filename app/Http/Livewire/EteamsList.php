@@ -58,7 +58,14 @@ class EteamsList extends Component
     public function render()
     {
     	$games = Game::orderBy('name', 'asc')->get();
-        $eteams = ETeam::name($this->filterName)->game($this->filterGame)->orderBy('name', 'asc')->paginate(12);
+        // $eteams = ETeam::name($this->filterName)->game($this->filterGame)->orderBy('name', 'asc')->paginate(12);
+    	$eteams = ETeam::
+    		leftJoin('users', 'users.id', 'eteams.owner_id')
+    		->select('eteams.*', 'users.name as owner_name')
+    		->name($this->filterName)
+    		->game($this->filterGame)
+    		->orderBy('name', 'asc')
+			->paginate(12)->onEachSide(2);
 
         return view('esports.eteams_lw', [
         	'games' => $games,
