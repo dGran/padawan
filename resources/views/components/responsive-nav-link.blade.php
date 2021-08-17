@@ -2,10 +2,16 @@
 
 @php
 $classes = ($active ?? false)
-            ? 'block pl-3 pr-4 py-2 border-l-4 border-indigo-400 text-base font-medium text-indigo-700 bg-indigo-50 focus:outline-none focus:text-indigo-800 focus:bg-indigo-100 focus:border-indigo-700 transition duration-150 ease-in-out'
-            : 'block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out';
+            ? 'block pl-3 pr-4 py-3 text-xs uppercase font-semibold bg-sky-700 dark:bg-cyan-300 | text-white dark:text-cyan-900 | focus:outline-none | transition duration-150 ease-in-out | pointer-events-none | border-t dark:border-dark-700 | cursor-not-allowed'
+            : 'block pl-3 pr-4 py-3 text-xs uppercase font-medium text-gray-500 dark:text-dark-normal | hover:text-gray-700 dark:hover:text-dark-light | focus:outline-none focus:text-gray-700 dark:focus:text-dark-light | transition duration-150 ease-in-out | border-t dark:border-dark-700 | group';
 @endphp
 
 <a {{ $attributes->merge(['class' => $classes]) }}>
-    {{ $slot }}
+    <div class="flex items-center justify-between">
+        <i class="text-md icon-{{ $icon }} mr-2"></i>
+        <span class="flex-1">
+            {{ $slot }}
+        </span>
+        <i class="text-md icon-arrow-right ml-2 opacity-20 group-hover:opacity-100 {{ !$active ?: 'hidden' }}"></i>
+    </div>
 </a>

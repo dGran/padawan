@@ -24,6 +24,8 @@ module.exports = (isProd) => ({
                 'dark-800'    : 'rgba(18,20,28,1)',
                 'dark-700'    : 'rgba(23,25,35,1)',
                 'dark-600'    : 'rgba(37,42,55,1)',
+                'dark-500'    : 'rgba(50,55,68,1)',
+                'dark-400'    : 'rgba(63,68,81,1)',
                 'red-base'    :  'rgba(255,124,117,1)',
                 'red-light'   : '#ff2d20',
                 'dark-normal' : 'rgba(181,181,189,1)',
