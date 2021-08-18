@@ -1,3 +1,12 @@
+@php
+    $navLinks = [
+        ['route-name' => 'dashboard', 'text' => 'Dashboard', 'class' => '', 'icon' => 'icon-arrow-right'],
+        ['route-name' => 'welcome', 'text' => 'Welcome', 'class' => '', 'icon' => 'icon-arrow-right'],
+        ['route-name' => 'cookie-policy', 'text' => 'Política de cookies', 'class' => '', 'icon' => 'icon-arrow-right'],
+        // ['href' => '/managers', 'name' => 'managers', 'text' => 'Managers', 'class' => 'hidden lg:inline-flex', 'icon' => 'icon-coach'],
+    ]
+@endphp
+
 <nav x-data="{ open: false }" class="bg-gray-100 dark:bg-dark-900 | {{ $blockHeader ? 'border-b dark:border-transparent' : 'shadow' }} | fixed w-full z-50">
     <!-- Primary Navigation Menu -->
     <x-container>
@@ -22,21 +31,11 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-6 md:-my-px md:ml-10 md:flex select-none">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                        {{ __('Torneos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                        {{ __('Torneos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                        {{ __('Torneos') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('cookie-policy')" :active="request()->routeIs('cookie-policy')">
-                        {{ __('Política de cookies') }}
-                    </x-nav-link>
+                    @foreach ($navLinks as $link)
+                        <x-nav-link :href="route($link['route-name'])" :active="request()->routeIs($link['route-name'])">
+                            {{ __($link['text']) }}
+                        </x-nav-link>
+                    @endforeach
                 </div>
             </div>
 
@@ -97,28 +96,20 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden md:hidden | bg-gray-50 dark:bg-dark-800 | shadow-md" @click.away="open = false">
-
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                <x-slot name="icon">pilot</x-slot>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                <x-slot name="icon">arrow-right</x-slot>
-                {{ __('Torneos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                <x-slot name="icon">arrow-right</x-slot>
-                {{ __('Torneos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('welcome')" :active="request()->routeIs('welcome')">
-                <x-slot name="icon">arrow-right</x-slot>
-                {{ __('Torneos') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('cookie-policy')" :active="request()->routeIs('cookie-policy')">
-                <x-slot name="icon">arrow-right</x-slot>
-                {{ __('Política de cookies') }}
-            </x-responsive-nav-link>
-
+    <div class="lg:hidden absolute w-full z-40" id="responsiveNavMenu" x-show="open"
+        x-transition:enter="transition ease-out origin-top-left duration-100"
+        x-transition:enter-start="opacity-0 transform scale-x-0"
+        x-transition:enter-end="opacity-100 transform scale-x-100"
+        x-transition:leave="transition origin-top-left ease-in duration-100"
+        x-transition:leave-start="opacity-100 transform scale-x-100"
+        x-transition:leave-end="opacity-0 transform scale-x-0">
+        <div class=" bg-gray-50 dark:bg-dark-800 | shadow-lg | w-full" @click.away="open = false">
+            @foreach ($navLinks as $link)
+                <x-responsive-nav-link :href="route($link['route-name'])" :active="request()->routeIs($link['route-name'])">
+                    <x-slot name="icon">{{ $link['icon'] }}</x-slot>
+                    {{ __($link['text']) }}
+                </x-responsive-nav-link>
+            @endforeach
+        </div>
     </div>
 </nav>
