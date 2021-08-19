@@ -15,8 +15,14 @@ module.exports = (isProd) => ({
     darkMode: 'class', // or 'media' or 'class'
     theme: {
         fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
-            title: ['Fjalla One', 'sans-serif'],
+            sans: ['Roboto', 'sans-serif'],
+            condensed: ['Roboto Condensed', 'sans-serif'],
+            serif: ['Roboto Slab', 'serif'],
+            mono: ['Roboto Mono', 'monospace'],
+            script: ['Bad Script', 'cursive'],
+            // especial fonts
+            fjalla: ['Fjalla One', 'sans-serif'],
+            miriam: ['Miriam Libre', 'sans-serif'],
         },
         extend: {
             colors: {
@@ -26,10 +32,19 @@ module.exports = (isProd) => ({
                 'dark-600'    : 'rgba(37,42,55,1)',
                 'dark-500'    : 'rgba(50,55,68,1)',
                 'dark-400'    : 'rgba(63,68,81,1)',
-                'red-base'    :  'rgba(255,124,117,1)',
-                'red-light'   : '#ff2d20',
                 'dark-normal' : 'rgba(181,181,189,1)',
                 'dark-light'  : 'rgba(231,232,242,1)',
+                // cool gray
+                'gray-50' : '#F9FAFB',
+                'gray-100' : '#F3F4F6',
+                'gray-200' : '#E5E7EB',
+                'gray-300' : '#D1D5DB',
+                'gray-400' : '#9CA3AF',
+                'gray-500' : '#6B7280',
+                'gray-600' : '#4B5563',
+                'gray-700' : '#374151',
+                'gray-800' : '#1F2937',
+                'gray-900' : '#111827',
 
                 'blueGray-50'  : '#F8FAFC',
                 'blueGray-100' : '#F1F5F9',
@@ -75,6 +90,17 @@ module.exports = (isProd) => ({
                 'sky-700'  : '#0369A1',
                 'sky-800'  : '#075985',
                 'sky-900'  : '#0C4A6E',
+
+                'rose-50': '#FFF1F2',
+                'rose-100': '#FFE4E6',
+                'rose-200': '#FECDD3',
+                'rose-300': '#FDA4AF',
+                'rose-400': '#FB7185',
+                'rose-500': '#F43F5E',
+                'rose-600': '#E11D48',
+                'rose-700': '#BE123C',
+                'rose-800': '#9F1239',
+                'rose-900': '#881337',
             },
             fontSize: {
                 'xxs': '.65rem',

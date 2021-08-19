@@ -11,16 +11,13 @@
             {{ config('app.name', 'Laravel') }}
         </title>
 
-        <!-- Fonts -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="bg-white dark:bg-dark-700 | font-sans text-gray-900 dark:text-dark-normal text-sm md:text-md | antialiased">
+    <body class="bg-gray-100 dark:bg-dark-900 | font-sans text-gray-900 dark:text-dark-normal text-md md:text-base | antialiased">
 
         <div class="flex flex-col h-screen">
             @include('layouts.partials.navigation')
@@ -35,12 +32,12 @@
             @endif
 
             <!-- Page Content -->
-            <main class="flex-grow {{ $blockHeader ? 'mt-32' : 'mt-16' }}">
+            <main class="bg-white dark:bg-dark-700 | flex-grow {{ $blockHeader ? 'mt-32' : 'mt-16' }}">
                 {{ $slot }}
             </main>
 
             <!-- Page Footer -->
-            <footer class="bg-gray-50 dark:bg-dark-900 | border-t dark:border-transparent">
+            <footer class="bg-gray-100 dark:bg-dark-900 | border-t dark:border-transparent">
                 @include('layouts.partials.footer')
             </footer>
 

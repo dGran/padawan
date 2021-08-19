@@ -25,6 +25,10 @@ Route::get('/politica-de-cookies', function () {
     return view('cookie-policy');
 })->name('cookie-policy');
 
+Route::get('/politica-de-privacidad', function () {
+    return view('privacity-policy');
+})->name('privacity-policy');
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth'])->name('dashboard');

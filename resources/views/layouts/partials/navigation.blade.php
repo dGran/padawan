@@ -7,7 +7,7 @@
     ]
 @endphp
 
-<nav x-data="{ open: false }" class="bg-gray-100 dark:bg-dark-900 | {{ $blockHeader ? 'border-b dark:border-transparent' : 'shadow' }} | fixed w-full z-50">
+<nav x-data="{ open: false }" class="bg-gray-100 dark:bg-dark-900 | {{ $blockHeader ? 'border-b dark:border-transparent' : 'shadow' }} | fixed w-full z-50 | select-none">
     <!-- Primary Navigation Menu -->
     <x-container>
         <div class="flex justify-between items-center h-16">
@@ -24,13 +24,13 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center ml-3 md:ml-0">
                     <x-link href="{{ route('dashboard') }}" class="flex items-center | pt-1 | focus:no-underline hover:no-underline">
-                        <i class="icon-logo | text-3xl"></i>
-                        <span class="text-base font-semibold leading-4 | uppercase | ml-3">padawan</span>
+                        <i class="icon-logo | text-3xl md:text-4xl"></i>
+                        <span class="font-fjalla tracking-wider text-base text-xl md:text-2xl font-semibold leading-4 | uppercase | ml-3">padawan</span>
                     </x-link>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-6 md:-my-px md:ml-10 md:flex select-none">
+                <div class="hidden space-x-6 md:-my-px md:ml-10 md:flex">
                     @foreach ($navLinks as $link)
                         <x-nav-link :href="route($link['route-name'])" :active="request()->routeIs($link['route-name'])">
                             {{ __($link['text']) }}
@@ -64,13 +64,13 @@
                         @guest
                             <x-dropdown-link :href="route('login')" class="border-b dark:border-dark-500">
                                 <div class="flex items-center">
-                                    <i class="text-md icon-login mr-2"></i>
+                                    <i class="text-base icon-login mr-3"></i>
                                     <span>{{ __('Iniciar sesión') }}</span>
                                 </div>
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('register')">
                                 <div class="flex items-center">
-                                    <i class="text-md icon-user-add mr-2"></i>
+                                    <i class="text-base icon-user-add mr-3"></i>
                                     <span>{{ __('Crear cuenta') }}</span>
                                 </div>
                             </x-dropdown-link>
@@ -83,7 +83,7 @@
                                         onclick="event.preventDefault();
                                                     this.closest('form').submit();">
                                     <div class="flex items-center">
-                                        <i class="text-md icon-logout mr-2"></i>
+                                        <i class="text-base icon-logout mr-3"></i>
                                         <span>{{ __('Cerrar sesión') }}</span>
                                     </div>
                                 </x-dropdown-link>
@@ -96,7 +96,7 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div class="lg:hidden absolute w-full z-40" id="responsiveNavMenu" x-show="open"
+    <div class="md:hidden absolute w-full z-40" id="responsiveNavMenu" x-show="open"
         x-transition:enter="transition ease-out origin-top-left duration-100"
         x-transition:enter-start="opacity-0 transform scale-x-0"
         x-transition:enter-end="opacity-100 transform scale-x-100"
