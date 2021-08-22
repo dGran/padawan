@@ -25,7 +25,8 @@
                 <div class="flex-shrink-0 flex items-center ml-3 md:ml-0">
                     <x-link href="{{ route('dashboard') }}" class="flex items-center | pt-1 | focus:no-underline hover:no-underline">
                         <i class="icon-logo | text-3xl md:text-4xl"></i>
-                        <span class="font-fjalla tracking-wider text-base text-xl md:text-2xl font-semibold leading-4 | uppercase | ml-3">padawan</span>
+                        <span class="font-fjalla tracking-wider text-xl md:text-2xl font-semibold leading-4 | uppercase | ml-3">padawan</span>
+                        <span class="font-fjalla tracking-wider text-md md:text-base font-semibold leading-4 | uppercase | ml-1.5">e-sports</span>
                     </x-link>
                 </div>
 
@@ -50,9 +51,9 @@
                 </button>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-900 | border border-gray-300 dark:border-dark-normal rounded-full | bg-white dark:bg-dark-normal | hover:text-gray-700 hover:border-gray-400 dark:hover:bg-dark-light dark:hover:border-dark-light | focus:outline-none focus:text-gray-700 focus:border-gray-400 dark:focus:bg-dark-light dark:focus:border-dark-light | transition duration-150 ease-in-out | h-8 w-8">
+                        <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-900 | border border-gray-300 dark:border-dark-normal rounded-full | bg-white dark:bg-dark-normal | hover:text-gray-700 hover:border-gray-400 dark:hover:bg-dark-light dark:hover:border-dark-light | focus:outline-none focus:text-gray-700 focus:border-gray-400 dark:focus:bg-dark-light dark:focus:border-dark-light | transition duration-150 ease-in-out | h-8 w-8 md:h-10 md:w-10">
                             @guest
-                                <i class="icon-guest text-xl mx-auto"></i>
+                                <i class="icon-guest text-xl md:text-2xl mx-auto"></i>
                             @endguest
                             @auth
                                 <i class="icon-user-menu text-xl mx-auto"></i>

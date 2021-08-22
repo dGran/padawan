@@ -25,7 +25,7 @@
             <!-- Page Heading -->
             @if ($blockHeader)
                 <header class="bg-gray-50 dark:bg-dark-800 | shadow | mt-16 fixed w-full z-40">
-                    <x-container class="py-4 h-16">
+                    <x-container class="h-16">
                         {{ $header }}
                     </x-container>
                 </header>
