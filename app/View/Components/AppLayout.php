@@ -6,12 +6,10 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
-    public $blockHeader;
     public $title;
 
-    public function __construct($blockHeader = null, $title = null)
+    public function __construct($title = null)
     {
-        $this->blockHeader = $blockHeader;
         $this->title = $title;
     }
 

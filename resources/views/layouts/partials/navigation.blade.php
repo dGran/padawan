@@ -7,7 +7,7 @@
     ]
 @endphp
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-dt-dark | border-b border-border-color dark:border-dt-border-color | fixed w-full z-50 | select-none">
+<nav x-data="{ open: false }">
     <!-- Primary Navigation Menu -->
     <x-container>
         <div class="flex justify-between items-center h-16">
@@ -67,7 +67,7 @@
 
                         <x-slot name="content">
                             @guest
-                                <x-dropdown-link :href="route('login')" class="border-b border-border-color dark:border-dt-border-color">
+                                <x-dropdown-link :href="route('login')">
                                     <div class="flex items-center">
                                         <i class="text-base icon-login mr-3"></i>
                                         <span>{{ __('Iniciar sesión') }}</span>

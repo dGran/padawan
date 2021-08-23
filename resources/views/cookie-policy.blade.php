@@ -1,13 +1,9 @@
-<x-app-layout blockHeader="1" title="Política de cookies">
-    <x-slot name="header">
-        <h2 class="h-full flex content-center flex-wrap | font-fjalla tracking-wide uppercase | text-title-color dark:text-dt-title-color | text-lg md:text-xl">
+<x-app-layout title="Política de cookies">
+	<x-container>
+        <x-card class="w-full my-8 p-6 | text-xs lg:text-sm">
+        <h2 class="h-full flex content-center flex-wrap | font-fjalla tracking-wide uppercase | text-title-color dark:text-dt-title-color | text-lg md:text-xl | mb-6">
             {{ __('Política de cookies') }}
         </h2>
-    </x-slot>
-
-	{{-- <div class="max-w-7xl mx-auto md:px-1 sm:px-3 md:px-6 lg:px-8 md:my-8 flex"> --}}
-	<x-container>
-        <div class="overflow-hidden md:mx-0 py-6">
             <p>
                 Una cookie es un archivo de texto que se almacena en el ordenador o dispositivo móvil mediante un servidor Web y tan solo ese servidor será capaz de recuperar o leer el contenido de la cookie y permiten al Sitio Web recordar preferencias de navegación y navegar de manera eficiente. Las cookies hacen la interacción entre el usuario y el sitio Web más rápida y fácil.
             </p>
@@ -121,6 +117,6 @@
             <p>
             	La utilización de la presente página Web por su parte, implica que <span class="font-semibold underline">Vd. presta su consentimiento expreso e inequívoco a la utilización de cookies, en los términos y condiciones previstos en esta Política de Cookies</span>, sin perjuicio de las medidas de desactivación y eliminación de las cookies que Vd. pueda adoptar, y que se mencionan en el apartado anterior.
             </p>
-        </div>
+        </x-card>
     </x-container>
 </x-app-layout>

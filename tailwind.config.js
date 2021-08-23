@@ -47,16 +47,6 @@ module.exports = (isProd) => ({
                 'dt-light-accent': '#2a3b47',
                 'dt-border-color' : '#2a3b47',
 
-                'cblue-100': '#e7f4fd',
-                'cblue-200': '#b7defa',
-                'cblue-300': '#88c8f7',
-                'cblue-400': '#58b3f3',
-                'cblue-500': '#1192ee',
-                'cblue-600': '#1083d5',
-                'cblue-700': '#0c66a6',
-                'cblue-800': '#094977',
-                'cblue-900': '#052c48',
-
                 // cool gray
                 'gray': {
                     '50' : '#F9FAFB',

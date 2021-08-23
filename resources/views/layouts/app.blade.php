@@ -21,24 +21,18 @@
     <body class="bg-white dark:bg-dt-dark | font-sans | text-text-color dark:text-dt-text-color | text-sm md:text-normal | subpixel-antialiased">
 
         <div class="flex flex-col h-screen">
-            @include('layouts.partials.navigation')
-
             <!-- Page Heading -->
-            @if ($blockHeader)
-                <header class="bg-gray-50 dark:bg-dt-darker | border-b border-border-color dark:border-dt-border-color | mt-16 fixed w-full z-40">
-                    <x-container class="h-16">
-                        {{ $header }}
-                    </x-container>
-                </header>
-            @endif
+            <header class="bg-white dark:bg-dt-dark | border-b border-border-color dark:border-dt-border-color | fixed w-full z-50 | select-none">
+                @include('layouts.partials.navigation')
+            </header>
 
             <!-- Page Content -->
-            <main class="bg-gray-50 dark:bg-dt-darker | flex-grow {{ $blockHeader ? 'mt-32' : 'mt-16' }}">
+            <main class="bg-gray-50 dark:bg-dt-darker | flex-grow | mt-16">
                 {{ $slot }}
             </main>
 
             <!-- Page Footer -->
-            <footer class="bg-gray-150 dark:bg-dt-darkest | border-t dark:border-transparent">
+            <footer class="bg-gray-150 dark:bg-dt-darkest | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
                 @include('layouts.partials.footer')
             </footer>
 

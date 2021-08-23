@@ -1,3 +1,3 @@
-<a {{ $attributes->merge(['class' => 'text-cblue-500 | hover:underline hover:text-cblue-600 | focus:underline focus:outline-none focus:text-cblue-600 | transition ease-in-out duration-150']) }}>
+<a {{ $attributes->merge(['class' => 'text-edblue-500 dark:text-edblue-400 | hover:underline hover:text-edblue-600 dark:hover:text-edblue-300 | focus:underline focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150']) }}>
 	{{ $slot }}
 </a>
