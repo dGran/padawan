@@ -18,14 +18,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body class="bg-gray-100 dark:bg-dark-900 | font-sans | text-text-color dark:text-gray-300 | text-sm md:text-normal | subpixel-antialiased">
+    <body class="bg-white dark:bg-dt-dark | font-sans | text-text-color dark:text-dt-text-color | text-sm md:text-normal | subpixel-antialiased">
 
         <div class="flex flex-col h-screen">
             @include('layouts.partials.navigation')
 
             <!-- Page Heading -->
             @if ($blockHeader)
-                <header class="bg-white dark:bg-dt-dark | border-b border-gray-100 dark:border-gray-700 | mt-16 fixed w-full z-40">
+                <header class="bg-gray-50 dark:bg-dt-darker | border-b border-border-color dark:border-dt-border-color | mt-16 fixed w-full z-40">
                     <x-container class="h-16">
                         {{ $header }}
                     </x-container>

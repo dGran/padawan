@@ -1,6 +1,6 @@
 <x-app-layout blockHeader="1" title="Política de cookies">
     <x-slot name="header">
-        <h2 class="h-full flex content-center flex-wrap | font-fjalla tracking-wide uppercase | text-gray-600 dark:text-dark-light | text-lg md:text-xl">
+        <h2 class="h-full flex content-center flex-wrap | font-fjalla tracking-wide uppercase | text-title-color dark:text-dt-title-color | text-lg md:text-xl">
             {{ __('Política de cookies') }}
         </h2>
     </x-slot>

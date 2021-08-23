@@ -3,3 +3,11 @@
 @import 'tailwindcss/utilities';
 
 @import "styles/fonts.scss";
+
+body {
+  background: rgba(1,1,1,0);
+}
+
+body.opened-menu {
+  background: rgba(1,1,1,0.8);
+}

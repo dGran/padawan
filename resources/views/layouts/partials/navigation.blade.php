@@ -7,14 +7,14 @@
     ]
 @endphp
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-dt-dark | border-b border-gray-100 dark:border-gray-700 | fixed w-full z-50 | select-none">
+<nav x-data="{ open: false }" class="bg-white dark:bg-dt-dark | border-b border-border-color dark:border-dt-border-color | fixed w-full z-50 | select-none">
     <!-- Primary Navigation Menu -->
     <x-container>
         <div class="flex justify-between items-center h-16">
             <div class="flex">
                 <!-- Hamburger -->
                 <div class="flex items-center md:hidden">
-                    <button @click="open = ! open" class="inline-flex items-center justify-center | font-medium | text-gray-500 dark:text-dark-normal | hover:text-gray-700 dark:hover:text-dark-light | focus:outline-none focus:text-gray-700 dark:focus:text-dark-light | transition duration-150 ease-in-out">
+                    <button @click="open = ! open" class="inline-flex items-center justify-center | font-medium | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -25,7 +25,7 @@
                 <div class="flex-shrink-0 flex items-center ml-3 md:ml-0">
                     <x-link href="{{ route('dashboard') }}" class="flex items-center | focus:no-underline hover:no-underline">
                         <i class="icon-logo | text-3xl md:text-4xl"></i>
-                        <span class="text-lg font-bold | text-gray-700 dark:text-white | leading-4 | ml-1.5">{{ config('app.name') }}</span>
+                        <span class="text-base md:text-lg font-bold tracking-tighter | text-title-color dark:text-dt-title-color | ml-1.5">{{ config('app.name') }}</span>
                         {{-- <span class="font-fjalla tracking-wider text-md md:text-base font-semibold leading-4 | uppercase | ml-1.5">e-sports</span> --}}
                     </x-link>
                 </div>
@@ -40,31 +40,34 @@
                 </ul>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="flex items-center ml-3">
+            <!-- Right links -->
+            <div class="flex items-center">
 
+                <!-- Theme selector -->
                 <input type="text" id="theme-selection" class="hidden">
-                <button class="text-xl | pt-1 mr-3 sm:mr-6 | text-gray-500 dark:text-dark-normal | hover:text-gray-700 dark:hover:text-dark-light | focus:outline-none focus:text-gray-700 dark:focus:text-dark-light | transition duration-150 ease-in-out">
+                <button class="text-xl md:text-2xl | pt-1 mx-3 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
                 </button>
-                @auth
+
+                <!-- User options -->
+                <div class="lg:hidden">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
-                            <button class="flex items-center text-sm font-medium text-gray-500 dark:text-gray-900 | border border-gray-300 dark:border-dark-normal rounded-full | bg-white dark:bg-dark-normal | hover:text-gray-700 hover:border-gray-400 dark:hover:bg-dark-light dark:hover:border-dark-light | focus:outline-none focus:text-gray-700 focus:border-gray-400 dark:focus:bg-dark-light dark:focus:border-dark-light | transition duration-150 ease-in-out | h-8 w-8 md:h-10 md:w-10">
+                            <button class="flex items-center text-sm | rounded-full | h-10 w-10 md:h-12 md:w-12 | hover:bg-border-color dark:hover:bg-dt-border-color hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-border-color dark:focus:bg-dt-border-color focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border border-border-color dark:border-dt-border-color">
                                 @guest
-                                    <i class="icon-guest text-xl md:text-2xl mx-auto"></i>
+                                    <i class="icon-guest text-2xl md:text-3xl mx-auto"></i>
                                 @endguest
                                 @auth
-                                    <i class="icon-user-menu text-xl mx-auto"></i>
+                                    <i class="icon-user-menu text-2xl mx-auto"></i>
                                 @endauth
                             </button>
                         </x-slot>
 
                         <x-slot name="content">
                             @guest
-                                <x-dropdown-link :href="route('login')" class="border-b dark:border-dark-500">
+                                <x-dropdown-link :href="route('login')" class="border-b border-border-color dark:border-dt-border-color">
                                     <div class="flex items-center">
                                         <i class="text-base icon-login mr-3"></i>
                                         <span>{{ __('Iniciar sesión') }}</span>
@@ -93,15 +96,17 @@
                             @endauth
                         </x-slot>
                     </x-dropdown>
-                @endauth
-                @guest
-                    <x-button-outline class="text-sm text-gray-500 mr-6" href="{{ route('login') }}">
+
+                </div>
+
+                <div class="hidden lg:inline-flex">
+                    <a class="px-4 py-2 mr-3 | text-sm | rounded-md border border-transparent | hover:bg-border-color dark:hover:bg-dt-border-color hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-border-color dark:focus:bg-dt-border-color focus:text-title-color dark:focus:text-dt-title-color | disabled:opacity-25 | transition ease-in-out duration-75 | select-none | cursor-pointer" href="{{ route('login') }}">
                         Inicia sesión
-                    </x-button-outline>
+                    </a>
                     <x-button class="">
                         Regístrate!
                     </x-button>
-                @endguest
+                </div>
 
             </div>
         </div>
@@ -115,13 +120,13 @@
         x-transition:leave="transition origin-top-left ease-in duration-100"
         x-transition:leave-start="opacity-100 transform scale-x-100"
         x-transition:leave-end="opacity-0 transform scale-x-0">
-        <div class=" bg-gray-50 dark:bg-dark-800 | shadow-lg | w-full" @click.away="open = false">
+        <ul class="bg-white dark:bg-dt-dark | shadow-bottom dark:shadow-none | border-b border-border-color dark:border-dt-border-color | w-full" @click.away="open = false">
             @foreach ($navLinks as $link)
-                <x-responsive-nav-link :href="route($link['route-name'])" :active="request()->routeIs($link['route-name'])">
+                <x-responsive-nav-link :href="route($link['route-name'])">
                     <x-slot name="icon">{{ $link['icon'] }}</x-slot>
                     {{ __($link['text']) }}
                 </x-responsive-nav-link>
             @endforeach
-        </div>
+        </ul>
     </div>
 </nav>
