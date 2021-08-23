@@ -59,3 +59,16 @@ function set_theme() {
 
 set_theme();
 // END: theme selector
+
+// navigation effect
+$(".menu-item").on('mouseenter', function(){
+    $(".menu-item").find('a').not($(this).find('a')).css('opacity','0.65')
+}).on('mouseleave', function(){
+    $(".menu-item").find('a').css('opacity','1');
+});
+$(".menu-item").on('focus', function(){
+    $(".menu-item").find('a').not($(this).find('a')).css('opacity','0.65')
+}).on('mouseleave', function(){
+    $(".menu-item").find('a').css('opacity','1');
+});
+// END: navigation effect

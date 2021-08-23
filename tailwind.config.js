@@ -15,17 +15,40 @@ module.exports = (isProd) => ({
     darkMode: 'class', // or 'media' or 'class'
     theme: {
         fontFamily: {
-            sans: ['Roboto', 'sans-serif'],
+            // sans: ['Roboto', 'sans-serif'],
+            sans: ['Open Sans', 'sans-serif'],
             condensed: ['Roboto Condensed', 'sans-serif'],
             serif: ['Roboto Slab', 'serif'],
             mono: ['Roboto Mono', 'monospace'],
             script: ['Bad Script', 'cursive'],
             // especial fonts
             fjalla: ['Fjalla One', 'sans-serif'],
+            raleway: ['Raleway', 'sans-serif'],
             miriam: ['Miriam Libre', 'sans-serif'],
         },
         extend: {
+            boxShadow: {
+                bottom: '5px 20px 20px -20px rgba(146, 161, 176, 0.15)',
+            },
             colors: {
+                'dt-dark'    : '#212e36',
+                'dt-darker'  : '#192229',
+                'dt-darkest'  : '#121a21',
+
+                'text-color' : '#697477',
+                'title-color' : '#2a3b47',
+                'border-color' : '#eff3f5',
+
+                'cblue-100': '#e7f4fd',
+                'cblue-200': '#b7defa',
+                'cblue-300': '#88c8f7',
+                'cblue-400': '#58b3f3',
+                'cblue-500': '#1192ee',
+                'cblue-600': '#1083d5',
+                'cblue-700': '#0c66a6',
+                'cblue-800': '#094977',
+                'cblue-900': '#052c48',
+
                 'dark-900'    : 'rgba(12,13,18,1)',
                 'dark-800'    : 'rgba(18,20,28,1)',
                 'dark-700'    : 'rgba(23,25,35,1)',
@@ -37,6 +60,9 @@ module.exports = (isProd) => ({
                 // cool gray
                 'gray-50' : '#F9FAFB',
                 'gray-100' : '#F3F4F6',
+                    // custom
+                'gray-150' : '#eff3f5',
+                    //
                 'gray-200' : '#E5E7EB',
                 'gray-300' : '#D1D5DB',
                 'gray-400' : '#9CA3AF',
@@ -45,6 +71,16 @@ module.exports = (isProd) => ({
                 'gray-700' : '#374151',
                 'gray-800' : '#1F2937',
                 'gray-900' : '#111827',
+
+// 'gray-100': '#fbfbfe',
+// 'gray-200': '#fcfcfc',
+// 'gray-300': '#eff3f5',
+// 'gray-400': '#c8cdd0',
+// 'gray-500': '#a0a7ac',
+// 'gray-600': '#697477',
+// 'gray-700': '#2a3b47',
+// 'gray-800': '#22303a',
+// 'gray-900': '#1a252d',
 
                 'blueGray-50'  : '#F8FAFC',
                 'blueGray-100' : '#F1F5F9',
@@ -103,25 +139,19 @@ module.exports = (isProd) => ({
                 'rose-900': '#881337',
             },
             fontSize: {
-                'xxs': '.65rem',
-                'xs': '.75rem',
-                'sm': '.825rem',
-                'md': '.875rem',
+                'xxxs': '.65rem',
+                'xxs': '.75rem',
+                'xs': '.8125rem',
+                'sm': '.875rem',
+                'normal': '0.9375rem',
                 'base': '1rem',
-                '16': '16px',
-                '15': '15px',
-                '14': '14px',
-                '13': '13px',
-                '12': '12px',
-                '11': '11px',
-                '10': '10px',
-                '9': '9px',
-                '8': '8px',
             },
         },
     },
     variants: {
-        extend: {},
+        extend: {
+          boxShadow: ['dark']
+        },
     },
     plugins: [],
 })
