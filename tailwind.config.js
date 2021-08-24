@@ -153,10 +153,22 @@ module.exports = (isProd) => ({
             },
         },
     },
+    // variants: {
+    //     extend: {
+    //       boxShadow: ['dark']
+    //     },
+    // },
+    plugins: [
+        require("tailwindcss-autofill"),
+        require("tailwindcss-text-fill"),
+        require("tailwindcss-shadow-fill"),
+    ],
     variants: {
         extend: {
-          boxShadow: ['dark']
+            boxShadow: ['dark'],
+            borderColor: ["autofill", "dark"],
+            shadowFill: ["autofill", "dark"], // Enable variants.
+            textFill: ["autofill", "dark"], // Enable variants.
         },
     },
-    plugins: [],
 })

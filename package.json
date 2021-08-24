@@ -22,5 +22,10 @@
         "sass": "^1.37.5",
         "sass-loader": "^12.1.0",
         "tailwindcss": "^2.0.2"
+    },
+    "dependencies": {
+        "tailwindcss-autofill": "^0.1.0",
+        "tailwindcss-shadow-fill": "^0.1.0",
+        "tailwindcss-text-fill": "^0.1.2"
     }
 }

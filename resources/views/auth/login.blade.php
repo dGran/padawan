@@ -6,7 +6,7 @@
                 Inicia sesión
             </h4>
             <p class="text-center mb-2">
-                {{ config('app.name') }}, tu lugar de competición
+                {{ config('app.name') }}, competiciones online
             </p>
 
             <form method="POST" action="{{ route('login') }}" class="pt-6">
