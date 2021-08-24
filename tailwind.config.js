@@ -43,6 +43,7 @@ module.exports = (isProd) => ({
                 'dt-dark': '#212e36',
                 'dt-darker': '#192229',
                 'dt-darkest': '#121a21',
+                'dt-dark-black': '#0E1318',
                 'dt-dark-accent': '#1b2831',
                 'dt-light-accent': '#2a3b47',
                 'dt-border-color' : '#2a3b47',
