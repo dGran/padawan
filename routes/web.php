@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-
-Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
@@ -28,6 +24,11 @@ Route::get('/politica-de-cookies', function () {
 Route::get('/politica-de-privacidad', function () {
     return view('privacity-policy');
 })->name('privacity-policy');
+
+// user routes
+Route::get('/cuenta/perfil', function () {
+    return view('account.profile');
+})->middleware(['auth'])->name('profile');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

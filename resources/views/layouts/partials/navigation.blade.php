@@ -1,8 +1,8 @@
 @php
     $navLinks = [
-        ['route-name' => 'dashboard', 'text' => 'Dashboard', 'class' => '', 'icon' => 'icon-arrow-right'],
-        ['route-name' => 'welcome', 'text' => 'Welcome', 'class' => '', 'icon' => 'icon-arrow-right'],
-        ['route-name' => 'cookie-policy', 'text' => 'Política de cookies', 'class' => '', 'icon' => 'icon-arrow-right'],
+        ['route-name' => 'dashboard', 'text' => 'Dashboard', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'cookie-policy', 'text' => 'Política de cookies', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'privacity-policy', 'text' => 'Política de privacidad', 'class' => '', 'icon' => 'arrow-right'],
         // ['href' => '/managers', 'name' => 'managers', 'text' => 'Managers', 'class' => 'hidden lg:inline-flex', 'icon' => 'icon-coach'],
     ]
 @endphp
@@ -26,12 +26,60 @@
                     <x-link href="{{ route('dashboard') }}" class="flex items-center | focus:no-underline hover:no-underline">
                         <i class="icon-logo | text-3xl md:text-4xl"></i>
                         <span class="text-base md:text-lg font-bold tracking-tighter | text-title-color dark:text-dt-title-color | ml-1.5">{{ config('app.name') }}</span>
-                        {{-- <span class="font-fjalla tracking-wider text-md md:text-base font-semibold leading-4 | uppercase | ml-1.5">e-sports</span> --}}
                     </x-link>
                 </div>
 
                 <!-- Navigation Links -->
                 <ul class="hidden space-x-6 md:-my-px md:ml-10 md:flex">
+
+                    {{-- custom nav-link --}}
+                    <li class="menu-item relative inline-flex items-center px-1 text-sm transition duration-150 ease-in-out cursor-pointer" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
+                        <div @click="open = ! open">
+                            <span>Racing</span>
+                            <i class="ml-1 fas fa-angle-down transition duration-150 ease-in-out" x-bind:class="{ 'transform -rotate-180' : open, '' : !open }"></i>
+                        </div>
+                        <div x-show="open"
+                                x-transition:enter="transition ease-out duration-200"
+                                x-transition:enter-start="transform opacity-0 scale-95"
+                                x-transition:enter-end="transform opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="transform opacity-100 scale-100"
+                                x-transition:leave-end="transform opacity-0 scale-95"
+                                class="absolute z-50 mt-12 w-60 | top-0 left-0"
+                                style="display: none;"
+                                @click="open = false">
+                            <div class="bg-white dark:bg-dt-darkest | rounded-md border border-border-color dark:border-dt-dark | overflow-hidden | shadow-md">
+                               <div class="">
+                                    <x-dropdown-heading>
+                                        Torneos
+                                    </x-dropdown-heading>
+
+                                    <x-dropdown-link :href="route('login')" class="px-6">
+                                        <span>{{ __('GT Racing') }}</span>
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-link :href="route('register')" class="px-6">
+                                        <span>{{ __('F1 2022') }}</span>
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-heading>
+                                        e-Teams
+                                    </x-dropdown-heading>
+
+                                    <x-dropdown-link :href="route('register')" class="pl-6">
+                                        <span>{{ __('Listado') }}</span>
+                                    </x-dropdown-link>
+
+                                    <x-dropdown-divider></x-dropdown-divider>
+
+                                    <x-dropdown-link :href="route('register')" class="pl-6">
+                                        <span>{{ __('Listado') }}</span>
+                                    </x-dropdown-link>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
                     @foreach ($navLinks as $link)
                         <x-nav-link :href="route($link['route-name'])">
                             {{ __($link['text']) }}
@@ -45,67 +93,41 @@
 
                 <!-- Theme selector -->
                 <input type="text" id="theme-selection" class="hidden">
-                <button class="text-xl md:text-2xl | pt-1 mx-3 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
+                <button class="text-lg md:text-xl | pt-1 mx-3 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
                 </button>
 
+                @auth
+                    <div class="text-lg md:text-xl mr-3 relative">
+                        <i class="far fa-bell"></i>
+                        <span class="absolute top-0 right text-xxs md:text-xs rounded-full w-2 h-2 bg-edyellow-500 animate-ping"></span>
+                    </div>
+                @endauth
+
                 <!-- User options -->
                 <div class="lg:hidden">
-                    <x-dropdown align="right" width="48">
-                        <x-slot name="trigger">
-                            <button class="flex items-center text-sm | rounded-full | h-10 w-10 md:h-12 md:w-12 | hover:bg-border-color dark:hover:bg-dt-border-color hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-border-color dark:focus:bg-dt-border-color focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border border-border-color dark:border-dt-border-color">
-                                @guest
-                                    <i class="icon-guest text-2xl md:text-3xl mx-auto"></i>
-                                @endguest
-                                @auth
-                                    <i class="icon-user-menu text-2xl mx-auto"></i>
-                                @endauth
-                            </button>
-                        </x-slot>
-
-                        <x-slot name="content">
-                            @guest
-                                <x-dropdown-link :href="route('login')">
-                                    <div class="flex items-center">
-                                        <i class="text-base icon-login mr-3"></i>
-                                        <span>{{ __('Iniciar sesión') }}</span>
-                                    </div>
-                                </x-dropdown-link>
-                                <x-dropdown-link :href="route('register')">
-                                    <div class="flex items-center">
-                                        <i class="text-base icon-user-add mr-3"></i>
-                                        <span>{{ __('Crear cuenta') }}</span>
-                                    </div>
-                                </x-dropdown-link>
-                            @endguest
-                            @auth
-                                <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <x-dropdown-link :href="route('logout')"
-                                            onclick="event.preventDefault();
-                                                        this.closest('form').submit();">
-                                        <div class="flex items-center">
-                                            <i class="text-base icon-logout mr-3"></i>
-                                            <span>{{ __('Cerrar sesión') }}</span>
-                                        </div>
-                                    </x-dropdown-link>
-                                </form>
-                            @endauth
-                        </x-slot>
-                    </x-dropdown>
-
+                    @guest
+                        @include('layouts.partials.navigation.dropdown-guest')
+                    @endguest
+                    @auth
+                        @include('layouts.partials.navigation.dropdown-auth')
+                    @endauth
                 </div>
 
                 <div class="hidden lg:inline-flex">
-                    <a class="px-4 py-2 mr-3 | text-sm | rounded-md border border-transparent | hover:bg-border-color dark:hover:bg-dt-border-color hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-border-color dark:focus:bg-dt-border-color focus:text-title-color dark:focus:text-dt-title-color | disabled:opacity-25 | transition ease-in-out duration-75 | select-none | cursor-pointer" href="{{ route('login') }}">
-                        Inicia sesión
-                    </a>
-                    <x-button class="">
-                        Regístrate!
-                    </x-button>
+                    @guest
+                        <a class="px-4 py-2 mr-3 | text-sm | hover:bg-border-color dark:hover:bg-dt-darker hover:border-border-color dark:hover:border-dt-darker hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-50 dark:focus:bg-dt-dark-black focus:text-title-color dark:focus:text-dt-title-color | transition duration-75 ease-in-out | rounded-md border border-transparent | select-none | cursor-pointer" href="{{ route('login') }}">
+                            Inicia sesión
+                        </a>
+                        <x-link-button href="{{ route('register') }}">
+                            Regístrate!
+                        </x-link-button>
+                    @endguest
+                    @auth
+                        @include('layouts.partials.navigation.dropdown-auth')
+                    @endauth
                 </div>
 
             </div>
@@ -113,14 +135,14 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div class="md:hidden absolute w-full z-40" id="responsiveNavMenu" x-show="open"
+    <div class="md:hidden absolute w-full z-40 shadow-md" id="responsiveNavMenu" x-show="open"
         x-transition:enter="transition ease-out origin-top-left duration-100"
         x-transition:enter-start="opacity-0 transform scale-x-0"
         x-transition:enter-end="opacity-100 transform scale-x-100"
         x-transition:leave="transition origin-top-left ease-in duration-100"
         x-transition:leave-start="opacity-100 transform scale-x-100"
         x-transition:leave-end="opacity-0 transform scale-x-0">
-        <ul class="bg-white dark:bg-dt-dark | shadow-bottom dark:shadow-none | border-b border-border-color dark:border-dt-border-color | w-full" @click.away="open = false">
+        <ul class="bg-white dark:bg-dt-darkest | border-b border-border-color dark:border-dt-darker | w-full" @click.away="open = false">
             @foreach ($navLinks as $link)
                 <x-responsive-nav-link :href="route($link['route-name'])">
                     <x-slot name="icon">{{ $link['icon'] }}</x-slot>

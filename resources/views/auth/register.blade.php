@@ -1,59 +1,80 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+<x-app-layout>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <x-container>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+        <x-card class="max-w-full lg:max-w-2xl mx-auto mt-4 lg:mt-8 p-8 | text-xs lg:text-sm">
+            <h4 class="text-center text-xl lg:text-2xl text-title-color dark:text-white | font-raleway font-extrabold | tracking-wide | mb-1">
+                Crea tu cuenta
+            </h4>
+            <p class="text-center mb-2">
+                {{ config('app.name') }}, competiciones online
+            </p>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+            <form method="POST" action="{{ route('register') }}" class="pt-6">
+                @csrf
+                <!-- Name & Email Address -->
+                <div class="flex items-center gap-6 mt-4">
+                    <div class="flex-1">
+                        <x-label for="name" :value="__('Nombre')" />
+                        <x-input id="name" class="block mt-1.5 w-full"
+                                        type="text"
+                                        name="name"
+                                        :value="old('name')"
+                                        placeholder="Nombre"
+                                        required autofocus/>
+                    </div>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
+                    <div class="flex-1">
+                        <x-label for="email" :value="__('Correo electrónico')" />
+                        <x-input id="email" class="block mt-1.5 w-full"
+                                        type="email"
+                                        name="email"
+                                        :value="old('email')"
+                                        placeholder="Correo electrónico"
+                                        required />
+                    </div>
+                </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
+                <!-- Password -->
+                <div class="flex items-center gap-6 mt-4">
+                    <div class="flex-1">
+                        <x-label for="password" :value="__('Contraseña')" />
+                        <x-input id="password" class="block mt-1.5 w-full"
+                                        type="password"
+                                        name="password"
+                                        placeholder="Contraseña"
+                                        required autocomplete="new-password" />
+                    </div>
 
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
+                    <!-- Confirm Password -->
+                    <div class="flex-1">
+                        <x-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
+                        <x-input id="password_confirmation" class="block mt-1 w-full"
+                                        type="password"
+                                        name="password_confirmation"
+                                        placeholder="Repetir contraseña"
+                                        required />
+                    </div>
+                </div>
 
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
+                <div class="pt-6">
+                    <x-button class="w-full text-center text-normal lg:text-base">
+                        {{ __('Regístrate ahora') }}
+                    </x-button>
 
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
+                    <!-- Session Status -->
+                    <x-auth-session-status :status="session('status')" />
+                    <!-- Validation Errors -->
+                    <x-auth-validation-errors :errors="$errors" />
 
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
+                    <p class="pt-4 text-center">
+                        ¿Ya tienes cuenta? <x-link href="{{ route('login') }}">Inicia sesión</x-link>
+                    </p>
+                </div>
+            </form>
+        </x-card>
 
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
+    </x-container>
 
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+</x-app-layout>

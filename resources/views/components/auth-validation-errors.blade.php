@@ -1,8 +1,8 @@
 @props(['errors'])
 
 @if ($errors->any())
-    <div {{ $attributes }} class="">
-        <ul class="text-xs text-red-500 dark:text-red-400 rounded">
+    <div {{ $attributes }} class="my-3 pt-3">
+        <ul class="text-xs text-red-500 dark:text-red-400">
             @foreach ($errors->all() as $error)
                 <li>
                     <i class="fas fa-exclamation mr-2"></i>

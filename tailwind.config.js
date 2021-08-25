@@ -117,6 +117,7 @@ module.exports = (isProd) => ({
                     '400': '#c8cdd0',
                     '500': '#a0a7ac',
                     '600': '#697477',
+                    '675': '#2D4256',
                     '700': '#2a3b47',
                     '800': '#22303a',
                     '900': '#1a252d',
@@ -154,11 +155,6 @@ module.exports = (isProd) => ({
             },
         },
     },
-    // variants: {
-    //     extend: {
-    //       boxShadow: ['dark']
-    //     },
-    // },
     plugins: [
         require("tailwindcss-autofill"),
         require("tailwindcss-text-fill"),
@@ -167,9 +163,11 @@ module.exports = (isProd) => ({
     variants: {
         extend: {
             boxShadow: ['dark'],
+            scale: ['active', 'group-hover'],
             borderColor: ["autofill", "dark"],
             shadowFill: ["autofill", "dark"], // Enable variants.
             textFill: ["autofill", "dark"], // Enable variants.
+            opacity: ['group-focus'],
         },
     },
 })
