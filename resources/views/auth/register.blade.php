@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Crea tu cuenta" wfooter="1">
 
     <x-container>
 

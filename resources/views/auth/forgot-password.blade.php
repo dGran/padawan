@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Recupera tu contraseña" wfooter="1">
 
     <x-container>
 

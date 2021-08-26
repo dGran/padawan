@@ -32,9 +32,11 @@
             </main>
 
             <!-- Page Footer -->
-            <footer class="bg-gray-150 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
-                @include('layouts.partials.footer')
-            </footer>
+            @if(!$wfooter)
+                <footer class="bg-gray-150 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
+                    @include('layouts.partials.footer')
+                </footer>
+            @endif
 
             @include('cookieConsent::index')
         </div>
