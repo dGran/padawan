@@ -2,7 +2,7 @@
 
     <x-container>
 
-        <x-card class="max-w-full lg:max-w-xl mx-auto mt-4 lg:mt-8 p-8 | text-xs lg:text-sm">
+        <x-card class="max-w-full lg:max-w-xl mx-auto my-4 lg:my-8 p-8 | text-xs lg:text-sm">
             <h4 class="text-center text-xl lg:text-2xl text-title-color dark:text-white | font-raleway font-extrabold | tracking-wide | mb-1">
                 Inicia sesión
             </h4>
