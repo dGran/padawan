@@ -153,6 +153,9 @@ module.exports = (isProd) => ({
                 'normal': '0.9375rem',
                 'base': '1rem',
             },
+            transitionDuration: {
+                '50': '50ms',
+            }
         },
     },
     plugins: [

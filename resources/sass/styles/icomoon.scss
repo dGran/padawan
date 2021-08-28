@@ -25,8 +25,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-arrow-right:before {
+.icon-brand-xbox:before {
+  content: "\e919";
+}
+.icon-brand-playstation:before {
+  content: "\e91a";
+}
+.icon-brand-pcgame:before {
+  content: "\e91b";
+}
+.icon-fifa:before {
+  content: "\e91c";
+}
+.icon-efootball:before {
   content: "\e90b";
+}
+.icon-gtracing:before {
+  content: "\e90c";
+}
+.icon-arrow-right:before {
+  content: "\e90d";
 }
 .icon-login:before {
   content: "\e906";
@@ -56,37 +74,37 @@
   content: "\e903";
 }
 .icon-facebook:before {
-  content: "\e90c";
-}
-.icon-instagram:before {
-  content: "\e90d";
-}
-.icon-youtube:before {
   content: "\e90e";
 }
-.icon-twitch:before {
+.icon-instagram:before {
   content: "\e90f";
 }
-.icon-twitter:before {
+.icon-youtube:before {
   content: "\e910";
 }
-.icon-whatsapp:before {
+.icon-twitch:before {
   content: "\e911";
 }
-.icon-discord:before {
+.icon-twitter:before {
   content: "\e912";
 }
-.icon-telegram:before {
+.icon-whatsapp:before {
   content: "\e913";
 }
-.icon-steam:before {
+.icon-discord:before {
   content: "\e914";
 }
-.icon-xbox:before {
+.icon-telegram:before {
   content: "\e915";
 }
-.icon-playstation:before {
+.icon-steam:before {
   content: "\e916";
+}
+.icon-xbox:before {
+  content: "\e917";
+}
+.icon-playstation:before {
+  content: "\e918";
 }
 .icon-logo:before {
   content: "\e900";

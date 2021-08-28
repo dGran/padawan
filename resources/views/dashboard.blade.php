@@ -18,10 +18,9 @@
 
     @guest
       <div class="relative">
-            <div class="banner-landing bg-edblue-700 dark:bg-edblue-900" {{-- style="background: rgb(14,19,24);
-background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);" --}}>
-                <x-container class="py-6 md:py-10 text-white">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="banner-landing bg-edblue-700 dark:bg-edblue-900 relative overflow-hidden">
+                <x-container class="py-8 md:py-16 text-white">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
                         <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0">
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold">
                                 Participa en los torneos y campeonatos
@@ -32,15 +31,34 @@ background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rg
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold | pt-2">
                                 sin salir de casa
                             </p>
-                            <p class="text-edblue-200 | pt-6">
-                                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dignissimos cupiditate neque impedit soluta autem obcaecati dolor assumenda praesentium velit ad ex iure, iste fuga accusamus ipsum numquam beatae optio. Deserunt.
+                            <p class="text-edblue-200 | text-normal md:text-base | pt-6">
+                                Ponemos a tu disposición torneos, ligas, campeonatos de disitntos juegos, gratuitos y de pago, por diversión o por incentivos
                             </p>
+                            <a class='mt-8 mx-auto md:mx-0 px-4 py-2 w-max | bg-white | border border-white rounded | font-semibold text-edblue-700 | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer'>
+                                Crea tu cuenta y únete!
+                            </a>
                         </div>
-                        <div class="h-80 relative">
-                            <div class="">
-                                <img class="rounded-full bg-red-300 h-36 w-36 object-cover absolute top-0 left-0 ml-48" src="https://www.ginx.tv/uploads2/PES/eFootballUpdate_main.jpg">
+
+                        <div class="">
+                            <div class="flex flex-col justify-center items-center gap-8 h-full">
+                                <i class="icon-fifa text-4xl"></i>
+                                <i class="icon-efootball text-4xl"></i>
+                                <i class="icon-gtracing text-5xl"></i>
+                                <ul class="mt-6 flex items-center gap-8">
+                                    <li>
+                                        <i class="icon-brand-playstation text-xl"></i>
+                                    </li>
+                                    <li>
+                                        <i class="icon-brand-xbox text-xl"></i>
+                                    </li>
+                                    <li>
+                                        <i class="icon-brand-pcgame text-3xl"></i>
+                                    </li>
+                                </ul>
+
+ {{--                                <img class="rounded-full bg-red-300 h-36 w-36 object-cover absolute top-0 left-0 ml-48" src="https://www.ginx.tv/uploads2/PES/eFootballUpdate_main.jpg">
                                 <img class="rounded-full bg-edyellow-400 h-48 w-48 object-cover absolute top-0 left-0 ml-32 mt-36" src="https://onewindows.es/wp-content/uploads/2014/06/GT-Racing-2.png">
-                                <img class="rounded-full bg-edblue-300 h-60 w-60 object-contain absolute top-0 right-0 mt-10 mr-16" src="https://www.footyrenders.com/render/kylian-mbappe-fifa-22.png">
+                                <img class="rounded-full bg-edblue-300 h-60 w-60 object-contain absolute top-0 right-0 mt-10 mr-16" src="https://www.footyrenders.com/render/kylian-mbappe-fifa-22.png"> --}}
 
                             </div>
 
@@ -64,71 +82,93 @@ background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rg
         </div>
     @endauth
 
-
-
-    <x-container>
-
-        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-x-8 md:gap-y-4 my-4 lg:my-8">
-
-            <a href="#" class="flex | group">
-                <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-150 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                    <img src="https://image.flaticon.com/icons/png/512/639/639365.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                    <h4 class="text-center font-raleway text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                        Torneos e-sports<br>premiados
-                    </h4>
-                    <p class="text-center text-xs md:text-sm">
-                        Compite en nuestros torneos e-sports de forma individual o colectiva
+    <div class="py-16 bg-edgray-200 dark:bg-dt-dark-accent">
+        <x-container>
+            <section class="text-center">
+                <article>
+                    <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                        ¿Qué puedes aprender en EDteam?
+                    </p>
+                    <p class="text-normal md:text-base | pt-4">
+                        Publicamos 2 torneos semanales. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ipsa ipsum dolorum in incidunt mollitia
                     </p>
                 </article>
+            </section>
 
-            </a>
+            <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-x-8 md:gap-y-4 mt-8">
 
-            <a href="#" class="flex | group">
-                <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-150 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                    <img src="https://image.flaticon.com/icons/png/512/4292/4292657.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                    <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                        Torneos, ligas, campeonatos...
-                    </h4>
-                    <p class="text-center text-xs md:text-sm">
-                        Competiciones oficiales / amistosas, inviduales / por equipos <br>para distintos juegos
+                <a href="#" class="flex | group">
+                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                        <img src="https://image.flaticon.com/icons/png/512/639/639365.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                        <h4 class="text-center font-raleway text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                            Torneos e-sports<br>premiados
+                        </h4>
+                        <p class="text-center text-xs md:text-sm">
+                            Compite en nuestros torneos e-sports de forma individual o colectiva
+                        </p>
+                    </article>
+
+                </a>
+
+                <a href="#" class="flex | group">
+                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                        <img src="https://image.flaticon.com/icons/png/512/4292/4292657.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                            Torneos, ligas, campeonatos...
+                        </h4>
+                        <p class="text-center text-xs md:text-sm">
+                            Competiciones oficiales / amistosas, inviduales / por equipos <br>para distintos juegos
+                        </p>
+                    </article>
+
+                </a>
+
+                <a href="#" class="flex | group">
+                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                        <img src="https://image.flaticon.com/icons/png/512/3565/3565673.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                            Equipos e-sports, inscribe o forma tu equipo
+                        </h4>
+                        <p class="text-center text-xs md:text-sm">
+                            Inscribe a tu equipo e-sports para competir o crealo y busca integrantes desde nuestra plataforma
+                        </p>
+                    </article>
+
+                </a>
+
+                <a href="#" class="flex | group">
+                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                        <img src="https://image.flaticon.com/icons/png/512/3899/3899246.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                            Distintas plataformas para todos los jugadores
+                        </h4>
+                        <p class="text-center text-xs md:text-sm">
+                            PlayStation, Xbox, PC Game..., jugamos en todas las plataformas <br>
+                            <ul class="mt-1 flex items-center text-xl gap-3">
+                                <li><i class="icon-playstation"></i></li>
+                                <li><i class="icon-xbox"></i></li>
+                                <li><i class="icon-steam"></i></li>
+                            </ul>
+                        </p>
+                    </article>
+                </a>
+            </section>
+        </x-container>
+    </div>
+
+    <div class="py-16">
+        <x-container>
+            <section class="text-center">
+                <article>
+                    <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                        ¿Qué puedes aprender en EDteam?
+                    </p>
+                    <p class="text-normal md:text-base | pt-4">
+                        Publicamos 2 torneos semanales. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ipsa ipsum dolorum in incidunt mollitia
                     </p>
                 </article>
-
-            </a>
-
-            <a href="#" class="flex | group">
-                <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-150 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                    <img src="https://image.flaticon.com/icons/png/512/3565/3565673.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                    <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                        Equipos e-sports, inscribe o forma tu equipo
-                    </h4>
-                    <p class="text-center text-xs md:text-sm">
-                        Inscribe a tu equipo e-sports para competir o crealo y busca integrantes desde nuestra plataforma
-                    </p>
-                </article>
-
-            </a>
-
-            <a href="#" class="flex | group">
-                <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-150 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                    <img src="https://image.flaticon.com/icons/png/512/3899/3899246.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                    <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                        Distintas plataformas para todos los jugadores
-                    </h4>
-                    <p class="text-center text-xs md:text-sm">
-                        PlayStation, Xbox, PC Game..., jugamos en todas las plataformas <br>
-                        <ul class="mt-1 flex items-center text-xl gap-3">
-                            <li><i class="icon-playstation"></i></li>
-                            <li><i class="icon-xbox"></i></li>
-                            <li><i class="icon-steam"></i></li>
-                        </ul>
-                    </p>
-                </article>
-
-            </a>
-
-        </section>
-
-    </x-container>
+            </section>
+        </x-container>
+    </div>
 
 </x-app-layout>

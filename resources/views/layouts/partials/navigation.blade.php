@@ -135,7 +135,7 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div class="md:hidden absolute w-full z-40 shadow-md" id="responsiveNavMenu" x-show="open"
+    <div class="md:hidden absolute w-full h-screen bg-gray-150 dark:bg-dt-dark-black z-40 shadow-md" id="responsiveNavMenu" x-show="open"
         x-transition:enter="transition ease-out origin-top-left duration-100"
         x-transition:enter-start="opacity-0 transform scale-x-0"
         x-transition:enter-end="opacity-100 transform scale-x-100"
