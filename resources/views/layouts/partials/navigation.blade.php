@@ -93,7 +93,7 @@
 
                 <!-- Theme selector -->
                 <input type="text" id="theme-selection" class="hidden">
-                <button class="text-lg md:text-xl | pt-1 mx-3 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
+                <button class="text-lg md:text-xl | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>

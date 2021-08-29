@@ -48,6 +48,14 @@ module.exports = (isProd) => ({
                 'dt-light-accent': '#2a3b47',
                 'dt-border-color' : '#2a3b47',
 
+                'sb-thumb-color' : '#dfdfe8',
+                'sb-thumb-color-hover' : '#c1c1d3',
+                'sb-track-color' : '#fdfdfe',
+
+                'sb-thumb-dt-color' : '#40474d',
+                'sb-thumb-dt-color-hover' : '#333a3e',
+                'sb-track-dt-color' : '#566169',
+
                 // cool gray
                 'gray': {
                     '50' : '#F9FAFB',
@@ -162,6 +170,7 @@ module.exports = (isProd) => ({
         require("tailwindcss-autofill"),
         require("tailwindcss-text-fill"),
         require("tailwindcss-shadow-fill"),
+        require('tailwind-scrollbar'),
     ],
     variants: {
         extend: {
@@ -171,6 +180,7 @@ module.exports = (isProd) => ({
             shadowFill: ["autofill", "dark"], // Enable variants.
             textFill: ["autofill", "dark"], // Enable variants.
             opacity: ['group-focus'],
+            scrollbar: ['dark', 'rounded'],
         },
     },
 })

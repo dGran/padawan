@@ -55,13 +55,7 @@
                                         <i class="icon-brand-pcgame text-3xl"></i>
                                     </li>
                                 </ul>
-
- {{--                                <img class="rounded-full bg-red-300 h-36 w-36 object-cover absolute top-0 left-0 ml-48" src="https://www.ginx.tv/uploads2/PES/eFootballUpdate_main.jpg">
-                                <img class="rounded-full bg-edyellow-400 h-48 w-48 object-cover absolute top-0 left-0 ml-32 mt-36" src="https://onewindows.es/wp-content/uploads/2014/06/GT-Racing-2.png">
-                                <img class="rounded-full bg-edblue-300 h-60 w-60 object-contain absolute top-0 right-0 mt-10 mr-16" src="https://www.footyrenders.com/render/kylian-mbappe-fifa-22.png"> --}}
-
                             </div>
-
                         </div>
                     </div>
                 </x-container>
@@ -143,12 +137,7 @@
                             Distintas plataformas para todos los jugadores
                         </h4>
                         <p class="text-center text-xs md:text-sm">
-                            PlayStation, Xbox, PC Game..., jugamos en todas las plataformas <br>
-                            <ul class="mt-1 flex items-center text-xl gap-3">
-                                <li><i class="icon-playstation"></i></li>
-                                <li><i class="icon-xbox"></i></li>
-                                <li><i class="icon-steam"></i></li>
-                            </ul>
+                            PlayStation, Xbox, PC Game..., jugamos en todas las plataformas
                         </p>
                     </article>
                 </a>
