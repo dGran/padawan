@@ -1,0 +1,18 @@
+.scrollbar-thin::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.banner-landing:before {
+    content: "";
+    width: 55%;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transform-origin: bottom left;
+    transform: skew(-30deg,0deg);
+    background: linear-gradient(233deg,#fff 5%,hsla(0,0%,100%,.01) 95%);
+    mix-blend-mode: soft-light;
+    pointer-events: none;
+}

@@ -3,12 +3,4 @@
 @import 'tailwindcss/utilities';
 
 @import "styles/fonts.scss";
-@import "styles/scrollbar.scss";
-
-body {
-  background: rgba(1,1,1,0);
-}
-
-body.opened-menu {
-  background: rgba(1,1,1,0.8);
-}
+@import "styles/theme.scss";

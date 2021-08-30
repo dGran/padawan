@@ -29,29 +29,29 @@ module.exports = (isProd) => ({
                 bottom: '5px 20px 20px -20px rgba(146, 161, 176, 0.15)',
             },
             colors: {
+                // light text colors
                 'text-color' : '#697477',
                 'text-light-color' : '#a0a7ac',
                 'text-lighter-color' : '#c8cdd0',
                 'title-color' : '#2a3b47',
                 'border-color' : '#eff3f5',
-
+                // dark text colors
                 'dt-text-color' : '#c8cdd0',
                 'dt-text-light-color' : '#a0a7ac',
                 'dt-text-lighter-color' : '#697477',
                 'dt-title-color' : '#eff3f5',
-
+                'dt-border-color' : '#2a3b47',
+                // dark colors
                 'dt-dark': '#212e36',
                 'dt-darker': '#192229',
                 'dt-darkest': '#121a21',
                 'dt-dark-black': '#0E1318',
                 'dt-dark-accent': '#1b2831',
                 'dt-light-accent': '#2a3b47',
-                'dt-border-color' : '#2a3b47',
-
+                // scrollbar
                 'sb-thumb-color' : '#dfdfe8',
                 'sb-thumb-color-hover' : '#c1c1d3',
                 'sb-track-color' : '#fdfdfe',
-
                 'sb-thumb-dt-color' : '#40474d',
                 'sb-thumb-dt-color-hover' : '#333a3e',
                 'sb-track-dt-color' : '#566169',

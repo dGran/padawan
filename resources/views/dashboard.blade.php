@@ -1,19 +1,3 @@
-<style>
-    .banner-landing:before {
-        content: "";
-        width: 55%;
-        height: 100%;
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        transform-origin: bottom left;
-        transform: skew(-30deg,0deg);
-        background: linear-gradient(233deg,#fff 5%,hsla(0,0%,100%,.01) 95%);
-        mix-blend-mode: soft-light;
-        pointer-events: none;
-    }
-</style>
-
 <x-app-layout>
 
     @guest
@@ -23,16 +7,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
                         <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0">
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold">
-                                Participa en los torneos y campeonatos
+                                Lorem ipsum dolor sit amet
                             </p>
                             <p class="text-lg md:text-xl | font-raleway font-bold | text-edyellow-300 | pt-2">
-                                gana dinero con los tornes e-sports
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit
                             </p>
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold | pt-2">
-                                sin salir de casa
+                                Lorem ipsum dolor sit amet
                             </p>
                             <p class="text-edblue-200 | text-normal md:text-base | pt-6">
-                                Ponemos a tu disposición torneos, ligas, campeonatos de disitntos juegos, gratuitos y de pago, por diversión o por incentivos
+                                Lorem, ipsum dolor sit amet consectetur adipisicing, elit. Excepturi laboriosam cupiditate fugit explicabo incidunt! Error nemo, cupiditate, sapiente molestiae necessitatibus aperiam numquam debitis amet veniam blanditiis, veritatis exercitationem, consequuntur et?
                             </p>
                             <a class='mt-8 mx-auto md:mx-0 px-4 py-2 w-max | bg-white | border border-white rounded | font-semibold text-edblue-700 | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer'>
                                 Crea tu cuenta y únete!
@@ -81,10 +65,10 @@
             <section class="text-center">
                 <article>
                     <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        ¿Qué puedes aprender en EDteam?
+                        Lorem ipsum dolor sit amet consectetur?
                     </p>
                     <p class="text-normal md:text-base | pt-4">
-                        Publicamos 2 torneos semanales. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ipsa ipsum dolorum in incidunt mollitia
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est optio ea a maxime voluptate itaque rerum eum mollitia repellat, numquam beatae odio, velit, incidunt. Velit perspiciatis, facilis id commodi possimus?
                     </p>
                 </article>
             </section>
@@ -150,10 +134,10 @@
             <section class="text-center">
                 <article>
                     <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        ¿Qué puedes aprender en EDteam?
+                        Lorem, ipsum dolor sit amet consectetur?
                     </p>
                     <p class="text-normal md:text-base | pt-4">
-                        Publicamos 2 torneos semanales. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur ipsa ipsum dolorum in incidunt mollitia
+                        Lorem ipsum dolor, sit, amet consectetur adipisicing elit. Odio itaque, repellat neque error necessitatibus rerum beatae, maxime, minus inventore at quibusdam possimus? Qui, necessitatibus quod ut fugit repudiandae, optio et.
                     </p>
                 </article>
             </section>
