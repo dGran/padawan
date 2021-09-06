@@ -6,10 +6,10 @@
     </x-slot>
 
     <x-slot name="content">
-        <x-dropdown-link :href="route('profile')">
+        <x-dropdown-link :href="route('account')">
             <div class="flex items-center">
                 <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
-                <span>{{ __('Perfil') }}</span>
+                <span>{{ __('Mi cuenta') }}</span>
             </div>
         </x-dropdown-link>
 

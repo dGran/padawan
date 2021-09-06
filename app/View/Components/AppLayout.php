@@ -8,11 +8,13 @@ class AppLayout extends Component
 {
     public $title;
     public $wfooter;
+    public $breadcrumb;
 
-    public function __construct($title = null, $wfooter = null)
+    public function __construct($title = null, $wfooter = null, $breadcrumb = null)
     {
         $this->title = $title;
         $this->wfooter = $wfooter;
+        $this->breadcrumb = $breadcrumb;
     }
 
     public function render()

@@ -1,3 +1,20 @@
+// Livewire 419
+window.livewire.onError(statusCode => {
+    if (statusCode === 419) {
+        toastr.options = {
+            "positionClass": "toast-top-center",
+            "closeButton": false,
+            "timeOut": "1000",
+        };
+        toastr.options.onHidden = function() {
+            window.location.href=window.location.href;
+        }
+        toastr.info('Recargando página por inactividad');
+        return false;
+    }
+});
+// END: Livewire 419
+
 // theme selector
 const theme_selection = document.querySelector("#theme-selection");
 const theme_selection_label = document.querySelector("#theme-selection-label");

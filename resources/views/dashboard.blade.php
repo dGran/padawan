@@ -48,14 +48,22 @@
     @endguest
 
     @auth
-        <div class="" style="background: rgb(14,19,24);
-    background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
+        <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
             <x-container class="">
-                <div class="flex flex-col justify-center bg-contain  bg-no-repeat bg-center h-64 md:h-80" style="background-image: url(https://prod.r3eassets.com/assets/content/carlivery/mrs-gt-racing-22-4559-image-big.png)">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Xbox_Series_X_S_black.svg/1280px-Xbox_Series_X_S_black.svg.png" alt="" class="w-32 h-16 md:w-40 md:h-20 p-1.5 md:p-3 object-cover bg-white rounded-lg opacity-70">
-                    <img src="https://ithardware.pl/artykuly/max/16466_1.jpg" alt="" class="w-32 h-16 md:w-40 md:h-20 p-1.5 md:p-3 object-cover bg-white rounded-lg opacity-70 mt-6">
-
-                </div>
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+            </x-container>
+        </div>
+        <div class="dark:hidden border-b border-border-color" style="background: rgb(239,243,245);
+background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 35%, rgba(249,250,251,1) 65%, rgba(239,243,245,1) 100%);">
+            <x-container class="">
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+            </x-container>
+        </div>
+        <div class="bg-gray-150 dark:bg-dt-darkest">
+            <x-container class="py-3 text-xl md:text-2xl flex items-center justify-center gap-6 text-title-color dark:text-dt-title-color">
+                <i class="icon-brand-xbox"></i>
+                <i class="icon-brand-playstation"></i>
+                <i class="icon-brand-pcgame"></i>
             </x-container>
         </div>
     @endauth

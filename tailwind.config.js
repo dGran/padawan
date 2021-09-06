@@ -174,13 +174,15 @@ module.exports = (isProd) => ({
     ],
     variants: {
         extend: {
-            boxShadow: ['dark'],
-            scale: ['active', 'group-hover'],
             borderColor: ["autofill", "dark"],
+            boxShadow: ['dark'],
+            display: ['dark'],
+            fontWeight: ['hover', 'focus'],
             shadowFill: ["autofill", "dark"], // Enable variants.
             textFill: ["autofill", "dark"], // Enable variants.
-            opacity: ['group-focus'],
+            opacity: ['group-focus', 'disabled'],
             scrollbar: ['dark', 'rounded'],
+            scale: ['active', 'group-hover'],
         },
     },
 })

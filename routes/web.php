@@ -1,17 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Livewire\Account\MyAccount;
+use App\Http\Livewire\Account\EditProfile;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -26,9 +17,8 @@ Route::get('/politica-de-privacidad', function () {
 })->name('privacity-policy');
 
 // user routes
-Route::get('/cuenta/perfil', function () {
-    return view('account.profile');
-})->middleware(['auth'])->name('profile');
+Route::get('/mi-cuenta', MyAccount::class)->middleware(['auth', 'password.confirm'])->name('account');
+Route::get('/mi-cuenta/editar-perfil', EditProfile::class)->middleware(['auth', 'password.confirm'])->name('edit-profile');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
