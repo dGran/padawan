@@ -9,6 +9,6 @@ class MyAccount extends Component
     public function render()
     {
         return view('account.my-account')
-            ->layout('layouts.app', ['breadcrumb' => 1, 'wfooter' => 0]);
+            ->layout('layouts.app', ['breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 }

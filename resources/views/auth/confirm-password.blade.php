@@ -1,4 +1,4 @@
-<x-app-layout title="Inicia sesión" wfooter="1">
+<x-app-layout title="Inicia sesión" wfooter=1 wloader=1>
 
     <x-container>
 

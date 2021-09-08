@@ -1,3 +1,8 @@
+// Loader
+window.addEventListener("load", function() {
+    document.getElementById("loader").classList.toggle("loader-off");
+})
+
 // Livewire 419
 window.livewire.onError(statusCode => {
     if (statusCode === 419) {
