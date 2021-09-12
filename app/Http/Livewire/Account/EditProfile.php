@@ -3,18 +3,19 @@
 namespace App\Http\Livewire\Account;
 
 use Livewire\Component;
-use App\Models\Profile;
+use Livewire\WithFileUploads;
+use App\Models\User;
 
 class EditProfile extends Component
 {
+    use WithFileUploads;
+
     public $user, $name, $email, $email_verified_at, $avatar, $birthdate, $location, $whatsapp, $facebook, $instagram, $twitter, $twitch, $discord, $xbox_id, $ps_id, $origin_id, $steam_id, $notifications;
+    public $photo;
 
     public function mount()
     {
-        $this->user = auth()->user();
-        if (!$this->user->profile) {
-            $this->create_profile();
-        }
+        $this->user = User::find(auth()->user()->id);
         $this->resetFields();
     }
 
@@ -22,13 +23,6 @@ class EditProfile extends Component
     {
         return view('account.edit-profile')
             ->layout('layouts.app', ['breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 1]);
-    }
-
-    protected function create_profile()
-    {
-        Profile::create([
-            'user_id' => $this->user->id,
-        ]);
     }
 
     protected function resetFields()
@@ -54,19 +48,49 @@ class EditProfile extends Component
 
     public function updateGeneralData()
     {
-        $profile = $this->user->profile;
+        $user = User::find($this->user->id);
 
         $validatedData['name'] = $this->name ?: null;
         $validatedData['email'] = $this->email ?: null;
-        $validatedData['birthdate'] = $this->birthdate ?: null;
-        $validatedData['location'] = $this->location ?: null;
+        $user->fill($validatedData);
 
-        $profile->fill($validatedData);
+        if ($user->isDirty()) {
+            if ($user->update()) {
+                $user_emit_state = "update";
+            } else {
+                $user_emit_state = "error";
+            }
+        } else {
+            $user_emit_state = "noDirty";
+        }
+
+        $profile = $this->user->profile;
+
+        $validatedProfileData['birthdate'] = $this->birthdate ?: null;
+        $validatedProfileData['location'] = $this->location ?: null;
+        $profile->fill($validatedProfileData);
 
         if ($profile->isDirty()) {
             if ($profile->update()) {
-                $this->emit('updateSocialData');
+                $profile_emit_state = "update";
+            } else {
+                $profile_emit_state = "error";
             }
+        } else {
+            $profile_emit_state = "noDirty";
+        }
+
+        if ($user_emit_state == "update" || $profile_emit_state == "update") {
+            $this->emit('updateGeneralData');
+            return false;
+        }
+        if ($user_emit_state == "error" || $profile_emit_state == "error") {
+            $this->emit('updateErrorGeneralData');
+            return false;
+        }
+        if ($user_emit_state == "noDirty" || $profile_emit_state == "noDirty") {
+            $this->emit('noDirtyGeneralData');
+            return false;
         }
     }
 
@@ -86,7 +110,11 @@ class EditProfile extends Component
         if ($profile->isDirty()) {
             if ($profile->update()) {
                 $this->emit('updateSocialData');
+            } else {
+                $this->emit('updateErrorSocialData');
             }
+        } else {
+            $this->emit('noDirtySocialData');
         }
     }
 
@@ -104,7 +132,11 @@ class EditProfile extends Component
         if ($profile->isDirty()) {
             if ($profile->update()) {
                 $this->emit('updateGamerData');
+            } else {
+                $this->emit('updateErrorGamerData');
             }
+        } else {
+            $this->emit('noDirtyGamerData');
         }
     }
 }

@@ -167,22 +167,24 @@ module.exports = (isProd) => ({
         },
     },
     plugins: [
-        require("tailwindcss-autofill"),
-        require("tailwindcss-text-fill"),
-        require("tailwindcss-shadow-fill"),
+        require('tailwindcss-autofill'),
+        require('tailwindcss-text-fill'),
+        require('tailwindcss-shadow-fill'),
         require('tailwind-scrollbar'),
     ],
     variants: {
         extend: {
-            borderColor: ["autofill", "dark"],
+            borderColor: ['autofill', 'dark', 'group-focus', 'active'],
+            backgroundColor: ['active'],
             boxShadow: ['dark'],
             display: ['dark'],
             fontWeight: ['hover', 'focus'],
-            shadowFill: ["autofill", "dark"], // Enable variants.
-            textFill: ["autofill", "dark"], // Enable variants.
+            shadowFill: ['autofill', 'dark'], // Enable variants.
+            textFill: ['autofill', 'dark'], // Enable variants.
             opacity: ['group-focus', 'disabled'],
             scrollbar: ['dark', 'rounded'],
             scale: ['active', 'group-hover'],
+            pointerEvents: ['hover', 'focus'],
         },
     },
 })

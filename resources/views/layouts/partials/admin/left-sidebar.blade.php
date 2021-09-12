@@ -11,7 +11,9 @@
     </div>
     <div class="py-4 | flex items-center justify-center">
         <div class="flex flex-col items-center leading-4">
-            <img src="https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-male-3-512.png" alt="" class="h-9 w-9 object-cover">
+	        <button class="group | focus:outline-none">
+	            <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | mt-1 w-9 h-9 | bg-edgray-150 dark:bg-gray-600 | border border-gray-200 dark:border-gray-600 | group-hover:border-gray-300 dark:group-hover:border-gray-500 | focus:outline-none group-focus:border-gray-300 dark:group-focus:border-gray-500 | transition duration-150 ease-in-out | cursor-pointer">
+	        </button>
             <span class="text-sm mt-1.5">{{ auth()->user()->name }}</span>
 	        <form method="POST" action="{{ route('logout') }}">
 	            @csrf

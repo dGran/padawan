@@ -1,8 +1,6 @@
 <x-dropdown align="right" width="max">
     <x-slot name="trigger">
-        <button class="flex items-center text-sm | rounded-full | h-10 w-10 md:h-12 md:w-12 | bg-border-color dark:bg-dt-darker | hover:bg-white dark:hover:bg-dt-dark-black hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-50 dark:focus:bg-dt-dark-black focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border border-border-color dark:border-transparent">
-            <i class="icon-user-menu text-2xl md:text-3xl mx-auto"></i>
-        </button>
+        <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | w-8 h-8 md:w-10 md:h-10 | bg-edgray-150 dark:bg-gray-600 | border border-gray-200 dark:border-gray-600 | group-hover:border-gray-300 dark:group-hover:border-gray-500 | focus:outline-none group-focus:border-gray-300 dark:group-focus:border-gray-500 | transition duration-150 ease-in-out | cursor-pointer">
     </x-slot>
 
     <x-slot name="content">
@@ -10,6 +8,20 @@
             <div class="flex items-center">
                 <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
                 <span>{{ __('Mi cuenta') }}</span>
+            </div>
+        </x-dropdown-link>
+
+        <x-dropdown-link :href="route('notifications')">
+            <div class="flex items-center">
+                <i class="text-base fas fa-bell w-6 mr-2 text-center"></i>
+                <span>{{ __('Notificaciones') }}</span>
+            </div>
+        </x-dropdown-link>
+
+        <x-dropdown-link :href="route('myteams')">
+            <div class="flex items-center">
+                <i class="text-base fas fa-user-shield w-6 mr-2 text-center"></i>
+                <span>{{ __('Mis equipos') }}</span>
             </div>
         </x-dropdown-link>
 

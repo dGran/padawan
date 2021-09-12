@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Account\MyAccount;
 use App\Http\Livewire\Account\EditProfile;
+use App\Http\Livewire\Account\Notification;
+use App\Http\Livewire\Account\MyTeam;
+use App\Http\Livewire\Tournament\Dashboard;
+use App\Http\Livewire\Tournament\Standing;
+use App\Http\Livewire\Tournament\Schedule;
+use App\Http\Livewire\Tournament\Stat;
+use App\Http\Livewire\Tournament\Participant;
+use App\Http\Livewire\Tournament\Normative;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -16,13 +24,33 @@ Route::get('/politica-de-privacidad', function () {
     return view('privacity-policy');
 })->name('privacity-policy');
 
-// user routes
-Route::get('/mi-cuenta', MyAccount::class)->middleware(['auth', 'password.confirm'])->name('account');
-Route::get('/mi-cuenta/editar-perfil', EditProfile::class)->middleware(['auth', 'password.confirm'])->name('edit-profile');
+// account routes
+Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+    Route::get('/', MyAccount::class)->name('account');
+    Route::get('/editar-perfil', EditProfile::class)->name('edit-profile');
+    Route::get('/notifications', Notification::class)->name('notifications');
+});
+Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+    Route::get('/', Notification::class)->name('notifications');
+});
+Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+    Route::get('/', MyTeam::class)->name('myteams');
+});
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
+// tournament routes
+Route::group(['prefix' => 'nombre-del-torneo'], function () {
+    Route::get('/', Dashboard::class)->name('tournament.dashboard');
+    Route::get('/clasificaciones', Standing::class)->name('tournament.standings');
+    Route::get('/calendario', Schedule::class)->name('tournament.schedule');
+    Route::get('/estadisticas', Stat::class)->name('tournament.stats');
+    Route::get('/participantes', Participant::class)->name('tournament.participants');
+    Route::get('/normativa', Normative::class)->name('tournament.normative');
+});
+
+// test
+Route::get('/gt-sport', function () {
+    return view('gt-sport');
+})->name('gt-sport');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';

@@ -1,5 +1,34 @@
 <x-app-layout>
 
+    @auth
+        <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
+            <x-container class="">
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+            </x-container>
+        </div>
+        <div class="dark:hidden border-b border-border-color" style="background: rgb(239,243,245);
+background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 35%, rgba(249,250,251,1) 65%, rgba(239,243,245,1) 100%);">
+            <x-container class="">
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+            </x-container>
+        </div>
+        <div class="bg-gray-150 dark:bg-dt-darkest">
+            <x-container class="py-3 text-xl md:text-2xl flex items-center justify-center gap-6 text-title-color dark:text-dt-title-color">
+                <i class="icon-brand-xbox"></i>
+                <i class="icon-brand-playstation"></i>
+                <i class="icon-brand-pcgame"></i>
+            </x-container>
+        </div>
+
+        <x-container>
+            <x-card class="my-4 p-4">
+                Contenido dinámico usuario registrado
+                <br>
+                ...
+            </x-card>
+        </x-container>
+    @endauth
+
     @guest
       <div class="relative">
             <div class="banner-landing bg-edblue-700 dark:bg-edblue-900 relative overflow-hidden">
@@ -45,111 +74,91 @@
                 </x-container>
             </div>
         </div>
+
+        <div class="py-16 bg-edgray-200 dark:bg-dt-dark-accent">
+            <x-container>
+                <section class="text-center">
+                    <article>
+                        <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                            Lorem ipsum dolor sit amet consectetur?
+                        </p>
+                        <p class="text-normal md:text-base | pt-4">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est optio ea a maxime voluptate itaque rerum eum mollitia repellat, numquam beatae odio, velit, incidunt. Velit perspiciatis, facilis id commodi possimus?
+                        </p>
+                    </article>
+                </section>
+
+                <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-x-8 md:gap-y-4 mt-8">
+
+                    <a href="#" class="flex | group">
+                        <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                            <img src="https://image.flaticon.com/icons/png/512/639/639365.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                            <h4 class="text-center font-raleway text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                                Torneos e-sports<br>premiados
+                            </h4>
+                            <p class="text-center text-xs md:text-sm">
+                                Compite en nuestros torneos e-sports de forma individual o colectiva
+                            </p>
+                        </article>
+
+                    </a>
+
+                    <a href="#" class="flex | group">
+                        <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                            <img src="https://image.flaticon.com/icons/png/512/4292/4292657.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                            <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                                Torneos, ligas, campeonatos...
+                            </h4>
+                            <p class="text-center text-xs md:text-sm">
+                                Competiciones oficiales / amistosas, inviduales / por equipos <br>para distintos juegos
+                            </p>
+                        </article>
+
+                    </a>
+
+                    <a href="#" class="flex | group">
+                        <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                            <img src="https://image.flaticon.com/icons/png/512/3565/3565673.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                            <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                                Equipos e-sports, inscribe o forma tu equipo
+                            </h4>
+                            <p class="text-center text-xs md:text-sm">
+                                Inscribe a tu equipo e-sports para competir o crealo y busca integrantes desde nuestra plataforma
+                            </p>
+                        </article>
+
+                    </a>
+
+                    <a href="#" class="flex | group">
+                        <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
+                            <img src="https://image.flaticon.com/icons/png/512/3899/3899246.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
+                            <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
+                                Distintas plataformas para todos los jugadores
+                            </h4>
+                            <p class="text-center text-xs md:text-sm">
+                                PlayStation, Xbox, PC Game..., jugamos en todas las plataformas
+                            </p>
+                        </article>
+                    </a>
+                </section>
+            </x-container>
+        </div>
+
+        <div class="py-16">
+            <x-container>
+                <section class="text-center">
+                    <article>
+                        <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                            Lorem, ipsum dolor sit amet consectetur?
+                        </p>
+                        <p class="text-normal md:text-base | pt-4">
+                            Lorem ipsum dolor, sit, amet consectetur adipisicing elit. Odio itaque, repellat neque error necessitatibus rerum beatae, maxime, minus inventore at quibusdam possimus? Qui, necessitatibus quod ut fugit repudiandae, optio et.
+                        </p>
+                    </article>
+                </section>
+            </x-container>
+        </div>
     @endguest
 
-    @auth
-        <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
-            <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
-            </x-container>
-        </div>
-        <div class="dark:hidden border-b border-border-color" style="background: rgb(239,243,245);
-background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 35%, rgba(249,250,251,1) 65%, rgba(239,243,245,1) 100%);">
-            <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
-            </x-container>
-        </div>
-        <div class="bg-gray-150 dark:bg-dt-darkest">
-            <x-container class="py-3 text-xl md:text-2xl flex items-center justify-center gap-6 text-title-color dark:text-dt-title-color">
-                <i class="icon-brand-xbox"></i>
-                <i class="icon-brand-playstation"></i>
-                <i class="icon-brand-pcgame"></i>
-            </x-container>
-        </div>
-    @endauth
-
-    <div class="py-16 bg-edgray-200 dark:bg-dt-dark-accent">
-        <x-container>
-            <section class="text-center">
-                <article>
-                    <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        Lorem ipsum dolor sit amet consectetur?
-                    </p>
-                    <p class="text-normal md:text-base | pt-4">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est optio ea a maxime voluptate itaque rerum eum mollitia repellat, numquam beatae odio, velit, incidunt. Velit perspiciatis, facilis id commodi possimus?
-                    </p>
-                </article>
-            </section>
-
-            <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-x-8 md:gap-y-4 mt-8">
-
-                <a href="#" class="flex | group">
-                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                        <img src="https://image.flaticon.com/icons/png/512/639/639365.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                        <h4 class="text-center font-raleway text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                            Torneos e-sports<br>premiados
-                        </h4>
-                        <p class="text-center text-xs md:text-sm">
-                            Compite en nuestros torneos e-sports de forma individual o colectiva
-                        </p>
-                    </article>
-
-                </a>
-
-                <a href="#" class="flex | group">
-                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                        <img src="https://image.flaticon.com/icons/png/512/4292/4292657.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                            Torneos, ligas, campeonatos...
-                        </h4>
-                        <p class="text-center text-xs md:text-sm">
-                            Competiciones oficiales / amistosas, inviduales / por equipos <br>para distintos juegos
-                        </p>
-                    </article>
-
-                </a>
-
-                <a href="#" class="flex | group">
-                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                        <img src="https://image.flaticon.com/icons/png/512/3565/3565673.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                            Equipos e-sports, inscribe o forma tu equipo
-                        </h4>
-                        <p class="text-center text-xs md:text-sm">
-                            Inscribe a tu equipo e-sports para competir o crealo y busca integrantes desde nuestra plataforma
-                        </p>
-                    </article>
-
-                </a>
-
-                <a href="#" class="flex | group">
-                    <article class="flex-1 flex flex-col items-center | px-3 py-6 lg:px-6 lg:py-10 | relative | rounded-lg | hover:bg-gray-50 dark:hover:bg-dt-light-accent | transition ease-in-out duration-300">
-                        <img src="https://image.flaticon.com/icons/png/512/3899/3899246.png" alt="" class="w-20 h-20 md:w-24 md:h-24 object-cover transform transition duration-300 group-hover:scale-110">
-                        <h4 class="text-center text-title-color dark:text-dt-title-color text-lg md:text-xl font-bold pt-6 pb-2">
-                            Distintas plataformas para todos los jugadores
-                        </h4>
-                        <p class="text-center text-xs md:text-sm">
-                            PlayStation, Xbox, PC Game..., jugamos en todas las plataformas
-                        </p>
-                    </article>
-                </a>
-            </section>
-        </x-container>
-    </div>
-
-    <div class="py-16">
-        <x-container>
-            <section class="text-center">
-                <article>
-                    <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        Lorem, ipsum dolor sit amet consectetur?
-                    </p>
-                    <p class="text-normal md:text-base | pt-4">
-                        Lorem ipsum dolor, sit, amet consectetur adipisicing elit. Odio itaque, repellat neque error necessitatibus rerum beatae, maxime, minus inventore at quibusdam possimus? Qui, necessitatibus quod ut fugit repudiandae, optio et.
-                    </p>
-                </article>
-            </section>
-        </x-container>
-    </div>
 
 </x-app-layout>

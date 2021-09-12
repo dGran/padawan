@@ -1,8 +1,8 @@
 @php
     $navLinks = [
         ['route-name' => 'dashboard', 'text' => 'Dashboard', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'tournament.dashboard', 'text' => 'Torneo de prueba', 'class' => '', 'icon' => 'arrow-right'],
         ['route-name' => 'cookie-policy', 'text' => 'Política de cookies', 'class' => '', 'icon' => 'arrow-right'],
-        ['route-name' => 'privacity-policy', 'text' => 'Política de privacidad', 'class' => '', 'icon' => 'arrow-right'],
         // ['href' => '/managers', 'name' => 'managers', 'text' => 'Managers', 'class' => 'hidden lg:inline-flex', 'icon' => 'icon-coach'],
     ]
 @endphp
@@ -100,14 +100,14 @@
                 </button>
 
                 @auth
-                    <div class="text-lg md:text-xl mr-3 relative">
+                    <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
                         <i class="far fa-bell"></i>
                         <span class="absolute top-0 right text-xxs md:text-xs rounded-full w-2 h-2 bg-edyellow-500 animate-ping"></span>
                     </div>
                 @endauth
 
                 <!-- User options -->
-                <div class="lg:hidden">
+                <div class="lg:hidden min-w-max">
                     @guest
                         @include('layouts.partials.app.navigation.dropdown-guest')
                     @endguest
@@ -116,7 +116,7 @@
                     @endauth
                 </div>
 
-                <div class="hidden lg:inline-flex">
+                <div class="hidden lg:inline-flex min-w-max">
                     @guest
                         <a class="px-4 py-2 mr-3 | text-sm | hover:bg-border-color dark:hover:bg-dt-darker hover:border-border-color dark:hover:border-dt-darker hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-50 dark:focus:bg-dt-dark-black focus:text-title-color dark:focus:text-dt-title-color | transition duration-75 ease-in-out | rounded-md border border-transparent | select-none | cursor-pointer" href="{{ route('login') }}">
                             Inicia sesión
