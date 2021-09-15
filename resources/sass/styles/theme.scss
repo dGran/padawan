@@ -16,8 +16,16 @@
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
+}
+.scrollbar-thin .thiner::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.scrollbar-thin .thinest::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
 }
 
 .banner-landing:before {

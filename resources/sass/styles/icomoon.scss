@@ -25,29 +25,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-brand-xbox:before {
+.icon-visible:before {
   content: "\e919";
 }
-.icon-brand-playstation:before {
-  content: "\e91a";
-}
-.icon-brand-pcgame:before {
-  content: "\e91b";
-}
-.icon-fifa:before {
-  content: "\e91c";
-}
-.icon-efootball:before {
-  content: "\e90b";
-}
-.icon-gtracing:before {
-  content: "\e90c";
-}
 .icon-invisible:before {
-  content: "\e91d";
-}
-.icon-visible:before {
-  content: "\e91e";
+  content: "\e91a";
 }
 .icon-arrow-right:before {
   content: "\e90d";
@@ -78,6 +60,201 @@
 }
 .icon-sun:before {
   content: "\e903";
+}
+.icon-dice:before {
+  content: "\e91b";
+}
+.icon-dices:before {
+  content: "\e91c";
+}
+.icon-replace:before {
+  content: "\e91d";
+}
+.icon-kick:before {
+  content: "\e91e";
+}
+.icon-magic:before {
+  content: "\e91f";
+}
+.icon-gamepad:before {
+  content: "\e92f";
+}
+.icon-groups_participants:before {
+  content: "\e930";
+}
+.icon-groups:before {
+  content: "\e931";
+}
+.icon-phases:before {
+  content: "\e932";
+}
+.icon-reserves:before {
+  content: "\e92d";
+}
+.icon-news:before {
+  content: "\e92e";
+}
+.icon-eplayers:before {
+  content: "\e920";
+}
+.icon-zones:before {
+  content: "\e92b";
+}
+.icon-seasons:before {
+  content: "\e921";
+}
+.icon-menus:before {
+  content: "\e922";
+}
+.icon-pages:before {
+  content: "\e923";
+}
+.icon-participants:before {
+  content: "\e924";
+}
+.icon-products:before {
+  content: "\e925";
+}
+.icon-economy:before {
+  content: "\e926";
+}
+.icon-competitions:before {
+  content: "\e927";
+}
+.icon-transfers:before {
+  content: "\e928";
+}
+.icon-roles:before {
+  content: "\e929";
+}
+.icon-players:before {
+  content: "\e92a";
+}
+.icon-circuits:before {
+  content: "\e92c";
+}
+.icon-settings:before {
+  content: "\e933";
+}
+.icon-tournaments:before {
+  content: "\e934";
+}
+.icon-dashboard:before {
+  content: "\e935";
+}
+.icon-categories:before {
+  content: "\e936";
+}
+.icon-db:before {
+  content: "\e937";
+}
+.icon-teams:before {
+  content: "\e938";
+}
+.icon-rosters:before {
+  content: "\e939";
+}
+.icon-eteams:before {
+  content: "\e93a";
+}
+.icon-games:before {
+  content: "\e93b";
+}
+.icon-platforms:before {
+  content: "\e93c";
+}
+.icon-users:before {
+  content: "\e93d";
+}
+.icon-tools:before {
+  content: "\e93e";
+}
+.icon-positions:before {
+  content: "\e93f";
+}
+.icon-add:before {
+  content: "\e940";
+}
+.icon-shortcut:before {
+  content: "\e941";
+}
+.icon-nothing:before {
+  content: "\e942";
+}
+.icon-table:before {
+  content: "\e943";
+}
+.icon-filter:before {
+  content: "\e944";
+}
+.icon-view:before {
+  content: "\e945";
+}
+.icon-edit:before {
+  content: "\e946";
+}
+.icon-import:before {
+  content: "\e947";
+}
+.icon-xls:before {
+  content: "\e948";
+}
+.icon-csv:before {
+  content: "\e949";
+}
+.icon-xlsx:before {
+  content: "\e94a";
+}
+.icon-duplicate:before {
+  content: "\e94b";
+}
+.icon-trash:before {
+  content: "\e94c";
+}
+.icon-bookmark-add:before {
+  content: "\e94d";
+}
+.icon-pilot:before {
+  content: "\e904";
+}
+.icon-race_live:before {
+  content: "\e94e";
+}
+.icon-multimedia:before {
+  content: "\e94f";
+}
+.icon-qualy:before {
+  content: "\e950";
+}
+.icon-race:before {
+  content: "\e951";
+}
+.icon-circuit:before {
+  content: "\e952";
+}
+.icon-logo:before {
+  content: "\e900";
+}
+.icon-logo2:before {
+  content: "\e953";
+}
+.icon-brand-xbox:before {
+  content: "\e954";
+}
+.icon-brand-playstation:before {
+  content: "\e955";
+}
+.icon-brand-pcgame:before {
+  content: "\e956";
+}
+.icon-fifa:before {
+  content: "\e957";
+}
+.icon-efootball:before {
+  content: "\e90b";
+}
+.icon-gtracing:before {
+  content: "\e90c";
 }
 .icon-facebook:before {
   content: "\e90e";
@@ -112,9 +289,15 @@
 .icon-playstation:before {
   content: "\e918";
 }
-.icon-logo:before {
-  content: "\e900";
+.icon-pos-med:before {
+  content: "\e958";
 }
-.icon-pilot:before {
-  content: "\e904";
+.icon-pos-del:before {
+  content: "\e959";
+}
+.icon-pos-def:before {
+  content: "\e95a";
+}
+.icon-pos-por:before {
+  content: "\e95b";
 }

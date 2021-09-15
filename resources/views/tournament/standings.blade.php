@@ -1,11 +1,20 @@
-@include('tournament.partials.header', ['activeTab' => 'Standings', 'color' => 'edblue'])
+<div>
+    @include('tournament.partials.header', ['activeTab' => 'Standings', 'color' => 'edblue'])
 
-<x-container>
+    <x-container>
 
-    <h4 class="mt-8 | font-semibold | font-fjalla | uppercase | text-xl md:text-2xl | tracking-widest">Clasificaciones</h4>
+        <h4 class="mt-8 | font-semibold | font-fjalla | uppercase | text-xl md:text-2xl | tracking-wider | text-title-color dark:text-dt-title-color">Clasificaciones</h4>
 
-    <section class="mt-4 mb-6 md:mt-6 md:mb-8">
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi eaque, distinctio tempore tenetur labore delectus recusandae numquam quod quia incidunt exercitationem perferendis consequuntur. Delectus perspiciatis at a sequi, praesentium amet.
-    </section>
+        <x-card class="my-4 p-4">
+            <table class="w-full">
+                <tbody>
+                    <tr>
+                        <td class="p-2.5 border border-border-color rounded">lroe jdkasjdk</td>
+                    </tr>
+                </tbody>
+            </table>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam recusandae minima quaerat, debitis quos quasi. Quam, modi fuga optio error facilis earum suscipit debitis iste sit, illo eveniet. Fuga, eius!
+        </x-card>
 
-</x-container>
+    </x-container>
+</div>
