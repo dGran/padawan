@@ -3,13 +3,13 @@
     @auth
         <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
             <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96" style="background-image: url({{ asset('img/test.png') }})"></div>
             </x-container>
         </div>
         <div class="dark:hidden border-b border-border-color" style="background: rgb(239,243,245);
 background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 35%, rgba(249,250,251,1) 65%, rgba(239,243,245,1) 100%);">
             <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96 -mx-8" style="background-image: url({{ asset('img/test.png') }})"></div>
+                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96" style="background-image: url({{ asset('img/test.png') }})"></div>
             </x-container>
         </div>
         <div class="bg-gray-150 dark:bg-dt-darkest">

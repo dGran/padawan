@@ -22,9 +22,9 @@
 
 
                 <div class="-mx-4 -mt-6 sm:-mx-0 sm:mt-0">
-                    <figure class="flex justify-center | w-full sm:max-w-sm lg:max-w-xs | sm:rounded-lg | mx-auto">
-    				   <img src="https://www.gran-turismo.com/images/c/i1CRjXbSSGn0WSB.jpg" alt="" class="sm:rounded-lg object-cover">
-                    </figure>
+                    {{-- <figure class="flex justify-center | w-full max-h-60 h-auto "> --}}
+    				   <img src="{{ asset('img/tbanner.jpeg') }}" alt="" class="w-full h-auto sm:max-w-sm lg:max-w-xs | sm:rounded-lg | mx-auto">
+                    {{-- </figure> --}}
                 </div>
             </div>
         </x-container>

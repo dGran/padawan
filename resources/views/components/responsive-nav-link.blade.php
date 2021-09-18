@@ -1,5 +1,5 @@
 @php
-$classes = 'block pl-3 pr-4 py-3 | hover:bg-gray-50 dark:hover:bg-dt-dark-black hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-50 dark:focus:bg-dt-dark-black focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border-t border-border-color dark:border-dt-darker | group';
+$classes = 'block pl-3 pr-4 py-3 | hover:bg-gray-100 dark:hover:bg-dt-dark-accent hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-100 dark:focus:bg-dt-dark-accent focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border-t border-border-color dark:border-dt-border-color | group';
 @endphp
 
 <li class="">

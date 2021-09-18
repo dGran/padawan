@@ -1,4 +1,4 @@
-@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'bg-white dark:bg-dt-darkest | shadow-md'])
+@props(['align' => 'right', 'width' => '48', 'contentClasses' => 'bg-white dark:bg-dt-dark | shadow-md'])
 
 @php
     switch ($align) {
@@ -32,7 +32,7 @@
             class="absolute z-50 mt-2 {{ $width }} {{ $alignmentClasses }}"
             style="display: none;"
             @click="open = false">
-        <div class="rounded-md border border-border-color dark:border-dt-dark overflow-hidden {{ $contentClasses }}">
+        <div class="rounded-md border border-border-color dark:border-dt-border-color overflow-hidden {{ $contentClasses }}">
             {{ $content }}
         </div>
     </div>

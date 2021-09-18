@@ -1,6 +1,10 @@
 <x-dropdown align="right" width="max">
     <x-slot name="trigger">
-        <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | w-8 h-8 md:w-10 md:h-10 | bg-edgray-150 dark:bg-gray-600 | border border-gray-200 dark:border-gray-600 | group-hover:border-gray-300 dark:group-hover:border-gray-500 | focus:outline-none group-focus:border-gray-300 dark:group-focus:border-gray-500 | transition duration-150 ease-in-out | cursor-pointer">
+        <button class="border-2 border-border-color dark:border-dt-border-color | rounded-full | hover:border-edblue-400 dark:hover:border-edblue-300 | focus:outline-none focus:border-edblue-400 dark:focus:border-edblue-300 | text-dt-text-color dark:text-text-color | hover:text-dt-title-color dark:hover:text-title-color | focus:outline-none focus:text-dt-title-color dark:focus:text-title-color">
+            <div class="flex items-center text-sm | rounded-full | h-8 w-8 md:h-9 md:w-9 m-0.5 | bg-text-color dark:bg-dt-text-color">
+                <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | w-full h-auto">
+            </div>
+        </button>
     </x-slot>
 
     <x-slot name="content">

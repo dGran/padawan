@@ -2,7 +2,7 @@
 
     <x-container>
 
-        <x-card class="max-w-full lg:max-w-2xl mx-auto my-4 lg:my-8 p-8 | text-xs lg:text-sm">
+        <x-card class="max-w-full md:max-w-2xl mx-auto my-4 lg:my-8 p-8 | text-xs lg:text-sm">
             <h4 class="text-center text-xl lg:text-2xl text-title-color dark:text-white | font-raleway font-extrabold | tracking-wide | mb-1">
                 Crea tu cuenta
             </h4>
@@ -13,10 +13,10 @@
             <form method="POST" action="{{ route('register') }}" class="pt-6">
                 @csrf
                 <!-- Name & Email Address -->
-                <div class="flex items-center gap-6 mt-4">
-                    <div class="flex-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+                    <div>
                         <x-label for="name" :value="__('Nombre')" />
-                        <x-input id="name" class="block mt-1.5 w-full"
+                        <x-input id="name" class="block sm:mt-1 w-full"
                                         type="text"
                                         name="name"
                                         :value="old('name')"
@@ -24,9 +24,9 @@
                                         required autofocus/>
                     </div>
 
-                    <div class="flex-1">
+                    <div>
                         <x-label for="email" :value="__('Correo electrónico')" />
-                        <x-input id="email" class="block mt-1.5 w-full"
+                        <x-input id="email" class="block sm:mt-1 w-full"
                                         type="email"
                                         name="email"
                                         :value="old('email')"
@@ -36,10 +36,10 @@
                 </div>
 
                 <!-- Password -->
-                <div class="flex items-center gap-6 mt-4">
-                    <div class="flex-1">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
+                    <div>
                         <x-label for="password" :value="__('Contraseña')" />
-                        <x-input id="password" class="block mt-1.5 w-full"
+                        <x-input id="password" class="block sm:mt-1 w-full"
                                         type="password"
                                         name="password"
                                         placeholder="Contraseña"
@@ -47,10 +47,10 @@
                     </div>
 
                     <!-- Confirm Password -->
-                    <div class="flex-1">
+                    <div>
                         <x-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
-                        <x-input id="password_confirmation" class="block mt-1 w-full"
+                        <x-input id="password_confirmation" class="block sm:mt-1 w-full"
                                         type="password"
                                         name="password_confirmation"
                                         placeholder="Repetir contraseña"
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="pt-6">
+                <div class="pt-6 text-center">
                     <x-button class="w-full text-center text-normal lg:text-base">
                         {{ __('Regístrate ahora') }}
                     </x-button>
@@ -68,7 +68,7 @@
                     <!-- Validation Errors -->
                     <x-auth-validation-errors :errors="$errors" />
 
-                    <p class="pt-4 text-center">
+                    <p class="pt-4">
                         ¿Ya tienes cuenta? <x-link href="{{ route('login') }}">Inicia sesión</x-link>
                     </p>
                 </div>

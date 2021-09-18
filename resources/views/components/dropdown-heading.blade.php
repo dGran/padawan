@@ -1,1 +1,1 @@
-<span {{ $attributes->merge(['class' => 'block px-4 py-2 | font-semibold | text-xxs md:text-xs | text-title-color dark:text-dt-title-color | bg-gray-100 dark:bg-dt-darker | focus:outline-none | transition duration-150 ease-in-out']) }}>{{ $slot }}</span>
+<span {{ $attributes->merge(['class' => 'block px-4 py-2 | font-semibold | text-xxs md:text-xs | text-title-color dark:text-dt-title-color | bg-gray-150 dark:bg-dt-darker | focus:outline-none | transition duration-150 ease-in-out']) }}>{{ $slot }}</span>

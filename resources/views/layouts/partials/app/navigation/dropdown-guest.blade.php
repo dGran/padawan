@@ -1,7 +1,9 @@
 <x-dropdown align="right" width="max">
     <x-slot name="trigger">
-        <button class="flex items-center text-sm | rounded-full | h-10 w-10 md:h-12 md:w-12 | bg-border-color dark:bg-dt-darker | hover:bg-white dark:hover:bg-dt-dark-black hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:bg-gray-50 dark:focus:bg-dt-dark-black focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out | border border-border-color dark:border-transparent">
-            <i class="icon-guest text-2xl md:text-3xl mx-auto"></i>
+        <button class="border-2 border-border-color dark:border-dt-border-color | rounded-full | hover:border-edblue-400 dark:hover:border-edblue-300 | focus:outline-none focus:border-edblue-400 dark:focus:border-edblue-300 | text-dt-text-color dark:text-text-color | hover:text-dt-title-color dark:hover:text-title-color | focus:outline-none focus:text-dt-title-color dark:focus:text-title-color">
+            <div class="flex items-center text-sm | rounded-full | h-8 w-8 md:h-9 md:w-9 m-0.5 | bg-text-color dark:bg-dt-text-color">
+                <i class="icon-guest text-xl md:text-2xl mx-auto"></i>
+            </div>
         </button>
     </x-slot>
 

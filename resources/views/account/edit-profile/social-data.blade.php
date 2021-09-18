@@ -3,7 +3,7 @@
 </h4>
 <form wire:submit.prevent="updateSocialData">
     @csrf
-    <x-card class="p-5 md:p-7 flex flex-col gap-4 md:gap-6">
+    <x-card class="p-5 md:p-7 flex flex-col space-y-4 md:space-y-6">
 
         <div>
             <x-label for="whatsapp" :value="__('whatsapp')" class="capitalize" />

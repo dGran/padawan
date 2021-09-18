@@ -93,7 +93,7 @@
 
                 <!-- Theme selector -->
                 <input type="text" id="theme-selection" class="hidden">
-                <button class="text-lg md:text-xl | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
+                <button class="text-base md:text-lg | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
@@ -135,14 +135,14 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div class="md:hidden absolute w-full h-screen bg-gray-150 dark:bg-dt-dark-black z-40 shadow-md" id="responsiveNavMenu" x-show="open"
+    <div class="md:hidden absolute w-full h-screen bg-gray-50 dark:bg-dt-darker z-40 shadow-md" id="responsiveNavMenu" x-show="open"
         x-transition:enter="transition ease-out origin-top-left duration-100"
-        x-transition:enter-start="opacity-0 transform scale-x-0"
-        x-transition:enter-end="opacity-100 transform scale-x-100"
+        x-transition:enter-start="opacity-0 transform scale-y-0"
+        x-transition:enter-end="opacity-100 transform scale-y-100"
         x-transition:leave="transition origin-top-left ease-in duration-100"
-        x-transition:leave-start="opacity-100 transform scale-x-100"
-        x-transition:leave-end="opacity-0 transform scale-x-0">
-        <ul class="bg-white dark:bg-dt-darkest | border-b border-border-color dark:border-dt-darker | w-full" @click.away="open = false">
+        x-transition:leave-start="opacity-100 transform scale-y-100"
+        x-transition:leave-end="opacity-0 transform scale-y-0">
+        <ul class="bg-white dark:bg-dt-dark | border-b border-border-color dark:border-dt-border-color | w-full" @click.away="open = false">
             @foreach ($navLinks as $link)
                 <x-responsive-nav-link :href="route($link['route-name'])">
                     <x-slot name="icon">{{ $link['icon'] }}</x-slot>

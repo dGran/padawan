@@ -141,6 +141,17 @@ module.exports = (isProd) => ({
                     '800': '#094977',
                     '900': '#052c48',
                 },
+                'edgreen' : {
+                    '100': '#eafbf2',
+                    '200': '#c0f2d9',
+                    '300': '#96e9bf',
+                    '400': '#6ce0a6',
+                    '500': '#2dd280',
+                    '600': '#28bd73',
+                    '700': '#1f9359',
+                    '800': '#166a40',
+                    '900': '#0d3f26',
+                },
                 'edyellow' : {
                     '100': '#fff8eb',
                     '200': '#ffeac7',
@@ -175,6 +186,7 @@ module.exports = (isProd) => ({
     variants: {
         extend: {
             borderColor: ['autofill', 'dark', 'group-focus', 'active'],
+            borderWidth: ['dark', 'hover', 'focus'],
             backgroundColor: ['active'],
             boxShadow: ['dark'],
             display: ['dark'],

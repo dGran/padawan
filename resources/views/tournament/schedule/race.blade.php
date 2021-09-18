@@ -1,23 +1,23 @@
 <div>
-    @include('tournament.partials.header', ['activeTab' => 'Schedule', 'color' => 'edblue'])
+    @include('tournament.partials.header', ['activeTab' => 'Schedule', 'color' => $color])
 
-    <x-container class="sm:my-4 lg:my-8 -mx-4 sm:-mx-4 md:mx-auto">
-        <div class="bg-gray-150 dark:bg-dt-dark sm:border border-edgray-800 | rounded-lg">
+    <div class="max-w-screen-2xl mx-auto md:p-4 lg:p-8">
+        <div class="bg-white dark:bg-dt-dark md:border border-border-color dark:border-dt-border-color | md:rounded-lg">
             @include('tournament.schedule.race.partials.header')
 
             @include('tournament.schedule.race.partials.menu')
 
             @switch($op)
-                @case('circuit')
+                @case('circuito')
                     @include('tournament.schedule.race.circuit')
                     @break
-                @case('pilots')
+                @case('pilotos')
                     @include('tournament.schedule.race.pilots')
                     @break
-                @case('qualy')
+                @case('calificacion')
                     @include('tournament.schedule.race.qualy')
                     @break
-                @case('race')
+                @case('carrera')
                     @include('tournament.schedule.race.race')
                     @break
                 @case('multimedia')
@@ -26,5 +26,8 @@
             @endswitch
 
         </div>
-    </x-container>
+
+    </div>
+{{--     <x-container class="md:my-4 lg:my-8 -mx-4 sm:-mx-4 md:mx-auto">
+    </x-container> --}}
 </div>

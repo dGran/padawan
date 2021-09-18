@@ -1,4 +1,4 @@
-<ul class="flex items-center justify-center flex-wrap | gap-1.5">
+<ul class="flex items-center justify-center flex-wrap | space-x-1.5">
 	<li>
 		<a class="icon-whatsapp | block | dark:text-gray-900 text-lg | border border-gray-200 dark:border-transparent rounded-full | p-1.5 | bg-white dark:bg-dt-text-light-color | hover:text-title-color hover:border-gray-300 dark:hover:bg-dt-text-color hover:scale-110 | focus:text-title-color focus:border-gray-300 dark:focus:bg-dt-text-color focus:outline-none | transition transform ease-in-out duration-50" href="#" target="_blank" title="Whatsapp"></a>
 	</li>
