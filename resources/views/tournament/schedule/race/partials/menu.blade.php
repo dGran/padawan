@@ -16,7 +16,7 @@
             <i class="icon-race text-3xl sm:text-4xl"></i>
             <span class="uppercase text-xxxs lg:text-xxs mt-1 lg:mt-1.5">Carrera</span>
         </button>
-        <button class="flex flex-col items-center space-x-1 lg:space-x-1.5 mb-2 md:mb-3 | {{ $op == 'carrera' ? 'text-'.$color.'-600 dark:text-'.$color.'-400 | pointer-events-none' : 'text-edgray-700 dark:text-edgray-400 | hover:text-edgray-600 dark:hover:text-white | focus:text-edgray-600 dark:focus:text-white' }} focus:outline-none" wire:click="changeTab('carrera')">
+        <button class="flex flex-col items-center space-x-1 lg:space-x-1.5 mb-2 md:mb-3 | {{ $op == 'reclamaciones' ? 'text-'.$color.'-600 dark:text-'.$color.'-400 | pointer-events-none' : 'text-edgray-700 dark:text-edgray-400 | hover:text-edgray-600 dark:hover:text-white | focus:text-edgray-600 dark:focus:text-white' }} focus:outline-none" wire:click="changeTab('reclamaciones')">
             <i class="icon-reclamation text-3xl sm:text-4xl"></i>
             <span class="uppercase text-xxxs lg:text-xxs mt-1 lg:mt-1.5">Reclamaciones</span>
         </button>

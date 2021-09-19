@@ -20,6 +20,9 @@
                 @case('carrera')
                     @include('tournament.schedule.race.race')
                     @break
+                @case('reclamaciones')
+                    @include('tournament.schedule.race.claims')
+                    @break
                 @case('multimedia')
                     @include('tournament.schedule.race.multimedia')
                     @break

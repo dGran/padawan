@@ -4,12 +4,12 @@
             Alsance-Village
         </div>
         <div class="p-6">
-            <div wire:poll.1s class="pb-4">
-                {{-- Current time: {{ $date->format('H:i:s') }} --}}
+{{--             <div wire:poll.1s class="pb-4">
+
                 @foreach ($positions as $key => $position)
                     <li><span class="mr-3">Pos. {{ $key }}</span>{{ $position['name'] }}</li>
                 @endforeach
-            </div>
+            </div> --}}
             Lorem, ipsum dolor sit amet consectetur adipisicing, elit. Accusamus sit, dignissimos labore quaerat a soluta, libero unde quibusdam voluptatum rem maiores iusto magni expedita necessitatibus? Molestiae cupiditate minus dignissimos perspiciatis.
         </div>
 
