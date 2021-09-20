@@ -185,18 +185,18 @@ module.exports = (isProd) => ({
     ],
     variants: {
         extend: {
-            borderColor: ['autofill', 'dark', 'group-focus', 'active'],
-            borderWidth: ['dark', 'hover', 'focus'],
-            backgroundColor: ['active'],
+            borderColor: ['autofill', 'dark', 'hover', 'focus', 'group-hover', 'group-focus', 'active'],
+            borderWidth: ['dark', 'hover', 'focus', 'group-hover', 'group-focus'],
+            backgroundColor: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
             boxShadow: ['dark'],
             display: ['dark'],
-            fontWeight: ['hover', 'focus'],
+            fontWeight: ['hover', 'focus', 'group-hover', 'group-focus'],
             shadowFill: ['autofill', 'dark'], // Enable variants.
             textFill: ['autofill', 'dark'], // Enable variants.
-            opacity: ['group-focus', 'disabled'],
+            opacity: ['hover', 'focus', 'group-hover', 'group-focus', 'disabled'],
             scrollbar: ['dark', 'rounded'],
-            scale: ['active', 'group-hover'],
-            pointerEvents: ['hover', 'focus'],
+            scale: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
+            pointerEvents: ['hover', 'focus', 'group-hover', 'group-focus'],
         },
     },
 })
