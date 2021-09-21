@@ -1,4 +1,6 @@
-<div class="flex items-center overflow-x-auto | text-sm lg:text-normal | text-{{ $color }}-100 dark:text-{{ $color }}-200 | -mx-6 md:-mx-0 py-2 my-1 | scrollbar-thin thinest scrollbar-thumb-{{ $color }}-600 scrollbar-track-{{ $color }}-700 hover:scrollbar-thumb-{{ $color }}-500 dark:scrollbar-thumb-{{ $color }}-800 dark:scrollbar-track-{{ $color }}-900 dark:hover:scrollbar-thumb-{{ $color }}-700 scrollbar-thumb-rounded-full">
+<div class="flex items-center space-x-2 | text-sm lg:text-normal | text-{{ $color }}-100 dark:text-{{ $color }}-200 | -mx-6 md:-mx-0 py-2 my-1 | scrollbar-thin thinest scrollbar-thumb-{{ $color }}-600 scrollbar-track-{{ $color }}-700 hover:scrollbar-thumb-{{ $color }}-500 dark:scrollbar-thumb-{{ $color }}-800 dark:scrollbar-track-{{ $color }}-900 dark:hover:scrollbar-thumb-{{ $color }}-700 scrollbar-thumb-rounded-full" style="white-space:nowrap;
+overflow: scroll;
+-webkit-overflow-scrolling: touch;">
 
 
     @if ($activeTab === 'Dashboard')
