@@ -30,6 +30,11 @@
     <body
         class="bg-gray-50 dark:bg-dt-darker | font-sans | text-text-color dark:text-dt-text-color | text-sm md:text-normal | subpixel-antialiased | scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
 
+        <!-- Loader -->
+        @if (!$wloader)
+            <x-loader></x-loader>
+        @endif
+
         <div class="flex flex-col h-screen">
 
             <!-- Page Heading -->
@@ -54,11 +59,6 @@
                 <footer class="bg-gray-150 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
                     @include('layouts.partials.app.footer')
                 </footer>
-            @endif
-
-            <!-- Loader -->
-            @if (!$wloader)
-                <x-loader></x-loader>
             @endif
 
 
