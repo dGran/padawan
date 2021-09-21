@@ -1,11 +1,11 @@
 <div class="flex items-center space-x-2 | overflow-x-auto | text-sm lg:text-normal | text-{{ $color }}-100 dark:text-{{ $color }}-200 | -mx-6 md:-mx-0 py-2 my-1 | scrollbar-thin thinest scrollbar-thumb-{{ $color }}-600 scrollbar-track-{{ $color }}-700 hover:scrollbar-thumb-{{ $color }}-500 dark:scrollbar-thumb-{{ $color }}-800 dark:scrollbar-track-{{ $color }}-900 dark:hover:scrollbar-thumb-{{ $color }}-700 scrollbar-thumb-rounded-full">
 
 
-    {{-- @if ($activeTab === 'Dashboard') --}}
-        {{-- <span class="min-w-max | bg-{{ $color }}-100 dark:bg-{{ $color }}-100 | text-{{ $color }}-800 | px-3 py-1.5 | rounded-md | font-condensed | cursor-not-allowed">Dashboard</span> --}}
-    {{-- @else --}}
+    @if ($activeTab === 'Dashboard')
+        <span class="min-w-max | bg-{{ $color }}-100 dark:bg-{{ $color }}-100 | text-{{ $color }}-800 | px-3 py-1.5 | rounded-md | font-condensed | cursor-not-allowed">Dashboard</span>
+    @else
         <a class="min-w-max | bg-{{ $color }}-600 dark:bg-{{ $color }}-800 | px-3 py-1.5 | rounded-md | font-condensed | hover:bg-{{ $color }}-500 dark:hover:bg-{{ $color }}-700 | focus:bg-{{ $color }}-500 dark:focus:bg-{{ $color }}-700 focus:outline-none" href="{{ route('tournament.dashboard') }}">Dashboard</a>
-    {{-- @endif --}}
+    @endif
 
     @if ($activeTab === 'Stats')
         <span class="min-w-max | bg-{{ $color }}-100 dark:bg-{{ $color }}-100 | text-{{ $color }}-800 | px-3 py-1.5 | rounded-md | font-condensed | cursor-not-allowed">Pre-Qualy</span>
