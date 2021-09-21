@@ -32,11 +32,6 @@
 
         <div class="flex flex-col h-screen">
 
-            <!-- Loader -->
-            @if (!$wloader)
-                <x-loader></x-loader>
-            @endif
-
             <!-- Page Heading -->
             <header class="bg-white dark:bg-dt-dark | border-b border-border-color dark:border-dt-border-color | fixed w-full z-50 | select-none">
                 @include('layouts.partials.app.navigation')
@@ -59,6 +54,11 @@
                 <footer class="bg-gray-150 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
                     @include('layouts.partials.app.footer')
                 </footer>
+            @endif
+
+            <!-- Loader -->
+            @if (!$wloader)
+                <x-loader></x-loader>
             @endif
 
 
