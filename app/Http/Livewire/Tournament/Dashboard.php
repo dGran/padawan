@@ -9,7 +9,7 @@ class Dashboard extends Component
     public function render()
     {
         return view('tournament.dashboard')
-            ->layout('layouts.app', ['breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 0]);
+            ->layout('layouts.app', ['breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 1]);
     }
 
 }
