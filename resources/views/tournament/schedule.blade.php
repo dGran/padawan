@@ -73,7 +73,7 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 | cursor-pointer">
 
-                <a class="block | focus:outline-none group bg-white dark:bg-dt-dark | border border-border-color dark:border-dt-border-color | p-4 | rounded-md | hover:border-gray-300 dark:hover:border-edgray-600 | hover:bg-border-color dark:hover:bg-dt-border-color | focus:border-gray-300 dark:focus:border-edgray-600 | focus:bg-border-color dark:focus:bg-dt-border-color" href="{{ route('tournament.race', 'op=carrera', 'color=edblue') }}">
+                <a class="block | focus:outline-none group bg-white dark:bg-dt-dark | border border-border-color dark:border-dt-border-color | p-4 | rounded-md | hover:border-gray-300 dark:hover:border-edgray-600 | hover:bg-border-color dark:hover:bg-dt-border-color | focus:border-gray-300 dark:focus:border-edgray-600 | focus:bg-border-color dark:focus:bg-dt-border-color" href="{{ route('tournament.race', ['op=carrera', 'color=edblue']) }}">
                     <div class="flex items-start justify-between">
                         <div class="flex flex-col items-center | font-condensed | mr-3 pr-3 | border-r border-border-color dark:border-dt-border-color | text-rose-600 dark:text-edyellow-600">
                             <p class="text-5xl font-bold">
@@ -203,10 +203,6 @@
 
             </div>
 
-
-
-{{--             <x-link href="{{ route('tournament.race', 'color=edblue') }}">Carrera 1</x-link>
-            <x-link href="{{ route('tournament.race', 'op=qualy', 'color=edblue') }}">Carrera 1 - Qualy</x-link> --}}
         </section>
 
     </x-container>
