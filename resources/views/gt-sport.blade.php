@@ -4,7 +4,8 @@
 			<x-container class="py-8 text-white">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-                        <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0 order-last md:order-first">
+                    	<img src="{{ asset('img/banner_sport.jpeg') }}" alt="">
+{{--                         <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0 order-last md:order-first">
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold">
                                 Gran Turismo Sport
                             </p>
@@ -17,7 +18,7 @@
                             <p class="text-red-200 | text-normal md:text-base | pt-6">
                                 Lorem, ipsum dolor sit amet consectetur adipisicing, elit. Excepturi laboriosam cupiditate fugit explicabo incidunt! Error nemo, cupiditate, sapiente molestiae necessitatibus aperiam numquam debitis amet veniam blanditiis, veritatis exercitationem, consequuntur et?
                             </p>
-                        </div>
+                        </div> --}}
 
                         <div class="flex justify-center">
 							<img src="https://www.gran-turismo.com/common/images/gtsport/manual/logo_gts.svg" alt="" class="h-40 md:h-52">
@@ -37,7 +38,7 @@
 			<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-4">
 
 				<div class="bg-white dark:bg-dt-dark p-2 rounded-lg shadow-lg">
-					<img src="https://www.gran-turismo.com/images/c/i1LtqBH30RQlV.jpg" alt="" class="w-full md:h-48 md:w-auto rounded-t-lg">
+					<img src="{{ asset('img/banner_sport.jpeg') }}" alt="" class="w-full md:h-48 md:w-auto rounded-t-lg object-cover">
 					<h4 class="font-bold text-title-color dark:text-dt-title-color py-1.5 text-center bg-border-color dark:bg-dt-border-color">FIA GT CHAMPIONSHIPS</h4>
 					<div class="flex items-center justify-between rounded-b-lg border border-border-color dark:border-dt-border-color px-4 py-2">
 						<div class="flex items-center">

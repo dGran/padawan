@@ -236,22 +236,25 @@
   content: "\e953";
 }
 .icon-logo:before {
-  content: "\e900";
-}
-.icon-logo2:before {
   content: "\e954";
 }
-.icon-brand-xbox:before {
+.icon-logo2:before {
+  content: "\e900";
+}
+.icon-logo3:before {
   content: "\e955";
 }
-.icon-brand-playstation:before {
+.icon-brand-xbox:before {
   content: "\e956";
 }
-.icon-brand-pcgame:before {
+.icon-brand-playstation:before {
   content: "\e957";
 }
-.icon-fifa:before {
+.icon-brand-pcgame:before {
   content: "\e958";
+}
+.icon-fifa:before {
+  content: "\e959";
 }
 .icon-efootball:before {
   content: "\e90b";
@@ -293,14 +296,14 @@
   content: "\e918";
 }
 .icon-pos-med:before {
-  content: "\e959";
-}
-.icon-pos-del:before {
   content: "\e95a";
 }
-.icon-pos-def:before {
+.icon-pos-del:before {
   content: "\e95b";
 }
-.icon-pos-por:before {
+.icon-pos-def:before {
   content: "\e95c";
+}
+.icon-pos-por:before {
+  content: "\e95d";
 }

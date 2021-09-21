@@ -36,28 +36,28 @@
                         inicio carrera en...
                     </p>
                     <div class="flex items-center justify-center | mt-3 mb-6 | space-x-1 | font-condensed">
-                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color p-3 md:p-4 | rounded-md">
+                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color py-2 px-3 md:py-3 md:px-4 | rounded-md">
                             <div class="w-9 md:w-10 flex flex-col items-center">
                                 <span class="text-3xl md:text-4xl font-bold">9</span>
-                                <span class="text-xxxs md:text-xxs | uppercase | mt-1">dias</span>
+                                <span class="text-xxxs md:text-xxs | uppercase | mt-1.5">dias</span>
                             </div>
                         </div>
-                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color p-3 md:p-4 | rounded-md">
+                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color py-2 px-3 md:py-3 md:px-4 | rounded-md">
                             <div class="w-9 md:w-10 flex flex-col items-center">
                                 <span class="text-3xl md:text-4xl font-bold">13</span>
-                                <span class="text-xxxs md:text-xxs | uppercase | mt-1">horas</span>
+                                <span class="text-xxxs md:text-xxs | uppercase | mt-1.5">horas</span>
                             </div>
                         </div>
-                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color p-3 md:p-4 | rounded-md">
+                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color py-2 px-3 md:py-3 md:px-4 | rounded-md">
                             <div class="w-9 md:w-10 flex flex-col items-center">
                                 <span class="text-3xl md:text-4xl font-bold">5</span>
-                                <span class="text-xxxs md:text-xxs | uppercase | mt-1">minutos</span>
+                                <span class="text-xxxs md:text-xxs | uppercase | mt-1.5">minutos</span>
                             </div>
                         </div>
-                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color p-3 md:p-4 | rounded-md">
+                        <div class="bg-rose-600 dark:bg-edyellow-600 text-dt-title-color dark:text-title-color border border-border-color dark:border-dt-border-color py-2 px-3 md:py-3 md:px-4 | rounded-md">
                             <div class="w-9 md:w-10 flex flex-col items-center">
                                 <span class="text-3xl md:text-4xl font-bold">29</span>
-                                <span class="text-xxxs md:text-xxs | uppercase | mt-1">segundos</span>
+                                <span class="text-xxxs md:text-xxs | uppercase | mt-1.5">segundos</span>
                             </div>
                         </div>
                     </div>

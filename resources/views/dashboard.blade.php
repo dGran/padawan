@@ -54,10 +54,11 @@ background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 3
 
                         <div class="">
                             <div class="flex flex-col justify-center items-center gap-8 h-full">
-                                <i class="icon-fifa text-4xl"></i>
+                                <img src="{{ asset('img/logo.png') }}" alt="Padawan e-sports" class="w-48">
+{{--                                 <i class="icon-fifa text-4xl"></i>
                                 <i class="icon-efootball text-4xl"></i>
-                                <i class="icon-gtracing text-5xl"></i>
-                                <ul class="mt-6 flex items-center gap-8">
+                                <i class="icon-gtracing text-5xl"></i> --}}
+{{--                                 <ul class="mt-6 flex items-center gap-8">
                                     <li>
                                         <i class="icon-brand-playstation text-xl"></i>
                                     </li>
@@ -67,7 +68,7 @@ background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 3
                                     <li>
                                         <i class="icon-brand-pcgame text-3xl"></i>
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
