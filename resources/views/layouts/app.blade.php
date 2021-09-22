@@ -25,6 +25,7 @@
             {{-- Toastr --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <script src="{{ asset('js/app.js') }}" defer></script>
+
     </head>
 
     <body

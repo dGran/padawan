@@ -18,9 +18,12 @@ class CreateProfilesTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
-
             $table->string('avatar')->nullable();
             $table->date('birthdate')->nullable();
+            $table->foreignId('country_id')
+                ->nullable()
+                ->constrained('countries')
+                ->onDelete('cascade');
             $table->string('location')->nullable();
             $table->string('whatsapp')->unique()->nullable();
             $table->string('facebook')->nullable();

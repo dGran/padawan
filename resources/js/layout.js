@@ -1,7 +1,8 @@
 // Loader
 window.addEventListener("load", function() {
     document.getElementById("loader").classList.toggle("loader-off");
-})
+    setTimeout(function() { document.getElementById("loader").style.display = "none"; }, 800);
+});
 
 // Livewire 419
 window.livewire.onError(statusCode => {

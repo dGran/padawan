@@ -15,17 +15,18 @@
                 <!-- Hamburger -->
                 <div class="flex items-center md:hidden">
                     <button @click="open = ! open" class="inline-flex items-center justify-center | font-medium | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
-                        <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <svg class="h-7 w-7" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                             <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center ml-3 md:ml-0">
+                <div class="flex-shrink-0 flex items-center ml-2 md:ml-0">
                     <x-link href="{{ route('dashboard') }}" class="flex items-center | focus:no-underline hover:no-underline">
-                        <i class="icon-logo | text-3xl md:text-4xl"></i>
-                        <span class="text-base md:text-lg font-bold tracking-tighter | text-title-color dark:text-dt-title-color | ml-1.5">{{ config('app.name') }}</span>
+                        {{-- <i class="icon-logo | text-3xl md:text-4xl"></i> --}}
+                        <img src="{{ asset('img/logo2.png') }}" alt="" class="w-auto h-10">
+                        <span class="whitespace-nowrap text-base md:text-lg font-bold tracking-tighter | text-title-color dark:text-dt-title-color | ml-1">{{ config('app.name') }}</span>
                     </x-link>
                 </div>
 
@@ -92,12 +93,12 @@
             <div class="flex items-center">
 
                 <!-- Theme selector -->
-                <input type="text" id="theme-selection" class="hidden">
-                <button class="text-base md:text-lg | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out">
+                <div class="text-xl md:text-2xl | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
+                    <input type="text" id="theme-selection" class="hidden">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
-                </button>
+                </div>
 
                 @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
