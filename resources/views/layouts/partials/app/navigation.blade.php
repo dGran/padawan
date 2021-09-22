@@ -1,8 +1,9 @@
 @php
     $navLinks = [
-        ['route-name' => 'dashboard', 'text' => 'Dashboard', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'gt-sport', 'text' => 'GT Sport', 'class' => '', 'icon' => 'arrow-right'],
         ['route-name' => 'tournament.dashboard', 'text' => 'Torneo de prueba', 'class' => '', 'icon' => 'arrow-right'],
-        ['route-name' => 'cookie-policy', 'text' => 'Política de cookies', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'cookie-policy', 'text' => 'Equipos', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'cookie-policy', 'text' => 'Merchandising', 'class' => '', 'icon' => 'arrow-right'],
         // ['href' => '/managers', 'name' => 'managers', 'text' => 'Managers', 'class' => 'hidden lg:inline-flex', 'icon' => 'icon-coach'],
     ]
 @endphp
@@ -34,7 +35,7 @@
                 <ul class="hidden space-x-6 md:-my-px md:ml-10 md:flex">
 
                     {{-- custom nav-link --}}
-                    <li class="menu-item relative inline-flex items-center px-1 text-sm transition duration-150 ease-in-out cursor-pointer" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
+{{--                     <li class="menu-item relative inline-flex items-center px-1 text-sm transition duration-150 ease-in-out cursor-pointer" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
                         <div @click="open = ! open">
                             <span>Racing</span>
                             <i class="ml-1 fas fa-angle-down transition duration-150 ease-in-out" x-bind:class="{ 'transform -rotate-180' : open, '' : !open }"></i>
@@ -79,7 +80,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> --}}
 
                     @foreach ($navLinks as $link)
                         <x-nav-link :href="route($link['route-name'])">
