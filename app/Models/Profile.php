@@ -11,6 +11,7 @@ class Profile extends Model
 
     protected $fillable = [
         'user_id',
+        'country_id',
         'avatar',
         'birthdate',
         'location',
@@ -32,12 +33,33 @@ class Profile extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function country()
+    {
+        return $this->hasOne('App\Models\Country', 'id', 'country_id');
+    }
+
     public function getAvatarUrl()
     {
         if (!$this->avatar) {
             return "https://eu.ui-avatars.com/api/?name=" . $this->user->name;
         }
         return $this->avatar;
+    }
+
+    public function getCountryName()
+    {
+        if ($this->country_id) {
+            return $this->country->name;
+        }
+        return "N/D";
+    }
+
+    public function getFlag()
+    {
+        if ($this->country_id) {
+            return $this->country->getFlag();
+        }
+        return asset('img/flags/no_flag.png');
     }
 
     public function getFacebookUrl()
@@ -71,4 +93,5 @@ class Profile extends Model
         }
         return false;
     }
+
 }

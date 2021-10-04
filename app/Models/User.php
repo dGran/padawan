@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasRoles;
 
     protected $fillable = [
         'name',
@@ -44,5 +45,17 @@ class User extends Authenticatable
             return "https://eu.ui-avatars.com/api/?name=" . $this->name;
         }
         return $this->profile->getAvatarUrl();
+    }
+
+    public function getFlag()
+    {
+        $no_flag = 'img/flags/no_flag.png';
+        if ($this->profile) {
+            if ($this->profile->country_id) {
+                return $this->profile->country->getFlag();
+            }
+            return $no_flag;
+        }
+        return $no_flag;
     }
 }

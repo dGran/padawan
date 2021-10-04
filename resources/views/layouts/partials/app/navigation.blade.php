@@ -2,7 +2,7 @@
     $navLinks = [
         ['route-name' => 'gt-sport', 'text' => 'GT Sport', 'class' => '', 'icon' => 'arrow-right'],
         ['route-name' => 'tournament.dashboard', 'text' => 'Torneo de prueba', 'class' => '', 'icon' => 'arrow-right'],
-        ['route-name' => 'cookie-policy', 'text' => 'Equipos', 'class' => '', 'icon' => 'arrow-right'],
+        ['route-name' => 'eteams.index', 'text' => 'Equipos e-sports', 'class' => '', 'icon' => 'arrow-right'],
         ['route-name' => 'cookie-policy', 'text' => 'Merchandising', 'class' => '', 'icon' => 'arrow-right'],
         // ['href' => '/managers', 'name' => 'managers', 'text' => 'Managers', 'class' => 'hidden lg:inline-flex', 'icon' => 'icon-coach'],
     ]

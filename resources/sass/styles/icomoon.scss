@@ -25,11 +25,38 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-visible:before {
+.icon-soccer-shape:before {
   content: "\e919";
 }
-.icon-invisible:before {
+.icon-racing-shape:before {
   content: "\e91a";
+}
+.icon-place:before {
+  content: "\e91b";
+}
+.icon-website:before {
+  content: "\e91c";
+}
+.icon-trophy:before {
+  content: "\e91d";
+}
+.icon-video-gallery:before {
+  content: "\e91e";
+}
+.icon-admin:before {
+  content: "\e91f";
+}
+.icon-home:before {
+  content: "\e920";
+}
+.icon-members:before {
+  content: "\e921";
+}
+.icon-visible:before {
+  content: "\e922";
+}
+.icon-invisible:before {
+  content: "\e923";
 }
 .icon-arrow-right:before {
   content: "\e90d";
@@ -62,19 +89,19 @@
   content: "\e903";
 }
 .icon-dice:before {
-  content: "\e91b";
+  content: "\e924";
 }
 .icon-dices:before {
-  content: "\e91c";
+  content: "\e925";
 }
 .icon-replace:before {
-  content: "\e91d";
+  content: "\e926";
 }
 .icon-kick:before {
-  content: "\e91e";
+  content: "\e927";
 }
 .icon-magic:before {
-  content: "\e91f";
+  content: "\e928";
 }
 .icon-gamepad:before {
   content: "\e92f";
@@ -95,166 +122,166 @@
   content: "\e92e";
 }
 .icon-eplayers:before {
-  content: "\e920";
+  content: "\e929";
 }
 .icon-zones:before {
   content: "\e92b";
 }
 .icon-seasons:before {
-  content: "\e921";
-}
-.icon-menus:before {
-  content: "\e922";
-}
-.icon-pages:before {
-  content: "\e923";
-}
-.icon-participants:before {
-  content: "\e924";
-}
-.icon-products:before {
-  content: "\e925";
-}
-.icon-economy:before {
-  content: "\e926";
-}
-.icon-competitions:before {
-  content: "\e927";
-}
-.icon-transfers:before {
-  content: "\e928";
-}
-.icon-roles:before {
-  content: "\e929";
-}
-.icon-players:before {
   content: "\e92a";
 }
-.icon-circuits:before {
+.icon-menus:before {
   content: "\e92c";
 }
-.icon-settings:before {
+.icon-pages:before {
   content: "\e933";
 }
-.icon-tournaments:before {
+.icon-participants:before {
   content: "\e934";
 }
-.icon-dashboard:before {
+.icon-products:before {
   content: "\e935";
 }
-.icon-categories:before {
+.icon-economy:before {
   content: "\e936";
 }
-.icon-db:before {
+.icon-competitions:before {
   content: "\e937";
 }
-.icon-teams:before {
+.icon-transfers:before {
   content: "\e938";
 }
-.icon-rosters:before {
+.icon-roles:before {
   content: "\e939";
 }
-.icon-eteams:before {
+.icon-players:before {
   content: "\e93a";
 }
-.icon-games:before {
+.icon-circuits:before {
   content: "\e93b";
 }
-.icon-platforms:before {
+.icon-settings:before {
   content: "\e93c";
 }
-.icon-users:before {
+.icon-tournaments:before {
   content: "\e93d";
 }
-.icon-tools:before {
+.icon-dashboard:before {
   content: "\e93e";
 }
-.icon-positions:before {
+.icon-categories:before {
   content: "\e93f";
 }
-.icon-add:before {
+.icon-db:before {
   content: "\e940";
 }
-.icon-shortcut:before {
+.icon-teams:before {
   content: "\e941";
 }
-.icon-nothing:before {
+.icon-rosters:before {
   content: "\e942";
 }
-.icon-table:before {
+.icon-eteams:before {
   content: "\e943";
 }
-.icon-filter:before {
+.icon-games:before {
   content: "\e944";
 }
-.icon-view:before {
+.icon-platforms:before {
   content: "\e945";
 }
-.icon-edit:before {
+.icon-users:before {
   content: "\e946";
 }
-.icon-import:before {
+.icon-tools:before {
   content: "\e947";
 }
-.icon-xls:before {
+.icon-positions:before {
   content: "\e948";
 }
-.icon-csv:before {
+.icon-add:before {
   content: "\e949";
 }
-.icon-xlsx:before {
+.icon-shortcut:before {
   content: "\e94a";
 }
-.icon-duplicate:before {
+.icon-nothing:before {
   content: "\e94b";
 }
-.icon-trash:before {
+.icon-table:before {
   content: "\e94c";
 }
-.icon-bookmark-add:before {
+.icon-filter:before {
   content: "\e94d";
 }
-.icon-reclamation:before {
+.icon-view:before {
   content: "\e94e";
+}
+.icon-edit:before {
+  content: "\e94f";
+}
+.icon-import:before {
+  content: "\e950";
+}
+.icon-xls:before {
+  content: "\e951";
+}
+.icon-csv:before {
+  content: "\e952";
+}
+.icon-xlsx:before {
+  content: "\e953";
+}
+.icon-duplicate:before {
+  content: "\e954";
+}
+.icon-trash:before {
+  content: "\e955";
+}
+.icon-bookmark-add:before {
+  content: "\e956";
+}
+.icon-reclamation:before {
+  content: "\e957";
 }
 .icon-pilot:before {
   content: "\e904";
 }
 .icon-race_live:before {
-  content: "\e94f";
+  content: "\e958";
 }
 .icon-multimedia:before {
-  content: "\e950";
+  content: "\e959";
 }
 .icon-qualy:before {
-  content: "\e951";
+  content: "\e95a";
 }
 .icon-race:before {
-  content: "\e952";
+  content: "\e95b";
 }
 .icon-circuit:before {
-  content: "\e953";
+  content: "\e95c";
 }
 .icon-logo:before {
-  content: "\e954";
+  content: "\e95d";
 }
 .icon-logo2:before {
   content: "\e900";
 }
 .icon-logo3:before {
-  content: "\e955";
+  content: "\e95e";
 }
 .icon-brand-xbox:before {
-  content: "\e956";
+  content: "\e95f";
 }
 .icon-brand-playstation:before {
-  content: "\e957";
+  content: "\e960";
 }
 .icon-brand-pcgame:before {
-  content: "\e958";
+  content: "\e961";
 }
 .icon-fifa:before {
-  content: "\e959";
+  content: "\e962";
 }
 .icon-efootball:before {
   content: "\e90b";
@@ -296,14 +323,14 @@
   content: "\e918";
 }
 .icon-pos-med:before {
-  content: "\e95a";
+  content: "\e963";
 }
 .icon-pos-del:before {
-  content: "\e95b";
+  content: "\e964";
 }
 .icon-pos-def:before {
-  content: "\e95c";
+  content: "\e965";
 }
 .icon-pos-por:before {
-  content: "\e95d";
+  content: "\e966";
 }

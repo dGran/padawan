@@ -1,5 +1,4 @@
 <x-app-layout>
-
     @auth
         <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
             <x-container class="">
@@ -81,7 +80,7 @@ background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 3
                 <section class="text-center">
                     <article>
                         <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                            Lorem ipsum dolor sit amet consectetur?
+                            ¿Qué es padawan e-sports?
                         </p>
                         <p class="text-normal md:text-base | pt-4">
                             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est optio ea a maxime voluptate itaque rerum eum mollitia repellat, numquam beatae odio, velit, incidunt. Velit perspiciatis, facilis id commodi possimus?
@@ -150,7 +149,7 @@ background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 3
                 <section class="text-center">
                     <article>
                         <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                            Lorem, ipsum dolor sit amet consectetur?
+                            Estos son nuestros partners
                         </p>
                         <p class="text-normal md:text-base | pt-4">
                             Lorem ipsum dolor, sit, amet consectetur adipisicing elit. Odio itaque, repellat neque error necessitatibus rerum beatae, maxime, minus inventore at quibusdam possimus? Qui, necessitatibus quod ut fugit repudiandae, optio et.

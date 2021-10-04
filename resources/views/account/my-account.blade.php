@@ -35,6 +35,16 @@
                         </p>
                     </div>
                     <div class="mt-1.5 | flex items-center">
+                        <h4 class="font-semibold | text-title-color dark:text-dt-title-color">Nacionalidad:</h4>
+                        <div class="ml-2.5 overflow-ellipsis overflow-hidden | flex items-center">
+                            @if ($user->profile->country_id)
+                                <img src="{{ $user->profile->getFlag() }}" alt="{{ $user->profile->getCountryName() }}" class="w-6 object-cover rounded mr-2">
+                                <p>{{ $user->profile->getCountryName() }}</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="mt-1.5 | flex items-center">
                         <h4 class="font-semibold | text-title-color dark:text-dt-title-color">Lugar de residencia:</h4>
                         <p class="ml-2.5 overflow-ellipsis overflow-hidden">
                             @if ($user->profile->location)

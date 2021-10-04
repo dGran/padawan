@@ -24,6 +24,7 @@ class CreateNotificationsTable extends Migration
                 ->onDelete('cascade');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
+            $table->text('link')->nullable();
             $table->boolean('read')->default(true);
             $table->timestamps();
         });

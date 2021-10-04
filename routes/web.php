@@ -12,6 +12,9 @@ use App\Http\Livewire\Tournament\Stat;
 use App\Http\Livewire\Tournament\Participant;
 use App\Http\Livewire\Tournament\Normative;
 use App\Http\Livewire\Tournament\Race;
+use App\Http\Livewire\ETeams\ETeamList;
+use App\Http\Livewire\ETeams\ETeamCreate;
+use App\Http\Livewire\ETeams\ETeam;
 
 Route::get('/', function () {
     return view('dashboard');
@@ -53,6 +56,13 @@ Route::group(['prefix' => 'nombre-del-torneo'], function () {
     //     Route::get('/carrera', Race::class)->name('tournament.race.race');
     //     Route::get('/multimedia', Race::class)->name('tournament.race.multimedia');
     // });
+});
+
+// eteams routes
+Route::group(['prefix' => 'equipos-esports'], function () {
+    Route::get('/', ETeamList::class)->name('eteams.index');
+    Route::get('/registro', ETeamCreate::class)->name('eteams.create')->middleware('auth');
+    Route::get('/{slug}', ETeam::class)->name('eteams.eteam');
 });
 
 // test

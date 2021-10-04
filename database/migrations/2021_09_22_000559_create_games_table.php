@@ -19,6 +19,7 @@ class CreateGamesTable extends Migration
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
             $table->boolean('racing')->default(0);
+            $table->boolean('allow_eteams')->default(1);
             $table->string('slug');
         });
     }

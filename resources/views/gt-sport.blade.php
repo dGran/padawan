@@ -4,7 +4,7 @@
 			<x-container class="py-8 text-white">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-                    	<img src="{{ asset('img/banner_sport.jpeg') }}" alt="">
+                    	<img src="{{ asset('img/banner-gt-sport.jpeg') }}" alt="">
 {{--                         <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0 order-last md:order-first">
                             <p class="text-2xl md:text-3xl | font-raleway font-extrabold">
                                 Gran Turismo Sport

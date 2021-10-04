@@ -22,6 +22,17 @@
             <x-input wire:model="birthdate" id="birthdate" class="block mt-0.5 w-full lg:w-3/6" type="date" name="birthdate" :value="old('birthdate')" placeholder="Escribe tu fecha de nacimiento" />
         </div>
         <div>
+            <x-label for="country_id" :value="__('Nacionalidad')" class="capitalize" />
+            <select wire:model="country_id" id="country_id" class="block mt-0.5 w-full lg:w-3/6 | appearance-none | rounded | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 | placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-200 dark:hover:border-gray-600 | focus:outline-none focus:border-gray-300 dark:focus:border-gray-500" name="country_id" :value="old('country_id')" placeholder="Selecciona tu nacionalidad" />
+                <option value="">N/D</option>
+                @foreach ($countries as $country)
+                    <option value="{{ $country->id }}">
+                        {{ $country->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div>
             <x-label for="location" :value="__('Lugar residencia')" class="capitalize" />
             <x-input wire:model="location" id="location" class="block mt-0.5 w-full lg:w-3/6" type="text" name="location" :value="old('location')" placeholder="Escribe tu lugar de residencia" />
         </div>

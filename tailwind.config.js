@@ -185,18 +185,19 @@ module.exports = (isProd) => ({
     ],
     variants: {
         extend: {
+            backgroundColor: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
             borderColor: ['autofill', 'dark', 'hover', 'focus', 'group-hover', 'group-focus', 'active'],
             borderWidth: ['dark', 'hover', 'focus', 'group-hover', 'group-focus'],
-            backgroundColor: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
             boxShadow: ['dark'],
             display: ['dark'],
             fontWeight: ['hover', 'focus', 'group-hover', 'group-focus'],
-            shadowFill: ['autofill', 'dark'], // Enable variants.
-            textFill: ['autofill', 'dark'], // Enable variants.
             opacity: ['hover', 'focus', 'group-hover', 'group-focus', 'disabled'],
-            scrollbar: ['dark', 'rounded'],
-            scale: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
             pointerEvents: ['hover', 'focus', 'group-hover', 'group-focus'],
+            scale: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
+            scrollbar: ['dark', 'rounded'],
+            shadowFill: ['autofill', 'dark'], // Enable variants.
+            textColor: ['group-hover', 'group-focus'],
+            textFill: ['autofill', 'dark'], // Enable variants.
         },
     },
 })

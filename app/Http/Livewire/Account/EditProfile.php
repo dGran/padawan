@@ -5,18 +5,21 @@ namespace App\Http\Livewire\Account;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\User;
+use App\Models\Country;
 
 class EditProfile extends Component
 {
     use WithFileUploads;
 
-    public $user, $name, $email, $email_verified_at, $avatar, $birthdate, $location, $whatsapp, $facebook, $instagram, $twitter, $twitch, $discord, $xbox_id, $ps_id, $origin_id, $steam_id, $notifications;
+    public $user, $name, $email, $email_verified_at, $avatar, $birthdate, $country_id, $location, $whatsapp, $facebook, $instagram, $twitter, $twitch, $discord, $xbox_id, $ps_id, $origin_id, $steam_id, $notifications;
     public $photo;
+    public $countries;
 
     public function mount()
     {
         $this->user = User::find(auth()->user()->id);
         $this->resetFields();
+        $this->countries = Country::orderby('name')->get();
     }
 
     public function render()
@@ -32,6 +35,7 @@ class EditProfile extends Component
         $this->email_verified_at = $this->user->email_verified_at;
         $this->avatar = $this->user->profile->avatar;
         $this->birthdate = $this->user->profile->birthdate;
+        $this->country_id = $this->user->profile->country_id;
         $this->location = $this->user->profile->location;
         $this->whatsapp = $this->user->profile->whatsapp;
         $this->facebook = $this->user->profile->facebook;
@@ -67,6 +71,7 @@ class EditProfile extends Component
         $profile = $this->user->profile;
 
         $validatedProfileData['birthdate'] = $this->birthdate ?: null;
+        $validatedProfileData['country_id'] = $this->country_id ?: null;
         $validatedProfileData['location'] = $this->location ?: null;
         $profile->fill($validatedProfileData);
 
