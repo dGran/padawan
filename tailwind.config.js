@@ -184,6 +184,7 @@ module.exports = (isProd) => ({
         require('tailwind-scrollbar'),
     ],
     variants: {
+        cursor: ['responsive', 'hover', 'focus', 'disabled'],
         extend: {
             backgroundColor: ['active', 'hover', 'focus', 'group-hover', 'group-focus'],
             borderColor: ['autofill', 'dark', 'hover', 'focus', 'group-hover', 'group-focus', 'active'],

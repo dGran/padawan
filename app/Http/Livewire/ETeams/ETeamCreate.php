@@ -12,12 +12,16 @@ use App\Models\Country;
 
 class ETeamCreate extends Component
 {
+
+    public $paso = 1;
     public $user, $users, $games, $countries;
 
-    public $game_selected, $gameFilterName;
-    public $country_selected, $countryFilterName;
-
+    public $formDisabled;
     public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
+
+    protected $queryString = [
+        'paso' => ['except' => 1],
+    ];
 
     public function initialize()
     {
@@ -36,6 +40,11 @@ class ETeamCreate extends Component
         $twitter = null;
         $twitch = null;
         $youtube = null;
+    }
+
+    public function selectGame($id)
+    {
+        $this->game_id = $id;
     }
 
     public function store()
@@ -75,44 +84,13 @@ class ETeamCreate extends Component
         $this->short_name = strtoupper($this->short_name);
     }
 
-    public function changeGame($id)
+    public function checkForm()
     {
-        if ($id) {
-            $this->game_selected = Game::find($id);
-            if ($this->game_selected) {
-                $this->game_id = $this->game_selected->id;
-                $this->gameFilterName = null;
-            } else {
-                $this->game_id = null;
-            }
+        if (!$this->game_id || !$this->name || !$this->short_name) {
+            $this->formDisabled = true;
         } else {
-            $this->game_id = null;
+            $this->formDisabled = false;
         }
-    }
-
-    public function filterGames()
-    {
-        $this->games = Game::name($this->gameFilterName)->where('allow_eteams', true)->orderBy('name', 'asc')->get();
-    }
-
-    public function changeCountry($id)
-    {
-        if ($id) {
-            $this->country_selected = Country::find($id);
-            if ($this->country_selected) {
-                $this->country_id = $this->country_selected->id;
-                $this->countryFilterName = null;
-            } else {
-                $this->country_id = null;
-            }
-        } else {
-            $this->country_id = null;
-        }
-    }
-
-    public function filterCountries()
-    {
-        $this->countries = Country::name($this->countryFilterName)->orderBy('name', 'asc')->get();
     }
 
     public function mount()
@@ -125,6 +103,8 @@ class ETeamCreate extends Component
 
     public function render()
     {
+        $this->checkForm();
+
         return view('eteams.create')
             ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
