@@ -24,10 +24,20 @@
                 </div>
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center ml-2 md:ml-0">
-                    <x-link href="{{ route('dashboard') }}" class="flex items-center | focus:no-underline hover:no-underline">
+                    <x-link href="{{ route('dashboard') }}" class="group | flex items-center | focus:no-underline hover:no-underline">
                         {{-- <i class="icon-logo | text-3xl md:text-4xl"></i> --}}
                         <img src="{{ asset('img/logo2.png') }}" alt="" class="w-auto h-10">
-                        <span class="whitespace-nowrap text-base md:text-lg font-bold tracking-tighter | text-title-color dark:text-dt-title-color | ml-1">{{ config('app.name') }}</span>
+                        <p class="whitespace-nowrap font-ubuntuCondensed text-lg md:text-xl font-bold | ml-1">
+                            @php
+                                $appName = explode(' ', config('app.name'));
+                            @endphp
+                            <span class="text-title-color dark:text-dt-title-color | group-hover:text-black dark:group-hover:text-white | group-focus:text-black dark:group-focus:text-white">
+                                {{ $appName[0] }}
+                            </span>
+                            <span class="text-edblue-500 dark:text-edblue-400 | group-hover:text-edblue-600 dark:group-hover:text-edblue-300 | group-focus:text-edblue-600 dark:group-focus:text-edblue-300">
+                                {{ $appName[1] }}
+                            </span>
+                        </p>
                     </x-link>
                 </div>
 

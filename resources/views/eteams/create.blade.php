@@ -14,14 +14,21 @@
 
     <x-container>
 
-        @switch($paso)
-            @case(1)
-                @include('eteams.create.step1')
-                @break
-            @case(2)
-                @include('eteams.create.step2')
-                @break
-        @endswitch
+		<div class="max-w-full md:max-w-2xl mx-auto | my-8">
+			<h4 class="text-xl lg:text-2xl text-title-color dark:text-white | font-raleway font-extrabold | tracking-wide | mb-6">
+			    Registra tu equipo e-sports
+			</h4>
+
+	        @switch($step)
+	            @case(1)
+	                @include('eteams.create.step1')
+	                @break
+	            @case(2)
+	                @include('eteams.create.step2')
+	                @break
+	        @endswitch
+
+		</div>
 
     </x-container>
 </div>

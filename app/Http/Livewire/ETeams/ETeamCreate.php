@@ -13,15 +13,11 @@ use App\Models\Country;
 class ETeamCreate extends Component
 {
 
-    public $paso = 1;
+    public $step = 1;
     public $user, $users, $games, $countries;
 
     public $formDisabled;
     public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
-
-    protected $queryString = [
-        'paso' => ['except' => 1],
-    ];
 
     public function initialize()
     {
@@ -40,6 +36,16 @@ class ETeamCreate extends Component
         $twitter = null;
         $twitch = null;
         $youtube = null;
+    }
+
+    public function changeStep($current, $next)
+    {
+        $this->step = $current;
+        if ($next) {
+            $this->step++;
+        } else {
+            $this->step--;
+        }
     }
 
     public function selectGame($id)

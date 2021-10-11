@@ -23,6 +23,7 @@ module.exports = (isProd) => ({
             fjalla: ['Fjalla One', 'sans-serif'],
             raleway: ['Raleway', 'sans-serif'],
             miriam: ['Miriam Libre', 'sans-serif'],
+            ubuntuCondensed: ['Ubuntu Condensed', 'sans-serif'],
         },
         extend: {
             boxShadow: {
