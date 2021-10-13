@@ -65,7 +65,7 @@
 </x-card>
 
 <div class="mt-3 flex items-start justify-between">
-    <div class="">
+    <div class="text-xxs md:text-xs">
         * Campos obligatorios
     </div>
     <x-button class="text-center text-normal lg:text-base" disabled="{{ $step3_disabled }}" wire:click="changeStep(2, true)">
