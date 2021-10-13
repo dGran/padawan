@@ -29,7 +29,7 @@
 
         <div>
             <x-label for="short_name" :value="__('* Nombre corto')" />
-            <x-input id="short_name" wire:model="short_name" wire:change="transformShortName" maxlength="3" class="block sm:mt-1 w-full" type="text" placeholder="Nombre corto del equipo" />
+            <x-input id="short_name" wire:model="short_name" wire:keyup="checkShortName" wire:change="transformShortName" maxlength="3" class="block sm:mt-1 w-full" type="text" placeholder="Nombre corto del equipo" />
             @if ($short_name && !$short_name_available)
                 <p class="text-red-400 | mt-1 | text-xxs md:text-xs">El nombre corto ya está registrado</p>
             @endif
