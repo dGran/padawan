@@ -14,10 +14,10 @@ class ETeamCreate extends Component
 {
 
     public $step = 1;
+    public $step2_disabled = true, $step3_disabled = true, $step4_disabled = true;
     public $user, $users, $games, $countries;
-
-    public $formDisabled;
     public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
+    public $name_available, $short_name_available;
 
     public function initialize()
     {
@@ -48,9 +48,61 @@ class ETeamCreate extends Component
         }
     }
 
+    public function checkSteps()
+    {
+        if (!$this->game_id) {
+            $this->step2_disabled = true;
+        } else {
+            $this->step2_disabled = false;
+        }
+
+        if (!$this->name || !$this->short_name || !$this->checkName() || !$this->checkShortName()) {
+            $this->step3_disabled = true;
+        } else {
+            if (!$this->step2_disabled) {
+                $this->step3_disabled = false;
+            } else {
+                $this->step3_disabled = true;
+            }
+        }
+
+        if (!$this->step3_disabled) {
+            $this->step4_disabled = false;
+        } else {
+            $this->step4_disabled = true;
+        }
+    }
+
     public function selectGame($id)
     {
         $this->game_id = $id;
+    }
+
+    public function checkName()
+    {
+        $matches = Team_Esport::where('name', $this->name)->count();
+        if (!$matches) {
+            $this->name_available = true;
+            return true;
+        }
+        $this->name_available = false;
+        return false;
+    }
+
+    public function checkShortName()
+    {
+        $matches = Team_Esport::where('short_name', $this->short_name)->count();
+        if (!$matches) {
+            $this->short_name_available = true;
+            return true;
+        }
+        $this->short_name_available = false;
+        return false;
+    }
+
+    public function transformShortName()
+    {
+        $this->short_name = strtoupper($this->short_name);
     }
 
     public function store()
@@ -85,20 +137,6 @@ class ETeamCreate extends Component
         return redirect()->route('eteams.eteam', $eteam->slug);
     }
 
-    public function transformShortName()
-    {
-        $this->short_name = strtoupper($this->short_name);
-    }
-
-    public function checkForm()
-    {
-        if (!$this->game_id || !$this->name || !$this->short_name) {
-            $this->formDisabled = true;
-        } else {
-            $this->formDisabled = false;
-        }
-    }
-
     public function mount()
     {
         $this->user = auth()->user();
@@ -109,7 +147,7 @@ class ETeamCreate extends Component
 
     public function render()
     {
-        $this->checkForm();
+        $this->checkSteps();
 
         return view('eteams.create')
             ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);

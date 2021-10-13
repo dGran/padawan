@@ -26,6 +26,12 @@
 	            @case(2)
 	                @include('eteams.create.step2')
 	                @break
+                @case(3)
+                    @include('eteams.create.step3')
+                    @break
+                @case(4)
+                    @include('eteams.create.step4')
+                    @break
 	        @endswitch
 
 		</div>
