@@ -26,6 +26,64 @@
 	@endforeach
 </x-card>
 
+@if ($game_id)
+	<h4 class="text-base lg:text-lg | font-raleway font-bold | tracking-wide | mt-4">
+		Logo & Banner
+	</h4>
+
+	<x-card class="my-1.5 p-4 md:p-6 | text-xs lg:text-sm">
+		<div class="mt-2 mb-6 rounded-md relative select-none">
+			<p class="pb-3">Vista preliminar</p>
+			<img src="{{ $banner ? $banner->temporaryUrl() : $banner_preview }}" alt="" class="w-full h-32 sm:h-40 md:h-48 lg:h-64 xl:h-80 object-cover rounded-md | border border-border-color dark:border-dt-border-color">
+			<div class="absolute h-full flex items-center" style="top: 50%; left: 50%; transform: translate(-50%, -35%);">
+				<img src="{{ $logo ? $logo->temporaryUrl() : $logo_preview }}" alt="" class="w-28 h-28 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-60 lg:h-60 xl:w-72 xl:h-72 | rounded-full | bg-white | object-contain | p-0.5 | shadow-2xl">
+			</div>
+		</div>
+
+		<div class="flex flex-col space-y-6">
+		    <div>
+		    	<div class="flex items-center justify-between">
+	    			<h4 class="text-normal lg:text-base | font-raleway font-bold | tracking-wide">
+						Logo
+					</h4>
+					@if ($logo)
+		    			<x-link wire:click="deleteLogo" class="cursor-pointer"><i class="fas fa-times"></i></x-link>
+		    		@else
+		    			<span class="text-xxs md:text-xs | text-text-light-color dark:text-dt-text-lighter-color">logo por defecto</span>
+					@endif
+		    	</div>
+			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
+			        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+			            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+			        </svg>
+			        <span class="">Selecciona archivo...</span>
+			        <input type='file' class="hidden" wire:model="logo" wire:change="uploadLogo"/>
+			    </label>
+		    </div>
+
+		    <div>
+		    	<div class="flex items-center justify-between">
+	    			<h4 class="text-normal lg:text-base | font-raleway font-bold | tracking-wide">
+						Banner
+					</h4>
+					@if ($banner)
+		    			<x-link wire:click="deleteBanner" class="cursor-pointer"><i class="fas fa-times"></i></x-link>
+		    		@else
+		    			<span class="text-xxs md:text-xs | text-text-light-color dark:text-dt-text-lighter-color">banner por defecto</span>
+					@endif
+		    	</div>
+			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
+			        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+			            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+			        </svg>
+			        <span class="">Selecciona archivo...</span>
+			        <input type='file' class="hidden" wire:model="banner" wire:change="uploadBanner"/>
+			    </label>
+		    </div>
+		</div>
+	</x-card>
+@endif
+
 <div class="mt-3 flex items-center justify-end">
 	<x-button class="text-center text-normal lg:text-base" disabled="{{ $step2_disabled }}" wire:click="changeStep(1, true)">
 	    {{ __('Continuar') }}

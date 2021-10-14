@@ -9,15 +9,21 @@ use App\Models\ETeamUser;
 use App\Models\User;
 use App\Models\Game;
 use App\Models\Country;
+use Livewire\WithFileUploads;
 
 class ETeamCreate extends Component
 {
+    use WithFileUploads;
 
     public $step = 1;
     public $step2_disabled = true, $step3_disabled = true, $step4_disabled = true;
+
     public $user, $users, $games, $countries;
-    public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
+
+    public $game_id, $name, $short_name, $logo, $banner, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
+
     public $name_available, $short_name_available;
+    public $banner_preview, $logo_preview;
 
     public function initialize()
     {
@@ -75,7 +81,16 @@ class ETeamCreate extends Component
 
     public function selectGame($id)
     {
-        $this->game_id = $id;
+        $game = Game::find($id);
+        if ($game) {
+            $this->game_id = $game->id;
+            if (!$this->banner) {
+                $this->banner_preview = $game->getBanner();
+            }
+            if (!$this->logo) {
+                $this->logo_preview = $game->getLogo();
+            }
+        }
     }
 
     public function checkName()
@@ -103,6 +118,36 @@ class ETeamCreate extends Component
     public function transformShortName()
     {
         $this->short_name = strtoupper($this->short_name);
+    }
+
+    public function uploadBanner()
+    {
+        $this->validate([
+            'logo' => 'image|max:1024', // 1MB Max
+        ]);
+
+        $this->banner_preview = $this->banner;
+    }
+
+    public function deleteBanner()
+    {
+        $this->banner = null;
+        $this->selectGame($this->game_id);
+    }
+
+    public function uploadLogo()
+    {
+        $this->validate([
+            'logo' => 'image|max:1024', // 1MB Max
+        ]);
+
+        $this->logo_preview = $this->logo;
+    }
+
+    public function deleteLogo()
+    {
+        $this->logo = null;
+        $this->selectGame($this->game_id);
     }
 
     public function store()
