@@ -19,11 +19,24 @@
 
 
 <x-card class="my-1.5 p-4 md:p-6 | text-xs lg:text-sm">
-    {{-- content --}}
+    <div>
+        <x-label for="presentation_video" :value="__('Video presentación (video ID youtube)')"/>
+        <p class="pb-1 | text-text-light-color dark:text-dt-text-light-color | text-xxxs md:text-xxs">Ejemplo. https://www.youtube.com/watch?v=<span class="bg-dt-border-color dark:bg-border-color | text-dt-title-color dark:text-title-color | px-1.5 | rounded | text-xs md:text-sm">xxxxxxx</span></p>
+        <x-input id="presentation_video" wire:model="presentation_video" class="block sm:mt-1 w-full" type="text" placeholder="Video presentación del equipo"/>
+    </div>
+
+    <div class="mt-4">
+        <x-label for="presentation" :value="__('presentación')" class="capitalize" />
+        <span class="pb-1 | text-text-light-color dark:text-dt-text-light-color | text-xxs md:text-xs">Escribe un texto de presentación de tu equipo. Historia, normas, a qué se dedica...</span>
+        <div class="block sm:mt-1 w-full">
+            <x-textarea wire:model="presentation" id="presentation" class="mt-0.5 w-full h-48 | resize-y" placeholder="Texto de presentación del equipo"></x-textarea>
+        </div>
+    </div>
+
 </x-card>
 
 <div class="mt-3 flex items-center justify-end">
-    <x-button class="text-center text-normal lg:text-base" {{-- disabled="{{ $step3_disabled }}" --}} {{-- wire:click="changeStep(3, true)" --}}>
+    <x-button class="text-center text-normal lg:text-base" wire:click="store">
         {{ __('Crear equipo') }}
     </x-button>
 </div>

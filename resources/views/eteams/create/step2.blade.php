@@ -21,7 +21,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
             <x-label for="name" :value="__('* Nombre')" />
-            <x-input id="name" wire:model="name" wire:keyup="checkName" class="block sm:mt-1 w-full" type="text" placeholder="Nombre del equipo" autofocus/>
+            <x-input id="name" wire:model="name" wire:keyup="checkName" class="block sm:mt-1 w-full" type="text" placeholder="Nombre del equipo"/>
             @if ($name && !$name_available)
                 <p class="text-red-400 | mt-1 | text-xxs md:text-xs">El nombre ya está registrado</p>
             @endif

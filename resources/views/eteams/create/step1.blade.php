@@ -27,6 +27,12 @@
 </x-card>
 
 @if ($game_id)
+	<div class="mt-3 flex items-center justify-end">
+		<x-button class="text-center text-normal lg:text-base" disabled="{{ $step2_disabled }}" wire:click="changeStep(1, true)">
+		    {{ __('Continuar') }}
+		</x-button>
+	</div>
+
 	<h4 class="text-base lg:text-lg | font-raleway font-bold | tracking-wide | mt-4">
 		Logo & Banner
 	</h4>

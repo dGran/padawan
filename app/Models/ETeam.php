@@ -12,7 +12,7 @@ class ETeam extends Model
     protected $table = 'eteams';
 
     protected $fillable = [
-        'game_id', 'name', 'short_name', 'logo', 'country_id', 'location', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
+        'game_id', 'name', 'short_name', 'logo', 'banner', 'country_id', 'location', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
     ];
 
     public function game()

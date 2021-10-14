@@ -68,6 +68,8 @@
             @include('cookieConsent::index')
             @include('layouts.partials.toastr')
 
+            @stack('custom-scripts')
+
         </div>
 
     </body>

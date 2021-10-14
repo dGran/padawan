@@ -52,6 +52,18 @@ class ETeamCreate extends Component
         } else {
             $this->step--;
         }
+
+        switch ($this->step) {
+            case 2:
+                $this->emit('focus-step-2');
+                break;
+            case 3:
+                $this->emit('focus-step-3');
+                break;
+            case 4:
+                $this->emit('focus-step-4');
+                break;
+        }
     }
 
     public function checkSteps()
@@ -146,7 +158,7 @@ class ETeamCreate extends Component
 
     public function deleteLogo()
     {
-        $this->logo = null;
+        $this->reset('logo');
         $this->selectGame($this->game_id);
     }
 

@@ -38,3 +38,17 @@
 
     </x-container>
 </div>
+
+@push('custom-scripts')
+	<script>
+	   window.livewire.on('focus-step-2', function () {
+	        $("#name").focus();
+	    });
+	   window.livewire.on('focus-step-3', function () {
+	        $("#whatsapp").focus();
+	    });
+	   window.livewire.on('focus-step-4', function () {
+	        $("#presentation").focus();
+	    });
+	</script>
+@endpush
