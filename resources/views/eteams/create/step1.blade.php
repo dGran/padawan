@@ -59,6 +59,7 @@
 			        <span class="">Selecciona archivo...</span>
 			        <input type='file' class="hidden" wire:model="logo" wire:change="uploadLogo"/>
 			    </label>
+			    @error('logo') <span class="pt-1.5 text-red-400">{{ $message }}</span> @enderror
 		    </div>
 
 		    <div>
@@ -79,6 +80,7 @@
 			        <span class="">Selecciona archivo...</span>
 			        <input type='file' class="hidden" wire:model="banner" wire:change="uploadBanner"/>
 			    </label>
+			    @error('banner') <span class="pt-1.5 text-red-400">{{ $message }}</span> @enderror
 		    </div>
 		</div>
 	</x-card>
