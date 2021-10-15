@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Game;
 use App\Models\Country;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class ETeamCreate extends Component
 {
@@ -25,24 +26,27 @@ class ETeamCreate extends Component
     public $name_available, $short_name_available;
     public $banner_preview, $logo_preview;
 
-    public function initialize()
-    {
-        $game_id = null;
-        $name = null;
-        $short_name = null;
-        $logo = null;
-        $country_id = null;
-        $location = null;
-        $presentation = null;
-        $presentation_video = null;
-        $website = null;
-        $whatsapp = null;
-        $facebook = null;
-        $instagram = null;
-        $twitter = null;
-        $twitch = null;
-        $youtube = null;
-    }
+    public $data;
+
+    // public function initialize()
+    // {
+    //     $game_id = null;
+    //     $name = null;
+    //     $short_name = null;
+    //     $logo = null;
+    //     $banner = null;
+    //     $country_id = null;
+    //     $location = null;
+    //     $presentation = null;
+    //     $presentation_video = null;
+    //     $website = null;
+    //     $whatsapp = null;
+    //     $facebook = null;
+    //     $instagram = null;
+    //     $twitter = null;
+    //     $twitch = null;
+    //     $youtube = null;
+    // }
 
     public function changeStep($current, $next)
     {
@@ -135,41 +139,76 @@ class ETeamCreate extends Component
     public function uploadBanner()
     {
         $this->validate([
-            'logo' => 'image|max:1024', // 1MB Max
+            'banner' => 'mimes:jpeg,png,jpg,gif,svg|max:1024'
+        ],
+        [
+            'banner.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+            'banner.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
         ]);
-
-        $this->banner_preview = $this->banner;
     }
 
     public function deleteBanner()
     {
-        $this->banner = null;
+        $this->reset('banner');
+        $this->resetValidation('banner');
         $this->selectGame($this->game_id);
     }
 
     public function uploadLogo()
     {
         $this->validate([
-            'logo' => 'image|max:1024', // 1MB Max
+            'logo' => 'mimes:jpeg,png,jpg,gif,svg|max:1024'
+        ],
+        [
+            'logo.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+            'logo.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
         ]);
-
-        $this->logo_preview = $this->logo;
     }
 
     public function deleteLogo()
     {
         $this->reset('logo');
+        $this->resetValidation('logo');
         $this->selectGame($this->game_id);
     }
 
-    public function store()
+    public function setDataForValidation()
     {
-        $eteam = Team_Esport::create([
+        $logo = null;
+        if ($this->logo) {
+            $this->validate([
+                'logo' => 'mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ],
+            [
+                'logo.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                'logo.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
+            ]);
+            $fileName = Str::slug($this->name, '-') . '.' . $this->logo->extension();
+            $logo = $this->logo->storeAs('eteams/logos', $fileName, 'public');
+        }
+
+        $banner = null;
+        if ($this->banner) {
+            $this->validate([
+                'banner' => 'mimes:jpeg,png,jpg,gif,svg|max:1024',
+            ],
+            [
+                'banner.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
+                'banner.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
+            ]);
+            $fileName = Str::slug($this->name, '-') . '.' . $this->banner->extension();
+            $banner = $this->banner->storeAs('eteams/banners', $fileName, 'public');
+        }
+
+        $this->data = [
+            'user_id' => $this->user->id,
             'game_id' => $this->game_id,
             'name' => $this->name,
             'short_name' => $this->short_name,
             'country_id' => $this->country_id,
             'location' => $this->location,
+            'logo' => $logo,
+            'banner' => $banner,
             'presentation' => $this->presentation,
             'presentation_video' => $this->presentation_video,
             'website' => $this->website,
@@ -179,19 +218,11 @@ class ETeamCreate extends Component
             'twitter' => $this->twitter,
             'twitch' => $this->twitch,
             'youtube' => $this->youtube,
+            'slug' => Str::slug($this->name, '-'),
             'created_at' => now(),
             'updated_at' => now(),
-            'slug' => Str::slug($this->name, '-'),
-        ]);
+        ];
 
-        $eteamUser = ETeamUser::create([
-            'eteam_id' => $eteam->id,
-            'user_id' => $this->user->id,
-            'owner' => true,
-            'captain' => true,
-        ]);
-
-        return redirect()->route('eteams.eteam', $eteam->slug);
     }
 
     public function mount()
@@ -200,11 +231,13 @@ class ETeamCreate extends Component
         $this->users = User::orderBy('name', 'asc')->get();
         $this->games = Game::where('allow_eteams', true)->orderBy('name', 'asc')->get();
         $this->countries = Country::orderBy('name', 'asc')->get();
+        // $this->initialize();
     }
 
     public function render()
     {
         $this->checkSteps();
+        $this->setDataForValidation();
 
         return view('eteams.create')
             ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);

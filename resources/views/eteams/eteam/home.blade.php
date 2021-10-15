@@ -1,6 +1,6 @@
 <div class="p-4 md:p-6 lg:p-8">
 	@if ($eteam->presentation)
-		<p class="text-center pb-4">{{ $eteam->presentation }}</p>
+		<p class="text-center pb-4">{!! nl2br($eteam->presentation) !!}</p>
 	@endif
 
 	@if ($eteam->presentation_video)

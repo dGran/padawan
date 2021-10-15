@@ -21,7 +21,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
             <x-label for="name" :value="__('* Nombre')" />
-            <x-input id="name" wire:model="name" wire:keyup="checkName" class="block sm:mt-1 w-full" type="text" placeholder="Nombre del equipo"/>
+            <x-input id="name" wire:model="name" wire:keyup="checkName" class="block mt-1.5 w-full" type="text" placeholder="Nombre del equipo"/>
             @if ($name && !$name_available)
                 <p class="text-red-400 | mt-1 | text-xxs md:text-xs">El nombre ya está registrado</p>
             @endif
@@ -29,7 +29,7 @@
 
         <div>
             <x-label for="short_name" :value="__('* Nombre corto')" />
-            <x-input id="short_name" wire:model="short_name" wire:keyup="checkShortName" wire:change="transformShortName" maxlength="3" class="block sm:mt-1 w-full" type="text" placeholder="Nombre corto del equipo" />
+            <x-input id="short_name" wire:model="short_name" wire:keyup="checkShortName" wire:change="transformShortName" maxlength="3" class="block mt-1.5 w-full" type="text" placeholder="Nombre corto del equipo" />
             @if ($short_name && !$short_name_available)
                 <p class="text-red-400 | mt-1 | text-xxs md:text-xs">El nombre corto ya está registrado</p>
             @endif
@@ -39,7 +39,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
         <div>
             <x-label for="country_id" :value="__('País')" />
-            <x-select class="sm:mt-1 w-full" id="country_id">
+            <x-select class="mt-1.5 w-full" id="country_id" wire:model="country_id">
                 <option value="">N/D</option>
                 @foreach ($countries as $country)
                     <option value="{{ $country->id }}">{{ $country->name }}</option>
@@ -49,14 +49,14 @@
 
         <div>
             <x-label for="location" :value="__('Sede')" />
-            <x-input id="location" wire:model="location" class="block sm:mt-1 w-full" type="text" placeholder="Sede del equipo" />
+            <x-input id="location" wire:model="location" class="block mt-1.5 w-full" type="text" placeholder="Sede del equipo" />
         </div>
     </div>
 
     <div class="grid grid-cols-1 gap-6 mt-4">
         <div>
             <x-label for="website" :value="__('website')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-website | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="website" id="website" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Website del equipo" />
             </div>

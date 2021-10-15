@@ -68,7 +68,7 @@ class ETeam extends Model
         if (!$this->logo) {
             return $this->game->getLogo();
         }
-        return $this->logo;
+        return asset($this->logo);
     }
 
     public function getBanner()
@@ -76,6 +76,6 @@ class ETeam extends Model
         if (!$this->banner) {
             return $this->game->getBanner();
         }
-        return $this->banner;
+        return asset($this->banner);
     }
 }

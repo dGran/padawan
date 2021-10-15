@@ -48,45 +48,43 @@
 
 		<div class="flex flex-col space-y-6">
 		    <div>
-		    	<div class="flex items-center justify-between">
-	    			<h4 class="text-normal lg:text-base | font-raleway font-bold | tracking-wide">
-						Logo
-					</h4>
+		    	<div class="flex items-end justify-between flex-nowrap">
+		    		<div>
+	    				<x-label for="short_name" :value="__('Logo')" />
+		    			<p class="pt-0.5 | text-text-light-color dark:text-dt-text-light-color | text-xxxs md:text-xxs">.png, .jpeg, .jpg, .gif o .svg / máx. 1 MB / Recomendado 256x256px</p>
+		    		</div>
 					@if ($logo)
 		    			<x-link wire:click="deleteLogo" class="cursor-pointer"><i class="fas fa-times"></i></x-link>
-		    		@else
-		    			<span class="text-xxs md:text-xs | text-text-light-color dark:text-dt-text-lighter-color">logo por defecto</span>
 					@endif
 		    	</div>
-			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
+			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1.5 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
 			        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 			            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 			        </svg>
 			        <span class="">Selecciona archivo...</span>
-			        <input type='file' class="hidden" wire:model="logo" wire:change="uploadLogo"/>
+			        <input type='file' class="hidden" accept=".jpeg, .png, .jpg, .gif, .svg" wire:model="logo" wire:change="uploadLogo"/>
 			    </label>
-			    @error('logo') <span class="pt-1.5 text-red-400">{{ $message }}</span> @enderror
+			    {{-- @error('logo') <p class="text-red-400 | mt-1 | text-xxs md:text-xs">{{ $message }}</p> @enderror --}}
 		    </div>
 
 		    <div>
-		    	<div class="flex items-center justify-between">
-	    			<h4 class="text-normal lg:text-base | font-raleway font-bold | tracking-wide">
-						Banner
-					</h4>
+		    	<div class="flex items-end justify-between">
+		    		<div>
+						<x-label for="short_name" :value="__('Banner')" />
+		    			<p class="pt-0.5 | text-text-light-color dark:text-dt-text-light-color | text-xxxs md:text-xxs">.png, .jpeg, .jpg, .gif o .svg / máx. 1 MB / Recomendado 1200x500px</p>
+		    		</div>
 					@if ($banner)
 		    			<x-link wire:click="deleteBanner" class="cursor-pointer"><i class="fas fa-times"></i></x-link>
-		    		@else
-		    			<span class="text-xxs md:text-xs | text-text-light-color dark:text-dt-text-lighter-color">banner por defecto</span>
 					@endif
 		    	</div>
-			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
+			    <label class="w-full | flex items-center justify-center space-x-3 | mt-1.5 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
 			        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 			            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
 			        </svg>
 			        <span class="">Selecciona archivo...</span>
-			        <input type='file' class="hidden" wire:model="banner" wire:change="uploadBanner"/>
+			        <input type='file' class="hidden" accept=".jpeg, .png, .jpg, .gif, .svg" wire:model="banner" wire:change="uploadBanner"/>
 			    </label>
-			    @error('banner') <span class="pt-1.5 text-red-400">{{ $message }}</span> @enderror
+			    {{-- @error('banner') <p class="text-red-400 | mt-1 | text-xxs md:text-xs">{{ $message }}</p> @enderror --}}
 		    </div>
 		</div>
 	</x-card>

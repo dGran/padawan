@@ -21,7 +21,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
             <x-label for="whatsapp" :value="__('whatsapp')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-whatsapp | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="whatsapp" id="whatsapp" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Whatsapp del equipo" />
             </div>
@@ -29,7 +29,7 @@
 
         <div>
             <x-label for="twitter" :value="__('twitter')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-twitter | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="twitter" id="twitter" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Twitter del equipo" />
             </div>
@@ -39,7 +39,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
         <div>
             <x-label for="facebook" :value="__('facebook')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-facebook | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="facebook" id="facebook" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Facebook del equipo" />
             </div>
@@ -47,7 +47,7 @@
 
         <div>
             <x-label for="instagram" :value="__('instagram')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-instagram | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="instagram" id="instagram" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Instagram del equipo" />
             </div>
@@ -57,7 +57,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
         <div>
             <x-label for="youtube" :value="__('youtube')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-youtube | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="youtube" id="youtube" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Canal youtube del equipo" />
             </div>
@@ -65,7 +65,7 @@
 
         <div>
             <x-label for="twitch" :value="__('twitch')" class="capitalize" />
-            <div class="relative | block sm:mt-1 w-full">
+            <div class="relative | block mt-1.5 w-full">
                 <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-twitch | text-text-light-color dark:text-dt-text-lighter-color"></span>
                 <x-input wire:model="twitch" id="twitch" class="block mt-0.5 pl-11 w-full" type="text" placeholder="Canal twitch del equipo" />
             </div>
