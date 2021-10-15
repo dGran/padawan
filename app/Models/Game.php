@@ -18,12 +18,12 @@ class Game extends Model
 
     public function getLogo()
     {
-        return asset($this->logo);
+        return Storage::url($this->logo);
     }
 
     public function getBanner()
     {
-        return asset($this->banner);
+        return Storage::url($this->banner);
     }
 
     public function scopeName($query, $value)

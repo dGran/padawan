@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ETeam extends Model
 {
@@ -68,7 +69,7 @@ class ETeam extends Model
         if (!$this->logo) {
             return $this->game->getLogo();
         }
-        return asset($this->logo);
+        return Storage::url($this->logo);
     }
 
     public function getBanner()
@@ -76,6 +77,6 @@ class ETeam extends Model
         if (!$this->banner) {
             return $this->game->getBanner();
         }
-        return asset($this->banner);
+        return Storage::url($this->banner);
     }
 }
