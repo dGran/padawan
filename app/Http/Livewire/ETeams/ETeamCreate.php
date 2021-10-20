@@ -229,6 +229,17 @@ class ETeamCreate extends Component
             'captain' => true,
         ]);
 
+        //send notification with helper
+        $notification_data = [
+            'user_id' => $this->user->id,
+            'from_user_id' => null,
+            'title' => 'Nuevo equipo creado',
+            'content' => 'Tu equipo se ha creado correctamente. </br> Puedes acceder desde el enlace',
+            'link' => Route('eteams.eteam', $eteam->slug),
+            'read' => 0
+        ];
+        storeNotification($notification_data);
+
         return redirect()->route('eteams.eteam', $eteam->slug);
     }
 

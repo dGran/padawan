@@ -58,4 +58,9 @@ class User extends Authenticatable
         }
         return $no_flag;
     }
+
+    public function unreadNotifications()
+    {
+        return Notification::where('user_id', $this->id)->where('read', 0)->count();
+    }
 }

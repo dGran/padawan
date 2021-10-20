@@ -114,7 +114,9 @@
                 @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
                         <i class="far fa-bell"></i>
-                        <span class="absolute top-0 right text-xxs md:text-xs rounded-full w-2 h-2 bg-edyellow-500 animate-ping"></span>
+                        @if (auth()->user()->unreadNotifications() > 0)
+                            <span class="absolute top-0 right-0 -mr-0.5 -mt-0.5 text-xxs md:text-xs rounded-full w-1 h-1 bg-edyellow-500 text-white animate-ping"></span>
+                        @endif
                     </div>
                 @endauth
 

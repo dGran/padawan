@@ -14,7 +14,22 @@
         @include('account.menu', ['activeTab' => 'Notifications'])
 
         <div class="w-full">
-
+            <x-card class="w-full p-4">
+                @foreach ($notifications as $notification)
+                    <div x-data="{ open: false }">
+                        <button x-on:click="open = ! open">
+                            <span class="{{ $notification->read ?: 'font-bold' }}">
+                                {{ $notification->title }}
+                            </span>
+                        </button>
+                        <div x-show="open">
+                            <p>
+                                {!! $notification->content !!}
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </x-card>
         </div>
 
     </section>
