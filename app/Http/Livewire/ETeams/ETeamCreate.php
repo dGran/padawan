@@ -172,7 +172,7 @@ class ETeamCreate extends Component
         $this->selectGame($this->game_id);
     }
 
-    public function setDataForValidation()
+    public function store()
     {
         $logo = null;
         if ($this->logo) {
@@ -200,15 +200,14 @@ class ETeamCreate extends Component
             $banner = $this->banner->storeAs('eteams/banners', $fileName, 'public');
         }
 
-        $this->data = [
-            'user_id' => $this->user->id,
+        $eteam = Team_Esport::create([
             'game_id' => $this->game_id,
             'name' => $this->name,
             'short_name' => $this->short_name,
-            'country_id' => $this->country_id,
-            'location' => $this->location,
             'logo' => $logo,
             'banner' => $banner,
+            'country_id' => $this->country_id,
+            'location' => $this->location,
             'presentation' => $this->presentation,
             'presentation_video' => $this->presentation_video,
             'website' => $this->website,
@@ -221,8 +220,16 @@ class ETeamCreate extends Component
             'slug' => Str::slug($this->name, '-'),
             'created_at' => now(),
             'updated_at' => now(),
-        ];
+        ]);
 
+        $eteamUser = ETeamUser::create([
+            'eteam_id' => $eteam->id,
+            'user_id' => $this->user->id,
+            'owner' => true,
+            'captain' => true,
+        ]);
+
+        return redirect()->route('eteams.eteam', $eteam->slug);
     }
 
     public function mount()
@@ -237,7 +244,6 @@ class ETeamCreate extends Component
     public function render()
     {
         $this->checkSteps();
-        $this->setDataForValidation();
 
         return view('eteams.create')
             ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);

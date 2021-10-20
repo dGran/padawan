@@ -1,22 +1,24 @@
-<div class="relative | bg-white dark:bg-dt-dark p-4 sm:py-8">
-    <div class="flex flex-col items-center">
-        <p class="pt-4 sm:pt-0 text-title-color dark:text-dt-title-color">
-            ¿Deseas crear el equipo?
-        </p>
-    	<p class="py-4 | text-center | text-xxs md:text-xs | text-text-light-color dark:text-dt-text-light-color">
-        	Podrás agregar o modificar cualquier dato posteriormete desde el panel de administración del equipo.
-    	</p>
+<div class="dark:bg-dt-dark p-4 sm:p-6">
+    <div class="sm:flex sm:items-start">
 
-    <div class="mt-2.5 | w-full | flex items-center justify-between space-x-4">
-    	<button class="px-4 py-2 | bg-white dark:bg-dt-dark | rounded | font-semibold text-sm text-title-color dark:text-dt-title-color | hover:bg-border-color dark:hover:bg-dt-border-color | focus:outline-none focus:bg-border-color dark:focus:bg-dt-border-color | transition ease-in-out duration-75 | select-none | cursor-pointer" wire:click="$emit('closeModal')">
-    		No, cancelar
-    	</button>
-	    <x-button wire:click="store">
-	        {{ __('Sí, crear equipo') }}
-	    </x-button>
+        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-base sm:text-lg leading-6 font-medium text-title-color dark:text-dt-title-color" id="modal-title">
+                ¿Deseas crear el equipo?
+            </h3>
+            <div class="mt-2">
+                <p class="text-xs sm:text-sm py-2">
+                    Podrás agregar o modificar cualquier dato posteriormete desde el panel de administración del equipo.
+                </p>
+            </div>
+        </div>
     </div>
+</div>
 
-    </div>
-
-    <i class="fas fa-times | absolute top-0 right-0 mt-2 mr-4 | text-lg | opacity-70 hover:opacity-100 | cursor-pointer" wire:click="$emit('closeModal')"></i>
+<div class="dark:bg-dt-dark border-t border-border-color dark:border-dt-border-color px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+    <x-button type="button" class="w-full inline-flex justify-center | sm:ml-3 sm:w-auto | text-sm sm:text-normal" wire:click="store">
+        {{ __('Sí, crear equipo') }}
+    </x-button>
+    <x-button type="button" color="" class="w-full inline-flex justify-center | mt-3 sm:mt-0 | sm:ml-3 sm:w-auto | text-sm sm:text-normal" @click="open = false">
+        {{ __('No, cancelar') }}
+    </x-button>
 </div>
