@@ -29,4 +29,11 @@ class Notification extends Component
         return $notifications = NotificationModel::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
     }
 
+    public function toggleRead($id)
+    {
+        $notification = NotificationModel::find($id);
+        $notification->read = !$notification->read;
+        $notification->save();
+    }
+
 }

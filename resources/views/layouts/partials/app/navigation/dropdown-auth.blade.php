@@ -18,7 +18,7 @@
         <x-dropdown-link :href="route('notifications')">
             <div class="flex items-center {{ auth()->user()->unreadNotifications() == 0 ?: 'text-edyellow-500' }}">
                 <i class="text-base fas fa-bell w-6 mr-2 text-center"></i>
-                <span>{{ __('Notificaciones') }} {{ auth()->user()->unreadNotifications() == 0 ?: '(' . auth()->user()->unreadNotifications() . ')' }} </span>
+                <span>{{ __('Notificaciones') }} {{ auth()->user()->unreadNotifications() == 0 ? '' : '(' . auth()->user()->unreadNotifications() . ')' }} </span>
             </div>
         </x-dropdown-link>
 

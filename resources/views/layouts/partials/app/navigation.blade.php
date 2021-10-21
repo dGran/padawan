@@ -113,10 +113,12 @@
 
                 @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
-                        <i class="far fa-bell"></i>
-                        @if (auth()->user()->unreadNotifications() > 0)
-                            <span class="absolute top-0 right-0 -mr-0.5 -mt-0.5 text-xxs md:text-xs rounded-full w-1 h-1 bg-edyellow-500 text-white animate-ping"></span>
-                        @endif
+                        <a href="{{ route('notifications') }}" class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color">
+                            <i class="far fa-bell"></i>
+                            @if (auth()->user()->unreadNotifications() > 0)
+                                <span class="absolute top-0 right-0 -mr-0.5 -mt-0.5 text-xxs md:text-xs rounded-full w-1 h-1 bg-edyellow-500 text-white animate-ping"></span>
+                            @endif
+                        </a>
                     </div>
                 @endauth
 
