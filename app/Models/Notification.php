@@ -26,6 +26,25 @@ class Notification extends Model
         return $this->belongsTo('App\Models\User', 'from_user_id', 'id');
     }
 
+    public function scopeText($query, $value)
+    {
+        if (trim($value) != "") {
+            return $query->where(function($q) use ($value) {
+                $q->where('title', 'LIKE', "%{$value}%")
+                    ->orWhere('content', 'LIKE', "%{$value}%");
+                });
+        }
+    }
+
+    public function scopeUnread($query, $value)
+    {
+        if ($value) {
+            return $query->where(function($q) {
+                $q->where('read', 0);
+            });
+        }
+    }
+
     public function getCreatedAtDate()
     {
         $date = Carbon::parse($this->created_at)->locale(app()->getLocale());

@@ -11,6 +11,8 @@ class Notification extends Component
 {
     public $user;
     public $notifications;
+    public $filterUnread = false;
+    public $filterText;
 
     public function mount()
     {
@@ -27,7 +29,8 @@ class Notification extends Component
 
     public function getNotifications()
     {
-        return $notifications = NotificationModel::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->get();
+        $notifications = NotificationModel::where('user_id', auth()->user()->id)->text($this->filterText)->unread($this->filterUnread)->orderBy('created_at', 'desc')->get();
+        return $notifications;
     }
 
     public function toggleRead($id)
@@ -72,6 +75,11 @@ class Notification extends Component
         ];
 
         storeNotification($notification_data);
+    }
+
+    public function toggleFilterUnread()
+    {
+        $this->filterUnread = !$this->filterUnread;
     }
 
 }
