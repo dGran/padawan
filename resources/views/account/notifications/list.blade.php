@@ -1,15 +1,21 @@
-<h4 class="block | pb-3 | font-semibold | text-title-color dark:text-dt-title-color">
+<h4 class="block | py-3 md:pt-0 | font-semibold | text-title-color dark:text-dt-title-color">
   	Notificaciones {{ $user->unreadNotifications() == 0 ? '' : '(' . $user->unreadNotifications() . ')' }}
 </h4>
 
-<x-card class="p-5 md:p-7 flex flex-col">
-	<div class="">
-		<ul class='flex items-center space-x-4 | pb-2.5'>
-			<x-button-link class="cursor-pointer" wire:click="readAll" disabled="{{ $user->unreadNotifications() == 0 }}">
-				Marcar todo como leido
+<x-card class="flex flex-col">
+	<div class="px-3 py-2.5">
+		<ul class='flex items-center space-x-3'>
+			<x-button-link class="cursor-pointer"  wire:click="readAll" disabled="{{ $user->unreadNotifications() == 0 }}" title="Marcar todo como leido">
+				<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-edblue-500 dark:border-edblue-400">
+					<i class="far fa-file-alt"></i>
+				</span>
 			</x-button-link>
 			<x-button-link class="cursor-pointer">
-				Mostrar no leídas
+				<span class="flex items-center justify-center rounded-full w-7 h-7 border | {{ $user->unreadNotifications() == 0 ? 'border-edblue-500 dark:border-edblue-400' : 'border-transparent bg-edblue-500 dark:bg-edblue-400 text-white' }}">
+					<i class="fas fa-align-center p-1"></i>
+				</span>
+
+				{{-- Mostrar no leídas --}}
 			</x-button-link>
 		</ul>
 	</div>
@@ -36,7 +42,7 @@
 				        	@endif
 						</p>
 					    <div class="space-x-1.5">
-							<span class="text-xs md:text-sm | mr-3" wire:poll.1s>
+							<span class="text-xxs md:text-xs" wire:poll.1s>
 								{{ $notification->created_at->diffForHumans(['options' => \Carbon\Carbon::ONE_DAY_WORDS]) }}
 							</span>
 					    	<x-link wire:click="toggleRead({{ $notification->id }})" class="select-none">
@@ -61,6 +67,9 @@
 				No tienes notificaciones
 			</div>
 		@endif
+	</div>
+	<div class="px-3 py-2.5 | border-t border-border-color dark:border-dt-border-color">
+		<span class="text-xs md:text-sm">Aqui va el paginador y algo de pie de pagina</span>
 	</div>
 </x-card>
 
