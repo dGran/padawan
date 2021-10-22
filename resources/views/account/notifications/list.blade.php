@@ -24,14 +24,14 @@
 						        	<span class="{{ $notification->read ? 'hidden' : '' }}">
 						        		<i class="fas fa-caret-right"></i>
 						        	</span>
-									{{ $notification->fromUser->name }}
+									De: {{ $notification->fromUser->name }}
 								</x-link>
 							@else
 								<span>
 				        			<span class="{{ $notification->read ? 'hidden' : '' }}">
 						        		<i class="fas fa-caret-right"></i>
 						        	</span>
-									{{ config('app.name') }}
+									De: {{ config('app.name') }}
 								</span>
 				        	@endif
 						</p>
