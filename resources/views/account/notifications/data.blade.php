@@ -1,7 +1,7 @@
 @if ($notifications->count() > 0)
 	@foreach ($notifications as $notification)
 		<article class="px-3 border-t border-border-color dark:border-dt-border-color | hover:bg-gray-50 dark:hover:bg-dt-border-color" {{-- wire:click="open({{ $notification->id }})" --}}>
-			<div class="flex items-end justify-between space-x-3 pt-2.5 | {{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }} | text-title-color dark:text-dt-title-color">
+			<div class="flex items-center justify-between space-x-3 pt-2.5 | {{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }} | text-title-color dark:text-dt-title-color">
 				<p>
 		        	@if ($notification->fromUser)
 			        	<x-link class="cursor-pointer" wire:click="$emit('openModal', 'modals.user-modal', {{ json_encode([$notification->fromUser]) }})">
