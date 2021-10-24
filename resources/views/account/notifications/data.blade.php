@@ -51,7 +51,7 @@
 							</span>
 						</x-button-link>
 				        <x-modal>
-				            @include('account.notifications.confirmation-modal')
+				            @include('account.notifications.modals.confirmation-delete')
 				        </x-modal>
 				    </div>
 				</div>
