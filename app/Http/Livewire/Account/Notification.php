@@ -3,14 +3,17 @@
 namespace App\Http\Livewire\Account;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Models\User;
 use App\Models\Notification as NotificationModel;
 use Faker\Generator as Faker;
 
 class Notification extends Component
 {
+    use WithPagination;
+
     public $user;
-    public $notifications;
+    // public $notifications;
     public $filterUnread = false;
     public $filterText;
 
@@ -21,15 +24,13 @@ class Notification extends Component
 
     public function render()
     {
-        $this->notifications = $this->getNotifications();
-
-        return view('account.notifications')
+        return view('account.notifications', ['notifications' => $this->getNotifications()])
             ->layout('layouts.app', ['breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 
     public function getNotifications()
     {
-        $notifications = NotificationModel::where('user_id', auth()->user()->id)->text($this->filterText)->unread($this->filterUnread)->orderBy('created_at', 'desc')->get();
+        $notifications = NotificationModel::where('user_id', auth()->user()->id)->text($this->filterText)->unread($this->filterUnread)->orderBy('created_at', 'desc')->paginate(8);
         return $notifications;
     }
 
@@ -42,7 +43,8 @@ class Notification extends Component
 
     public function readAll()
     {
-        foreach ($this->notifications as $notification) {
+        $notifications = NotificationModel::all();
+        foreach ($notifications as $notification) {
             $notification->read = 1;
             $notification->save();
         }
