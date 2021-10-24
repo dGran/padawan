@@ -56,6 +56,6 @@
 @else
 	<div class="px-3 py-4 | border-t border-border-color dark:border-dt-border-color | text-center">
 		No se han encontrado resultados
-		{{ $filterUnread ? 'con el filtro aplicado' : '' }}
+		{{ $filterText || $filterUnread ? 'con el filtro aplicado' : '' }}
 	</div>
 @endif
