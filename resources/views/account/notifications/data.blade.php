@@ -25,7 +25,7 @@
 					</span>
 			    </div>
 			</div>
-			<div class="flex items-start justify-between space-x-1.5">
+			<div class="flex flex-col sm:flex-row items-start justify-between space-x-1.5">
 				<div class="pt-1.5 pb-2.5 px-1.5">
 		            <span class="{{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }}">
 			        	<x-link color="" class="cursor-pointer" wire:click="open({{ $notification->id }})">
@@ -33,7 +33,12 @@
 						</x-link>
 		            </span>
 				</div>
-				<div class="flex items-center justify-end space-x-0.5 | py-1.5">
+				<div class="w-full sm:w-auto flex items-center justify-end space-x-1.5 | pb-2.5 sm:py-2.5">
+					<x-button-link class="group cursor-pointer" wire:click="open({{ $notification->id }})" title="Abrir">
+						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+							<i class="fas fa-eye"></i>
+						</span>
+					</x-button-link>
 					<x-button-link class="group cursor-pointer" wire:click="toggleRead({{ $notification->id }})" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
 						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
 							<i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
@@ -50,7 +55,7 @@
 	@endforeach
 @else
 	<div class="px-3 py-4 | border-t border-border-color dark:border-dt-border-color | text-center">
-		No se han encontrado notificaciones
+		No se han encontrado resultados
 		{{ $filterUnread ? 'con el filtro aplicado' : '' }}
 	</div>
 @endif

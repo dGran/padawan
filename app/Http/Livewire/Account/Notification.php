@@ -30,8 +30,14 @@ class Notification extends Component
 
     public function getNotifications()
     {
-        $notifications = NotificationModel::where('user_id', auth()->user()->id)->text($this->filterText)->unread($this->filterUnread)->orderBy('created_at', 'desc')->paginate(8);
-        return $notifications;
+        return $notifications = NotificationModel::
+            leftJoin('users', 'users.id', 'notifications.from_user_id')
+            ->select('notifications.*', 'users.name as from_user_name')
+            ->where('user_id', auth()->user()->id)
+            ->text($this->filterText)
+            ->unread($this->filterUnread)
+            ->orderBy('notifications.created_at', 'desc')
+            ->paginate(8)->onEachSide(2);
     }
 
     public function toggleRead($id)
@@ -82,6 +88,12 @@ class Notification extends Component
     public function toggleFilterUnread()
     {
         $this->filterUnread = !$this->filterUnread;
+    }
+
+    public function clearFilterText()
+    {
+        $this->reset('filterText');
+        $this->emit('focus-filter-text');
     }
 
 }

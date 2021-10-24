@@ -30,8 +30,9 @@ class Notification extends Model
     {
         if (trim($value) != "") {
             return $query->where(function($q) use ($value) {
-                $q->where('title', 'LIKE', "%{$value}%")
-                    ->orWhere('content', 'LIKE', "%{$value}%");
+                $q->where('notifications.title', 'LIKE', "%{$value}%")
+                    ->orWhere('notifications.content', 'LIKE', "%{$value}%")
+                    ->orWhere('users.name', 'LIKE', "%{$value}%");
                 });
         }
     }
@@ -40,7 +41,7 @@ class Notification extends Model
     {
         if ($value) {
             return $query->where(function($q) {
-                $q->where('read', 0);
+                $q->where('notifications.read', 0);
             });
         }
     }

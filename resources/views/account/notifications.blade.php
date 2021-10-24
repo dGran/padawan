@@ -20,3 +20,11 @@
 
     </section>
 </x-container>
+
+@push('custom-scripts')
+    <script>
+       window.livewire.on('focus-filter-text', function () {
+            $("#filterText").focus();
+        });
+    </script>
+@endpush
