@@ -1,10 +1,11 @@
-<x-dropdown align="right" width="max">
+<x-dropdown align="right" width="max" class="relative">
     <x-slot name="trigger">
         <button class="border-2 border-border-color dark:border-dt-border-color | rounded-full | hover:border-edblue-400 dark:hover:border-edblue-300 | focus:outline-none focus:border-edblue-400 dark:focus:border-edblue-300 | text-dt-text-color dark:text-text-color | hover:text-dt-title-color dark:hover:text-title-color | focus:outline-none focus:text-dt-title-color dark:focus:text-title-color">
             <div class="flex items-center text-sm | rounded-full | h-8 w-8 md:h-9 md:w-9 m-0.5 | bg-text-color dark:bg-dt-text-color">
                 <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | w-full h-auto">
             </div>
         </button>
+        @livewire('account.count-unread-notifications', ['user' => auth()->user()])
     </x-slot>
 
     <x-slot name="content">
@@ -16,9 +17,9 @@
         </x-dropdown-link>
 
         <x-dropdown-link :href="route('notifications')">
-            <div class="flex items-center {{ auth()->user()->unreadNotifications() == 0 ?: 'text-edyellow-500' }}">
+            <div class="flex items-center">
                 <i class="text-base fas fa-bell w-6 mr-2 text-center"></i>
-                <span>{{ __('Notificaciones') }} {{ auth()->user()->unreadNotifications() == 0 ? '' : '(' . auth()->user()->unreadNotifications() . ')' }} </span>
+                <span>{{ __('Notificaciones') }}</span>
             </div>
         </x-dropdown-link>
 

@@ -104,14 +104,14 @@
             <div class="flex items-center">
 
                 <!-- Theme selector -->
-                <div class="text-xl md:text-2xl | mx-3 md:mx-8 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
+                <div class="text-xl md:text-2xl | mx-4 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
                     <input type="text" id="theme-selection" class="hidden">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
                 </div>
 
-                @auth
+{{--                 @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
                         <a href="{{ route('notifications') }}" class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color">
                             <i class="far fa-bell"></i>
@@ -120,7 +120,7 @@
                             @endif
                         </a>
                     </div>
-                @endauth
+                @endauth --}}
 
                 <!-- User options -->
                 <div class="lg:hidden min-w-max">
