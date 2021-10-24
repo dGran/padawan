@@ -35,12 +35,12 @@
 				</div>
 				<div class="flex items-center justify-end space-x-0.5 | py-1.5">
 					<x-button-link class="group cursor-pointer" wire:click="toggleRead({{ $notification->id }})" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
-						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-transparent | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
 							<i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
 						</span>
 					</x-button-link>
 					<x-button-link color="red" class="group cursor-pointer" wire:click="delete({{ $notification->id }})" title="Eliminar">
-						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-transparent | group-hover:border-red-500 dark:group-hover:border-red-400 | group-focus:border-red-500 dark:group-focus:border-red-400">
+						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-red-500 dark:group-hover:border-red-400 | group-focus:border-red-500 dark:group-focus:border-red-400">
 							<i class="fas fa-trash"></i>
 						</span>
 					</x-button-link>
