@@ -1,6 +1,6 @@
 <ul class='flex items-center justify-start space-x-3'>
 	<div class="relative w-full">
-		<x-input type="text" id="filterText" class="w-full" placeholder="Buscar..." wire:model="filterText" wire:keydown.escape="$set('filterText', '')" autofocus></x-input>
+		<x-input type="text" id="filterText" class="w-full" placeholder="Buscar..." wire:model="filterText" wire:keydown.escape="$set('filterText', '')" wire:keydown="applyFilterText" autofocus></x-input>
 		<i class="{{ $filterText ?: 'hidden' }} fas fa-times | absolute top-0 right-0 | h-full flex items-center | mr-3 | cursor-pointer | text-text-light-color dark:text-dt-text-light-color | hover:text-text-color dark:hover:text-dt-text-color" wire:click="clearFilterText"></i>
 	</div>
 	<x-button-link class="group cursor-pointer" wire:click="toggleFilterUnread" title="{{ $filterUnread ? 'Quitar filtro' : 'Filtro: No leido' }}">

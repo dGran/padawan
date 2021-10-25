@@ -87,7 +87,13 @@ class Notification extends Component
 
     public function toggleFilterUnread()
     {
+        $this->resetPage();
         $this->filterUnread = !$this->filterUnread;
+    }
+
+    public function applyFilterText()
+    {
+        $this->resetPage();
     }
 
     public function clearFilterText()
