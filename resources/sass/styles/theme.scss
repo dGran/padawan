@@ -41,3 +41,7 @@
     mix-blend-mode: soft-light;
     pointer-events: none;
 }
+
+[x-cloak] {
+    display: none !important;
+}
