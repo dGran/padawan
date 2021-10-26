@@ -6,15 +6,10 @@
             </div>
         </button>
         @livewire('account.count-unread-notifications', ['user' => auth()->user()])
+        @livewire('account.count-pending-invitations', ['user' => auth()->user()])
     </x-slot>
 
     <x-slot name="content">
-        <x-dropdown-link :href="route('account')">
-            <div class="flex items-center">
-                <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
-                <span>{{ __('Mi cuenta') }}</span>
-            </div>
-        </x-dropdown-link>
 
         <x-dropdown-link :href="route('notifications')">
             <div class="flex items-center">
@@ -27,6 +22,18 @@
             <div class="flex items-center">
                 <i class="text-base fas fa-user-shield w-6 mr-2 text-center"></i>
                 <span>{{ __('Mis equipos') }}</span>
+            </div>
+            @if (auth()->user()->eteamsInvitations() > 0)
+                <span class="block mt-0.5 text-xxs md:text-xs animate-pulse text-edyellow-500">
+                    {{ auth()->user()->eteamsInvitations() }} {{ auth()->user()->eteamsInvitations() == 1 ? 'invitación pendiente' : 'invitaciones pendientes' }}
+                </span>
+            @endif
+        </x-dropdown-link>
+
+        <x-dropdown-link :href="route('account')">
+            <div class="flex items-center">
+                <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
+                <span>{{ __('Mi cuenta') }}</span>
             </div>
         </x-dropdown-link>
 

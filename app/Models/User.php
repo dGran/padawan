@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return Notification::where('user_id', $this->id)->where('read', 0)->count();
     }
+
+    public function eteamsInvitations()
+    {
+        return ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
+    }
 }
