@@ -17,8 +17,3 @@
 		@include('account.notifications.footer')
 	</div>
 </x-card>
-
-{{-- temporaly --}}
-<x-button wire:click="addNotification" class="mt-4">
-	Nueva notificación
-</x-button>

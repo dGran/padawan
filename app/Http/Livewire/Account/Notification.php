@@ -6,14 +6,12 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use App\Models\Notification as NotificationModel;
-use Faker\Generator as Faker;
 
 class Notification extends Component
 {
     use WithPagination;
 
     public $user;
-    // public $notifications;
     public $filterUnread = false;
     public $filterText;
 
@@ -37,7 +35,7 @@ class Notification extends Component
             ->text($this->filterText)
             ->unread($this->filterUnread)
             ->orderBy('notifications.created_at', 'desc')
-            ->paginate(8)->onEachSide(2);
+            ->paginate(10)->onEachSide(2);
     }
 
     public function toggleRead($id)
@@ -69,20 +67,6 @@ class Notification extends Component
     {
         $notification = NotificationModel::find($id);
         $notification->delete();
-    }
-
-    public function addNotification(Faker $faker)
-    {
-        $notification_data = [
-            'user_id' => $this->user->id,
-            'from_user_id' => null,
-            'title' => $faker->sentence(),
-            'content' => $faker->text(),
-            'link' => null,
-            'read' => 0
-        ];
-
-        storeNotification($notification_data);
     }
 
     public function toggleFilterUnread()

@@ -44,7 +44,7 @@
 							<i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
 						</span>
 					</x-button-link>
-				    <div x-data="{ open: false }">
+				    <div x-cloak x-data="{ open: false }">
 						<x-button-link color="red" class="group cursor-pointer" @click="open = true" title="Eliminar">
 							<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-red-500 dark:group-hover:border-red-400 | group-focus:border-red-500 dark:group-focus:border-red-400">
 								<i class="fas fa-trash"></i>

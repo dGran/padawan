@@ -8,7 +8,7 @@
 			<i class="fas fa-folder"></i>
 		</span>
 	</x-button-link>
-    <div x-data="{ open: false }">
+    <div x-cloak x-data="{ open: false }">
 		<x-button-link class="group cursor-pointer" @click="open = true" disabled="{{ $user->unreadNotifications() == 0 }}" title="Marcar todo como leido">
 			<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-edblue-500 dark:border-edblue-400 | group-hover:border-edblue-600 dark:group-hover:border-edblue-300 | group-focus:border-edblue-600 dark:group-focus:border-edblue-300">
 				<i class="far fa-file-alt"></i>
