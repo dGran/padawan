@@ -1,4 +1,8 @@
 <div class="p-4 md:p-6 lg:p-8">
+	<h4 class="text-center text-2xl font-bold text-title-color dark:text-dt-title-color mb-6">
+		{{ $eteam->name }}
+	</h4>
+
 	@if ($eteam->presentation)
 		<p class="text-center pb-4">{!! nl2br($eteam->presentation) !!}</p>
 	@endif
@@ -9,49 +13,59 @@
 		</div>
 	@endif
 
-	<ul class="flex flex-col space-y-3 | {{ $eteam->presentation || $eteam->presentation_video ? 'mt-4 pt-4 md:mt-6 md:pt-6 | border-t border-border-color dark:border-dt-border-color' : '' }}">
-		<li class="flex items-center">
-			<i class="icon-place text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Sede:</span>
-			<span>{{ $eteam->location }}</span>
-			@if ($eteam->country)
-				<img src="{{ $eteam->country->getFlag24() }}" alt="" class="{{ $eteam->location ? 'mx-2' : 'mr-2' }}">{{ $eteam->getCountryName() }}
-			@endif
-		</li>
-		<li class="flex items-center">
-			<i class="icon-whatsapp text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Whatsapp:</span>
-			<span>{{ $eteam->whatsapp }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-twitter text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Twitter:</span>
-			<span>{{ $eteam->twitter }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-facebook text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Facebook:</span>
-			<span>{{ $eteam->facebook }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-instagram text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Instagram:</span>
-			<span>{{ $eteam->instagram }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-twitch text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Twitch:</span>
-			<span>{{ $eteam->twitch }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-youtube text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Youtube:</span>
-			<span>{{ $eteam->youtube }}</span>
-		</li>
-		<li class="flex items-center">
-			<i class="icon-website text-lg mr-2"></i>
-			<span class="font-semibold | text-title-color dark:text-dt-title-color | mr-2">Website:</span>
-			<span>{{ $eteam->website }}</span>
-		</li>
-	</ul>
+	<div class="{{ $eteam->presentation || $eteam->presentation_video ? 'mt-4 pt-4 md:mt-6 md:pt-6 | border-t border-border-color dark:border-dt-border-color' : '' }}">
+		@if ($eteam->country || $eteam->location)
+			<div class="flex flex-col items-center | text-xs md:text-sm">
+				<i class="icon-place text-lg mb-1.5 | rounded-full border border-border-color dark:border-dt-border-color | p-1.5"></i>
+				@if ($eteam->location)
+					<span class="mb-0.5">{{ $eteam->location }}</span>
+				@endif
+				@if ($eteam->country)
+					<div class="flex items-center space-x-1.5">
+						<img src="{{ $eteam->country->getFlag24() }}" alt="">
+						<span>{{ $eteam->getCountryName() }}</span>
+					</div>
+				@endif
+			</div>
+		@endif
+		<div class="overflow-x-auto">
+			<div class="flex items-center space-x-3 justify-center mt-8">
+				@if ($eteam->website)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->website }}" target="_blank" title="Sitio web">
+						<i class="icon-website text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->whatsapp)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{-- {{ $eteam->whatsapp }} --}}" target="_blank" title="Whatsapp">
+						<i class="icon-whatsapp text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->twitter)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->twitter }}" target="_blank" title="Twitter">
+						<i class="icon-twitter text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->facebook)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->facebook }}" target="_blank" title="Facebook">
+						<i class="icon-facebook text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->instagram)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->instagram }}" target="_blank" title="Instagram">
+						<i class="icon-instagram text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->twitch)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->twitch }}" target="_blank" title="Canal Twitch">
+						<i class="icon-twitch text-xl"></i>
+					</a>
+				@endif
+				@if ($eteam->youtube)
+					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->youtube }}" target="_blank" title="Canal Youtube">
+						<i class="icon-youtube text-xl"></i>
+					</a>
+				@endif
+			</div>
+		</div>
+	</div>
 </div>
