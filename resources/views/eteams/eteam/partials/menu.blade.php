@@ -29,10 +29,14 @@
 			<span class="mt-1 | uppercase | text-xxxs md:text-xxs lg:text-xs | font-miriam">Palmarés</span>
 		</button>
 	</li>
-	<li>
-		<button class="w-16 | flex flex-col items-center | focus:outline-none | {{ $op == 'admin' ? 'text-title-color dark:text-dt-title-color pointer-events-none' : 'opacity-75 hover:opacity-100 focus:opacity-100' }}" wire:click="changeTab('admin')">
-			<i class="icon-admin text-2xl md:text-3xl lg:4xl"></i>
-			<span class="mt-1 | uppercase | text-xxxs md:text-xxs lg:text-xs | font-miriam">Admin</span>
-		</button>
-	</li>
+	@auth
+		@if (auth()->user()->isAdminETeam($eteam->id))
+			<li>
+				<button class="w-16 | flex flex-col items-center | focus:outline-none | {{ $op == 'admin' ? 'text-title-color dark:text-dt-title-color pointer-events-none' : 'opacity-75 hover:opacity-100 focus:opacity-100' }}" wire:click="changeTab('admin')">
+					<i class="icon-admin text-2xl md:text-3xl lg:4xl"></i>
+					<span class="mt-1 | uppercase | text-xxxs md:text-xxs lg:text-xs | font-miriam">Admin</span>
+				</button>
+			</li>
+		@endif
+	@endauth
 </ul>

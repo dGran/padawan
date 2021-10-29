@@ -59,6 +59,18 @@ class User extends Authenticatable
         return $no_flag;
     }
 
+    public function isAdminETeam($eteam_id)
+    {
+        $admin = ETeamUser::where('eteam_id', $eteam_id)
+            ->where('user_id', $this->id)
+            ->where(function($q) {
+                $q->where('owner', 1)
+                  ->orWhere('captain', 1);
+                })
+            ->get();
+        return $admin->count() > 0 ? true : false;
+    }
+
     public function unreadNotifications()
     {
         return Notification::where('user_id', $this->id)->where('read', 0)->count();

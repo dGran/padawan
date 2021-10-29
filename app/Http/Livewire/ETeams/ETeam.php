@@ -25,8 +25,14 @@ class ETeam extends Component
             $op = 'sede';
         } else {
             if ($op == 'admin') {
-                if (!$admin_op) {
-                    $this->admin_op = 'perfil';
+                if (auth()->user()->isAdminETeam($this->eteam->id)) {
+                    if (!$admin_op) {
+                        $this->admin_op = 'perfil';
+                    }
+                } else {
+                    session()->flash('error', 'No estás autorizado.');
+                    $this->op = 'sede';
+                    $this->admin_op = null;
                 }
             } else {
                 $this->admin_op = '';

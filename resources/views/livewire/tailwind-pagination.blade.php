@@ -28,5 +28,20 @@
                 <span>{!! __('registros') !!}</span>
             </p>
         </div>
+    @else
+        <div class="flex items-center justify-center">
+            <p class="text-xxs md:text-xs text-text-light-color dark:text-dt-text-light-color">
+{{--                 <span class="font-medium">{{ $paginator->firstItem() }}</span>
+                <span>{!! __('/') !!}</span>
+                <span class="font-medium">{{ $paginator->lastItem() }}</span>
+                <span>{!! __('de') !!}</span> --}}
+                @if ($paginator->total() > 0)
+                    <span class="font-medium">{{ $paginator->total() }}</span>
+                    <span>{{ $paginator->total() == 1 ? 'registro' : 'registros' }}</span>
+                @else
+                    <span>No existen registros</span>
+                @endif
+            </p>
+        </div>
     @endif
 </div>
