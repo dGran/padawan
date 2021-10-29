@@ -1,10 +1,12 @@
 <div class="p-4 md:p-6 lg:p-8">
-	<h4 class="text-center text-2xl font-bold text-title-color dark:text-dt-title-color mb-6">
+	<h4 class="text-center text-xl md:text-2xl font-bold text-title-color dark:text-dt-title-color mb-6">
 		{{ $eteam->name }}
 	</h4>
 
 	@if ($eteam->presentation)
 		<p class="text-center pb-4">{!! nl2br($eteam->presentation) !!}</p>
+	@else
+		<p class="text-center pb-4 | text-text-light-color dark:text-dt-text-light-color">El equipo no ha definido ninguna información</p>
 	@endif
 
 	@if ($eteam->presentation_video)
@@ -13,10 +15,10 @@
 		</div>
 	@endif
 
-	<div class="{{ $eteam->presentation || $eteam->presentation_video ? 'mt-4 pt-4 md:mt-6 md:pt-6 | border-t border-border-color dark:border-dt-border-color' : '' }}">
-		@if ($eteam->country || $eteam->location)
-			<div class="flex flex-col items-center | text-xs md:text-sm">
-				<i class="icon-place text-lg mb-1.5 | rounded-full border border-border-color dark:border-dt-border-color | p-1.5"></i>
+	<div class="mt-4 pt-4 md:mt-6 md:pt-6 | border-t border-border-color dark:border-dt-border-color">
+		<div class="flex flex-col items-center | text-xs md:text-sm">
+			<i class="icon-place text-lg mb-1.5 | rounded-full border border-border-color dark:border-dt-border-color | p-1.5"></i>
+			@if ($eteam->country || $eteam->location)
 				@if ($eteam->location)
 					<span class="mb-0.5">{{ $eteam->location }}</span>
 				@endif
@@ -26,9 +28,16 @@
 						<span>{{ $eteam->getCountryName() }}</span>
 					</div>
 				@endif
-			</div>
-		@endif
-		<div class="overflow-x-auto">
+			@else
+				<p class="text-center pb-4 | text-text-light-color dark:text-dt-text-light-color">
+					No se ha especificado la ubicación
+				</p>
+			@endif
+		</div>
+
+		{{-- buttons --}}
+		@if ($eteam->website || $eteam->whatsapp || $eteam->twitter || $eteam->facebook || $eteam->instagram || $eteam->twitch || $eteam->youtube)
+			<div class="overflow-x-auto">
 			<div class="flex items-center space-x-3 justify-center mt-8">
 				@if ($eteam->website)
 					<a class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color" href="{{ $eteam->website }}" target="_blank" title="Sitio web">
@@ -66,6 +75,7 @@
 					</a>
 				@endif
 			</div>
-		</div>
+			</div>
+		@endif
 	</div>
 </div>
