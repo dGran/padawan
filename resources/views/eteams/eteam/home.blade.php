@@ -6,7 +6,7 @@
 	@if ($eteam->presentation)
 		<p class="text-center pb-4">{!! nl2br($eteam->presentation) !!}</p>
 	@else
-		<p class="text-center pb-4 | text-text-light-color dark:text-dt-text-light-color">El equipo no ha definido ninguna información</p>
+		<p class="text-center pb-4 | text-text-light-color dark:text-dt-text-light-color">No se ha definido ninguna información del equipo</p>
 	@endif
 
 	@if ($eteam->presentation_video)
@@ -30,7 +30,7 @@
 				@endif
 			@else
 				<p class="text-center pb-4 | text-text-light-color dark:text-dt-text-light-color">
-					No se ha especificado la ubicación
+					No se ha especificado la ubicación del equipo
 				</p>
 			@endif
 		</div>
