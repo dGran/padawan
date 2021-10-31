@@ -25,7 +25,7 @@ class ETeam extends Component
             $op = 'sede';
         } else {
             if ($op == 'admin') {
-                if (auth()->user()->isAdminETeam($this->eteam->id)) {
+                if (auth()->user() && auth()->user()->isAdminETeam($this->eteam->id)) {
                     if (!$admin_op) {
                         $this->admin_op = 'perfil';
                     }
@@ -131,6 +131,9 @@ class ETeam extends Component
                 break;
             case 'admin':
                 $this->loadAdminData($this->admin_op);
+                break;
+            default:
+                $this->op = 'sede';
                 break;
         }
 

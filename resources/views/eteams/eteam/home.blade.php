@@ -10,14 +10,14 @@
 	@endif
 
 	@if ($eteam->presentation_video)
-		<div class="flex items-center justify-center">
+		<div class="flex items-center justify-center mt-3">
 			<iframe src="https://www.youtube.com/embed/{{ $eteam->presentation_video }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full md:max-w-xl h-72 md:h-90 rounded-md"></iframe>
 		</div>
 	@endif
 
 	<div class="mt-4 pt-4 md:mt-6 md:pt-6 | border-t border-border-color dark:border-dt-border-color">
 		<div class="flex flex-col items-center | text-xs md:text-sm">
-			<i class="icon-place text-lg mb-1.5 | rounded-full border border-border-color dark:border-dt-border-color | p-1.5"></i>
+			<i class="icon-place text-2xl md:text-3xl mb-1.5 | p-1.5"></i>
 			@if ($eteam->country || $eteam->location)
 				@if ($eteam->location)
 					<span class="mb-0.5">{{ $eteam->location }}</span>
