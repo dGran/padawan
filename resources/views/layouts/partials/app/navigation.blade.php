@@ -26,7 +26,7 @@
                 <div class="flex-shrink-0 flex items-center ml-2 md:ml-0">
                     <x-link href="{{ route('dashboard') }}" class="group | flex items-center | focus:no-underline hover:no-underline">
                         {{-- <i class="icon-logo | text-3xl md:text-4xl"></i> --}}
-                        <img src="{{ asset('img/logo2.png') }}" alt="" class="w-auto h-10">
+                        <img src="{{ asset('img/logo2.png') }}" alt="" class="w-auto h-10 opacity-100 | group-hover:opacity-80 | group-focus:opacity-80">
                         <p class="whitespace-nowrap font-ubuntuCondensed tracking-tight text-xl font-bold | ml-0">
                             @php
                                 $appName = explode(' ', config('app.name'));

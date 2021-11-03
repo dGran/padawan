@@ -10,4 +10,7 @@
     @case('miembros')
         @include('eteams.eteam.admin.members')
         @break
+    @case('multimedia')
+        @include('eteams.eteam.admin.multimedia')
+        @break
 @endswitch
