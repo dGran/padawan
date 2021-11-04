@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <ul class="hidden space-x-6 md:-my-px md:ml-10 md:flex">
+                <ul class="hidden space-x-4 md:-my-px md:ml-8 md:flex">
 
                     {{-- custom nav-link --}}
 {{--                     <li class="menu-item relative inline-flex items-center px-1 text-sm transition duration-150 ease-in-out cursor-pointer" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
