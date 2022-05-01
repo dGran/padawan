@@ -10,6 +10,7 @@ use Auth;
 class ETeamList extends Component
 {
     public $name, $game;
+    public $view = 'table';
 
     public function getMyEteams()
     {

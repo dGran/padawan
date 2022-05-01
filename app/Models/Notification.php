@@ -61,6 +61,5 @@ class Notification extends Model
     public function getDateFromNow()
     {
         return $date = Carbon::now()->$this->date->diffForHumans();
-        // return
     }
 }

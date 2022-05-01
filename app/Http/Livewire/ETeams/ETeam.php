@@ -5,9 +5,13 @@ namespace App\Http\Livewire\ETeams;
 use Livewire\Component;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamUser;
+use App\Models\ETeamPost;
+use Livewire\WithPagination;
 
 class ETeam extends Component
 {
+    use WithPagination;
+
     public $op = "sede", $admin_op;
 
     public $eteam;
@@ -57,7 +61,7 @@ class ETeam extends Component
 
     public function loadPostsData()
     {
-
+        return $posts = ETeamPost::where('eteam_id', $this->eteam->id)->orderBy('created_at', 'desc')->paginate(5);
     }
 
     public function loadMembersData()
@@ -119,9 +123,10 @@ class ETeam extends Component
     {
         $this->checkTabs($this->op, $this->admin_op);
 
+        $posts = [];
         switch ($this->op) {
             case 'noticias':
-                $this->loadPostsData();
+                $posts = $this->loadPostsData();
                 break;
             case 'miembros':
                 $this->loadMembersData();
@@ -137,7 +142,11 @@ class ETeam extends Component
                 break;
         }
 
-        return view('eteams.eteam')
+
+
+        return view('eteams.eteam', [
+                'posts' => $posts
+            ])
             ->layout('layouts.app', ['title' => 'Equipos', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 
