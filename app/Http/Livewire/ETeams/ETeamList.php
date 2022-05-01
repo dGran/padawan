@@ -12,6 +12,15 @@ class ETeamList extends Component
     public $name, $game;
     public $view = 'table';
 
+    public function toggleView()
+    {
+        if ($this->view == 'table') {
+            $this->view = 'card';
+        } else {
+            $this->view = 'table';
+        }
+    }
+
     public function getMyEteams()
     {
         if (Auth::check()) {
@@ -28,14 +37,23 @@ class ETeamList extends Component
         return false;
     }
 
+    public function getEteams()
+    {
+        return Team_Esport::
+            leftJoin('games', 'games.id', 'eteams.game_id')
+            ->select('eteams.*')
+            ->name($this->name)
+            ->game($this->game)
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+
+
     public function render()
     {
-        $eteams = Team_Esport::name($this->name)->orderBy('name', 'asc')->get();
-        $myEteams = $this->getMyEteams();
-
         return view('eteams.list', [
-                'eteams' => $eteams,
-                'my_eteams' => $myEteams
+                'eteams' => $this->getEteams(),
+                'my_eteams' => $this->getMyEteams()
             ])
             ->layout('layouts.app', ['title' => 'Equipos', 'breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 0]);
     }

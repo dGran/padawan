@@ -50,9 +50,18 @@ class ETeam extends Model
     {
         if (trim($value) != "") {
             return $query->where(function($q) use ($value) {
-                $q->where('name', 'LIKE', "%{$value}%")
-                    ->orWhere('location', 'LIKE', "%{$value}%");
-                });
+                $q->where('eteams.name', 'LIKE', "%{$value}%")
+                    ->orWhere('eteams.location', 'LIKE', "%{$value}%");
+            });
+        }
+    }
+
+    public function scopeGame($query, $value)
+    {
+        if (trim($value) != "") {
+            return $query->where(function($q) use ($value) {
+                $q->where('games.name', 'LIKE', "%{$value}%");
+            });
         }
     }
 

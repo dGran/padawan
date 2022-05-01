@@ -14,6 +14,7 @@
             class="text-lg | rounded-r | px-3 py-1.5 | bg-white dark:bg-dt-dark | focus:outline-none | border-border-color dark:border-gray-700 group-hover:border-gray-200 dark:group-hover:border-gray-600 {{ $view == 'card' ? 'border-l | pointer-events-none' : '' }}">
             <i class="fa-solid fa-address-card {{ $view != 'card' ?: 'opacity-25' }}"></i>
         </x-button-link>
+
     </div>
 
 </div>
