@@ -5,6 +5,7 @@ namespace App\Http\Livewire\ETeams;
 use Livewire\Component;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamUser;
+use App\Models\Game;
 use Auth;
 
 class ETeamList extends Component
@@ -51,11 +52,26 @@ class ETeamList extends Component
 
     public function render()
     {
-        return view('eteams.list', [
-                'eteams' => $this->getEteams(),
-                'my_eteams' => $this->getMyEteams()
-            ])
-            ->layout('layouts.app', ['title' => 'Equipos', 'breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 0]);
+        $etGames = Team_Esport::leftJoin('games', 'games.id', 'eteams.game_id')
+            ->select('eteams.game_id', 'games.name')
+            ->distinct()
+            ->orderBy('games.name', 'asc')
+            ->get();
+
+        return view('eteams.list',
+            [
+                'eteams'     => $this->getEteams(),
+                'my_eteams'  => $this->getMyEteams(),
+                'etGames'    => $etGames
+            ]
+        )->layout('layouts.app',
+            [
+                'title'      => 'Equipos',
+                'breadcrumb' => 0,
+                'wfooter'    => 0,
+                'wloader'    => 0
+            ]
+        );
     }
 
 }

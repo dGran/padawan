@@ -35,7 +35,7 @@ module.exports = (isProd) => ({
                 'text-light-color' : '#a0a7ac',
                 'text-lighter-color' : '#c8cdd0',
                 'title-color' : '#2a3b47',
-                'border-color' : '#eff3f5',
+                'border-color' : '#E5E7EB',
                 // dark text colors
                 'dt-text-color' : '#c8cdd0',
                 'dt-text-light-color' : '#a0a7ac',
@@ -182,7 +182,7 @@ module.exports = (isProd) => ({
         require('tailwindcss-autofill'),
         require('tailwindcss-text-fill'),
         require('tailwindcss-shadow-fill'),
-        require('tailwind-scrollbar'),
+        require('tailwind-scrollbar')
     ],
     variants: {
         cursor: ['responsive', 'hover', 'focus', 'disabled'],

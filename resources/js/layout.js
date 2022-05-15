@@ -21,68 +21,6 @@ window.livewire.onError(statusCode => {
 });
 // END: Livewire 419
 
-// theme selector
-const theme_selection = document.querySelector("#theme-selection");
-const theme_selection_label = document.querySelector("#theme-selection-label");
-const theme_selection_icon = document.querySelector("#theme-selection-icon");
-const html = document.querySelector("html");
-
-const toogleTheme = function () {
-    if (localStorage.theme === 'dark') {
-        theme_selection.value = "dark";
-    }
-    if (localStorage.theme === 'light') {
-        theme_selection.value = "light";
-    }
-    if (!('theme' in localStorage)) {
-        theme_selection.value = "device";
-    }
-
-    if (theme_selection.value == "dark") {
-        localStorage.removeItem('theme');
-        set_theme();
-    }
-    if (theme_selection.value == "light") {
-        localStorage.setItem('theme', 'dark');
-        set_theme();
-    }
-    if (theme_selection.value == "device") {
-        localStorage.setItem('theme', 'light');
-        set_theme();
-    }
-}
-
-theme_selection.addEventListener("click", toogleTheme);
-
-function set_theme() {
-    if (localStorage.theme === 'dark') {
-        html.classList.add("dark");
-        theme_selection_icon.classList.remove("icon-sun");
-        theme_selection_icon.classList.remove("icon-dark-light");
-        theme_selection_icon.classList.add("icon-moon");
-        theme_selection_label.setAttribute('title', 'Cambiar a tema del sistema');
-    } else if (localStorage.theme === 'light') {
-        html.classList.remove("dark");
-        theme_selection_icon.classList.remove("icon-moon");
-        theme_selection_icon.classList.remove("icon-dark-light");
-        theme_selection_icon.classList.add("icon-sun");
-        theme_selection_label.setAttribute('title', 'Cambiar a modo oscuro');
-    } else {
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            html.classList.add("dark");
-        } else {
-            html.classList.remove("dark");
-        }
-        theme_selection_icon.classList.remove("icon-moon");
-        theme_selection_icon.classList.remove("icon-sun");
-        theme_selection_icon.classList.add("icon-dark-light");
-        theme_selection_label.setAttribute('title', 'Cambiar a modo claro');
-    }
-}
-
-set_theme();
-// END: theme selector
-
 // navigation effect
 $(".menu-item").on('mouseenter', function(){
     $(".menu-item").not($(this)).css('opacity','0.65')
@@ -95,3 +33,74 @@ $(".menu-item").on('focusin', function(){
     $(".menu-item").css('opacity','1');
 });
 // END: navigation effect
+
+// theme selector
+var themeToggleIcon = document.getElementById('theme-toggle-icon');
+var themeToggleBtn = document.getElementById('theme-toggle');
+
+getTheme();
+
+themeToggleBtn.addEventListener('click', function() {
+    if (localStorage.getItem('color-theme') === 'light') {
+        setTheme('dark');
+        localStorage.setItem('color-theme', 'dark');
+    } else if (localStorage.getItem('color-theme') === 'dark') {
+        setTheme('device');
+        localStorage.setItem('color-theme', 'device');
+    } else if (localStorage.getItem('color-theme') === 'device') {
+        setTheme('light');
+        localStorage.setItem('color-theme', 'light');
+    }
+});
+
+function getTheme() {
+    if ('color-theme' in localStorage) {
+        switch (localStorage.getItem('color-theme')) {
+            case 'dark':
+                setTheme('dark');
+                break;
+            case 'light':
+                setTheme('light');
+                break;
+            case 'device':
+                setTheme('device');
+                break;
+        }
+    } else {
+        localStorage.setItem('color-theme', 'device');
+        setTheme('device');
+    }
+}
+
+function setTheme(mode) {
+    switch (mode) {
+        case 'dark':
+            themeToggleIcon.classList = '';
+            themeToggleIcon.classList.add('icon-moon');
+            if (!document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.add('dark');
+            }
+            break;
+        case 'light':
+            themeToggleIcon.classList = '';
+            themeToggleIcon.classList.add('icon-sun');
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+            }
+            break;
+        case 'device':
+            themeToggleIcon.classList = '';
+            themeToggleIcon.classList.add('icon-dark-light');
+            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                if (!document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.add('dark');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                }
+            }
+            break;
+    }
+}
+// END: theme selector

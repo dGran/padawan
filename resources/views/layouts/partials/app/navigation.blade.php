@@ -104,12 +104,18 @@
             <div class="flex items-center">
 
                 <!-- Theme selector -->
-                <div class="text-xl md:text-2xl | mx-4 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
+                {{-- theme switcher --}}
+                <button id="theme-toggle" type="button" class="uppercase inline-flex items-center px-1 pt-1 mr-3 text-xl leading-5 hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color focus:outline-none transition duration-150 ease-in-out">
+                    <i id="theme-toggle-icon"></i>
+                </button>
+                {{-- theme switcher --}}
+
+                {{-- <div class="text-xl md:text-2xl | mx-4 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
                     <input type="text" id="theme-selection" class="hidden">
                     <label id="theme-selection-label" for="theme-selection">
                         <i class="cursor-pointer" id="theme-selection-icon"></i>
                     </label>
-                </div>
+                </div> --}}
 
 {{--                 @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">

@@ -15,22 +15,30 @@
         <!-- Styles -->
             {{-- Toastr --}}
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-            {{-- font-awesome --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <!-- font-awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             {{-- custom styles --}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
 
         @livewireStyles
+            {{-- set theme, fix flash --}}
+        <script src="{{ asset('js/theme.js') }}"></script>
+
         <!-- Scripts -->
             {{-- JQuery --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             {{-- Toastr --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
         <!-- Alpine Plugins -->
-        <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script>
+        {{-- <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script> --}}
         <!-- Alpine Core -->
-        <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
+
+            {{-- Alpine JS --}}
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" integrity="sha512-B/OEIDaWXc61XNJlO0TQILX/mFbhx77bwQKzok6I8suB6WP9yvN8zgaiyLmekPr5eRNmjfpR40zos29ktaSHEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            {{-- Custom JS --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
 
     </head>

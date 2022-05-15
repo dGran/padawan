@@ -7,7 +7,7 @@
 		@include('eteams.list.my-teams')
 
 		<div class="mt-8 | flex items-center justify-between">
-			<h4 class="font-semibold | text-base md:text-lg | uppercase | text-title-color dark:text-dt-title-color">Equipos e-sports</h4>
+			<h4 class="font-semibold | text-base md:text-lg | uppercase | text-title-color dark:text-dt-title-color | underline decoration-sky-500 underline-offset-8">Equipos e-sports</h4>
 			<div>
 				<span class="pr-2 | text-xs | text-text-light-color dark:dt-text-light-color">{{ $view == 'table' ? 'Table' : 'Card' }} view</span>
 				<x-button-link
