@@ -6,6 +6,7 @@
                 <th class="text-left py-2.5 px-3">Localización</th>
                 <th class="text-left py-2.5 px-3">Juego</th>
                 <th class="w-24 | text-center py-2.5 px-3">Miembros</th>
+                <th class="w-48 | text-center py-2.5 px-3">Fecha registro</th>
             </thead>
             <tbody>
                 @foreach ($eteams as $eteam)
@@ -39,7 +40,10 @@
                             </span>
                         </td>
                         <td class="w-24 | py-1.5 px-3 | text-center">
-                            {{ $eteam->users()->count() }}
+                            {{ $eteam->users->count() }}
+                        </td>
+                        <td class="w-24 | py-1.5 px-3 | text-center">
+                            {{ $eteam->created_at }}
                         </td>
 
                     </tr>
@@ -47,7 +51,7 @@
             </tbody>
         </table>
     @else
-        <p class="bg-white dark:bg-dt-dark rounded | py-6 px-4 | text-center">No se han encontrado equiposs</p>
+        <p class="bg-white dark:bg-dt-dark rounded | py-6 px-4 | text-center">No se han encontrado equipos</p>
     @endif
 
 </div>

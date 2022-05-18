@@ -6,12 +6,21 @@ use Livewire\Component;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamUser;
 use App\Models\Game;
+use Illuminate\Support\Facades\DB;
 use Auth;
 
 class ETeamList extends Component
 {
-    public $name, $game;
+    public $name;
+    public $game;
+    public $users;
     public $view = 'table';
+
+    protected $queryString = [
+        'name' => ['except' => ''],
+        'game' => ['except' => ''],
+        'users' => ['except' => ''],
+    ];
 
     public function toggleView()
     {
@@ -30,7 +39,6 @@ class ETeamList extends Component
                 ->select('eteams.*')
                 ->where('eteams_users.user_id', auth()->user()->id)
                 ->orderBy('name', 'asc')
-                // ->orderBy('eteams.created_at', 'desc')
                 ->get();
                 // ->paginate(10)->onEachSide(2);
         }
@@ -41,12 +49,12 @@ class ETeamList extends Component
     public function getEteams()
     {
         return Team_Esport::
-            leftJoin('games', 'games.id', 'eteams.game_id')
+            join('games', 'games.id', 'eteams.game_id')
             ->select('eteams.*')
             ->name($this->name)
             ->game($this->game)
             ->orderBy('name', 'asc')
-            ->get();
+            ->get();    
     }
 
 
