@@ -57,7 +57,7 @@ class ETeamList extends Component
                 ->where('eteams_users.user_id', auth()->user()->id)
                 ->orderBy($this->orderName, $this->orderSort)
                 ->orderBy('name', 'asc')
-                ->get();
+                ->get();  
                 // ->paginate(10)->onEachSide(2);
         }
 
