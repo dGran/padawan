@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class ETeam extends Model
 {
@@ -51,7 +52,8 @@ class ETeam extends Model
         if (trim($value) != "") {
             return $query->where(function($q) use ($value) {
                 $q->where('eteams.name', 'LIKE', "%{$value}%")
-                    ->orWhere('eteams.location', 'LIKE', "%{$value}%");
+                    ->orWhere('eteams.location', 'LIKE', "%{$value}%")
+                    ->orWhere('games.name', 'LIKE', "%{$value}%");
             });
         }
     }
@@ -87,5 +89,10 @@ class ETeam extends Model
             return $this->game->getBanner();
         }
         return Storage::url($this->banner);
+    }
+
+    public function getCreatedAtFormated()
+    {
+        return Carbon::parse($this->created_at)->formatLocalized("%d %b '%y");
     }
 }

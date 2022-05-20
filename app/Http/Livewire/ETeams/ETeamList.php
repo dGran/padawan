@@ -14,13 +14,29 @@ class ETeamList extends Component
     public $name;
     public $game;
     public $users;
+    public $order='name';
+    public $orderName='name';
+    public $orderSort='asc';
     public $view = 'table';
 
     protected $queryString = [
         'name' => ['except' => ''],
         'game' => ['except' => ''],
         'users' => ['except' => ''],
+        'order' => ['except' => 'name']
     ];
+
+    public function changeOrder(string $value)
+    {
+        if (substr($this->order, -5)==='_desc') {
+            $this->order=$value;
+            $this->orderSort='asc';
+        } else {
+            $this->order=$value.'_desc';
+            $this->orderSort='desc';
+        }
+        $this->orderName=$value;
+    }
 
     public function toggleView()
     {
@@ -35,9 +51,11 @@ class ETeamList extends Component
     {
         if (Auth::check()) {
             return $myEteams = Team_Esport::
-                leftJoin('eteams_users', 'eteams_users.eteam_id', 'eteams.id')
+                join('games', 'games.id', 'eteams.game_id')
+                ->leftJoin('eteams_users', 'eteams_users.eteam_id', 'eteams.id')
                 ->select('eteams.*')
                 ->where('eteams_users.user_id', auth()->user()->id)
+                ->orderBy($this->orderName, $this->orderSort)
                 ->orderBy('name', 'asc')
                 ->get();
                 // ->paginate(10)->onEachSide(2);
@@ -53,6 +71,7 @@ class ETeamList extends Component
             ->select('eteams.*')
             ->name($this->name)
             ->game($this->game)
+            ->orderBy($this->orderName, $this->orderSort)
             ->orderBy('name', 'asc')
             ->get();    
     }

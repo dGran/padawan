@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Carbon\Carbon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,8 @@ class AppServiceProvider extends ServiceProvider
         // $visitorsOnline = \App\Models\Session::whereNull('user_id')->distinct('ip_address')->count('ip_address');
         $visitorsOnline = 0;
         view()->share('visitorsOnline', $visitorsOnline);
+
+        Carbon::setLocale(config('app.locale'));
+        setlocale(LC_ALL, 'es_ES', 'es', 'ES', 'es_ES.utf8');
     }
 }
