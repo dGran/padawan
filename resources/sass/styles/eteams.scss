@@ -1,0 +1,32 @@
+.eteams-table {
+    @apply bg-white dark:bg-dt-dark w-full rounded;
+    thead {
+        th {
+            @apply py-2.5 px-3;
+        }
+        .name {
+            @apply text-left;
+            min-width: 18rem;
+        }
+        .members {
+            @apply w-32 text-center;
+            min-width: 8rem;
+        }
+        .game {
+            @apply w-40 text-left;
+            min-width: 10rem;
+        }
+        .location {
+            @apply w-96 text-left;
+            min-width: 20rem;
+        }
+        .created_at {
+            @apply w-40 text-left;
+            min-width: 10rem;
+        }
+        .actions {
+            @apply w-40 text-left;
+            min-width: 10rem;
+        }
+    }
+}

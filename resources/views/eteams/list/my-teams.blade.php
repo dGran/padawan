@@ -1,7 +1,6 @@
 @auth
     <h4 class="mt-6 md:mt-10 | font-semibold | font-fjalla | text-lg md:text-xl | tracking-wider | text-title-color dark:text-dt-title-color">Mis Equipos</h4>
         @if ($my_eteams->count() > 0)
-
             <section class="mt-4 mb-6 md:mt-6 md:mb-8 | w-full overflow-x-auto | scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
                 <div class="flex items-start space-x-4">
                     @foreach ($my_eteams as $eteam)

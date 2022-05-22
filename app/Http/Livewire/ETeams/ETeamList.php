@@ -4,27 +4,55 @@ namespace App\Http\Livewire\ETeams;
 
 use Livewire\Component;
 use App\Models\ETeam as Team_Esport;
-use App\Models\ETeamUser;
-use App\Models\Game;
-use Illuminate\Support\Facades\DB;
+use Livewire\WithPagination;
 use Auth;
 
 class ETeamList extends Component
 {
-    public $name;
-    public $game;
-    public $users;
-    public $order='name';
-    public $orderName='name';
-    public $orderSort='asc';
-    public $view = 'table';
+    use WithPagination;
 
+    /* order vars */
+    public $order="name";
+    public $orderName="name";
+    public $orderSort="asc";
+    /* filters vars */
+    public $view="table";
+    public $search;
+    public $game;
+    
     protected $queryString = [
-        'name' => ['except' => ''],
+        'search' => ['except' => ''],
         'game' => ['except' => ''],
-        'users' => ['except' => ''],
         'order' => ['except' => 'name']
     ];
+
+    public function setCurrentPage()
+    {
+        $this->gotoPage($this->page);
+    }
+
+    public function toPage($page)
+    {
+        $this->gotoPage($page);
+    }
+
+    public function nextPage($lastPage)
+    {
+        if (($this->page + 1) <= $lastPage) {
+            $this->setPage($this->page + 1);
+        } else {
+            $this->setPage(1);
+        }
+    }
+
+    public function previousPage($lastPage)
+    {
+        if ($this->page > 1) {
+            $this->setPage($this->page - 1);
+        } else {
+            $this->setPage($lastPage);
+        }
+    }
 
     public function changeOrder(string $value)
     {
@@ -47,15 +75,24 @@ class ETeamList extends Component
         }
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingGame()
+    {
+        $this->resetPage();
+    }
+
     public function getMyEteams()
     {
         if (Auth::check()) {
-            return $myEteams = Team_Esport::
-                join('games', 'games.id', 'eteams.game_id')
+            return Team_Esport::
+                leftJoin('games', 'games.id', 'eteams.game_id')
                 ->leftJoin('eteams_users', 'eteams_users.eteam_id', 'eteams.id')
                 ->select('eteams.*')
                 ->where('eteams_users.user_id', auth()->user()->id)
-                ->orderBy($this->orderName, $this->orderSort)
                 ->orderBy('name', 'asc')
                 ->get();
                 // ->paginate(10)->onEachSide(2);
@@ -66,16 +103,21 @@ class ETeamList extends Component
 
     public function getEteams()
     {
-        return Team_Esport::
-            join('games', 'games.id', 'eteams.game_id')
-            ->select('eteams.*')
-            ->name($this->name)
+        $eteams = Team_Esport::
+            withCount('users')
+            ->leftJoin('games', 'games.id', 'eteams.game_id')
+            ->search($this->search)
             ->game($this->game)
             ->orderBy($this->orderName, $this->orderSort)
-            ->orderBy('name', 'asc')
-            ->get();    
+            ->orderBy('name', 'asc')            
+            ->paginate(12);  
+              
+        return $eteams;
     }
 
+    public function mount()
+    {
+    }
 
     public function render()
     {

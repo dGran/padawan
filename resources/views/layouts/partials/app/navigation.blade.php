@@ -27,7 +27,7 @@
                     <x-link href="{{ route('dashboard') }}" class="group | flex items-center | focus:no-underline hover:no-underline">
                         {{-- <i class="icon-logo | text-3xl md:text-4xl"></i> --}}
                         <img src="{{ asset('img/logo2.png') }}" alt="" class="w-auto h-10 opacity-100 | group-hover:opacity-80 | group-focus:opacity-80">
-                        <p class="whitespace-nowrap font-ubuntuCondensed tracking-tight text-xl font-bold | ml-0">
+                        <p class="whitespace-nowrap font-ubuntuCondensed tracking-tight text-xl | ml-0">
                             @php
                                 $appName = explode(' ', config('app.name'));
                             @endphp
@@ -110,14 +110,7 @@
                 </button>
                 {{-- theme switcher --}}
 
-                {{-- <div class="text-xl md:text-2xl | mx-4 | hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color | transition duration-150 ease-in-out leading-3 md:leading-5">
-                    <input type="text" id="theme-selection" class="hidden">
-                    <label id="theme-selection-label" for="theme-selection">
-                        <i class="cursor-pointer" id="theme-selection-icon"></i>
-                    </label>
-                </div> --}}
-
-{{--                 @auth
+                {{-- @auth
                     <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
                         <a href="{{ route('notifications') }}" class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color">
                             <i class="far fa-bell"></i>

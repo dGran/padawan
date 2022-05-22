@@ -26,18 +26,20 @@
         <script src="{{ asset('js/theme.js') }}"></script>
 
         <!-- Scripts -->
-            {{-- JQuery --}}
+        {{-- JQuery --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-            {{-- Toastr --}}
+        {{-- Alpine JS --}}
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" integrity="sha512-B/OEIDaWXc61XNJlO0TQILX/mFbhx77bwQKzok6I8suB6WP9yvN8zgaiyLmekPr5eRNmjfpR40zos29ktaSHEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        {{-- Toastr --}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+        {{-- Mouse Trap --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mousetrap/1.6.5/mousetrap.min.js"></script>
 
         <!-- Alpine Plugins -->
         {{-- <script defer src="https://unpkg.com/@alpinejs/trap@3.x.x/dist/cdn.min.js"></script> --}}
         <!-- Alpine Core -->
         {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
 
-            {{-- Alpine JS --}}
-        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.10.2/cdn.min.js" integrity="sha512-B/OEIDaWXc61XNJlO0TQILX/mFbhx77bwQKzok6I8suB6WP9yvN8zgaiyLmekPr5eRNmjfpR40zos29ktaSHEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             {{-- Custom JS --}}
         <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -77,7 +79,6 @@
                 </footer>
             @endif
 
-
             @livewire('livewire-ui-modal')
             @livewireScripts
 
@@ -86,6 +87,7 @@
 
             @stack('custom-scripts')
 
+            @yield('js')
         </div>
 
     </body>

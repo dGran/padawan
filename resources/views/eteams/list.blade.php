@@ -1,13 +1,11 @@
 <div>
-
 	@include('eteams.list.header')
 
-    <x-container>
-
+	<x-container>
 		@include('eteams.list.my-teams')
 
-		<div class="mt-8 | flex items-center justify-between space-x-3">
-			<h4 class="flex-1 | font-semibold | text-base md:text-lg | uppercase | text-title-color dark:text-dt-title-color | underline decoration-sky-500 underline-offset-8">Equipos e-sports</h4>
+		<div class="mt-8 | flex items-baseline justify-between space-x-3">
+			<h4 class="flex-1 | font-medium | text-xl md:text-2xl | font-koulen uppercase | text-title-color dark:text-dt-title-color | tracking-wide">Equipos e-sports</h4>
 			<a class='flex-initial | mx-auto md:mx-0 px-4 py-2 w-max text-center | bg-white | border border-white rounded | font-semibold text-teal-700 | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer' href="{{ route('eteams.create') }}">
 				Registra tu equipo e-sport!
 			</a>
@@ -23,12 +21,38 @@
 			@include('eteams.list.filters')
 
 			@if ($view == "table")
-				@include('eteams.list.table')
+				@include('eteams.list.table.index')
 			@elseif ($view == "card")
 				@include('eteams.list.card')
 			@endif
-
         </section>
-
     </x-container>
 </div>
+
+@section('js')
+	<script>
+		document.addEventListener('livewire:load', function () {
+			Mousetrap.bind("right", function() {
+				@this.nextPage({{ $eteams->lastPage() }});
+				return false;
+			});
+			Mousetrap.bind("left", function() {
+				@this.previousPage({{ $eteams->lastPage() }});
+				return false;
+			});
+			Mousetrap.bind(['ctrl+right', 'command+right'], function() {
+				@this.toPage({{ $eteams->lastPage() }});
+				return false;
+			});
+			Mousetrap.bind(['ctrl+left', 'command+left'], function() {
+				@this.toPage(1);
+				return false;
+			});
+			Mousetrap.bind('/', function() {
+				$('.search-input').focus();
+				$('.search-input').select();
+				return false;
+			});
+		});
+	</script>
+@endsection

@@ -80,4 +80,34 @@ class User extends Authenticatable
     {
         return ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
     }
+
+    public function eteamInvitation($eteam_id)
+    {
+        return (ETeamInvitation::where('user_id', $this->id)
+            ->where('eteam_id', $eteam_id)
+            ->where('state', 'pending')
+            ->count());
+    } 
+
+    public function eteamMember($eteam_id)
+    {
+        return (ETeamUser::where('user_id', $this->id)
+            ->where('eteam_id', $eteam_id)
+            ->count());
+    }  
+
+    public function eteamRequest($eteam_id)
+    {
+        return (ETeamRequest::where('user_id', $this->id)
+            ->where('eteam_id', $eteam_id)
+            ->count());
+    }     
+
+    public function eteamRequestState($eteam_id)
+    {
+        return (ETeamRequest::where('user_id', $this->id)
+        ->where('eteam_id', $eteam_id)
+        ->first()
+        ->state);
+    }
 }

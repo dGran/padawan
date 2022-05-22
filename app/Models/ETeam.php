@@ -14,7 +14,7 @@ class ETeam extends Model
     protected $table = 'eteams';
 
     protected $fillable = [
-        'game_id', 'name', 'short_name', 'logo', 'banner', 'country_id', 'location', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
+        'game_id', 'name', 'short_name', 'logo', 'banner', 'country_id', 'location', 'open', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
     ];
 
     public function game()
@@ -47,7 +47,7 @@ class ETeam extends Model
         return $this->hasMany('App\Models\ETeamPost', 'eteam_id', 'id');
     }
 
-    public function scopeName($query, $value)
+    public function scopeSearch($query, $value)
     {
         if (trim($value) != "") {
             return $query->where(function($q) use ($value) {

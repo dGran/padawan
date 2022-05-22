@@ -15,11 +15,13 @@ module.exports = (isProd) => ({
     darkMode: 'class', // or 'media' or 'class'
     theme: {
         fontFamily: {
-            // sans: ['Roboto', 'sans-serif'],
-            sans: ['Open Sans', 'sans-serif'],
+            sans: ['Roboto Flex', 'sans-serif'],
+            // sans: ['Open Sans', 'sans-serif'],
             condensed: ['Roboto Condensed', 'sans-serif'],
             script: ['Bad Script', 'cursive'],
+            mono: ['Roboto Mono', 'monospace'],
             // especial fonts
+            koulen: ['Koulen', 'sans-serif'],
             fjalla: ['Fjalla One', 'sans-serif'],
             raleway: ['Raleway', 'sans-serif'],
             miriam: ['Miriam Libre', 'sans-serif'],
@@ -53,9 +55,9 @@ module.exports = (isProd) => ({
                 'sb-thumb-color' : '#dfdfe8',
                 'sb-thumb-color-hover' : '#c1c1d3',
                 'sb-track-color' : '#fdfdfe',
-                'sb-thumb-dt-color' : '#40474d',
-                'sb-thumb-dt-color-hover' : '#333a3e',
-                'sb-track-dt-color' : '#566169',
+                'sb-thumb-dt-color' : '#566169',
+                'sb-thumb-dt-color-hover' : '#6C7983',
+                'sb-track-dt-color' : '#40474d',
 
                 // cool gray
                 'gray': {
