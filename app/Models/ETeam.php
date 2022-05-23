@@ -95,4 +95,14 @@ class ETeam extends Model
     {
         return Carbon::parse($this->created_at)->formatLocalized("%d %b '%y");
     }
+
+    public function getCaptains()
+    {
+        return ETeamUser::where('eteam_id', $this->id)
+        ->where(function($q) {
+            $q->where('owner', 1)
+              ->orWhere('captain', 1);
+        })
+        ->get();
+    }
 }

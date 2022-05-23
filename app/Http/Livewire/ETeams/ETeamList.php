@@ -2,8 +2,11 @@
 
 namespace App\Http\Livewire\ETeams;
 
-use Livewire\Component;
 use App\Models\ETeam as Team_Esport;
+use App\Models\ETeamRequest;
+use App\Models\ETeamUser;
+use App\Models\User;
+use Livewire\Component;
 use Livewire\WithPagination;
 use Auth;
 
@@ -11,11 +14,7 @@ class ETeamList extends Component
 {
     use WithPagination;
 
-    /* order vars */
-    public $order="name";
-    public $orderName="name";
-    public $orderSort="asc";
-    /* filters vars */
+    public $order="created_at_desc";
     public $view="table";
     public $search;
     public $game;
@@ -23,7 +22,7 @@ class ETeamList extends Component
     protected $queryString = [
         'search' => ['except' => ''],
         'game' => ['except' => ''],
-        'order' => ['except' => 'name']
+        'order' => ['except' => 'created_at_desc']
     ];
 
     public function setCurrentPage()
@@ -54,16 +53,57 @@ class ETeamList extends Component
         }
     }
 
-    public function changeOrder(string $value)
+    public function setOrder(string $value)
     {
-        if (substr($this->order, -5)==='_desc') {
-            $this->order=$value;
-            $this->orderSort='asc';
-        } else {
-            $this->order=$value.'_desc';
-            $this->orderSort='desc';
-        }
-        $this->orderName=$value;
+        $this->order = $value;
+    }
+
+    protected function getOrder($order): array
+    {
+        (array)$orderValue = [
+            'name' => [
+                'field'     => 'name',
+                'direction' => 'asc'
+            ],
+            'name_desc' => [
+                'field'     => 'name',
+                'direction' => 'desc'
+            ],
+            'members' => [
+                'field'     => 'users_count',
+                'direction' => 'asc'
+            ],
+            'members_desc' => [
+                'field'     => 'users_count',
+                'direction' => 'desc'
+            ],
+            'game' => [
+                'field'     => 'games.name',
+                'direction' => 'asc'
+            ],
+            'game_desc' => [
+                'field'     => 'games.name',
+                'direction' => 'desc'
+            ],
+            'location' => [
+                'field'     => 'location',
+                'direction' => 'asc'
+            ],
+            'location_desc' => [
+                'field'     => 'location',
+                'direction' => 'desc'
+            ],
+            'created_at' => [
+                'field'     => 'created_at',
+                'direction' => 'asc'
+            ],
+            'created_at_desc' => [
+                'field'     => 'created_at',
+                'direction' => 'desc'
+            ]
+        ];
+
+        return $orderValue[$order];
     }
 
     public function toggleView()
@@ -85,9 +125,66 @@ class ETeamList extends Component
         $this->resetPage();
     }
 
+    public function RequestJoin($eteam_id): void
+    {
+        if (Auth::check()) {
+
+            $eteam = Team_Esport::find($eteam_id);
+            $user = User::find(Auth::user()->id);
+
+            ETeamRequest::create([
+                'eteam_id' => $eteam_id,
+                'user_id' => $user->id,
+                'state' => 'pending',
+                'message' => 'Hola, quiero unirme a vuestro equipo, gracias.'
+            ]);
+    
+            foreach ($eteam->getCaptains() as $captain) {
+                //send notification with helper
+                $notification_data = [
+                    'user_id' => $captain->user_id,
+                    'from_user_id' => null,
+                    'title' => "Nueva solicitud de ingreso en tu equipo '$eteam->name'",
+                    'content' => "$user->name ha solicitado el ingreso en tu equipo. </br> Puedes acceder desde el enlace",
+                    'link' => Route('eteams.eteam', $eteam->slug),
+                    'read' => 0
+                ];
+                storeNotification($notification_data);
+            }
+        }
+    }
+
+    public function CancelRequestJoin($eteam_id): void
+    {
+        if (Auth::check()) {
+
+            $eteam = Team_Esport::find($eteam_id);
+            $user = User::find(Auth::user()->id);
+
+            $eteamRequests = ETeamRequest::where('eteam_id', $eteam_id)->where('user_id', $user->id)->get();
+            foreach ($eteamRequests as $request) {
+                $request->delete();
+            }
+               
+            foreach ($eteam->getCaptains() as $captain) {
+                //send notification with helper
+                $notification_data = [
+                    'user_id' => $captain->user_id,
+                    'from_user_id' => null,
+                    'title' => "Retirada de solicitud de ingreso en tu equipo '$eteam->name'",
+                    'content' => "$user->name ha retirado la solicitado de ingreso en tu equipo. </br> Puedes acceder desde el enlace",
+                    'link' => Route('eteams.eteam', $eteam->slug),
+                    'read' => 0
+                ];
+                storeNotification($notification_data);
+            }
+        }
+    }
+
     public function getMyEteams()
     {
         if (Auth::check()) {
+
             return Team_Esport::
                 leftJoin('games', 'games.id', 'eteams.game_id')
                 ->leftJoin('eteams_users', 'eteams_users.eteam_id', 'eteams.id')
@@ -95,7 +192,6 @@ class ETeamList extends Component
                 ->where('eteams_users.user_id', auth()->user()->id)
                 ->orderBy('name', 'asc')
                 ->get();
-                // ->paginate(10)->onEachSide(2);
         }
 
         return false;
@@ -103,20 +199,14 @@ class ETeamList extends Component
 
     public function getEteams()
     {
-        $eteams = Team_Esport::
+        return Team_Esport::
             withCount('users')
             ->leftJoin('games', 'games.id', 'eteams.game_id')
             ->search($this->search)
             ->game($this->game)
-            ->orderBy($this->orderName, $this->orderSort)
+            ->orderBy($this->getOrder($this->order)['field'], $this->getOrder($this->order)['direction'])
             ->orderBy('name', 'asc')            
-            ->paginate(12);  
-              
-        return $eteams;
-    }
-
-    public function mount()
-    {
+            ->paginate(15);
     }
 
     public function render()

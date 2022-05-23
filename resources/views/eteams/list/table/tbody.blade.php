@@ -55,9 +55,12 @@
                         <div class="flex flex-col">
                             <span>Solicitud enviada</span>
                             <span class="text-text-light-color dark:text-dt-text-light-color text-xxs">STATE: {{ auth()->user()->eteamRequestState($eteam->id) }}</span>
+                            <x-link color='red' class="text-xxs mt-1.5" wire:click="CancelRequestJoin({{ $eteam->id }})">
+                                Cancelar solicitud
+                            </x-link>
                         </div>
                     @else
-                        <x-button>
+                        <x-button wire:click="RequestJoin({{ $eteam->id }})">
                             Solicitar ingreso
                         </x-button>
                     @endif
