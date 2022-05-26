@@ -20,9 +20,10 @@ class ETeamList extends Component
     public $game;
     
     protected $queryString = [
+        'order' => ['except' => 'created_at_desc'],
+        'view' => ['except' => 'table'],
         'search' => ['except' => ''],
         'game' => ['except' => ''],
-        'order' => ['except' => 'created_at_desc']
     ];
 
     public function setCurrentPage()

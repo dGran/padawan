@@ -1,4 +1,4 @@
-<div class="my-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+<div class="my-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-6">
     @foreach ($eteams as $eteam)
         <a class="group | bg-white dark:bg-dt-dark rounded-md p-4 | hover:bg-gray-100 dark:hover:bg-dt-light-accent | focus:bg-gray-100 dark:focus:bg-dt-light-accent" href="{{ route('eteams.eteam', $eteam->slug) }}">
             <div class="flex items-start justify-between">

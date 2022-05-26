@@ -1,5 +1,5 @@
 @if ($eteams->lastPage() > 1)
-    <div class="-mb-1.5 | flex items-center justify-end | text-xs md:text-sm | px-3 sm:px-0">
+    <div class="flex items-center justify-end | text-xs md:text-sm | px-0">
         <p class="text-gray-700 dark:text-gray-300 | flex items-center space-x-1">
             <span class="font-medium">{{ $eteams->firstItem() }}</span>
             <span>/</span>
