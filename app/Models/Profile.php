@@ -57,7 +57,7 @@ class Profile extends Model
     public function getFlag()
     {
         if ($this->country_id) {
-            return $this->country->getFlag();
+            return $this->country->getFlag24();
         }
         return asset('img/flags/no_flag.png');
     }

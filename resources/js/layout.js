@@ -37,6 +37,9 @@ $(".menu-item").on('focusin', function(){
 // theme selector
 var themeToggleIcon = document.getElementById('theme-toggle-icon');
 var themeToggleBtn = document.getElementById('theme-toggle');
+if (window.location.pathname == "/") {
+    var indexBannerMask = document.getElementById('index-banner-mask');
+}
 
 getTheme();
 
@@ -79,6 +82,9 @@ function setTheme(mode) {
             themeToggleIcon.classList.add('icon-moon');
             if (!document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.add('dark');
+                if (window.location.pathname == "/") {
+                    indexBannerMask.classList.add('dark');
+                }
             }
             break;
         case 'light':
@@ -86,6 +92,9 @@ function setTheme(mode) {
             themeToggleIcon.classList.add('icon-sun');
             if (document.documentElement.classList.contains('dark')) {
                 document.documentElement.classList.remove('dark');
+                if (window.location.pathname == "/") {
+                    indexBannerMask.classList.remove('dark');
+                }
             }
             break;
         case 'device':
@@ -94,10 +103,16 @@ function setTheme(mode) {
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 if (!document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.add('dark');
+                    if (window.location.pathname == "/") {
+                        indexBannerMask.classList.add('dark');
+                    }
                 }
             } else {
                 if (document.documentElement.classList.contains('dark')) {
                     document.documentElement.classList.remove('dark');
+                    if (window.location.pathname == "/") {
+                        indexBannerMask.classList.remove('dark');
+                    }
                 }
             }
             break;

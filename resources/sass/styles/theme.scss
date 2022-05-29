@@ -45,3 +45,10 @@
 [x-cloak] {
     display: none !important;
 }
+
+.index-banner-mask {
+    background-color: rgba(255, 255, 255, 0.15);
+    &.dark {
+        background-color: rgba(33, 46, 54, 0.5);
+    }
+}

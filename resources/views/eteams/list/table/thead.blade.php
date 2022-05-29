@@ -1,4 +1,3 @@
-<th class="w-8"></th>
 <th class="name">
     @if ($order == 'name')
         <x-link color="gray" wire:click="setOrder('name_desc')" class="group">
@@ -71,7 +70,7 @@
         </x-link>
     @endif                   
 </th>
-<th class="created_at">
+<th class="date">
     @if ($order == 'created_at')
         <x-link color="gray" wire:click="setOrder('created_at_desc')" class="group">
             <span>Fecha registro</span>
@@ -89,6 +88,3 @@
         </x-link>
     @endif    
 </th>
-@auth
-<th class="actions"></th>
-@endauth

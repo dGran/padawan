@@ -21,32 +21,12 @@ class ETeamCreate extends Component
 
     public $user, $users, $games, $countries;
 
-    public $game_id, $name, $short_name, $logo, $banner, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
+    public $game_id, $name, $short_name, $logo, $banner, $country_id, $member_requests = true, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
 
     public $name_available, $short_name_available;
     public $banner_preview, $logo_preview;
 
     public $data;
-
-    // public function initialize()
-    // {
-    //     $game_id = null;
-    //     $name = null;
-    //     $short_name = null;
-    //     $logo = null;
-    //     $banner = null;
-    //     $country_id = null;
-    //     $location = null;
-    //     $presentation = null;
-    //     $presentation_video = null;
-    //     $website = null;
-    //     $whatsapp = null;
-    //     $facebook = null;
-    //     $instagram = null;
-    //     $twitter = null;
-    //     $twitch = null;
-    //     $youtube = null;
-    // }
 
     public function changeStep($current, $next)
     {
@@ -208,6 +188,7 @@ class ETeamCreate extends Component
             'banner' => $banner,
             'country_id' => $this->country_id,
             'location' => $this->location,
+            'member_requests' => $this->member_requests ? 1 : 0,
             'presentation' => $this->presentation,
             'presentation_video' => $this->presentation_video,
             'website' => $this->website,
@@ -222,7 +203,7 @@ class ETeamCreate extends Component
             'updated_at' => now(),
         ]);
 
-        $eteamUser = ETeamUser::create([
+        ETeamUser::create([
             'eteam_id' => $eteam->id,
             'user_id' => $this->user->id,
             'owner' => true,
@@ -233,9 +214,10 @@ class ETeamCreate extends Component
         $notification_data = [
             'user_id' => $this->user->id,
             'from_user_id' => null,
-            'title' => 'Nuevo equipo creado',
-            'content' => 'Tu equipo se ha creado correctamente. </br> Puedes acceder desde el enlace',
+            'title' => "Equipo '$eteam->name' creado",
+            'content' => 'Tu equipo se ha creado correctamente. Eres el propietario y único capitán del equipo pero puedes ascender a capitán a otros futuros miembros.',
             'link' => Route('eteams.eteam', $eteam->slug),
+            'link_title' => $eteam->name,
             'read' => 0
         ];
         storeNotification($notification_data);
@@ -249,7 +231,6 @@ class ETeamCreate extends Component
         $this->users = User::orderBy('name', 'asc')->get();
         $this->games = Game::where('allow_eteams', true)->orderBy('name', 'asc')->get();
         $this->countries = Country::orderBy('name', 'asc')->get();
-        // $this->initialize();
     }
 
     public function render()

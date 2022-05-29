@@ -13,6 +13,7 @@ module.exports = (isProd) => ({
         },
     },
     darkMode: 'class', // or 'media' or 'class'
+    content: ['./src/**/*.{html,js}', './node_modules/tw-elements/dist/js/**/*.js'],
     theme: {
         fontFamily: {
             sans: ['Roboto Flex', 'sans-serif'],
@@ -184,7 +185,8 @@ module.exports = (isProd) => ({
         require('tailwindcss-autofill'),
         require('tailwindcss-text-fill'),
         require('tailwindcss-shadow-fill'),
-        require('tailwind-scrollbar')
+        require('tailwind-scrollbar'),
+        require('tw-elements/dist/plugin')
     ],
     variants: {
         cursor: ['responsive', 'hover', 'focus', 'disabled'],

@@ -74,7 +74,7 @@
 
             <!-- Page Footer -->
             @if (!$wfooter)
-                <footer class="bg-gray-150 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-200 dark:border-transparent | pb-3 md:py-6">
+                <footer class="bg-gray-200 dark:bg-dt-darkest | dark:text-dt-text-light-color | border-t border-gray-300 dark:border-transparent | pb-3 md:py-6">
                     @include('layouts.partials.app.footer')
                 </footer>
             @endif

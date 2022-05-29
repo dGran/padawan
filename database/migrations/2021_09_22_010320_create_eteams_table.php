@@ -27,7 +27,7 @@ class CreateEteamsTable extends Migration
                 ->constrained('countries')
                 ->onDelete('cascade');
             $table->string('location')->nullable();
-            $table->boolean('open')->default(true);
+            $table->boolean('member_requests')->default(true);
             $table->text('presentation')->nullable();
             $table->string('presentation_video')->nullable();
             $table->string('website')->nullable();

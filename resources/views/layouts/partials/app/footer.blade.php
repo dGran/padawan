@@ -9,7 +9,7 @@
 </div>
 
 <!-- Block 2 -->
-<div class="border-t border-gray-200 dark:border-transparent | pt-2 md:pt-6">
+<div class="border-t border-gray-300 dark:border-transparent | pt-2 md:pt-6">
     <x-container class="flex items-center justify-center">
         @include('layouts.partials.app.footer.copyright')
     </x-container>

@@ -24,6 +24,7 @@
     "dependencies": {
         "tailwindcss-autofill": "^0.1.0",
         "tailwindcss-shadow-fill": "^0.1.0",
-        "tailwindcss-text-fill": "^0.1.2"
+        "tailwindcss-text-fill": "^0.1.2",
+        "tw-elements": "^1.0.0-alpha12"
     }
 }

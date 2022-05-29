@@ -29,15 +29,15 @@ Route::get('/politica-de-privacidad', function () {
 })->name('privacity-policy');
 
 // account routes
-Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', MyAccount::class)->name('account');
     Route::get('/editar-perfil', EditProfile::class)->name('edit-profile');
     Route::get('/notifications', Notification::class)->name('notifications');
 });
-Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', Notification::class)->name('notifications');
 });
-Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'password.confirm', 'checkProfile']], function () {
+Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', MyTeam::class)->name('myteams');
 });
 

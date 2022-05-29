@@ -24,7 +24,7 @@ class CreateEteamsInvitationsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->enum('state', ['pending', 'aproved', 'refused'])->nullable();
+            $table->enum('state', ['pending', 'refused'])->nullable();
             $table->date('contract_from')->nullable();
             $table->date('contract_to')->nullable();
             $table->text('message')->nullable();

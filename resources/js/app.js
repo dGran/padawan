@@ -4,3 +4,4 @@ require('./bootstrap');
 
 require('./layout');
 
+import 'tw-elements';

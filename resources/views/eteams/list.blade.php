@@ -2,13 +2,15 @@
 	@include('eteams.list.header')
 
 	<x-container>
-		@include('eteams.list.my-teams')
 
-		<div class="mt-8 | flex items-baseline justify-between space-x-3">
-			<h4 class="flex-1 | font-medium | text-xl md:text-2xl | font-koulen uppercase | text-title-color dark:text-dt-title-color | tracking-wide">Equipos e-sports</h4>
-			<a class='hidden sm:block flex-initial | mx-auto md:mx-0 px-4 py-2 w-max text-center | bg-green-600 dark:bg-green-400 | border border-green-700 dark:border-green-300 rounded | font-semibold text-white dark:text-black | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer' href="{{ route('eteams.create') }}">
+		<div class="mt-8 | flex items-end justify-between space-x-3">
+			<div class="flex-1 flex items-baseline justify-between sm:justify-start space-x-4">
+				<h4 class="font-medium | text-xl md:text-2xl | font-koulen uppercase | text-title-color dark:text-dt-title-color | tracking-wide">Equipos e-sports</h4>
+				<a href="{{ route('myteams') }}" class="dark:text-dt-text-light-color hover:underline focus:underline focus:outline-none">Mis equipos</a>
+			</div>
+			<x-link-button class="hidden sm:block | flex-initial | hover:scale-105 focus:scale-105 | transition transform ease-in-out duration-50" href="{{ route('eteams.create') }}">
 				Registra tu equipo e-sport!
-			</a>
+			</x-link-button>
 		</div>
 
         <section class="mt-1.5 sm:mt-3 mb-6">
@@ -16,9 +18,9 @@
 			@include('eteams.list.filters')
 
 			<div class="sm:hidden | flex items-center justify-center my-6">
-				<a class='mx-auto md:mx-0 px-4 py-2 w-max text-center | bg-green-600 dark:bg-green-400 | border border-green-700 dark:border-green-300 rounded | font-semibold text-white dark:text-black | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer' href="{{ route('eteams.create') }}">
+				<x-link-button class="mx-auto | hover:scale-105 focus:scale-105 | transition transform ease-in-out duration-50" href="{{ route('eteams.create') }}">
 					Registra tu equipo e-sport!
-				</a>
+				</x-link-button>
 			</div>
 			
 			@include('eteams.list.table.navigation')
@@ -26,7 +28,7 @@
 			@if ($view == "table")
 				@include('eteams.list.table.index')
 			@elseif ($view == "card")
-				@include('eteams.list.card')
+				@include('eteams.list.card.index')
 			@endif
 
 			@include('eteams.list.table.navigation')

@@ -20,8 +20,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::create(['name' => 'super-admin']);
-        $role = Role::create(['name' => 'admin']);
+        Role::create(['name' => 'super-admin']);
+        Role::create(['name' => 'admin']);
 
         $user = User::create([
             'name' => 'marcel',
@@ -43,16 +43,16 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('admin');
 
-        // for ($i=1; $i < 50; $i++) {
-        //     $name = 'user_test_' . $i;
-        //     $user = User::create([
-        //         'name' => $name,
-        //         'email' => $name . '@gmail.com',
-        //         'password' => Hash::make('secret'),
-        //         'email_verified_at' => now(),
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]);
-        // }
+        for ($i=1; $i < 50; $i++) {
+            $name = 'user_test_' . $i;
+            $user = User::create([
+                'name' => $name,
+                'email' => $name . '@gmail.com',
+                'password' => Hash::make('secret'),
+                'email_verified_at' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 }

@@ -17,16 +17,38 @@
             min-width: 10rem;
         }
         .location {
-            @apply w-96 text-left;
+            @apply w-96 text-left hidden;
             min-width: 20rem;
+            @screen sm {
+                @apply table-cell;
+            }
         }
-        .created_at {
-            @apply w-40 text-left;
+        .date {
+            @apply w-40 text-left hidden;
             min-width: 10rem;
+            @screen sm {
+                @apply table-cell;
+            }
         }
-        .actions {
-            @apply w-40 text-left;
-            min-width: 10rem;
+    }
+    tbody {
+        td {
+            @apply py-1.5 px-3;
+        }
+        .members {
+            @apply text-center;
+        }
+        .location {
+            @apply hidden;
+            @screen sm {
+                @apply table-cell;
+            }
+        }
+        .date {
+            @apply hidden text-left;
+            @screen sm {
+                @apply table-cell;
+            }
         }
     }
 }

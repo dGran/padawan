@@ -1,5 +1,5 @@
 <h4 class="block | py-3 md:pt-0 | font-semibold | text-title-color dark:text-dt-title-color">
-  	Notificaciones {{ $user->unreadNotifications() == 0 ? '' : '(' . $user->unreadNotifications() . ')' }}
+  	Notificaciones {{ $user->countNotifications() == 0 ? '' : '(' . $user->countNotifications() . ')' }}
 </h4>
 
 <x-card class="flex flex-col">

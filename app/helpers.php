@@ -11,6 +11,7 @@ function storeNotification($data)
 		'title' => $data['title'],
 		'content' => $data['content'],
 		'link' => $data['link'],
+		'link_title' => $data['link_title'],
 		'read' => $data['read']
 	]);
 }

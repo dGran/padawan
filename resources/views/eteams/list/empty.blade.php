@@ -1,0 +1,1 @@
+<p class="bg-white dark:bg-dt-dark rounded | py-6 px-4 | text-center">No se han encontrado equipos</p>

@@ -5,29 +5,44 @@
                 <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}" class="rounded-full | object-cover | w-full h-auto">
             </div>
         </button>
-        @livewire('account.count-unread-notifications', ['user' => auth()->user()])
-        @livewire('account.count-pending-invitations', ['user' => auth()->user()])
+        @if (auth()->user()->countTotalNotifications())
+        <div class="absolute bottom-0 right-0 | mr-0.5 mb-1 md:-mr-0.5">
+            <span class="flex h-3 w-3 md:h-4 md:w-4">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 dark:bg-red-300 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-red-500 dark:bg-red-400"></span>
+            </span>
+        </div>            
+        @endif
     </x-slot>
 
     <x-slot name="content">
 
         <x-dropdown-link :href="route('notifications')">
-            <div class="flex items-center">
-                <i class="text-base fas fa-bell w-6 mr-2 text-center"></i>
-                <span>{{ __('Notificaciones') }}</span>
+            <div class="flex items-center relative">
+                <i class="text-base fas fa-bell w-6 mr-2 text-center {{ !auth()->user()->countNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
+                <div class="flex items-start space-x-1">
+                    @if (auth()->user()->countNotifications())
+                        <span class="text-yellow-500 dark:text-yellow-400 text-xs font-bold">
+                            ({{ auth()->user()->countNotifications() < 9 ? auth()->user()->countNotifications() : '+9' }})
+                        </span>
+                    @endif
+                    <span>{{ __('Notificaciones') }}</span>
+                </div>
             </div>
         </x-dropdown-link>
 
         <x-dropdown-link :href="route('myteams')">
-            <div class="flex items-center">
-                <i class="text-base fas fa-user-shield w-6 mr-2 text-center"></i>
-                <span>{{ __('Mis equipos') }}</span>
+            <div class="flex items-center relative">
+                <i class="text-base fas fa-user-shield w-6 mr-2 text-center {{ !auth()->user()->countInvitations() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
+                <div class="flex items-start space-x-1">
+                    @if (auth()->user()->countInvitations())
+                        <span class="text-yellow-500 dark:text-yellow-400 text-xs font-bold">
+                            ({{ auth()->user()->countInvitations() < 9 ? auth()->user()->countInvitations() : '+9' }})
+                        </span>
+                    @endif
+                    <span>{{ __('Mis equipos') }}</span>
+                </div>
             </div>
-            @if (auth()->user()->eteamsInvitations() > 0)
-                <span class="block mt-0.5 text-xxs md:text-xs animate-pulse text-edyellow-500">
-                    {{ auth()->user()->eteamsInvitations() }} {{ auth()->user()->eteamsInvitations() == 1 ? 'invitación pendiente' : 'invitaciones pendientes' }}
-                </span>
-            @endif
         </x-dropdown-link>
 
         <x-dropdown-link :href="route('account')">

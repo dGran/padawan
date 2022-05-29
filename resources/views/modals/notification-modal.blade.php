@@ -18,7 +18,7 @@
         @if ($notification->link)
             <div class="flex justify-end border-t border-border-color dark:border-dt-border-color | mt-5 pt-5 -mb-2">
                 <x-link-button href="{{ $notification->link }}">
-                    Enlace
+                    {{ $notification->link_title ? $notification->link_title : 'Enlace' }}
                 </x-link-button>
 
             </div>

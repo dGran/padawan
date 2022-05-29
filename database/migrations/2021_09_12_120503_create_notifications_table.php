@@ -25,6 +25,7 @@ class CreateNotificationsTable extends Migration
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->text('link')->nullable();
+            $table->string('link_title')->nullable();
             $table->boolean('read')->default(true);
             $table->timestamps();
         });

@@ -16,6 +16,7 @@ class CheckProfile
         }
 
         $this->user = auth()->user();
+        
         //check if user has a profile
         if (!$this->user->profile) {
             //create profile

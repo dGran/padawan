@@ -27,32 +27,32 @@ class Country extends Model
         }
     }
 
-    public function getFlag16()
+    public function getFlag16(): string
     {
         return asset('img/flags/16x16') . '/' . $this->alpha_2 . '.png';
     }
 
-    public function getFlag24()
+    public function getFlag24(): string
     {
         return asset('img/flags/24x24') . '/' . $this->alpha_2 . '.png';
     }
 
-    public function getFlag32()
+    public function getFlag32(): string
     {
         return asset('img/flags/32x32') . '/' . $this->alpha_2 . '.png';
     }
 
-    public function getFlag48()
+    public function getFlag48(): string
     {
         return asset('img/flags/48x48') . '/' . $this->alpha_2 . '.png';
     }
 
-    public function getFlag64()
+    public function getFlag64(): string
     {
         return asset('img/flags/64x64') . '/' . $this->alpha_2 . '.png';
     }
 
-    public function getFlag128()
+    public function getFlag128(): string
     {
         return asset('img/flags/128x128') . '/' . $this->alpha_2 . '.png';
     }

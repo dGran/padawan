@@ -62,6 +62,16 @@
             </div>
         </div>
     </div>
+
+    <div class="grid grid-cols-1 gap-6 mt-4">
+        <div class="flex items-center">
+            <div class="form-check form-switch">
+              <input wire:model="member_requests" class="form-check-input appearance-none w-9 -ml-8 rounded-full float-left h-5 align-top bg-white bg-no-repeat bg-contain bg-gray-400 focus:outline-none cursor-pointer shadow-sm" type="checkbox" role="switch" id="member_requests">
+              <label class="form-check-label inline-block | cursor-pointer | ml-2" for="member_requests">Permitir solicitudes de ingreso</label>
+            </div>
+        </div>
+    </div>
+
 </x-card>
 
 <div class="mt-3 flex items-start justify-between">

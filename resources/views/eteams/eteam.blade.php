@@ -1,13 +1,10 @@
 <div>
-
 	{{-- breadcrumb --}}
 	@section('breadcrumb')
 		@include('eteams.eteam.breadcrumb')
 	@endsection
 
-
     <x-container>
-
     	<div class="flex items-center | mt-4 lg:mt-8">
     		@if ($eteam->country)
 				<img src="{{ $eteam->country->getFlag32() }}" alt="{{ $eteam->getCountryName() }}" title="{{ $eteam->getCountryName() }}" class="mr-3">
@@ -24,6 +21,10 @@
         		</div>
         	</div>
         	@include('eteams.eteam.partials.menu')
+
+            @auth
+                @include('eteams.eteam.partials.actions')
+            @endauth
 
             @switch($op)
                 @case('sede')
@@ -42,9 +43,6 @@
                     @include('eteams.eteam.admin')
                     @break
             @endswitch
-
         </x-card>
-
     </x-container>
-
 </div>
