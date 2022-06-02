@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -28,8 +29,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function profile() {
-        return $this->hasOne('App\Models\Profile');
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
     }
 
     public function getAge()
@@ -42,9 +44,10 @@ class User extends Authenticatable
     public function getAvatarUrl(): string
     {
         if (!$this->profile) {
-            return (string)"https://eu.ui-avatars.com/api/?name=" . $this->name;
+            return (string) "https://eu.ui-avatars.com/api/?name=".$this->name;
         }
-        return (string)$this->profile->getAvatarUrl();
+
+        return (string) $this->profile->getAvatarUrl();
     }
 
     public function getFlag(): string
@@ -54,44 +57,47 @@ class User extends Authenticatable
             if ($this->profile->country_id) {
                 return $this->profile->country->getFlag();
             }
-            return (string)$no_flag;
+
+            return (string) $no_flag;
         }
-        return (string)$no_flag;
+
+        return (string) $no_flag;
     }
 
     public function isAdminETeam($eteam_id): bool
     {
         $admin = ETeamUser::where('eteam_id', $eteam_id)
             ->where('user_id', $this->id)
-            ->where(function($q) {
+            ->where(function ($q) {
                 $q->where('owner', 1)
-                  ->orWhere('captain', 1);
-                })
+                    ->orWhere('captain', 1);
+            })
             ->get();
-        return (bool)$admin->count() > 0 ? true : false;
+
+        return (bool) $admin->count() > 0 ? true : false;
     }
 
     public function eteamInvitation($eteam_id): int
     {
-        return (int)ETeamInvitation::where('user_id', $this->id)
+        return (int) ETeamInvitation::where('user_id', $this->id)
             ->where('eteam_id', $eteam_id)
             ->where('state', 'pending')
             ->count();
-    } 
+    }
 
     public function eteamMember($eteam_id): int
     {
-        return (int)ETeamUser::where('user_id', $this->id)
+        return (int) ETeamUser::where('user_id', $this->id)
             ->where('eteam_id', $eteam_id)
             ->count();
-    }  
+    }
 
     public function eteamRequest(int $eteam_id): int
     {
-        return (int)(ETeamRequest::where('user_id', $this->id)
+        return (int) (ETeamRequest::where('user_id', $this->id)
             ->where('eteam_id', $eteam_id)
             ->count());
-    }     
+    }
 
     public function eteamRequestState(int $eteam_id): string
     {
@@ -99,29 +105,29 @@ class User extends Authenticatable
             ->where('eteam_id', $eteam_id)
             ->first()
             ->state);
-        
+
         switch ($state) {
             case 'pending':
-                return (string)'pendiente';
+                return (string) 'pendiente';
                 break;
             case 'refused':
-                return (string)'rechazada';
+                return (string) 'rechazada';
                 break;
         }
     }
 
     public function countTotalNotifications(): int
     {
-        return (int)$this->countNotifications() + $this->countInvitations();
+        return (int) $this->countNotifications() + $this->countInvitations();
     }
 
     public function countNotifications(): int
     {
-        return (int)Notification::where('user_id', $this->id)->unread(true)->count();
+        return (int) Notification::where('user_id', $this->id)->unread(true)->count();
     }
 
     public function countInvitations(): int
     {
-        return (int)ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
+        return (int) ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
     }
 }

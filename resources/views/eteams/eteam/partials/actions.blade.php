@@ -27,7 +27,7 @@
                 </div>
             </div>
         @endif
-    @else 
+    @else
         <div class="flex flex-col items-center">
             <i class="fa-solid fa-lock text-2xl lg:text-3xl pb-1.5"></i>
             <span>El equipo no admite solicitudes para nuevos miembros.</span>

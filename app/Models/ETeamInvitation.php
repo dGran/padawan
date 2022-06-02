@@ -22,6 +22,6 @@ class ETeamInvitation extends Model
 
     public function captain()
     {
-        return $this->belongsTo('App\Models\User', 'captain_id', 'id');
+        return $this->belongsTo('App\Models\ETeamUser', 'captain_id', 'id');
     }
 }

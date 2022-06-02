@@ -3,11 +3,11 @@
 		<ul x-data="{selected:null}" class="text-xs">
 		    <li class="flex align-center flex-col -mx-4">
 		        <a @click="selected !== 1 ? selected = 1 : selected = null"
-		            class="cursor-pointer | px-4 py-3 | border-b border-gray-200 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
+		            class="cursor-pointer | px-4 py-3 | border-b border-gray-300 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
 		            <span>Menu</span>
 		            <i class="fas fa-angle-down transition duration-150 ease-in-out" x-bind:class="{ 'transform -rotate-180' : selected == 1, '' : selected !== 1 }"></i>
 		        </a>
-		        <div x-show="selected == 1" class="border-b border-gray-200 dark:border-dt-darker px-6 py-1.5"
+		        <div x-show="selected == 1" class="border-b border-gray-300 dark:border-dt-darker px-6 py-1.5"
 		            x-transition:enter="transition ease-out duration-300 origin-top"
 		            x-transition:enter-start="opacity-0 transform scale-y-0"
 		            x-transition:enter-end="opacity-100 transform scale-y-100"
@@ -22,11 +22,11 @@
 		    </li>
 		    <li class="flex align-center flex-col -mx-4">
 		        <a @click="selected !== 2 ? selected = 2 : selected = null"
-		            class="cursor-pointer | px-4 py-3 | border-b border-gray-200 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
+		            class="cursor-pointer | px-4 py-3 | border-b border-gray-300 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
 		            <span>Padawan</span>
 		            <i class="fas fa-angle-down transition duration-150 ease-in-out" x-bind:class="{ 'transform -rotate-180' : selected == 2, '' : selected !== 2 }"></i>
 		        </a>
-		        <div x-show="selected == 2" class="border-b border-gray-200 dark:border-dt-darker px-6 py-1.5"
+		        <div x-show="selected == 2" class="border-b border-gray-300 dark:border-dt-darker px-6 py-1.5"
 		            x-transition:enter="transition ease-out duration-300 origin-top"
 		            x-transition:enter-start="opacity-0 transform scale-y-0"
 		            x-transition:enter-end="opacity-100 transform scale-y-100"
@@ -41,11 +41,11 @@
 		    </li>
 		    <li class="flex align-center flex-col -mx-4">
 		        <a @click="selected !== 3 ? selected = 3 : selected = null"
-		            class="cursor-pointer | px-4 py-3 | border-b border-gray-200 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
+		            class="cursor-pointer | px-4 py-3 | border-b border-gray-300 dark:border-dt-darker | font-semibold text-left | text-title-color dark:text-dt-title-color | inline-block | flex items-center justify-between">
 		            <span>Legal</span>
 		            <i class="fas fa-angle-down transition duration-150 ease-in-out" x-bind:class="{ 'transform -rotate-180' : selected == 3, '' : selected !== 3 }"></i>
 		        </a>
-		        <div x-show="selected == 3" class="border-b border-gray-200 dark:border-dt-darker px-6 py-1.5"
+		        <div x-show="selected == 3" class="border-b border-gray-300 dark:border-dt-darker px-6 py-1.5"
 		            x-transition:enter="transition ease-out duration-300 origin-top"
 		            x-transition:enter-start="opacity-0 transform scale-y-0"
 		            x-transition:enter-end="opacity-100 transform scale-y-100"

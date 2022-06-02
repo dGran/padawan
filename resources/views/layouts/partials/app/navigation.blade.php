@@ -38,7 +38,7 @@
                                 {{ $appName[1] }}
                             </span>
                         </p>
-                    </x-link>
+                    </x-link> 
                 </div>
 
                 <!-- Navigation Links -->

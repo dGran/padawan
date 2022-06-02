@@ -100,7 +100,7 @@ class ETeamCreate extends Component
         return false;
     }
 
-    public function checkShortName()
+    public function checkShortName(): bool
     {
         $matches = Team_Esport::where('short_name', $this->short_name)->count();
         if (!$matches) {
@@ -225,7 +225,7 @@ class ETeamCreate extends Component
         return redirect()->route('eteams.eteam', $eteam->slug);
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->user = auth()->user();
         $this->users = User::orderBy('name', 'asc')->get();
@@ -240,5 +240,4 @@ class ETeamCreate extends Component
         return view('eteams.create')
             ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
-
 }

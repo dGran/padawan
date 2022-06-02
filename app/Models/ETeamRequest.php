@@ -19,4 +19,9 @@ class ETeamRequest extends Model
     {
         return $this->belongsTo('App\Models\ETeam', 'eteam_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

@@ -10,11 +10,11 @@ class ETeamList extends Component
 {
     use WithPagination;
 
-    public $order="created_at_desc";
-    public $view="table";
+    public $order = "created_at_desc";
+    public $view = "table";
     public $search;
     public $game;
-    
+
     protected $queryString = [
         'order' => ['except' => 'created_at_desc'],
         'view' => ['except' => 'table'],
@@ -57,47 +57,47 @@ class ETeamList extends Component
 
     protected function getOrder($order): array
     {
-        (array)$orderValue = [
+        (array) $orderValue = [
             'name' => [
-                'field'     => 'name',
-                'direction' => 'asc'
+                'field' => 'name',
+                'direction' => 'asc',
             ],
             'name_desc' => [
-                'field'     => 'name',
-                'direction' => 'desc'
+                'field' => 'name',
+                'direction' => 'desc',
             ],
             'members' => [
-                'field'     => 'users_count',
-                'direction' => 'asc'
+                'field' => 'users_count',
+                'direction' => 'asc',
             ],
             'members_desc' => [
-                'field'     => 'users_count',
-                'direction' => 'desc'
+                'field' => 'users_count',
+                'direction' => 'desc',
             ],
             'game' => [
-                'field'     => 'games.name',
-                'direction' => 'asc'
+                'field' => 'games.name',
+                'direction' => 'asc',
             ],
             'game_desc' => [
-                'field'     => 'games.name',
-                'direction' => 'desc'
+                'field' => 'games.name',
+                'direction' => 'desc',
             ],
             'location' => [
-                'field'     => 'location',
-                'direction' => 'asc'
+                'field' => 'location',
+                'direction' => 'asc',
             ],
             'location_desc' => [
-                'field'     => 'location',
-                'direction' => 'desc'
+                'field' => 'location',
+                'direction' => 'desc',
             ],
             'created_at' => [
-                'field'     => 'created_at',
-                'direction' => 'asc'
+                'field' => 'created_at',
+                'direction' => 'asc',
             ],
             'created_at_desc' => [
-                'field'     => 'created_at',
-                'direction' => 'desc'
-            ]
+                'field' => 'created_at',
+                'direction' => 'desc',
+            ],
         ];
 
         return $orderValue[$order];
@@ -122,15 +122,21 @@ class ETeamList extends Component
         $this->resetPage();
     }
 
+    public function linkToEteam($slug)
+    {
+        dd('llego');
+        return view('eteam', [$slug]);
+    }
+
     public function getEteams()
     {
         return Team_Esport::
-            withCount('users')
+        withCount('users')
             ->leftJoin('games', 'games.id', 'eteams.game_id')
             ->search($this->search)
             ->game($this->game)
             ->orderBy($this->getOrder($this->order)['field'], $this->getOrder($this->order)['direction'])
-            ->orderBy('name', 'asc')            
+            ->orderBy('name', 'asc')
             ->paginate(15);
     }
 
@@ -144,15 +150,15 @@ class ETeamList extends Component
 
         return view('eteams.list',
             [
-                'eteams'     => $this->getEteams(),
-                'etGames'    => $etGames
+                'eteams' => $this->getEteams(),
+                'etGames' => $etGames,
             ]
         )->layout('layouts.app',
             [
-                'title'      => 'Equipos',
+                'title' => 'Equipos',
                 'breadcrumb' => 0,
-                'wfooter'    => 0,
-                'wloader'    => 0
+                'wfooter' => 0,
+                'wloader' => 0,
             ]
         );
     }
