@@ -1,121 +1,113 @@
-{{-- breadcrumb --}}
-@section('breadcrumb')
-    <li class="min-w-max">
-        <x-link class="" href="{{ route('dashboard') }}">Inicio</x-link>
-        <span class="px-1.5">/</span>
-    </li>
-    <li class="min-w-max">
-        <span>Mis Equipos</span>
-    </li>
-@endsection
+<x-app-layout title="Mis equipos e-sports">
 
+    @include('account.menu')
 
-<x-container>
-    <section class="mb-8 flex flex-col md:flex-row justify-between items-start gap-4 md:gap-8">
-        @include('account.menu', ['activeTab' => 'MyTeams'])
+    <x-container class="my-6">
 
-        <div class="w-full flex flex-col sm:flex-row items-start justify-between space-y-4 sm:space-x-8 sm:space-y-0">
-            <div class="w-full">
-                <h4 class="text-base md:text-lg | font-semibold | text-title-color dark:text-dt-title-color">
-                    Invitaciones recibidas
-                </h4>
-                @if ($invitations->count() > 0)
-                    @foreach ($invitations as $invitation)
-                        <div class="flex flex-col py-1.5">
-                            <div
-                                class="rounded-md | bg-white dark:bg-dt-dark | border border-border-color dark:border-dt-border-color">
-                                <div class="w-full | p-3 | flex flex-col items-center">
-                                    <img src="{{ $invitation->eteam->getLogo() }}" alt=""
-                                         class="w-12 h-12 object-cover rounded-full | border border-border-color dark:border-dt-border-color">
-                                    <x-link href="{{ route('eteams.eteam', $invitation->eteam->slug) }}">
-                                        {{ $invitation->eteam->name }}
-                                    </x-link>
-                                    <p class="text-xxxs md:text-xxs | mt-1">
-                                        Invitado por
-                                        <x-link>{{ $invitation->captain->user->name }}</x-link>
-                                    </p>
-                                </div>
-                                <div
-                                    class="w-full | p-3 | flex items-center justify-center space-x-3 | border-t border-border-color dark:border-dt-border-color">
-                                    <x-button color="red" class="w-24">
-                                        <span class="text-xs">Rechazar</span>
-                                    </x-button>
-                                    <x-button class="w-24">
-                                        <span class="text-xs">Aceptar</span>
-                                    </x-button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    No tienes invitaciones pendientes
-                @endif
-            </div>
-
-            <div class="w-full">
-                <h4 class="text-base md:text-lg | font-semibold | text-title-color dark:text-dt-title-color">
-                    Solicitudes recibidas
-                </h4>
-                @if ($myEteamsRequests->count() > 0)
-                    @foreach ($myEteamsRequests as $request)
-                        <div class="flex flex-col py-1.5">
-                            <div
-                                class="rounded-md | bg-white dark:bg-dt-dark | border border-border-color dark:border-dt-border-color">
-                                <div class="w-full | p-3 | flex flex-col items-center">
-                                    <img src="{{ $request->eteam->getLogo() }}" alt=""
-                                         class="w-12 h-12 object-cover rounded-full | border border-border-color dark:border-dt-border-color">
-                                    <x-link href="{{ route('eteams.eteam', $request->eteam->slug) }}">
-                                        {{ $request->eteam->name }}
-                                    </x-link>
-                                    <p class="text-xxxs md:text-xxs | mt-1">
-                                        Solicita:
-                                        <x-link>{{ $request->user->name }}</x-link>
-                                    </p>
-                                </div>
-                                <div
-                                    class="w-full | p-3 | flex items-center justify-center space-x-3 | border-t border-border-color dark:border-dt-border-color">
-                                    <x-button color="edblue" class="w-40">
-                                        <span class="text-xs">Aceptar solicitud</span>
-                                    </x-button>
-                                    <x-button color="rose" class="w-40">
-                                        <span class="text-xs">Rechazar solicitud</span>
-                                    </x-button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @else
-                    No tienes solicitudes pendientes
-                @endif
-
-                @if ($requests->count() > 0)
-                    <h4 class="text-base md:text-lg | font-semibold | text-title-color dark:text-dt-title-color">
-                        Solicitudes enviadas
-                    </h4>
-                    @foreach ($requests as $request)
-                        <div class="flex flex-col py-1.5">
-                            <div
-                                class="rounded-md | bg-white dark:bg-dt-dark | border border-border-color dark:border-dt-border-color">
-                                <div class="w-full | p-3 | flex flex-col items-center">
-                                    <img src="{{ $request->eteam->getLogo() }}" alt=""
-                                         class="w-12 h-12 object-cover rounded-full | border border-border-color dark:border-dt-border-color">
-                                    <x-link href="{{ route('eteams.eteam', $request->eteam->slug) }}">
-                                        {{ $request->eteam->name }}
-                                    </x-link>
-                                </div>
-                                <div
-                                    class="w-full | p-3 | flex items-center justify-center space-x-3 | border-t border-border-color dark:border-dt-border-color">
-                                    <x-button color="edgray" class="w-40">
-                                        <span class="text-xs">Retirar solicitud</span>
-                                    </x-button>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
+        <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{{$invitations->count() > 0 ? '{selected:1}' : '{selected:null}'}}">
+            <button type="button" class="group | w-full px-4 py-2.5 text-left text-title-color dark:text-dt-title-color focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fa-solid fa-people-group w-5"></i>
+                    <p class="flex-1 | flex flex-col | leading-5">
+                        <span class="text-title-color dark:text-dt-title-color font-medium">Invitaciones recibidas</span>
+                        <span class="text-xxs | text-text-light-color">Listado de invitaciones de ingreso a otros equipos</span>
+                    </p>
+                    @if ($invitations->count() > 0)
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $invitations->count() }}</span>
+                    @endif
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    @include('account/myteams/invitations')
+                </div>
             </div>
         </div>
 
+        <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{{$requests->count() > 0 ? '{selected:1}' : '{selected:null}'}}">
+            <button type="button" class="group | w-full px-4 py-2.5 text-left text-title-color dark:text-dt-title-color focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fas fa-angles-right w-5"></i>
+                    <p class="flex-1 | flex flex-col | leading-5">
+                        <span class="text-title-color dark:text-dt-title-color font-medium">Solicitudes enviadas</span>
+                        <span class="text-xxs | text-text-light-color">Listado de solicitudes de ingreso a otros equipos</span>
+                    </p>
+                    @if ($requests->count() > 0)
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $requests->count() }}</span>
+                    @endif
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    @include('account/myteams/requests')
+                </div>
+            </div>
+        </div>
 
-    </section>
-</x-container>
+        <h4 class="pt-3">Mis equipos</h4>
+        <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{{$myEteamsInvitations->count() > 0 ? '{selected:1}' : '{selected:null}'}}">
+            <button type="button" class="group | w-full px-4 py-2.5 text-left text-title-color dark:text-dt-title-color focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fa-solid fa-people-group w-5"></i>
+                    <p class="flex-1 | flex flex-col | leading-5">
+                        <span class="text-title-color dark:text-dt-title-color font-medium">Invitaciones enviadas</span>
+                        <span class="text-xxs | text-text-light-color">Listado de invitaciones enviadas para el ingreso en tus equipos</span>
+                    </p>
+                    @if ($myEteamsInvitations->count() > 0)
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $myEteamsInvitations->count() }}</span>
+                    @endif
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    @include('account/myteams/invitations-send')
+                </div>
+            </div>
+        </div>
+
+        <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{{$myEteamsRequests->count() > 0 ? '{selected:1}' : '{selected:null}'}}">
+            <button type="button" class="group | w-full px-4 py-2.5 text-left text-title-color dark:text-dt-title-color focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fas fa-angles-left w-5"></i>
+                    <p class="flex-1 | flex flex-col | leading-5">
+                        <span class="text-title-color dark:text-dt-title-color font-medium">Solicitudes recibidas</span>
+                        <span class="text-xxs | text-text-light-color">Listado de solicitudes de ingreso en equipos donde eres capitán</span>
+                    </p>
+                    @if ($myEteamsRequests->count() > 0)
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $myEteamsRequests->count() }}</span>
+                    @endif
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    @include('account/myteams/requests-received')
+                </div>
+            </div>
+        </div>
+
+        <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{selected:1}">
+
+            <button type="button" class="group | w-full px-4 py-2.5 text-left focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fas fa-user-shield w-5"></i>
+                    <p class="flex-1 | flex flex-col | leading-5">
+                        <span class="text-title-color dark:text-dt-title-color font-medium">Mis equipos</span>
+                        <span class="text-xxs | text-text-light-color">Listado equipos e-sports donde eres miembro</span>
+                    </p>
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    @include('account/myteams/myteams')
+                </div>
+            </div>
+        </div>
+
+    </x-container>
+
+</x-app-layout>

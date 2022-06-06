@@ -38,7 +38,7 @@
                                 {{ $appName[1] }}
                             </span>
                         </p>
-                    </x-link> 
+                    </x-link>
                 </div>
 
                 <!-- Navigation Links -->
@@ -150,7 +150,7 @@
     </x-container>
 
     <!-- Responsive Navigation Menu -->
-    <div class="md:hidden absolute w-full h-screen bg-gray-50 dark:bg-dt-darker z-40 shadow-md" id="responsiveNavMenu" x-show="open"
+    <div x-cloak class="md:hidden absolute w-full h-screen bg-gray-50 dark:bg-dt-darker z-40 shadow-md" id="responsiveNavMenu" x-show="open"
         x-transition:enter="transition ease-out origin-top-left duration-100"
         x-transition:enter-start="opacity-0 transform scale-y-0"
         x-transition:enter-end="opacity-100 transform scale-y-100"

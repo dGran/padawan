@@ -4,11 +4,11 @@
 <form wire:submit.prevent="updateGeneralData">
     @csrf
     <x-card class="p-5 md:p-7 flex flex-col space-y-4 md:space-y-6">
-{{--         <div>
-            <img src="{{ $user->profile->getAvatar() }}" alt="">
-            <x-label for="name" :value="__('foto')" class="capitalize" />
-            <x-input wire:model="name" id="name" class="block mt-0.5 w-full lg:w-3/6" type="text" name="name" :value="old('name')" placeholder="Escribe tu nombre" required/>
-        </div> --}}
+{{--         <div>--}}
+{{--            <img src="{{ $user->profile->getAvatar() }}" alt="">--}}
+{{--            <x-label for="name" :value="__('foto')" class="capitalize" />--}}
+{{--            <x-input wire:model="name" id="name" class="block mt-0.5 w-full lg:w-3/6" type="text" name="name" :value="old('name')" placeholder="Escribe tu nombre" required/>--}}
+{{--        </div> --}}
         <div>
             <x-label for="name" :value="__('nombre')" class="capitalize" />
             <x-input wire:model="name" id="name" class="block mt-0.5 w-full lg:w-3/6" type="text" name="name" :value="old('name')" placeholder="Escribe tu nombre" required/>

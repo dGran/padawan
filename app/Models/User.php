@@ -118,7 +118,7 @@ class User extends Authenticatable
 
     public function countTotalNotifications(): int
     {
-        return (int) $this->countNotifications() + $this->countInvitations();
+        return $this->countNotifications() + $this->countEteamsInvitations() + $this->countMyEteamsRequests();
     }
 
     public function countNotifications(): int
@@ -126,8 +126,28 @@ class User extends Authenticatable
         return (int) Notification::where('user_id', $this->id)->unread(true)->count();
     }
 
-    public function countInvitations(): int
+    public function countEteamsNotifications(): int
+    {
+        return $this->countEteamsInvitations() + $this->countMyEteamsRequests();
+    }
+
+    public function countEteamsInvitations(): int
     {
         return (int) ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
+    }
+
+    public function countMyEteamsRequests(): int
+    {
+        $myTeamsWhereIamAdmin = ETeamUser::select('eteam_id')->where('user_id', $this->id)->where('captain', 1)->get();
+        if ($myTeamsWhereIamAdmin->count() > 0) {
+            $myTeamsWhereIamAdminIds = [];
+            foreach ($myTeamsWhereIamAdmin as $eteam) {
+                $myTeamsWhereIamAdminIds = $eteam->eteam->id;
+            }
+
+            return (int) ETeamRequest::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->where('state', 'pending')->count();
+        }
+
+        return (int) 0;
     }
 }

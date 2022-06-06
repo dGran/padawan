@@ -20,6 +20,13 @@
     </x-slot>
 
     <x-slot name="content">
+        <x-dropdown-link :href="route('account')">
+            <div class="flex items-center">
+                <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
+                <span>{{ __('Perfil') }}</span>
+            </div>
+        </x-dropdown-link>
+
         <x-dropdown-link :href="route('notifications')">
             <div class="flex items-center relative">
                 <i class="text-base fas fa-bell w-6 mr-2 text-center {{ !auth()->user()->countNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
@@ -37,22 +44,16 @@
 
         <x-dropdown-link :href="route('myteams')">
             <div class="flex items-center relative">
-                <i class="text-base fas fa-user-shield w-6 mr-2 text-center {{ !auth()->user()->countInvitations() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
+                <i class="text-base fas fa-user-shield w-6 mr-2 text-center {{ !auth()->user()->countEteamsNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
                 <div class="flex items-center space-x-1.5">
-                    @if (auth()->user()->countInvitations())
+                    @if (auth()->user()->countEteamsNotifications())
                         <span class="text-yellow-500 dark:text-yellow-400 font-bold">
-                            ({{ auth()->user()->countInvitations() < 9 ? auth()->user()->countInvitations() : '+9' }})
+                            ({{ auth()->user()->countEteamsNotifications() < 9 ? auth()->user()->countEteamsNotifications() : '+9' }})
                         </span>
                     @endif
-                    <span class="{{ !auth()->user()->countInvitations()?: 'text-yellow-500 dark:text-yellow-400' }}">{{ __('Mis equipos') }}</span>
+                    <span
+                        class="{{ !auth()->user()->countEteamsNotifications()?: 'text-yellow-500 dark:text-yellow-400' }}">{{ __('Mis equipos') }}</span>
                 </div>
-            </div>
-        </x-dropdown-link>
-
-        <x-dropdown-link :href="route('account')">
-            <div class="flex items-center">
-                <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
-                <span>{{ __('Mi cuenta') }}</span>
             </div>
         </x-dropdown-link>
 
@@ -60,8 +61,10 @@
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <x-dropdown-link :href="route('logout')" class="" onclick="event.preventDefault(); this.closest('form').submit();">
-                <div class="flex items-center text-red-500 dark:text-red-500 | hover:text-red-600 dark:hover:text-red-400 | focus:text-red-600 dark:focus:text-red-400">
+            <x-dropdown-link :href="route('logout')" class=""
+                             onclick="event.preventDefault(); this.closest('form').submit();">
+                <div
+                    class="flex items-center text-red-500 dark:text-red-500 | hover:text-red-600 dark:hover:text-red-400 | focus:text-red-600 dark:focus:text-red-400">
                     <i class="text-base icon-logout w-6 mr-2 text-center"></i>
                     <span>{{ __('Cerrar sesión') }}</span>
                 </div>

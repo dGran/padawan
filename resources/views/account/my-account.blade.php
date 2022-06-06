@@ -1,17 +1,37 @@
-{{-- breadcrumb --}}
-@section('breadcrumb')
-    <li class="min-w-max">
-        <x-link class="" href="{{ route('dashboard') }}">Inicio</x-link><span class="px-1.5">/</span>
-    </li>
-    <li class="min-w-max">
-        <span>Mi cuenta</span>
-    </li>
-@endsection
-
+@include('account.menu')
 
 <x-container>
+
+    <div class="mt-8">
+
+        <div class="relative my-2 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{selected:null}">
+
+            <button type="button" class="group | w-full px-4 py-2.5 text-left text-title-color dark:text-dt-title-color focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
+                <div class="flex items-center justify-between space-x-4">
+                    <i class="flex-initial text-xxs fas fa-user-shield"></i>
+                    <span class="flex-1">Mis equipos</span>
+                    <i class="flex-initial text-xxs | border border-transparent rounded-full px-1.5 py-1 group-focus:border-gray-300 dark:group-focus:border-edgray-600 | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
+                </div>
+            </button>
+
+            <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+                <div class="p-6">
+                    <p>reCAPTCHA v2 is not going away! We will continue to fully support and improve security and usability for v2.</p>
+                    <p>reCAPTCHA v3 is intended for power users, site owners that want more data about their traffic, and for use cases in which it is not appropriate to show a challenge to the user.</p>
+                    <p>For example, a registration page might still use reCAPTCHA v2 for a higher-friction challenge, whereas more common actions like sign-in, searches, comments, or voting might use reCAPTCHA v3. To see more details, see the reCAPTCHA v3 developer guide.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <style>
+        .max-h-0 {
+            max-height: 0;
+        }
+    </style>
+
+
     <section class="mb-8 flex flex-col md:flex-row justify-between items-start space-y-4 md:space-y-0  md:space-x-8">
-        @include('account.menu', ['activeTab' => 'Account'])
 
         <div class="w-full">
             <x-card class="w-full">
