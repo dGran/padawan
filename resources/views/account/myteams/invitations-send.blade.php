@@ -71,5 +71,5 @@
         </div>
     </div>
 @else
-    No tienes invitaciones pendientes
+    No tienes invitaciones enviadas a los equipos que administras
 @endif

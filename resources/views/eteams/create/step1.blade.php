@@ -19,10 +19,13 @@
 
 <x-card class="my-1.5 p-4 md:p-6 | text-xs lg:text-sm">
 	@foreach ($games as $game)
-		<button class="w-full | flex items-center | space-x-3 | py-1.5 px-3 | rounded-md | border border-transparent hover:border-border-color dark:hover:border-dt-border-color | focus:outline-none focus:border-border-color dark:focus:border-dt-border-color | {{ $game_id == $game->id ? 'bg-border-color dark:bg-dt-border-color text-title-color dark:text-dt-title-color cursor-not-allowed pointer-events-none' : 'bg-white dark:bg-dt-dark cursor-pointer' }}" wire:click="selectGame({{ $game->id }})">
-			<img src="{{ $game->getLogo() }}" alt="" class="w-9 h-9 object-cover rounded-full">
-			<p>{{ $game->name }}</p>
+        <button class="w-full | flex items-center | space-x-3 | py-1.5 px-3 | rounded-md | border border-transparent {{ $user->isMemberEteamGame($game->id) ? 'opacity-50 | pointer-events-none' : 'hover:border-border-color dark:hover:border-dt-border-color focus:border-border-color dark:focus:border-dt-border-color' }} focus:outline-none | {{ $game_id == $game->id ? 'bg-border-color dark:bg-dt-border-color text-title-color dark:text-dt-title-color cursor-not-allowed pointer-events-none' : 'bg-white dark:bg-dt-dark' }}" wire:click="selectGame({{ $game }})">
+			<img src="{{ $game->getLogo() }}" alt="" class="w-10 h-10 object-cover rounded-full">
+            <p>{{ $game->name }}</p>
 		</button>
+        @if($user->isMemberEteamGame($game->id))
+            <p class="pb-1.5 -mt-1 px-3 text-xxs md:text-xs text-red-600 dark:text-red-500">Ya eres miembro de otro equipo</p>
+        @endif
 	@endforeach
 </x-card>
 

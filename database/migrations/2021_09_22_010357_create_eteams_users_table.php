@@ -23,6 +23,7 @@ class CreateEteamsUsersTable extends Migration
                 ->onDelete('cascade');
             $table->boolean('owner')->default(false);
             $table->boolean('captain')->default(false);
+            $table->boolean('active')->default(true);
             $table->string('name')->nullable();
             $table->string('img')->nullable();
             $table->foreignId('game_position_id')

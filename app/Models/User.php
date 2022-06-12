@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\Profile;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_seen'
     ];
 
     protected $hidden = [
@@ -62,6 +64,41 @@ class User extends Authenticatable
         }
 
         return (string) $no_flag;
+    }
+
+    public function hasAnySocialNetwork(): bool
+    {
+        if ($this->profile && ($this->profile->whatsapp || $this->profile->facebook || $this->profile->instagram || $this->profile->twitter || $this->profile->twitch || $this->profile->discord)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function hasAnyGamerProfile(): bool
+    {
+        if ($this->profile && ($this->profile->xbox_id || $this->profile->ps_id || $this->profile->steam_id || $this->profile->origin_id)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isOnline()
+    {
+        return Cache::has('user-is-online-' . $this->id);
+    }
+
+    public function isMemberEteamGame(int $gameId): bool
+    {
+        $userEteamsWithGameId = ETeamUser::
+            with(["eteam" => function ($query) use ($gameId) {
+                $query->where('eteam.game_id', '=', $gameId);
+            }])
+            ->where('user_id', $this->id)
+            ->count();
+
+        return $userEteamsWithGameId > 0;
     }
 
     public function isAdminETeam($eteam_id): bool

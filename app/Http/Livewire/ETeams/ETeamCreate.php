@@ -75,9 +75,8 @@ class ETeamCreate extends Component
         }
     }
 
-    public function selectGame($id)
+    public function selectGame(Game $game)
     {
-        $game = Game::find($id);
         if ($game) {
             $this->game_id = $game->id;
             if (!$this->banner) {
@@ -154,6 +153,12 @@ class ETeamCreate extends Component
 
     public function store()
     {
+        if ($this->user->isMemberEteamGame($this->game_id))
+        {
+            $gameName = Game::findOrFail($this->game_id)->name;
+            return redirect()->route('eteams.index')->with("error", "Error al crear el equipo, ya eres miembro de otro equipo de '$gameName'.");
+        }
+
         $logo = null;
         if ($this->logo) {
             $this->validate([
@@ -189,6 +194,7 @@ class ETeamCreate extends Component
             'country_id' => $this->country_id,
             'location' => $this->location,
             'member_requests' => $this->member_requests ? 1 : 0,
+            'active' => true,
             'presentation' => $this->presentation,
             'presentation_video' => $this->presentation_video,
             'website' => $this->website,
@@ -208,9 +214,9 @@ class ETeamCreate extends Component
             'user_id' => $this->user->id,
             'owner' => true,
             'captain' => true,
+            'active' => true,
         ]);
 
-        //send notification with helper
         $notification_data = [
             'user_id' => $this->user->id,
             'from_user_id' => null,
@@ -222,7 +228,7 @@ class ETeamCreate extends Component
         ];
         storeNotification($notification_data);
 
-        return redirect()->route('eteams.eteam', $eteam->slug);
+        return redirect()->route('eteams.eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
     }
 
     public function mount(): void

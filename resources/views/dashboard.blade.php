@@ -9,7 +9,7 @@
             <div class="flex justify-center items-start h-full relative">
                 <div class="text-center text-white px-4 md:px-8">
                     <h1 class="text-3xl lg:text-4xl mt-8 font-bold">Padawan e-sports</h1>
-                    <h3 class="text-xl lg:text-2xl font-bold text-edblue-300">Torneos y campeonatos online GT7</h3>
+                    <h3 class="mt-3 text-xl lg:text-2xl font-bold text-edblue-400">Torneos y campeonatos online para GT, Fifa y eFootball</h3>
                     <img src="{{ asset('img/logo.png') }}" alt="Padawan e-sports"
                          class="absolute top-0 right-0 mt-1 mr-3 w-16 lg:w-24 opacity-20 ">
                     <div
@@ -24,110 +24,40 @@
     </div>
     <!-- Background image -->
 
-    @auth
-        {{-- <div class="hidden dark:block" style="background: rgb(14,19,24); background: linear-gradient(90deg, rgba(14,19,24,1) 0%, rgba(33,46,54,1) 35%, rgba(33,46,54,1) 65%, rgba(14,19,24,1) 100%);">
-            <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96" style="background-image: url({{ asset('img/test.png') }})"></div>
+{{--      <div class="banner-landing bg-edblue-700 dark:bg-edblue-900 relative overflow-hidden"></div>--}}
+
+    @if ($lastUsers->count() > 0)
+        <div class="py-6">
+            <x-container>
+                <section>
+                    <div class="text-center md:max-w-xl lg:max-w-3xl mx-auto">
+                        <h3 class="text-lg md:text-xl mb-3 md:mb-6 | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                            Recién llegados
+                        </h3>
+                    </div>
+
+                    <div class="flex justify-center mb-1.5">
+                        @foreach ($lastUsers as $lastUser)
+                            <img src="{{ $lastUser->getAvatarUrl() }}" class="p-px bg-gray-50 dark:bg-dt-darker rounded-full object-cover shadow-lg w-12 md:w-16 | scale-95 transform hover:scale-110 transition duration-100 ease-in-out | {{ $loop->index == 0 ?: '-ml-3' }} z-[{{ 6-$loop->index }}] hover:z-50" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $lastUser]))' />
+                        @endforeach
+                    </div>
+                </section>
             </x-container>
         </div>
-        <div class="dark:hidden border-b border-border-color" style="background: rgb(239,243,245);
-background: linear-gradient(90deg, rgba(239,243,245,1) 0%, rgba(249,250,251,1) 35%, rgba(249,250,251,1) 65%, rgba(239,243,245,1) 100%);">
-            <x-container class="">
-                <div class="flex flex-col justify-center bg-contain bg-no-repeat bg-center h-60 md:h-96" style="background-image: url({{ asset('img/test.png') }})"></div>
-            </x-container>
-        </div> --}}
-        {{-- <div class="bg-gray-150 dark:bg-dt-darkest">
-            <x-container class="py-3 text-xl md:text-2xl flex items-center justify-center gap-6 text-title-color dark:text-dt-title-color">
-                <i class="icon-brand-xbox"></i>
-                <i class="icon-brand-playstation"></i>
-                <i class="icon-brand-pcgame"></i>
-            </x-container>
-        </div> --}}
-
-        {{-- <x-container>
-            <x-card class="my-4 p-4">
-                Contenido dinámico usuario registrado
-                <br>
-                ...
-            </x-card>
-        </x-container> --}}
-    @endauth
-
-    {{-- @guest --}}
-    {{-- <div class="relative">
-          <div class="banner-landing bg-edblue-700 dark:bg-edblue-900 relative overflow-hidden">
-              <x-container class="py-8 md:py-16 text-white">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
-                      <div class="flex flex-col justify-center text-center px-6 md:text-left md:px-0">
-                          <p class="text-2xl md:text-3xl | font-raleway font-extrabold">
-                              Lorem ipsum dolor sit amet
-                          </p>
-                          <p class="text-lg md:text-xl | font-raleway font-bold | text-edyellow-300 | pt-2">
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit
-                          </p>
-                          <p class="text-2xl md:text-3xl | font-raleway font-extrabold | pt-2">
-                              Lorem ipsum dolor sit amet
-                          </p>
-                          <p class="text-edblue-200 | text-normal md:text-base | pt-6">
-                              Lorem, ipsum dolor sit amet consectetur adipisicing, elit. Excepturi laboriosam cupiditate fugit explicabo incidunt! Error nemo, cupiditate, sapiente molestiae necessitatibus aperiam numquam debitis amet veniam blanditiis, veritatis exercitationem, consequuntur et?
-                          </p>
-                          <a class='mt-8 mx-auto md:mx-0 px-4 py-2 w-max | bg-white | border border-white rounded | font-semibold text-edblue-700 | hover:scale-105 | focus:outline-none focus:scale-105 | transition transform ease-in-out duration-50 | select-none | cursor-pointer'>
-                              Crea tu cuenta y únete!
-                          </a>
-                      </div>
-
-                      <div class="">
-                          <div class="flex flex-col justify-center items-center gap-8 h-full">
-                              <img src="{{ asset('img/logo.png') }}" alt="Padawan e-sports" class="w-48">
-                              <i class="icon-fifa text-4xl"></i>
-                              <i class="icon-efootball text-4xl"></i>
-                              <i class="icon-gtracing text-5xl"></i>
-                              <ul class="mt-6 flex items-center gap-8">
-                                  <li>
-                                      <i class="icon-brand-playstation text-xl"></i>
-                                  </li>
-                                  <li>
-                                      <i class="icon-brand-xbox text-xl"></i>
-                                  </li>
-                                  <li>
-                                      <i class="icon-brand-pcgame text-3xl"></i>
-                                  </li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-              </x-container>
-          </div>
-      </div> --}}
-
-    <div class="py-16">
-        <x-container>
-            <section class="text-center">
-                <article>
-                    <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        Estos son nuestros partners
-                    </p>
-                    <p class="text-normal md:text-base | pt-4">
-                        Lorem ipsum dolor, sit, amet consectetur adipisicing elit. Odio itaque, repellat neque error
-                        necessitatibus rerum beatae, maxime, minus inventore at quibusdam possimus? Qui, necessitatibus
-                        quod ut fugit repudiandae, optio et.
-                    </p>
-                </article>
-            </section>
-        </x-container>
-    </div>
+    @endif
 
     <div class="py-16 bg-edgray-300 dark:bg-dt-dark-accent">
         <x-container>
             <section class="text-center">
                 <article>
                     <p class="text-2xl md:text-3xl | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
-                        ¿Qué es padawan e-sports?
+                        ¿Qué es padawan <span class="text-edblue-500 dark:text-edblue-400">e-sports</span>?
                     </p>
                     <p class="text-normal md:text-base | pt-4">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Est optio ea a maxime voluptate itaque
-                        rerum eum mollitia repellat, numquam beatae odio, velit, incidunt. Velit perspiciatis, facilis
-                        id commodi possimus?
+                        <ul>
+                            <li>Plataforma online de competiciones e-sports online.</li>
+                            <li>Control de equipos e-sports con mercado para competir en los torneos y campeonatos.</li>
+                        </ul>
                     </p>
                 </article>
             </section>

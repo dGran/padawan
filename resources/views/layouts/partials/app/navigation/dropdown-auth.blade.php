@@ -21,15 +21,15 @@
 
     <x-slot name="content">
         <x-dropdown-link :href="route('account')">
-            <div class="flex items-center">
-                <i class="text-base fas fa-id-badge w-6 mr-2 text-center"></i>
+            <div class="flex items-center space-x-2.5">
+                <i class="fas fa-id-badge w-4"></i>
                 <span>{{ __('Perfil') }}</span>
             </div>
         </x-dropdown-link>
 
         <x-dropdown-link :href="route('notifications')">
-            <div class="flex items-center relative">
-                <i class="text-base fas fa-bell w-6 mr-2 text-center {{ !auth()->user()->countNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
+            <div class="flex items-center space-x-2.5 relative">
+                <i class="fas fa-bell w-4 {{ !auth()->user()->countNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
                 <div class="flex items-center space-x-1.5">
                     @if (auth()->user()->countNotifications())
                         <span class="text-yellow-500 dark:text-yellow-400 font-bold">
@@ -43,8 +43,8 @@
         </x-dropdown-link>
 
         <x-dropdown-link :href="route('myteams')">
-            <div class="flex items-center relative">
-                <i class="text-base fas fa-user-shield w-6 mr-2 text-center {{ !auth()->user()->countEteamsNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
+            <div class="flex items-center space-x-2.5 relative">
+                <i class="fa solid fa-user-shield w-4 {{ !auth()->user()->countEteamsNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
                 <div class="flex items-center space-x-1.5">
                     @if (auth()->user()->countEteamsNotifications())
                         <span class="text-yellow-500 dark:text-yellow-400 font-bold">
@@ -59,13 +59,22 @@
 
         <x-dropdown-divider></x-dropdown-divider>
 
+        @if (auth()->user()->can('access admin panel'))
+            <x-dropdown-link :href="route('admin.dashboard')">
+                <div class="flex items-center space-x-2.5 text-sky-500 dark:text-sky-500 | hover:text-sky-600 dark:hover:text-sky-400 | focus:text-sky-600 dark:focus:text-sky-400">
+                    <i class="fa solid fa-gear w-4"></i>
+                    <span>Panel de Admin</span>
+                </div>
+            </x-dropdown-link>
+
+            <x-dropdown-divider></x-dropdown-divider>
+        @endif
+
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <x-dropdown-link :href="route('logout')" class=""
-                             onclick="event.preventDefault(); this.closest('form').submit();">
-                <div
-                    class="flex items-center text-red-500 dark:text-red-500 | hover:text-red-600 dark:hover:text-red-400 | focus:text-red-600 dark:focus:text-red-400">
-                    <i class="text-base icon-logout w-6 mr-2 text-center"></i>
+            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                <div class="flex items-center space-x-2.5 text-rose-500 dark:text-rose-500 | hover:text-rose-600 dark:hover:text-rose-400 | focus:text-rose-600 dark:focus:text-rose-400">
+                    <i class="icon-logout w-4"></i>
                     <span>{{ __('Cerrar sesión') }}</span>
                 </div>
             </x-dropdown-link>

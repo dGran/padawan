@@ -1,7 +1,7 @@
 <!-- Block 1 -->
 <div class="">
     @include('layouts.partials.app.footer.menus')
-    <x-container class="py-4">
+    <x-container class="pt-6 pb-4 md:py-4">
         <div class="md:hidden">
             @include('layouts.partials.app.footer.social')
         </div>

@@ -1,4 +1,7 @@
 <div class="relative | bg-white dark:bg-dt-dark p-6">
+    {{--icon-close--}}
+    <i class="fa-solid fa-xmark | absolute top-0 right-0 m-3 | text-base | opacity-70 hover:opacity-100 | cursor-pointer" wire:click="$emit('closeModal')"></i>
+
     <div class="flex flex-col | my-1.5">
         <div class="flex flex-col | text-xxs md:text-xs text-text-light-color">
             <p>
@@ -23,9 +26,5 @@
 
             </div>
         @endif
-
     </div>
-
-
-    <i class="fas fa-times | absolute top-0 right-0 mt-3 mr-4 | text-normal | opacity-70 hover:opacity-100 | cursor-pointer" wire:click="$emit('closeModal')"></i>
 </div>

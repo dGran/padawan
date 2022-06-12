@@ -39,7 +39,9 @@
                                     </x-link>
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                    {{ $request->user->name }}
+                                    <a href="#" class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $request->user]))'>
+                                        {{ $request->user->name }}
+                                    </a>
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     {{ $request->message ?: '-' }}
@@ -52,15 +54,13 @@
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     <div class="flex items-center space-x-1.5">
-                                        <form method="GET" action="{{ route('myteams.acceptRequest', $request) }}">
-                                            @csrf
-                                            <button type="submit" class="inline-block px-4 py-1.5 bg-blue-600 text-white font-medium text-xxs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                                Aceptar
-                                            </button>
-                                        </form>
+                                        <button type="button" onclick='Livewire.emit("openModal", "modals.accept-eteam-request-confirmation-modal", @json(['eteamRequest' => $request]))' class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            Aceptar
+                                        </button>
+
                                         <form method="GET" action="{{ route('myteams.declineRequest', $request) }}">
                                             @csrf
-                                            <button type="submit" class="inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xxs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            <button type="submit" class="w-24 inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
                                                 Rechazar
                                             </button>
                                         </form>
@@ -75,5 +75,5 @@
         </div>
     </div>
 @else
-    No tienes invitaciones pendientes
+    No hay solicitudes recibidas a los equipos que administras
 @endif

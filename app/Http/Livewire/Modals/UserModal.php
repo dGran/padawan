@@ -2,8 +2,8 @@
 
 namespace App\Http\Livewire\Modals;
 
-use LivewireUI\Modal\ModalComponent;
 use App\Models\User;
+use LivewireUI\Modal\ModalComponent;
 
 class UserModal extends ModalComponent
 {
@@ -21,16 +21,6 @@ class UserModal extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        // 'sm'
-        // 'md'
-        // 'lg'
-        // 'xl'
-        // '2xl'
-        // '3xl'
-        // '4xl'
-        // '5xl'
-        // '6xl'
-        // '7xl'
-        return 'sm';
+        return 'lg';
     }
 }

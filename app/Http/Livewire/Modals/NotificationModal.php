@@ -21,6 +21,6 @@ class NotificationModal extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return 'xl';
+        return 'sm';
     }
 }

@@ -12,7 +12,7 @@ class ETeamUser extends Model
     protected $table = 'eteams_users';
 
     protected $fillable = [
-        'eteam_id', 'user_id', 'owner', 'captain', 'name', 'img', 'game_position_id', 'contract_from', 'contract_to'
+        'eteam_id', 'user_id', 'owner', 'captain', 'active', 'name', 'img', 'game_position_id', 'contract_from', 'contract_to'
     ];
 
     public function eteam()

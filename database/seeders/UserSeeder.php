@@ -20,8 +20,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        Role::create(['name' => 'super-admin']);
-        Role::create(['name' => 'admin']);
+        $superAdminRole = Role::create(['name' => 'super-admin']);
+        $adminRole = Role::create(['name' => 'admin']);
+        $accesAdminPanelpermission = Permission::create(['name' => 'access admin panel']);
+        $accesAdminPanelpermission->assignRole([$superAdminRole, $adminRole]);
 
         $user = User::create([
             'name' => 'marcel',
@@ -50,8 +52,8 @@ class UserSeeder extends Seeder
                 'email' => $name . '@gmail.com',
                 'password' => Hash::make('secret'),
                 'email_verified_at' => now(),
-                'created_at' => now(),
-                'updated_at' => now(),
+                'created_at' => now()->addMinutes($i),
+                'updated_at' => now()->addMinutes($i),
             ]);
         }
     }

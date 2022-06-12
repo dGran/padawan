@@ -20,5 +20,5 @@
         </div>
     @endforeach
 @else
-    No tienes solicitudes enviadas pendiente de respuesta
+    No tienes solicitudes enviadas pendientes
 @endif

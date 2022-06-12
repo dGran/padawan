@@ -14,7 +14,7 @@ class ETeam extends Model
     protected $table = 'eteams';
 
     protected $fillable = [
-        'game_id', 'name', 'short_name', 'logo', 'banner', 'country_id', 'location', 'member_requests', 'open', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
+        'game_id', 'name', 'short_name', 'logo', 'banner', 'country_id', 'location', 'member_requests', 'active', 'open', 'presentation', 'presentation_video', 'website', 'whatsapp', 'facebook', 'instagram', 'twitter', 'twitch', 'youtube', 'slug'
     ];
 
     public function game()
@@ -99,10 +99,11 @@ class ETeam extends Model
     public function getCaptains()
     {
         return ETeamUser::where('eteam_id', $this->id)
-        ->where(function($q) {
-            $q->where('owner', 1)
-              ->orWhere('captain', 1);
-        })
-        ->get();
+            ->where('active', 1)
+            ->where(function($q) {
+                $q->where('owner', 1)
+                ->orWhere('captain', 1);
+            })
+            ->get();
     }
 }

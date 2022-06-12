@@ -28,6 +28,7 @@ class CreateEteamsTable extends Migration
                 ->onDelete('cascade');
             $table->string('location')->nullable();
             $table->boolean('member_requests')->default(true);
+            $table->boolean('active')->default(true);
             $table->text('presentation')->nullable();
             $table->string('presentation_video')->nullable();
             $table->string('website')->nullable();

@@ -4,12 +4,11 @@ $classes = 'block pl-3 pr-4 py-3 | hover:bg-gray-100 dark:hover:bg-dt-dark-accen
 
 <li class="">
     <a {{ $attributes->merge(['class' => $classes]) }}>
-        <div class="flex items-center justify-between">
-            <i class="text-md icon-{{ $icon }} mr-2"></i>
-            <span class="flex-1 text-xs">
+        <div class="flex items-center justify-between space-x-1.5">
+            <span class="flex-1 text-xs ml-2">
                 {{ $slot }}
             </span>
-            <i class="text-md icon-arrow-right ml-2 opacity-30 group-hover:opacity-100 group-focus:opacity-100"></i>
+            <i class="icon-arrow-right | text-xs pr-2 opacity-50 dark:opacity-30 group-hover:opacity-100 group-focus:opacity-100"></i>
         </div>
     </a>
 </li>
