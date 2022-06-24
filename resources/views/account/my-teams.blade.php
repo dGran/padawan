@@ -31,8 +31,8 @@
                         <span class="text-title-color dark:text-dt-title-color font-medium">Invitaciones recibidas</span>
                         <span class="text-xxs | text-text-light-color">Listado de invitaciones de ingreso a otros equipos</span>
                     </p>
-                    @if ($invitations->count() > 0)
-                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $invitations->count() }}</span>
+                    @if ($user->countEteamsInvitations() > 0)
+                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $user->countEteamsInvitations() }}</span>
                     @endif
                     <i class="flex-initial text-xxs | px-1.5 py-1 group-hover:text-title-color dark:group-hover:text-dt-title-color group-focus:text-title-color dark:group-focus:text-dt-title-color | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
                 </div>
@@ -52,9 +52,6 @@
                         <span class="text-title-color dark:text-dt-title-color font-medium">Solicitudes enviadas</span>
                         <span class="text-xxs | text-text-light-color">Listado de solicitudes de ingreso a otros equipos</span>
                     </p>
-                    @if ($requests->count() > 0)
-                        <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $requests->count() }}</span>
-                    @endif
                     <i class="flex-initial text-xxs | px-1.5 py-1 group-hover:text-title-color dark:group-hover:text-dt-title-color group-focus:text-title-color dark:group-focus:text-dt-title-color | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
                 </div>
             </button>
@@ -75,8 +72,8 @@
                             <span class="text-title-color dark:text-dt-title-color font-medium">Invitaciones enviadas</span>
                             <span class="text-xxs | text-text-light-color">Listado de tus invitaciones enviadas para el ingreso en tus equipos donde eres capitán</span>
                         </p>
-                        @if ($myEteamsInvitations->count() > 0)
-                            <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $myEteamsInvitations->count() }}</span>
+                        @if ($user->countMyEteamsInvitations() > 0)
+                            <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $user->countMyEteamsInvitations() }}</span>
                         @endif
                         <i class="flex-initial text-xxs | px-1.5 py-1 group-hover:text-title-color dark:group-hover:text-dt-title-color group-focus:text-title-color dark:group-focus:text-dt-title-color | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
                     </div>
@@ -96,8 +93,8 @@
                             <span class="text-title-color dark:text-dt-title-color font-medium">Solicitudes recibidas</span>
                             <span class="text-xxs | text-text-light-color">Listado de solicitudes de ingreso en tus equipos donde eres capitán</span>
                         </p>
-                        @if ($myEteamsRequests->count() > 0)
-                            <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $myEteamsRequests->count() }}</span>
+                        @if ($user->countMyEteamsRequests() > 0)
+                            <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $user->countMyEteamsRequests() }}</span>
                         @endif
                         <i class="flex-initial text-xxs | px-1.5 py-1 group-hover:text-title-color dark:group-hover:text-dt-title-color group-focus:text-title-color dark:group-focus:text-dt-title-color | fa-solid" :class="selected == 1 ? 'fa-angle-up' : 'fa-angle-down'"></i>
                     </div>

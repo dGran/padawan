@@ -31,14 +31,14 @@
             <x-container>
                 <section>
                     <div class="text-center md:max-w-xl lg:max-w-3xl mx-auto">
-                        <h3 class="text-lg md:text-xl mb-3 md:mb-6 | font-raleway font-extrabold | text-center | text-title-color dark:text-dt-title-color">
+                        <h3 class="text-lg md:text-xl mb-3 md:mb-6 | font-raleway font-extrabold | text-center | text-dt-title-color" style="text-shadow: 0 0 9px #0e9b72, 0 0 9px #0e9b72, 0 0 9px #0e9b72, 0 0 9px #0e9b72;">
                             Recién llegados
                         </h3>
                     </div>
 
                     <div class="flex justify-center mb-1.5">
                         @foreach ($lastUsers as $lastUser)
-                            <img src="{{ $lastUser->getAvatarUrl() }}" class="p-px bg-gray-50 dark:bg-dt-darker rounded-full object-cover shadow-lg w-12 md:w-16 | scale-95 transform hover:scale-110 transition duration-100 ease-in-out | {{ $loop->index == 0 ?: '-ml-3' }} z-[{{ 6-$loop->index }}] hover:z-50" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $lastUser]))' />
+                            <img src="{{ $lastUser->getAvatarUrl() }}" class="p-px bg-gray-50 dark:bg-dt-darker rounded-full object-cover shadow w-12 md:w-16 hover:shadow-lg | scale-95 transform hover:scale-110 transition duration-100 ease-in-out | {{ $loop->index == 0 ?: '-ml-3' }} z-[{{ 6-$loop->index }}] hover:z-50" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $lastUser]))' />
                         @endforeach
                     </div>
                 </section>
@@ -144,6 +144,7 @@
             </section>
         </x-container>
     </div>
+
     {{-- @endguest --}}
 
 

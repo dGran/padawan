@@ -7,13 +7,16 @@
                         <thead class="border-b border-border-color dark:border-edgray-700">
                         <tr>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
-                                #
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
                                 Equipo
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
+                                Juego
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
                                 Usuario
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
+                                Invitado por
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
                                 Contrato
@@ -32,14 +35,29 @@
                         <tbody>
                         @foreach ($myEteamsInvitations as $invitation)
                         <tr class="border-b border-border-color dark:border-edgray-700">
-                            <td class="px-4 py-2.5 whitespace-nowrap text-sm font-medium">{{ $loop->index+1 }}</td>
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                <x-link href="{{ route('eteams.eteam', $invitation->eteam->slug) }}">
-                                    {{ $invitation->eteam->name }}
-                                </x-link>
+                                <div class="flex items-center">
+                                        <span
+                                            class="flex justify-center rounded-lg bg-gray-200 dark:bg-gray-700 | w-10 px-2 py-1 | font-mono text-xxs font-medium uppercase | border border-transparent group-hover:border-gray-300 dark:group-hover:border-gray-600">
+                                            {{ $invitation->eteam->short_name }}
+                                        </span>
+                                    <x-link href="{{ route('eteams.eteam', $invitation->eteam->slug) }}" class="ml-2.5">
+                                        {{ $invitation->eteam->name }}
+                                    </x-link>
+                                </div>
                             </td>
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                {{ $invitation->user->name }}
+                                {{ $invitation->eteam->game->name }}
+                            </td>
+                            <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
+                                <a href="#" class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $invitation->user]))'>
+                                    {{ $invitation->user->name }}
+                                </a>
+                            </td>
+                            <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
+                                <a href="#" class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $invitation->captain->user]))'>
+                                    {{ $invitation->captain->user->name }}
+                                </a>
                             </td>
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                 -
@@ -48,18 +66,33 @@
                                 {{ $invitation->created_at->diffForHumans() }}
                             </td>
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-{{ $invitation->state === 'pending' ? 'yellow' : 'red' }}-600 text-white rounded">
-                                    {{ $invitation->state === 'pending' ? 'Pendiente' : 'Rechazado' }}
-                                </span>
+                                <div class="flex items-center w-24 bg-{{ $invitation->state === 'pending' ? 'yellow' : 'rose' }}-100 rounded py-0.5 px-1 text-xxs text-{{ $invitation->state === 'pending' ? 'yellow' : 'rose' }}-700 inline-flex items-center" role="alert">
+                                    <i class="w-5 fa-solid {{ $invitation->state === 'pending' ? 'fa-triangle-exclamation' : 'fa-ban' }}"></i>
+                                    <span>{{ $invitation->state === 'pending' ? 'Pendiente' : 'Rechazada' }}</span>
+                                </div>
                             </td>
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                 <div class="flex items-center space-x-1.5">
-                                    <form method="GET" action="{{ route('myteams.declineInvitation', $invitation) }}">
-                                        @csrf
-                                        <button type="submit" class="inline-block px-4 py-1.5 bg-red-600 text-white font-medium text-xxs leading-tight uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out">
-                                            Retirar invitación
+                                    @if (!$invitation->user->isEteamMember($invitation->eteam_id) && !$invitation->user->isMemberEteamGame($invitation->eteam->game_id) && $invitation->state === 'pending')
+                                        <button type="button" onclick='Livewire.emit("openModal", "modals.retire-eteam-invitation-confirmation-modal", @json(['userId' => $user->id, 'eteamInvitationId' => $invitation->id]))'
+                                                class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
+                                            Retirar
                                         </button>
-                                    </form>
+                                    @else
+                                        <div class="flex flex-col space-y-1">
+                                            <form method="GET" action="{{ route('myteams.destroyInvitation', $invitation->id) }}">
+                                                @csrf
+                                                <button type="submit" class="w-24 inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+                                            @if ($invitation->user->isEteamMember($invitation->eteam_id) || $invitation->user->isMemberEteamGame($invitation->eteam->game_id))
+                                                <span class="text-rose-500 text-xxs">
+                                                    *{{ $invitation->user->isEteamMember($invitation->eteam_id) ? $invitation->user->name . ' ya es miembro del equipo' : $invitation->user->name . ' ya es miembro de otro equipo del mismo juego' }}
+                                                </span>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

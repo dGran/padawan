@@ -13,6 +13,6 @@ class HomeController extends Controller
 
         return view('dashboard', [
             'lastUsers' => $lastUsers,
-        ]);
+        ])->with('error', 'test');
     }
 }

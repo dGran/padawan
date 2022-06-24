@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Spatie\Permission\Traits\HasRoles;
-use App\Models\Profile;
 use Illuminate\Support\Facades\Cache;
 
 class User extends Authenticatable
@@ -19,7 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'last_seen'
+        'last_seen',
     ];
 
     protected $hidden = [
@@ -31,11 +32,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function profile()
     {
         return $this->hasOne(Profile::class);
     }
 
+    /**
+     * @return int|void
+     */
     public function getAge()
     {
         if ($this->profile && $this->profile->birthdate) {
@@ -43,6 +50,9 @@ class User extends Authenticatable
         }
     }
 
+    /**
+     * @return string
+     */
     public function getAvatarUrl(): string
     {
         if (!$this->profile) {
@@ -52,6 +62,9 @@ class User extends Authenticatable
         return (string) $this->profile->getAvatarUrl();
     }
 
+    /**
+     * @return string
+     */
     public function getFlag(): string
     {
         $no_flag = 'img/flags/no_flag.png';
@@ -66,41 +79,63 @@ class User extends Authenticatable
         return (string) $no_flag;
     }
 
+    /**
+     * @return bool
+     */
     public function hasAnySocialNetwork(): bool
     {
-        if ($this->profile && ($this->profile->whatsapp || $this->profile->facebook || $this->profile->instagram || $this->profile->twitter || $this->profile->twitch || $this->profile->discord)) {
-            return true;
-        }
-
-        return false;
+        return $this->profile && ($this->profile->whatsapp || $this->profile->facebook || $this->profile->instagram || $this->profile->twitter || $this->profile->twitch || $this->profile->discord);
     }
 
+    /**
+     * @return bool
+     */
     public function hasAnyGamerProfile(): bool
     {
-        if ($this->profile && ($this->profile->xbox_id || $this->profile->ps_id || $this->profile->steam_id || $this->profile->origin_id)) {
-            return true;
-        }
-
-        return false;
+        return $this->profile && ($this->profile->xbox_id || $this->profile->ps_id || $this->profile->steam_id || $this->profile->origin_id);
     }
 
+    /**
+     * @return bool
+     */
     public function isOnline()
     {
-        return Cache::has('user-is-online-' . $this->id);
+        return Cache::has('user-is-online-'.$this->id);
     }
 
+    /**
+     * @param $eteam_id
+     * @return int
+     */
+    public function isEteamMember($eteam_id): bool
+    {
+        return (bool) ETeamUser::where('user_id', $this->id)
+            ->where('eteam_id', $eteam_id)
+            ->count();
+    }
+
+    /**
+     * @param int $gameId
+     * @return bool
+     */
     public function isMemberEteamGame(int $gameId): bool
     {
         $userEteamsWithGameId = ETeamUser::
-            with(["eteam" => function ($query) use ($gameId) {
+        with([
+            "eteam" => function ($query) use ($gameId) {
                 $query->where('eteam.game_id', '=', $gameId);
-            }])
+            },
+        ])
             ->where('user_id', $this->id)
             ->count();
 
         return $userEteamsWithGameId > 0;
     }
 
+    /**
+     * @param $eteam_id
+     * @return bool
+     */
     public function isAdminETeam($eteam_id): bool
     {
         $admin = ETeamUser::where('eteam_id', $eteam_id)
@@ -114,6 +149,10 @@ class User extends Authenticatable
         return (bool) $admin->count() > 0 ? true : false;
     }
 
+    /**
+     * @param $eteam_id
+     * @return int
+     */
     public function eteamInvitation($eteam_id): int
     {
         return (int) ETeamInvitation::where('user_id', $this->id)
@@ -122,13 +161,10 @@ class User extends Authenticatable
             ->count();
     }
 
-    public function eteamMember($eteam_id): int
-    {
-        return (int) ETeamUser::where('user_id', $this->id)
-            ->where('eteam_id', $eteam_id)
-            ->count();
-    }
-
+    /**
+     * @param  int  $eteam_id
+     * @return int
+     */
     public function eteamRequest(int $eteam_id): int
     {
         return (int) (ETeamRequest::where('user_id', $this->id)
@@ -136,6 +172,10 @@ class User extends Authenticatable
             ->count());
     }
 
+    /**
+     * @param  int  $eteam_id
+     * @return string
+     */
     public function eteamRequestState(int $eteam_id): string
     {
         $state = (ETeamRequest::where('user_id', $this->id)
@@ -150,41 +190,137 @@ class User extends Authenticatable
             case 'refused':
                 return (string) 'rechazada';
                 break;
+            default:
+                return '';
         }
     }
 
-    public function countTotalNotifications(): int
+    /**
+     * @return Collection
+     */
+    public function getMyEteams(): Collection
     {
-        return $this->countNotifications() + $this->countEteamsInvitations() + $this->countMyEteamsRequests();
+        return ETeamUser::with('eteam')
+            ->where('user_id', $this->id)
+            ->where('active', 1)
+            ->orderBy('created_at', 'asc')
+            ->get();
     }
 
-    public function countNotifications(): int
+    /**
+     * @return array|null
+     */
+    public function getMyTeamsWhereIamAdminIds(): ?array
     {
-        return (int) Notification::where('user_id', $this->id)->unread(true)->count();
+        $myTeamsWhereIamAdminIds = [];
+        $myTeamsWhereIamAdmin = ETeamUser::select('eteam_id')->where('user_id', $this->id)->where('captain',
+            1)->where('active', 1)->get();
+
+        if ($myTeamsWhereIamAdmin->count() > 0) {
+            foreach ($myTeamsWhereIamAdmin as $eteam) {
+                $myTeamsWhereIamAdminIds[] = $eteam->eteam_id;
+            }
+        }
+
+        return $myTeamsWhereIamAdminIds;
     }
 
-    public function countEteamsNotifications(): int
+    /**
+     * @return Collection
+     */
+    public function getEteamsInvitations(): Collection
     {
-        return $this->countEteamsInvitations() + $this->countMyEteamsRequests();
+        return ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->orderBy('created_at',
+            'desc')->get();
     }
 
-    public function countEteamsInvitations(): int
+    /**
+     * @return int|null
+     */
+    public function countEteamsInvitations(): ?int
     {
         return (int) ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
     }
 
-    public function countMyEteamsRequests(): int
+    /**
+     * @return Collection
+     */
+    public function getEteamRequests(): Collection
     {
-        $myTeamsWhereIamAdmin = ETeamUser::select('eteam_id')->where('user_id', $this->id)->where('captain', 1)->get();
-        if ($myTeamsWhereIamAdmin->count() > 0) {
-            $myTeamsWhereIamAdminIds = [];
-            foreach ($myTeamsWhereIamAdmin as $eteam) {
-                $myTeamsWhereIamAdminIds = $eteam->eteam->id;
-            }
+        return ETeamRequest::where('user_id', $this->id)->orderBy('created_at', 'desc')->get();
+    }
 
+    /**
+     * @return Collection
+     */
+    public function getMyEteamsInvitations(): Collection
+    {
+        $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
+
+        return ETeamInvitation::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->orderBy('created_at', 'desc')->get();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function countMyEteamsInvitations(): ?int
+    {
+        $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
+
+        if ($myTeamsWhereIamAdminIds) {
+            return (int) ETeamInvitation::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->where('state', 'pending')->count();
+        }
+
+        return null;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMyEteamsRequests(): Collection
+    {
+        $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
+
+        return ETeamRequest::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->where('state',
+            'pending')->orderBy('created_at', 'desc')->get();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function countMyEteamsRequests(): ?int
+    {
+        $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
+
+        if ($myTeamsWhereIamAdminIds) {
             return (int) ETeamRequest::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->where('state', 'pending')->count();
         }
 
-        return (int) 0;
+        return null;
     }
+
+    /**
+     * @return int
+     */
+    public function countEteamsNotifications(): int
+    {
+        return $this->countEteamsInvitations() + $this->countMyEteamsInvitations() + $this->countMyEteamsRequests();
+    }
+
+    /**
+     * @return int|null
+     */
+    public function countNotifications(): ?int
+    {
+        return (int) Notification::where('user_id', $this->id)->unread(true)->count();
+    }
+
+    /**
+     * @return int
+     */
+    public function countTotalNotifications(): int
+    {
+        return $this->countNotifications() + $this->countEteamsInvitations() + $this->countMyEteamsInvitations() + $this->countMyEteamsRequests();
+    }
+
 }

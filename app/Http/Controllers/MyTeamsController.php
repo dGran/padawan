@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Managers\EteamInvitationManager;
+use App\Http\Managers\EteamRequestManager;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamInvitation;
 use App\Models\ETeamRequest;
@@ -14,126 +16,101 @@ use Illuminate\Support\Facades\Auth;
 
 class MyTeamsController extends Controller
 {
+    private EteamInvitationManager $eteamInvitationManager;
+    private EteamRequestManager $eteamRequestManager;
+
+    public function __construct(
+        EteamInvitationManager $eteamInvitationManager,
+        EteamRequestManager $eteamRequestManager
+    )
+    {
+        $this->eteamInvitationManager = $eteamInvitationManager;
+        $this->eteamRequestManager = $eteamRequestManager;
+    }
+
     public function index(Request $request)
     {
         $user = Auth::user();
-        $myTeams =
-            ETeamUser::with('eteam')
-            ->where('user_id', $user->id)
-            ->where('active', 1)
-            ->orderBy('created_at', 'asc')
-            ->get();
+        if ($user)
+        {
+            $myTeams = $user->getMyEteams();
+            $invitations = $user->getEteamsInvitations();
+            $requests = $user->getEteamRequests();
 
-        $invitations = ETeamInvitation::where('user_id', $user->id)->where('state', 'pending')->orderBy('created_at', 'desc')->get();
-        $requests = ETeamRequest::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
-
-        $myTeamsWhereIamCaptainIds = [];
-        $myTeamsWhereIamCaptain = ETeamUser::select('eteam_id')
-            ->where('user_id', $user->id)
-            ->where('captain', 1)
-            ->where('active', 1)
-            ->orderBy('created_at', 'desc')
-            ->get();
-        foreach ($myTeamsWhereIamCaptain as $eteam) {
-            $myTeamsWhereIamCaptainIds[] = $eteam->eteam_id;
-        }
-
-        $viewParameters = [
-            'user' => $user,
-            'adminSomeTeam' => false,
-            'myTeams' => $myTeams,
-            'invitations' => $invitations,
-            'requests' => $requests,
-        ];
-        if (count($myTeamsWhereIamCaptainIds) > 0) {
-            $myEteamsRequests = ETeamRequest::whereIn('eteam_id', $myTeamsWhereIamCaptainIds)->orderBy('created_at', 'desc')->get();
-            $myEteamsInvitations = ETeamInvitation::whereIn('eteam_id', $myTeamsWhereIamCaptainIds)->orderBy('created_at', 'desc')->get();
-            $viewParameters['adminSomeTeam'] = true;
-            $viewParameters['requests'] = $requests;
-            $viewParameters['myEteamsInvitations'] = $myEteamsInvitations;
-            $viewParameters['myEteamsRequests'] = $myEteamsRequests;
-        }
-
-        return view('account.my-teams', $viewParameters);
-    }
-
-    public function acceptInvitation(ETeamInvitation $eteamInvitation)
-    {
-        $user = User::find(Auth::user()->id);
-        $eteamName = $eteamInvitation->eteam->name;
-        $eteamSlug = $eteamInvitation->eteam->slug;
-
-        if (ETeamUser::where('eteam_id', $eteamInvitation->eteam_id)->where('user_id', $user->id)->count() === 0) {
-            // add new user in the eteam
-            ETeamUser::create([
-                'eteam_id' => $eteamInvitation->eteam_id,
-                'user_id' => $user->id,
-                'contract_from' => $eteamInvitation->contract_from,
-                'contract_to' => $eteamInvitation->contract_to,
-                'active' => 1,
-            ]);
-
-            // notify the captains
-            foreach ($eteamInvitation->eteam->getCaptains() as $captain) {
-                //send notification with helper
-                $notification_data = [
-                    'user_id' => $captain->user_id,
-                    'from_user_id' => null,
-                    'title' => "$user->name, nuevo miembro de tu equipo '$eteamName'",
-                    'content' => "$user->name ha aceptado la invitación y es nuevo miembro de tu equipo '$eteamName'",
-                    'link' => Route('eteams.eteam', $eteamSlug),
-                    'link_title' => $eteamName,
-                    'read' => 0,
-                ];
-                storeNotification($notification_data);
+            $viewParameters = [
+                'user' => $user,
+                'adminSomeTeam' => false,
+                'myTeams' => $myTeams,
+                'invitations' => $invitations,
+                'requests' => $requests,
+            ];
+            if ($user->getMyTeamsWhereIamAdminIds()) {
+                $myEteamsRequests = $user->getMyEteamsRequests();
+                $myEteamsInvitations = $user->getMyEteamsInvitations();
+                $viewParameters['adminSomeTeam'] = true;
+                $viewParameters['requests'] = $requests;
+                $viewParameters['myEteamsInvitations'] = $myEteamsInvitations;
+                $viewParameters['myEteamsRequests'] = $myEteamsRequests;
             }
 
-            // delete invitation
-            $eteamInvitation->delete();
-
-            return back()->with("success", "Felicidades!, eres nuevo miembro del equipo '$eteamName'.");
+            return view('account.my-teams', $viewParameters);
         }
 
-        // delete invitation
-        $eteamInvitation->delete();
-
-        return back()->with("error", "Ya eres miembro del equipo '$eteamName'. Invitación eliminada.");
+        return redirect()->route('home')->with('error', 'El usuario no existe');
     }
 
-    public function declineInvitation(ETeamInvitation $eteamInvitation)
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamInvitationId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function acceptInvitation(int $userId, int $eteamInvitationId): \Illuminate\Http\RedirectResponse
     {
-        $user = User::find(Auth::user()->id);
-        $eteamName = $eteamInvitation->eteam->name;
+        $eteamInvitation = ETeamInvitation::findOrFail($eteamInvitationId);
+        $user = User::findOrFail($userId);
 
-        if (ETeamUser::where('eteam_id', $eteamInvitation->eteam_id)->where('user_id', $user->id)->count() === 0) {
-            // notify the captains
-            foreach ($eteamInvitation->eteam->getCaptains() as $captain) {
-                $notification_data = [
-                    'user_id' => $captain->user_id,
-                    'from_user_id' => null,
-                    'title' => "$user->name rechaza la invitación.",
-                    'content' => "$user->name ha rechazado la invitación de ingreso en tu equipo '$eteamName'",
-                    'link' => Route('myteams'),
-                    'link_title' => 'Mis equipos',
-                    'read' => 0,
-                ];
-                storeNotification($notification_data);
-            }
-
-            // change invitation state
-            $eteamInvitation->state = 'refused';
-            $eteamInvitation->save();
-
-            return back()->with("info", "Has rechazado la invitación correctamente.");
-        }
-
-        // delete invitation
-        $eteamInvitation->delete();
-
-        return back()->with("error", "Ya eres miembro del equipo '$eteamName'. Invitación eliminada.");
+        return $this->eteamInvitationManager->acceptInvitation($user, $eteamInvitation);
     }
 
-    public function acceptRequest(ETeamRequest $eteamRequest)
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamInvitationId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function declineInvitation(int $userId, int $eteamInvitationId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamInvitation = ETeamInvitation::findOrFail($eteamInvitationId);
+        $user = User::findOrFail($userId);
+
+        return $this->eteamInvitationManager->declineInvitation($user, $eteamInvitation);
+    }
+
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamInvitationId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyInvitation(int $eteamInvitationId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamInvitation = ETeamInvitation::findOrFail($eteamInvitationId);
+
+        return $this->eteamInvitationManager->destroyInvitation($eteamInvitation);
+    }
+
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamInvitationId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function retireInvitation(int $userId, int $eteamInvitationId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamInvitation = ETeamInvitation::findOrFail($eteamInvitationId);
+        $user = User::findOrFail($userId);
+
+        return $this->eteamInvitationManager->retireInvitation($user, $eteamInvitation);
+    }
+
+    public function _acceptRequest(ETeamRequest $eteamRequest)
     {
         $userAuthorized = Auth::user();
         $userName = $eteamRequest->user->name;
@@ -191,15 +168,59 @@ class MyTeamsController extends Controller
         return back()->with("success", "$userName se ha unido a tu equipo '$gameName' correctamente.");
     }
 
-    public function declineRequest(ETeamRequest $eteamRequest)
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamRequestId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function acceptRequest(int $userId, int $eteamRequestId): \Illuminate\Http\RedirectResponse
     {
-        dd('rechazada');
+        $eteamRequest = ETeamRequest::findOrFail($eteamRequestId);
+        $user = User::findOrFail($userId);
+
+        return $this->eteamRequestManager->acceptRequest($user, $eteamRequest);
     }
 
     /**
-     * nuevo campo para eteam, active
-     * nuevo campo para eteanuser active
+     * @param  int  $userId
+     * @param  int  $eteamRequestId
+     * @return \Illuminate\Http\RedirectResponse
      */
+    public function declineRequest(int $userId, int $eteamRequestId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamRequest = ETeamRequest::findOrFail($eteamRequestId);
+        $user = User::findOrFail($userId);
+
+        return $this->eteamRequestManager->declineRequest($user, $eteamRequest);
+    }
+
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamRequestId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroyRequest(int $eteamRequestId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamRequest = ETeamRequest::findOrFail($eteamRequestId);
+
+        return $this->eteamRequestManager->destroyRequest($eteamRequest);
+    }
+
+    /**
+     * @param  int  $userId
+     * @param  int  $eteamRequestId
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function retireRequest(int $userId, int $eteamRequestId): \Illuminate\Http\RedirectResponse
+    {
+        $eteamRequest = ETeamRequest::findOrFail($eteamRequestId);
+        $user = User::findOrFail($userId);
+
+        return $this->eteamRequestManager->retireRequest($user, $eteamRequest);
+    }
+
+
+
 
     public function leaveEteam(EteamUser $eteamUser)
     {

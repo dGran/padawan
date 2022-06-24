@@ -1,6 +1,6 @@
 <div class="py-3 | flex items-center justify-center | border-b border-border-color dark:border-dt-border-color">
     @if($eteam->member_requests)
-        @if(!auth()->user()->eteamMember($eteam->id))
+        @if(!auth()->user()->isEteamMember($eteam->id))
             @if(auth()->user()->eteamInvitation($eteam->id))
                 <x-link href="{{ route('myteams') }}">Invitación recibida</x-link>
             @else

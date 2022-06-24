@@ -2,10 +2,10 @@
     {{--icon-close--}}
     <i class="fa-solid fa-xmark | absolute top-0 right-0 m-3 | text-base | opacity-70 hover:opacity-100 | cursor-pointer" wire:click="$emit('closeModal')"></i>
 
-    <div class="flex items-center justify-start space-x-6 | p-6">
+    <div class="flex flex-col sm:flex-row items-center justify-start sm:space-x-6 | p-6">
         <img src="{{ $user->getAvatarUrl() }}" alt="" class="w-32 h-32 | rounded-full | border border-border-color dark:border-dt-border-color">
-        <div class="flex flex-col items-start space-y-0.5">
-            <h3 class="text-xl | font-medium text-title-color dark:text-dt-title-color">
+        <div class="flex flex-col items-center sm:items-start space-y-0.5">
+            <h3 class="text-xl | pt-3 sm:pt-0 font-medium text-title-color dark:text-dt-title-color">
                 {{ $user->name }}
             </h3>
             <x-link class="text-xs | flex items-center" href="mailto:{{ $user->email }}">
