@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Mail\NotificationMail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Account\MyTeam;
 
@@ -24,3 +25,13 @@ require __DIR__.'/admin.php';
 require __DIR__.'/account.php';
 require __DIR__.'/eteams.php';
 require __DIR__.'/tournaments.php';
+
+Route::get('/mailable', function () {
+    $subject = 'subject de prueba';
+    $details = [
+        'title' => 'titulo de prueba',
+        'body' => 'body de prueba'
+    ];
+
+    return new NotificationMail($subject, $details);
+});

@@ -228,6 +228,19 @@ class ETeamCreate extends Component
         ];
         storeNotification($notification_data);
 
+        storeEteamLog([
+            'eteam_id' => $eteam->id,
+            'message' => "Equipo creado"
+        ]);
+
+        storeEteamPost([
+            'eteam_id' => $eteam->id,
+            'user_id' => $user->id,
+            'title' => "Equipo creado",
+            'content' => "$user->name ha creado el equipo $eteam->name",
+            'public' => false
+        ]);
+
         return redirect()->route('eteams.eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
     }
 

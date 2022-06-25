@@ -9,7 +9,7 @@
 
     {{--content--}}
     <div class="p-6 | flex flex-col items-center">
-        <p>{{ $message }}</p>
+        <p>{!! nl2br($message) !!}</p>
     </div>
 
     {{--footer--}}

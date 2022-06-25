@@ -2,10 +2,18 @@
 
 declare(strict_types=1);
 
+use App\Mail\NotificationMail;
 use App\Models\ETeam;
+use App\Models\ETeamLog;
+use App\Models\ETeamPost;
 use App\Models\Notification;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
+/**
+ * @param $data
+ * @return void
+ */
 function storeNotification($data): void
 {
     Notification::create([
@@ -17,6 +25,18 @@ function storeNotification($data): void
         'link_title' => $data['link_title'],
         'read' => $data['read'],
     ]);
+
+    $user = User::find($data['user_id']);
+    if ($user && $user->profile && $user->profile->notifications)
+    {
+        $subject = $data['title'];
+        $details = [
+            'title' => $data['title'],
+            'body' => $data['content']
+        ];
+
+        Mail::to($user->email)->send(new NotificationMail($subject, $details));
+    }
 }
 
 /**
@@ -50,4 +70,23 @@ function eteamCaptainsNotification(
         ];
         storeNotification($notification_data);
     }
+}
+
+function storeEteamLog($data): void
+{
+    ETeamLog::create([
+        'eteam_id' => $data['eteam_id'],
+        'message' => $data['message'],
+    ]);
+}
+
+function storeEteamPost($data): void
+{
+    ETeamPost::create([
+        'eteam_id' => $data['eteam_id'],
+        'user_id' => $data['user_id'],
+        'title' => $data['title'],
+        'content' => $data['content'],
+        'public' => $data['public']
+    ]);
 }

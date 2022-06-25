@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEteamsPostsTable extends Migration
+class CreateEteamsLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateEteamsPostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('eteams_posts', function (Blueprint $table) {
+        Schema::create('eteams_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('eteam_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
-            $table->string('title');
-            $table->text('content');
-            $table->boolean('public')->default(true);
-            $table->string('slug');
+            $table->string('message');
             $table->timestamps();
         });
     }
@@ -36,6 +30,6 @@ class CreateEteamsPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eteams_posts');
+        Schema::dropIfExists('eteams_logs');
     }
 }

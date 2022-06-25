@@ -2,28 +2,23 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
-class ETeamPost extends Model
+class ETeamLog extends Model
 {
     use HasFactory;
 
-    protected $table = 'eteams_posts';
+    protected $table = 'eteams_logs';
 
     protected $fillable = [
-        'eteam_id', 'user_id', 'title', 'content', 'public'
+        'eteam_id', 'message'
     ];
 
     public function eteam()
     {
         return $this->belongsTo('App\Models\ETeam', 'eteam_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function getCreatedAtDate()
