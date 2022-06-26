@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\MyTeamsController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Livewire\Account\EditProfile;
 use App\Http\Livewire\Account\MyAccount;
-use App\Http\Livewire\Account\Notification;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']], function () {
@@ -11,7 +11,7 @@ Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']]
     Route::get('/editar-perfil', EditProfile::class)->name('edit-profile');
 });
 Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {
-    Route::get('/', Notification::class)->name('notifications');
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications');
 });
 Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', [MyTeamsController::class, 'index'])->name('myteams');

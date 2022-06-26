@@ -15,20 +15,21 @@ class Notification extends Component
     public $filterUnread = false;
     public $filterText;
 
-    public function mount()
+    public function mount(User $user)
     {
-        $this->user = User::find(auth()->user()->id);
+        $this->user = $user;
     }
 
     public function render()
     {
-        return view('account.notifications', ['notifications' => $this->getNotifications()])
-            ->layout('layouts.app', ['breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 0]);
+        return view('account.notifications.list', [
+            'notifications' => $this->getNotifications()
+        ]);
     }
 
     public function getNotifications()
     {
-        return $notifications = NotificationModel::
+        return NotificationModel::
             leftJoin('users', 'users.id', 'notifications.from_user_id')
             ->select('notifications.*', 'users.name as from_user_name')
             ->where('user_id', auth()->user()->id)
@@ -85,5 +86,4 @@ class Notification extends Component
         $this->reset('filterText');
         $this->emit('focus-filter-text');
     }
-
 }
