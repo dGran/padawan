@@ -235,9 +235,9 @@ class ETeamCreate extends Component
 
         storeEteamPost([
             'eteam_id' => $eteam->id,
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'title' => "Equipo creado",
-            'content' => "$user->name ha creado el equipo $eteam->name",
+            'content' => "$this->user->name ha creado el equipo $eteam->name",
             'public' => false
         ]);
 

@@ -10,6 +10,9 @@ class Notification extends Model
 {
     use HasFactory;
 
+    /**
+     * @var bool|mixed
+     */
     protected $table = 'notifications';
 
     protected $fillable = [
@@ -61,5 +64,15 @@ class Notification extends Model
     public function getDateFromNow()
     {
         return $date = Carbon::now()->$this->date->diffForHumans();
+    }
+
+    public function getRead(): bool
+    {
+        return $this->read;
+    }
+
+    public function setRead(bool $read): void
+    {
+        $this->read = $read;
     }
 }

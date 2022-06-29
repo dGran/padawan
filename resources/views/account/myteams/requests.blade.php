@@ -57,7 +57,7 @@
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     <div class="flex items-center space-x-1.5">
-                                        @if (!$user->isEteamMember($request->eteam_id) && !$user->isMemberEteamGame($request->eteam->game_id))
+                                        @if (!$user->isEteamMember($request->eteam_id) && !$user->isMemberEteamGame($request->eteam->game_id) && $request->state === 'pending')
                                             <button type="button" onclick='Livewire.emit("openModal", "modals.retire-eteam-request-confirmation-modal", @json(['userId' => $user->id, 'eteamRequestId' => $request->id]))'
                                                     class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
                                                 Retirar
@@ -70,9 +70,11 @@
                                                         Eliminar
                                                     </button>
                                                 </form>
-                                                <span class="text-rose-500 text-xxs">
-                                                *{{ $user->isEteamMember($request->eteam_id) ? 'ya eres miembro del equipo' : 'ya eres miembro de otro equipo del mismo juego' }}
-                                            </span>
+                                                @if ($user->isEteamMember($request->eteam_id) && $user->isMemberEteamGame($request->eteam->game_id))
+                                                    <span class="text-rose-500 text-xxs">
+                                                        *{{ $user->isEteamMember($request->eteam_id) ? 'ya eres miembro del equipo' : 'ya eres miembro de otro equipo del mismo juego' }}
+                                                    </span>
+                                                @endif
                                             </div>
                                         @endif
                                     </div>

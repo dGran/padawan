@@ -15,17 +15,10 @@ class Notification extends Component
     public $filterUnread = false;
     public $filterText;
 
-    public function mount(User $user)
-    {
-        $this->user = $user;
-    }
-
-    public function render()
-    {
-        return view('account.notifications.list', [
-            'notifications' => $this->getNotifications()
-        ]);
-    }
+    protected $queryString = [
+        'filterText' => ['except' => ''],
+        'filterUnread' => ['except' => false],
+    ];
 
     public function getNotifications()
     {
@@ -39,35 +32,16 @@ class Notification extends Component
             ->paginate(10)->onEachSide(2);
     }
 
-    public function toggleRead($id)
+    public function countUnreadNotifications()
     {
-        $notification = NotificationModel::find($id);
-        $notification->read = !$notification->read;
-        $notification->save();
-    }
-
-    public function readAll()
-    {
-        $notifications = NotificationModel::all();
-        foreach ($notifications as $notification) {
-            $notification->read = 1;
-            $notification->save();
-        }
-    }
-
-    public function open($id)
-    {
-        $this->emit("openModal", "modals.notification-modal", ["id" => $id]);
-
-        $notification = NotificationModel::find($id);
-        $notification->read = 1;
-        $notification->save();
-    }
-
-    public function delete($id)
-    {
-        $notification = NotificationModel::find($id);
-        $notification->delete();
+        return NotificationModel::
+            leftJoin('users', 'users.id', 'notifications.from_user_id')
+            ->select('notifications.*', 'users.name as from_user_name')
+            ->where('user_id', auth()->user()->id)
+            ->where('read', false)
+            ->text($this->filterText)
+            ->orderBy('notifications.created_at', 'desc')
+            ->count();
     }
 
     public function toggleFilterUnread()
@@ -85,5 +59,18 @@ class Notification extends Component
     {
         $this->reset('filterText');
         $this->emit('focus-filter-text');
+    }
+
+    public function mount(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function render()
+    {
+        return view('account.notifications.list', [
+            'notifications' => $this->getNotifications(),
+            'countUnreadNotifications' => $this->countUnreadNotifications()
+        ]);
     }
 }

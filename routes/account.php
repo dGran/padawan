@@ -12,6 +12,9 @@ Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']]
 });
 Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', [NotificationController::class, 'index'])->name('notifications');
+    Route::get('/toggle-read/{notification}', [NotificationController::class, 'toggleRead'])->name('notifications.toggleRead');
+    Route::get('/marcar-todo-como-leido/{user}', [NotificationController::class, 'readAll'])->name('notifications.readAll');
+    Route::get('/emilinar/{notification}', [NotificationController::class, 'delete'])->name('notifications.delete');
 });
 Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'checkProfile']], function () {
     Route::get('/', [MyTeamsController::class, 'index'])->name('myteams');

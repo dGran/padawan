@@ -1,4 +1,4 @@
-<x-app-layout title="Mis equipos e-sports">
+<x-app-layout title="Mis equipos e-sports" breadcrumb=0 wfooter=0 wloader=0>
 
     @include('account.menu')
 

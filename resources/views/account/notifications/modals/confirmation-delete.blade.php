@@ -1,19 +1,22 @@
-<div class="dark:bg-dt-dark p-4 sm:p-6">
-    <div class="sm:flex sm:items-start">
+<div class="relative | bg-white dark:bg-dt-dark focus:outline-none">
+    {{--icon-close--}}
+    <i class="fa-solid fa-xmark | absolute top-0 right-0 m-3 | text-base | opacity-70 hover:opacity-100 | cursor-pointer" @click="open = false"></i>
 
-        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-            <h3 class="text-base sm:text-lg leading-6 font-medium text-title-color dark:text-dt-title-color" id="modal-title">
-                ¿Deseas eliminar la notificación?
-            </h3>
-        </div>
+    {{--content--}}
+    <div class="p-6 | flex flex-col items-center">
+        <p>¿Deseas eliminar la notificación?</p>
     </div>
-</div>
 
-<div class="dark:bg-dt-dark border-t border-border-color dark:border-dt-border-color px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-    <x-button type="button" color="red" class="w-full inline-flex justify-center | sm:ml-3 sm:w-auto | text-sm sm:text-normal" wire:click="delete({{ $notification->id }})" @click="open = false">
-        {{ __('Eliminar') }}
-    </x-button>
-    <x-button type="button" color="" class="w-full inline-flex justify-center | mt-3 sm:mt-0 | sm:ml-3 sm:w-auto | text-sm sm:text-normal" @click="open = false">
-        {{ __('Cancelar') }}
-    </x-button>
+    {{--footer--}}
+    <div class="p-4 border-t border-border-color dark:border-edgray-700 | flex items-center justify-end">
+        <form method="GET" action="{{ route('notifications.delete', $notification) }}">
+            @csrf
+            <button type="button" class="inline-block px-4 py-1.5 text-xxs leading-tight rounded hover:text-title-color dark:hover:text-dt-title-color focus:text-title-color dark:focus:text-dt-title-color focus:outline-none transition duration-150 ease-in-out" @click="open = false">
+                {{ __('No, cancelar') }}
+            </button>
+            <button type="submit" class="inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
+                {{ __('Sí, eliminar') }}
+            </button>
+        </form>
+    </div>
 </div>

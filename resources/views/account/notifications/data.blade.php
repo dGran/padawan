@@ -20,7 +20,7 @@
 		        	@endif
 				</p>
 			    <div class="flex flex-col">
-					<span class="text-xxxs md:text-xxs" wire:poll.1s>
+					<span class="text-xxxs md:text-xxs">
 						{{ $notification->created_at->diffForHumans(['options' => \Carbon\Carbon::ONE_DAY_WORDS]) }}
 					</span>
 			    </div>
@@ -28,7 +28,7 @@
 			<div class="flex flex-col sm:flex-row items-start justify-between space-x-1.5">
 				<div class="pt-1.5 pb-2.5 px-1.5">
 		            <span class="{{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }}">
-			        	<x-link color="" class="cursor-pointer" wire:click="open({{ $notification->id }})">
+			        	<x-link color="" class="cursor-pointer text-sm" wire:click="open({{ $notification->id }})">
 							{{ $notification->title }}
 						</x-link>
 		            </span>
@@ -39,14 +39,17 @@
 							<i class="fas fa-eye"></i>
 						</span>
 					</x-button-link>
-					<x-button-link class="group cursor-pointer" wire:click="toggleRead({{ $notification->id }})" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
-						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
-							<i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
-						</span>
-					</x-button-link>
+                    <form method="GET" action="{{ route('notifications.toggleRead', $notification) }}">
+                        @csrf
+                        <x-button-link type="submit" class="group cursor-pointer" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
+                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+                                <i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
+                            </span>
+                        </x-button-link>
+                    </form>
 				    <div x-cloak x-data="{ open: false }">
-						<x-button-link color="red" class="group cursor-pointer" @click="open = true" title="Eliminar">
-							<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-red-500 dark:group-hover:border-red-400 | group-focus:border-red-500 dark:group-focus:border-red-400">
+						<x-button-link color="rose" class="group cursor-pointer" @click="open = true" title="Eliminar">
+							<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400">
 								<i class="fas fa-trash"></i>
 							</span>
 						</x-button-link>

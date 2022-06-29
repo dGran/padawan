@@ -9,6 +9,16 @@ use App\Models\ETeamPost;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
+/**
+ * @param $value
+ * @return string
+ */
+function numberFormatInt($value): string
+{
+    return number_format($value, 0, ',', '.');
+}
 
 /**
  * @param $data
@@ -72,6 +82,10 @@ function eteamCaptainsNotification(
     }
 }
 
+/**
+ * @param $data
+ * @return void
+ */
 function storeEteamLog($data): void
 {
     ETeamLog::create([
@@ -80,6 +94,10 @@ function storeEteamLog($data): void
     ]);
 }
 
+/**
+ * @param $data
+ * @return void
+ */
 function storeEteamPost($data): void
 {
     ETeamPost::create([
@@ -87,6 +105,7 @@ function storeEteamPost($data): void
         'user_id' => $data['user_id'],
         'title' => $data['title'],
         'content' => $data['content'],
-        'public' => $data['public']
+        'public' => $data['public'],
+        'slug' => Str::slug($data['title'], '-')
     ]);
 }

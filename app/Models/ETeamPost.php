@@ -13,7 +13,7 @@ class ETeamPost extends Model
     protected $table = 'eteams_posts';
 
     protected $fillable = [
-        'eteam_id', 'user_id', 'title', 'content', 'public'
+        'eteam_id', 'user_id', 'title', 'content', 'public', 'slug'
     ];
 
     public function eteam()
