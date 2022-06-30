@@ -34,21 +34,21 @@
 		            </span>
 				</div>
 				<div class="w-full sm:w-auto flex items-center justify-end space-x-1.5 | pb-2.5 sm:py-2.5">
-					<x-button-link class="group cursor-pointer" wire:click="open({{ $notification->id }})" title="Abrir">
+                    <x-link href="{{ route('notifications.view', $notification->slug) }}" class="group">
 						<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
 							<i class="fas fa-eye"></i>
 						</span>
-					</x-button-link>
+                    </x-link>
                     <form method="GET" action="{{ route('notifications.toggleRead', $notification) }}">
                         @csrf
-                        <x-button-link type="submit" class="group cursor-pointer" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
+                        <x-button-link type="submit" class="group" title="{{ $notification->read ? 'Marcar como no leido' : 'Marcar como leido' }}">
                             <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
                                 <i class="{{ $notification->read ? 'far' : 'fas' }} fa-file-alt"></i>
                             </span>
                         </x-button-link>
                     </form>
 				    <div x-cloak x-data="{ open: false }">
-						<x-button-link color="rose" class="group cursor-pointer" @click="open = true" title="Eliminar">
+						<x-button-link color="rose" class="group" @click="open = true" title="Eliminar">
 							<span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400">
 								<i class="fas fa-trash"></i>
 							</span>

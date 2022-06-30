@@ -34,6 +34,7 @@ function storeNotification($data): void
         'link' => $data['link'],
         'link_title' => $data['link_title'],
         'read' => $data['read'],
+        'slug' => Str::slug($data['title'], '-'),
     ]);
 
     $user = User::find($data['user_id']);

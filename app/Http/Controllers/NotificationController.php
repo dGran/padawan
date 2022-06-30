@@ -21,13 +21,12 @@ class NotificationController extends Controller
 
     public function view(NotificationModel $notification)
     {
-        dd('view notification');
+        $user = auth()->user();
 
-//        $this->emit("openModal", "modals.notification-modal", ["id" => $id]);
-//
-//        $notification = NotificationModel::find($id);
-//        $notification->read = 1;
-//        $notification->save();
+        return view('account.notifications.view', [
+            'user' => $user,
+            'notification' => $notification
+        ]);
     }
 
     public function delete(NotificationModel $notification)

@@ -1,9 +1,9 @@
 <div>
     <h4 class="flex flex-col | py-3 md:pt-0 | leading-5">
         <span class="text-title-color dark:text-dt-title-color font-semibold">
-            Notificaciones {{ $countUnreadNotifications == 0 ? '' : '(' . numberFormatInt($countUnreadNotifications) . ')' }}
+            {{ $countUnreadNotifications == 0 ? '' : '(' . numberFormatInt($countUnreadNotifications) . ')' }} Notificaciones
         </span>
-        <span class="text-xxs | text-text-light-color">Listado equipos e-sports donde eres miembro</span>
+        <span class="text-xxs | text-text-light-color">Listado de notificaciones recibidas</span>
     </h4>
 
     <article>
