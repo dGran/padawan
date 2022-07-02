@@ -3,12 +3,12 @@
 		<article class="px-3 {{ $loop->first ? 'border-t-0' : 'border-t' }} border-border-color dark:border-dt-border-color | hover:bg-gray-50 dark:hover:bg-dt-border-color
 		                     {{ $loop->first ? 'rounded-t-md' : '' }}
                              {{ $loop->last ? 'rounded-b-md' : '' }}">
-			<div class="flex items-center justify-between space-x-3 py-2.5 | {{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }} | text-title-color dark:text-dt-title-color">
+			<div class="flex items-center justify-between space-x-3 py-2.5 | text-title-color dark:text-dt-title-color">
 				<div class="w-full flex flex-col">
                     <span class="sm:hidden | text-xxxs md:text-xxs whitespace-nowrap | pr-3">
                         {{ $notification->created_at->diffForHumans(['options' => \Carbon\Carbon::ONE_DAY_WORDS]) }}
                     </span>
-                    <p>
+                    <p class="{{ $notification->read ? 'font-light opacity-70' : 'font-semibold' }}">
                         <span class="{{ $notification->read ? 'hidden' : '' }}">
                             <i class="fas fa-caret-right"></i>
                         </span>
