@@ -58,7 +58,7 @@
             <main class="bg-gray-50 dark:bg-dt-darker | flex-grow | mt-16 {{-- mt-24 en caso de topheaer --}}">
                 @if ($breadcrumb)
                     <x-container>
-                        <ul class="flex items-center | py-5 | text-xs md:tex-sm | overflow-x-auto | scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
+                        <ul class="flex items-center | pt-3 | text-xs md:tex-sm | overflow-x-auto | scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
                             @yield('breadcrumb')
                         </ul>
                     </x-container>

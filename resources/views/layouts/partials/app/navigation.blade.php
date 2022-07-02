@@ -113,7 +113,8 @@
                  @auth
                     @if (auth()->user()->countNotifications() > 0)
                         <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
-                                <a href="{{ route('notifications') }}" class="text-yellow-500 hover:text-yellow-600 dark:hover:text-yellow-400 | focus:outline-none focus:text-yellow-600 dark:focus:text-yellow-400">
+                            <a href="{{ route('notifications') }}" class="text-yellow-500 hover:text-yellow-600 dark:hover:text-yellow-400 | focus:outline-none focus:text-yellow-600 dark:focus:text-yellow-400"
+                               title="Tienes {{ auth()->user()->countNotifications() === 1 ? '1 notificación' : auth()->user()->countNotifications() . ' notificaciones' }} sin leer">
                                 <i class="fa-solid fa-bell animate__animated animate__tada animate__infinite"></i>
                             </a>
                         </div>
