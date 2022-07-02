@@ -5,7 +5,7 @@ namespace App\Http\Livewire\Account;
 use Livewire\Component;
 use App\Models\User;
 
-class MyAccount extends Component
+class Profile extends Component
 {
     public $user;
 
@@ -16,7 +16,7 @@ class MyAccount extends Component
 
     public function render()
     {
-        return view('account.my-account')
+        return view('account.profile')
             ->layout('layouts.app', ['breadcrumb' => 0, 'wfooter' => 0, 'wloader' => 0]);
     }
 

@@ -3,11 +3,11 @@
 use App\Http\Controllers\MyTeamsController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Livewire\Account\EditProfile;
-use App\Http\Livewire\Account\MyAccount;
+use App\Http\Livewire\Account\Profile;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']], function () {
-    Route::get('/perfil', MyAccount::class)->name('account');
+    Route::get('/perfil', Profile::class)->name('profile');
     Route::get('/editar-perfil', EditProfile::class)->name('edit-profile');
 
     Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {

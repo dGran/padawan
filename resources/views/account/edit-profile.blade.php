@@ -4,7 +4,7 @@
         <x-link class="" href="{{ route('dashboard') }}">Inicio</x-link><span class="px-1.5">/</span>
     </li>
     <li class="min-w-max">
-        <x-link class="" href="{{ route('account') }}">Mi cuenta</x-link><span class="px-1.5">/</span>
+        <x-link class="" href="{{ route('profile') }}">Mi cuenta</x-link><span class="px-1.5">/</span>
     </li>
     <li class="min-w-max">
         <span>Editar perfil</span>
