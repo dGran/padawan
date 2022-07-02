@@ -26,11 +26,11 @@
                         <span class="text-text-light-color | {{ Route::currentRouteName() === 'notifications' ? 'text-edblue-500 dark:text-gray-300' : 'group-hover:text-edblue-500 dark:group-hover:text-gray-300' }}">Comunicados</span>
                     </p>
                 </a>
-                <a href="{{ route('myteams') }}" class="group | flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'myteams' ?: 'pointer-events-none' }}">
-                    <i class="fas fa-user-shield | text-lg w-9 h-9 rounded-full | {{ Route::currentRouteName() === 'myteams' ? 'bg-sky-600 text-white' : 'bg-sky-200 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' }} | flex items-center justify-center"></i>
+                <a href="{{ route('my-teams') }}" class="group | flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'my-teams' ?: 'pointer-events-none' }}">
+                    <i class="fas fa-user-shield | text-lg w-9 h-9 rounded-full | {{ Route::currentRouteName() === 'my-teams' ? 'bg-sky-600 text-white' : 'bg-sky-200 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' }} | flex items-center justify-center"></i>
                     <p class="flex flex-col | text-xxs lg:text-xs | leading-4">
-                        <span class="font-semibold | {{ Route::currentRouteName() === 'myteams' ? 'text-edblue-500 dark:text-white' : 'group-hover:text-edblue-500 dark:group-hover:text-white' }}">Mis equipos</span>
-                        <span class="text-text-light-color | {{ Route::currentRouteName() === 'myteams' ? 'text-edblue-500 dark:text-gray-300' : 'group-hover:text-edblue-500 dark:group-hover:text-gray-300' }}">Equipos e-sports</span>
+                        <span class="font-semibold | {{ Route::currentRouteName() === 'my-teams' ? 'text-edblue-500 dark:text-white' : 'group-hover:text-edblue-500 dark:group-hover:text-white' }}">Mis equipos</span>
+                        <span class="text-text-light-color | {{ Route::currentRouteName() === 'my-teams' ? 'text-edblue-500 dark:text-gray-300' : 'group-hover:text-edblue-500 dark:group-hover:text-gray-300' }}">Equipos e-sports</span>
                     </p>
                 </a>
             </div>

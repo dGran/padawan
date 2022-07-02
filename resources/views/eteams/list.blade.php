@@ -6,7 +6,7 @@
 		<div class="mt-8 | flex items-end justify-between space-x-3">
 			<div class="flex-1 flex items-baseline justify-between sm:justify-start space-x-4">
 				<h4 class="font-medium | text-xl md:text-2xl | font-koulen uppercase | text-title-color dark:text-dt-title-color | tracking-wide">Equipos e-sports</h4>
-				<a href="{{ route('myteams') }}" class="dark:text-dt-text-light-color hover:underline focus:underline focus:outline-none">Mis equipos</a>
+				<a href="{{ route('my-teams') }}" class="dark:text-dt-text-light-color hover:underline focus:underline focus:outline-none">Mis equipos</a>
 			</div>
 			<x-link-button class="hidden sm:block | flex-initial | hover:scale-105 focus:scale-105 | transition transform ease-in-out duration-50" href="{{ route('eteams.create') }}">
 				Registra tu equipo e-sport!
@@ -22,7 +22,7 @@
 					Registra tu equipo e-sport!
 				</x-link-button>
 			</div>
-			
+
 			@include('eteams.list.table.navigation')
 
 			@if ($view == "table")

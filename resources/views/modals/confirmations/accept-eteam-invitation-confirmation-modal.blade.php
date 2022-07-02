@@ -15,7 +15,7 @@
 
     {{--footer--}}
     <div class="p-4 border-t border-border-color dark:border-edgray-700 | flex items-center justify-end">
-        <form method="GET" action="{{ route('myteams.acceptInvitation', [$user->id, $eteamInvitation->id]) }}">
+        <form method="GET" action="{{ route('my-teams.acceptInvitation', [$user->id, $eteamInvitation->id]) }}">
             @csrf
             <button type="submit" class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
                 Aceptar

@@ -97,7 +97,7 @@ class EteamInvitationManager
                 null,
                 "$user->name rechaza la invitación",
                 "$user->name ha rechazado la invitación de ingreso en tu equipo $eteamName",
-                'myteams',
+                'my-teams',
                 null,
                 'Mis equipos'
             );
@@ -173,7 +173,7 @@ class EteamInvitationManager
             null,
             "Retirada la invitación de ingreso a $invitedUserName",
             "$user->name ha retirado la invitación de ingreso en tu equipo $eteamName a $invitedUserName",
-            'myteams',
+            'my-teams',
             null,
             'Mis equipos'
         );
@@ -183,7 +183,7 @@ class EteamInvitationManager
             'user_id' => $eteamInvitation->user_id,
             'title' => "Retirada la invitación del equipo $eteamName",
             'content' => "$user->name ha retirado la invitación de ingreso al equipo $eteamName",
-            'link' => Route('myteams'),
+            'link' => Route('my-teams'),
             'link_title' => 'Mis equipos',
             'read' => 0,
         ];

@@ -18,18 +18,18 @@ Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']]
         Route::get('/marcar-todo-como-leido/{user}', [NotificationController::class, 'readAll'])->name('notifications.readAll');
     });
     Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'checkProfile']], function () {
-        Route::get('/', [MyTeamsController::class, 'index'])->name('myteams');
-        Route::get('/aceptar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'acceptInvitation'])->name('myteams.acceptInvitation');
-        Route::get('/rechazar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'declineInvitation'])->name('myteams.declineInvitation');
-        Route::get('/eliminar-invitacion/{eteamInvitationId}', [MyTeamsController::class, 'destroyInvitation'])->name('myteams.destroyInvitation');
-        Route::get('/retirar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'retireInvitation'])->name('myteams.retireInvitation');
+        Route::get('/', [MyTeamsController::class, 'index'])->name('my-teams');
+        Route::get('/aceptar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'acceptInvitation'])->name('my-teams.acceptInvitation');
+        Route::get('/rechazar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'declineInvitation'])->name('my-teams.declineInvitation');
+        Route::get('/eliminar-invitacion/{eteamInvitationId}', [MyTeamsController::class, 'destroyInvitation'])->name('my-teams.destroyInvitation');
+        Route::get('/retirar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'retireInvitation'])->name('my-teams.retireInvitation');
 
-        Route::get('/aceptar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'acceptRequest'])->name('myteams.acceptRequest');
-        Route::get('/rechazar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'declineRequest'])->name('myteams.declineRequest');
-        Route::get('/eliminar-solicitud/{eteamRequestId}', [MyTeamsController::class, 'destroyRequest'])->name('myteams.destroyRequest');
-        Route::get('/retirar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'retireRequest'])->name('myteams.retireRequest');
+        Route::get('/aceptar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'acceptRequest'])->name('my-teams.acceptRequest');
+        Route::get('/rechazar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'declineRequest'])->name('my-teams.declineRequest');
+        Route::get('/eliminar-solicitud/{eteamRequestId}', [MyTeamsController::class, 'destroyRequest'])->name('my-teams.destroyRequest');
+        Route::get('/retirar-solicitud/{userId}/{eteamRequestId}', [MyTeamsController::class, 'retireRequest'])->name('my-teams.retireRequest');
 
-        Route::get('/abandonar-equipo/{EteamUser}', [MyTeamsController::class, 'leaveEteam'])->name('myteams.leaveEteam');
-        Route::get('/disolver-equipo/{Eteam}', [MyTeamsController::class, 'disolveEteam'])->name('myteams.disolveEteam');
+        Route::get('/abandonar-equipo/{EteamUser}', [MyTeamsController::class, 'leaveEteam'])->name('my-teams.leaveEteam');
+        Route::get('/disolver-equipo/{Eteam}', [MyTeamsController::class, 'disolveEteam'])->name('my-teams.disolveEteam');
     });
 });

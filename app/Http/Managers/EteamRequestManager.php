@@ -112,7 +112,7 @@ class EteamRequestManager
                 $user->id,
                 "Rechazada la solicitud a $requestUserName",
                 "$user->name ha rechazado la solicitud de ingreso en tu equipo '$eteamName' a $requestUserName",
-                'myteams',
+                'my-teams',
                 null,
                 'Mis equipos'
             );
@@ -121,7 +121,7 @@ class EteamRequestManager
                 'user_id' => $eteamRequest->user_id,
                 'title' => "Rechazada la solicitud al equipo $eteamName",
                 'content' => "$user->name ha rechazado tu solicitud de ingreso al equipo a $eteamName",
-                'link' => Route('myteams'),
+                'link' => Route('my-teams'),
                 'link_title' => 'Mis equipos',
                 'read' => 0,
             ];
@@ -197,7 +197,7 @@ class EteamRequestManager
             null,
             "$user->name ha retirado la solicitud",
             "$user->name ha retirado la solicitud de ingreso en tu equipo $eteamName",
-            'myteams',
+            'my-teams',
             null,
             'Mis equipos'
         );

@@ -15,7 +15,7 @@
 
     {{--footer--}}
     <div class="p-4 border-t border-border-color dark:border-edgray-700 | flex items-center justify-end">
-        <form method="GET" action="{{ route('myteams.leaveEteam', $eteam) }}">
+        <form method="GET" action="{{ route('my-teams.leaveEteam', $eteam) }}">
             @csrf
             <button type="submit" class="inline-block px-4 py-1.5 text-xxs leading-tight rounded hover:text-title-color dark:hover:text-dt-title-color focus:text-title-color dark:focus:text-dt-title-color focus:outline-none transition duration-150 ease-in-out">
                 Abandonar equipo

@@ -54,7 +54,7 @@ class ETeam extends Component
                     'user_id' => $captain->user_id,
                     'title' => "$user->name ha solicitado el ingreso en tu equipo '$eteam->name'",
                     'content' => $content,
-                    'link' => Route('myteams'),
+                    'link' => Route('my-teams'),
                     'link_title' => 'Mis equipos',
                     'read' => 0
                 ];

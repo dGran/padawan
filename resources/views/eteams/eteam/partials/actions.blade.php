@@ -2,7 +2,7 @@
     @if($eteam->member_requests)
         @if(!auth()->user()->isEteamMember($eteam->id))
             @if(auth()->user()->eteamInvitation($eteam->id))
-                <x-link href="{{ route('myteams') }}">Invitación recibida</x-link>
+                <x-link href="{{ route('my-teams') }}">Invitación recibida</x-link>
             @else
                 @if(auth()->user()->eteamRequest($eteam->id))
                     <div class="flex flex-col">

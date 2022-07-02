@@ -17,7 +17,7 @@
             </button>
             <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                 <div class="p-6">
-                    @include('account/myteams/myteams')
+                    @include('account/my-teams/myteams')
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
             </button>
             <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                 <div class="p-6">
-                    @include('account/myteams/invitations')
+                    @include('account/my-teams/invitations')
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
             </button>
             <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                 <div class="p-6">
-                    @include('account/myteams/requests')
+                    @include('account/my-teams/requests')
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 </button>
                 <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                     <div class="p-6">
-                        @include('account/myteams/invitations-send')
+                        @include('account/my-teams/invitations-send')
                     </div>
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 </button>
                 <div class="relative overflow-hidden transition-all max-h-0 duration-700 | border-border-color dark:border-edgray-700" :class="selected == 1 ? 'border-t' : 'border-0'" x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
                     <div class="p-6">
-                        @include('account/myteams/requests-received')
+                        @include('account/my-teams/requests-received')
                     </div>
                 </div>
             </div>

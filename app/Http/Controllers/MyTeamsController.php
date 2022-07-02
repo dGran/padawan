@@ -110,62 +110,6 @@ class MyTeamsController extends Controller
         return $this->eteamInvitationManager->retireInvitation($user, $eteamInvitation);
     }
 
-    public function _acceptRequest(ETeamRequest $eteamRequest)
-    {
-        $userAuthorized = Auth::user();
-        $userName = $eteamRequest->user->name;
-        $gameName = $eteamRequest->eteam->game->name;
-        $eteamName = $eteamRequest->eteam->name;
-
-        // check if user is member of other team with same game
-        $userIsMemberOtherTeamWithSameGame = ETeamUser::select('eteams_users.id')
-            ->join('eteams', 'eteams.id', '=', 'eteams_users.eteam_id')
-            ->where('user_id', $eteamRequest->user_id)
-            ->where('eteams.game_id', $eteamRequest->eteam->game_id)
-            ->get();
-        if ($userIsMemberOtherTeamWithSameGame->count() > 0) {
-            $eteamRequest->delete();
-            return back()->with("error", "$userName ya es miembro de otro equipo de '$gameName'. La solicitud ha sido eliminada...");
-        }
-        // END:check
-
-        // add user in eteam
-        ETeamUser::create([
-            'eteam_id' => $eteamRequest->eteam_id,
-            'user_id' => $eteamRequest->user_id,
-            'contract_from' => $eteamRequest->contract_from,
-            'contract_to' => $eteamRequest->contract_to,
-        ]);
-        // notify captains
-        foreach ($eteamRequest->eteam->getCaptains() as $captain) {
-            $notification_data = [
-                'user_id' => $captain->user_id,
-                'title' => "$userName, nuevo miembro de tu equipo '$eteamName'",
-                'content' => "$userAuthorized->name ha aceptado la solicitud de ingreso y $userName es nuevo miembro de tu equipo '$eteamName'.",
-                'link' => Route('eteams.eteam', $eteamRequest->eteam->slug),
-                'link_title' => $eteamRequest->eteam->name,
-                'read' => 0,
-            ];
-            storeNotification($notification_data);
-        }
-        // notify user
-        foreach ($eteamRequest->eteam->getCaptains() as $captain) {
-            $notification_data = [
-                'user_id' => $eteamRequest->user_id,
-                'title' => "Bienvenido a '$eteamName'!!",
-                'content' => "Eres nuevo miembro de nuestro equipo '$eteamName' de $gameName. Puedes configurar tus datos de jugador desde el menú del equipo.",
-                'link' => Route('eteams.eteam', $eteamRequest->eteam->slug),
-                'link_title' => $eteamName,
-                'read' => 0,
-            ];
-            storeNotification($notification_data);
-        }
-        // delete request
-        $eteamRequest->delete();
-
-        return back()->with("success", "$userName se ha unido a tu equipo '$gameName' correctamente.");
-    }
-
     /**
      * @param  int  $userId
      * @param  int  $eteamRequestId
@@ -217,12 +161,9 @@ class MyTeamsController extends Controller
         return $this->eteamRequestManager->retireRequest($user, $eteamRequest);
     }
 
-
-
-
     public function leaveEteam(EteamUser $eteamUser)
     {
-
+//        TODO leaveEteam
         return back()->with('error', 'Próximamente...');
 
 //        $eteam = $eteamUser->eteam;
@@ -243,6 +184,7 @@ class MyTeamsController extends Controller
 
     public function disolveEteam(Team_Esport $eteam)
     {
+//        TODO disolveEteam
         return back()->with('error', 'Próximamente...');
         /**
          * check if it posible

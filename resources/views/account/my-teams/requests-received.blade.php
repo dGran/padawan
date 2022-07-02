@@ -1,4 +1,4 @@
-@if ($requests->count() > 0)
+@if ($myEteamsRequests->count() > 0)
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 | scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
@@ -10,16 +10,16 @@
                                 Equipo
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
-                                Miembros
-                            </th>
-                            <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
                                 Juego
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
-                                Fecha
+                                Solicita
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
-                                Estado
+                                Contrato
+                            </th>
+                            <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
+                                Fecha
                             </th>
                             <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
                                 Acciones
@@ -27,7 +27,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach ($requests as $request)
+                        @foreach ($myEteamsRequests as $request)
                             <tr class="border-b border-border-color dark:border-edgray-700">
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     <div class="flex items-center">
@@ -41,40 +41,46 @@
                                     </div>
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                    {{ $request->eteam->users->count() }}
+                                    {{ $request->eteam->game->name }}
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                    {{ $request->eteam->game->name }}
+                                    <a href="#" class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" onclick='Livewire.emit("openModal", "modals.user-modal", @json(['user' => $request->user]))'>
+                                        {{ $request->user->name }}
+                                    </a>
+                                    @if ($request->message)
+                                        <a href="#" class="ml-1.5 cursor-pointer text-yellow-500 hover:text-yellow-600 focus:text-yellow-600 dark:hover:text-yellow-400 dark:focus:text-yellow-400 focus:outline-none" onclick='Livewire.emit("openModal", "modals.message-modal", @json(['message' => $request->message]))'>
+                                            <i class="fa-solid fa-message"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                                <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
+                                    -
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     {{ $request->created_at->diffForHumans() }}
                                 </td>
                                 <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                                    <div class="flex items-center w-24 bg-{{ $request->state === 'pending' ? 'yellow' : 'rose' }}-100 rounded py-0.5 px-1 text-xxs text-{{ $request->state === 'pending' ? 'yellow' : 'rose' }}-700 inline-flex items-center" role="alert">
-                                        <i class="w-5 fa-solid {{ $request->state === 'pending' ? 'fa-triangle-exclamation' : 'fa-ban' }}"></i>
-                                        <span>{{ $request->state === 'pending' ? 'Pendiente' : 'Rechazada' }}</span>
-                                    </div>
-                                </td>
-                                <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                     <div class="flex items-center space-x-1.5">
-                                        @if (!$user->isEteamMember($request->eteam_id) && !$user->isMemberEteamGame($request->eteam->game_id) && $request->state === 'pending')
-                                            <button type="button" onclick='Livewire.emit("openModal", "modals.retire-eteam-request-confirmation-modal", @json(['userId' => $user->id, 'eteamRequestId' => $request->id]))'
+                                        @if (!$request->user->isEteamMember($request->eteam_id) && !$request->user->isMemberEteamGame($request->eteam->game_id))
+                                            <button type="button" onclick='Livewire.emit("openModal", "modals.accept-my-eteam-request-confirmation-modal", @json(['userId' => $user->id, 'eteamRequestId' => $request->id]))'
                                                     class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
-                                                Retirar
+                                                Aceptar
+                                            </button>
+                                            <button type="button" onclick='Livewire.emit("openModal", "modals.decline-my-eteam-request-confirmation-modal", @json(['userId' => $user->id, 'eteamRequestId' => $request->id]))'
+                                                    class="w-24 inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
+                                                Rechazar
                                             </button>
                                         @else
                                             <div class="flex flex-col space-y-1">
-                                                <form method="GET" action="{{ route('myteams.destroyRequest', $request->id) }}">
+                                                <form method="GET" action="{{ route('my-teams.destroyInvitation', $invitation->id) }}">
                                                     @csrf
                                                     <button type="submit" class="w-24 inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
                                                         Eliminar
                                                     </button>
                                                 </form>
-                                                @if ($user->isEteamMember($request->eteam_id) && $user->isMemberEteamGame($request->eteam->game_id))
-                                                    <span class="text-rose-500 text-xxs">
-                                                        *{{ $user->isEteamMember($request->eteam_id) ? 'ya eres miembro del equipo' : 'ya eres miembro de otro equipo del mismo juego' }}
-                                                    </span>
-                                                @endif
+                                                <span class="text-rose-500 text-xxs">
+                                                *{{ $user->isEteamMember($invitation->eteam_id) ? 'ya eres miembro del equipo' : 'ya eres miembro de otro equipo del mismo juego' }}
+                                            </span>
                                             </div>
                                         @endif
                                     </div>
@@ -88,6 +94,5 @@
         </div>
     </div>
 @else
-    No tienes solicitudes pendientes
+    No hay solicitudes recibidas a los equipos que administras
 @endif
-
