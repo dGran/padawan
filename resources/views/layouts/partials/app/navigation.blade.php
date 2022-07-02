@@ -110,16 +110,15 @@
                 </button>
                 {{-- theme switcher --}}
 
-                {{-- @auth
-                    <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
-                        <a href="{{ route('notifications') }}" class="hover:text-title-color dark:hover:text-dt-title-color | focus:outline-none focus:text-title-color dark:focus:text-dt-title-color">
-                            <i class="far fa-bell"></i>
-                            @if (auth()->user()->unreadNotifications() > 0)
-                                <span class="absolute top-0 right-0 -mr-0.5 -mt-0.5 text-xxs md:text-xs rounded-full w-1 h-1 bg-edyellow-500 text-white animate-ping"></span>
-                            @endif
-                        </a>
-                    </div>
-                @endauth --}}
+                 @auth
+                    @if (auth()->user()->countNotifications() > 0)
+                        <div class="hidden md:inline-flex text-lg md:text-xl mr-3 relative">
+                                <a href="{{ route('notifications') }}" class="text-yellow-500 hover:text-yellow-600 dark:hover:text-yellow-400 | focus:outline-none focus:text-yellow-600 dark:focus:text-yellow-400">
+                                <i class="fa-solid fa-bell animate__animated animate__tada animate__infinite"></i>
+                            </a>
+                        </div>
+                    @endif
+                @endauth
 
                 <!-- User options -->
                 <div class="lg:hidden min-w-max">
