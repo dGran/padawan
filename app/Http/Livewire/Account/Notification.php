@@ -55,7 +55,7 @@ class Notification extends Component
             ->text($this->search)
             ->unread($this->unread)
             ->orderBy('notifications.created_at', 'desc')
-            ->paginate(2);
+            ->paginate(15);
     }
 
     public function countUnreadNotifications()
