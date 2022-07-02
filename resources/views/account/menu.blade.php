@@ -12,15 +12,15 @@
         </figure>
         <div class="pt-3 lg:pt-0 flex items-center justify-center">
             <div class="flex-1 mt-4 lg:my-0 | flex justify-center lg:justify-end space-x-4 sm:space-x-16">
-                <a href="{{ route('account') }}" class="group | flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'account' ?: 'pointer-events-none' }}">
+                <a href="{{ route('account') }}" class="group | border-r sm:border-r-0 border-border-color dark:border-dt-border-color flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'account' ?: 'pointer-events-none' }}">
                     <i class="fas fa-id-badge | text-lg w-9 h-9 rounded-full | {{ Route::currentRouteName() === 'account' ? 'bg-sky-600 text-white' : 'bg-sky-200 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' }} | flex items-center justify-center"></i>
                     <p class="flex flex-col | text-xxs lg:text-xs | leading-4">
                         <span class="font-semibold | {{ Route::currentRouteName() === 'account' ? 'text-edblue-500 dark:text-white' : 'group-hover:text-edblue-500 dark:group-hover:text-white' }}">Perfil</span>
                         <span class="text-text-light-color | {{ Route::currentRouteName() === 'account' ? 'text-edblue-500 dark:text-gray-300' : 'group-hover:text-edblue-500 dark:group-hover:text-gray-300' }}">Mi cuenta</span>
                     </p>
                 </a>
-                <a href="{{ route('notifications') }}" class="group | flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'notifications' ?: 'pointer-events-none' }}">
-                    <i class="fas fa-bell | text-lg w-9 h-9 rounded-full | {{ Route::currentRouteName() === 'notifications' ? 'bg-sky-600 text-white' : 'bg-sky-200 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' }} | flex items-center justify-center"></i>
+                <a href="{{ route('notifications') }}" class="group | border-r sm:border-r-0 border-border-color dark:border-dt-border-color flex-1 sm:flex-initial flex flex-col sm:flex-row items-center text-center sm:text-left space-y-1.5 sm:space-y-0 sm:space-x-3 | focus:outline-none {{ Route::currentRouteName() !== 'notifications' && Route::currentRouteName() !== 'notifications.view'  ?: 'pointer-events-none' }}">
+                    <i class="fas fa-bell | text-lg w-9 h-9 rounded-full | {{ Route::currentRouteName() === 'notifications' || Route::currentRouteName() === 'notifications.view' ? 'bg-sky-600 text-white' : 'bg-sky-200 text-sky-700 group-hover:bg-sky-600 group-hover:text-white' }} | flex items-center justify-center"></i>
                     <p class="flex flex-col | text-xxs lg:text-xs | leading-4">
                         <span class="font-semibold | {{ Route::currentRouteName() === 'notifications' ? 'text-edblue-500 dark:text-white' : 'group-hover:text-edblue-500 dark:group-hover:text-white' }}">Notificaciones</span>
                         <span class="text-text-light-color | {{ Route::currentRouteName() === 'notifications' ? 'text-edblue-500 dark:text-gray-300' : 'group-hover:text-edblue-500 dark:group-hover:text-gray-300' }}">Mi cuenta</span>

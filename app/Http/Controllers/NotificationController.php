@@ -23,9 +23,15 @@ class NotificationController extends Controller
     {
         $user = auth()->user();
 
+        $notification->read = true;
+        $notification->save();
+
+        $lastNotifications = NotificationModel::where('user_id', $user->id)->orderBy('notifications.created_at', 'desc')->take(10)->get();
+
         return view('account.notifications.view', [
             'user' => $user,
-            'notification' => $notification
+            'notification' => $notification,
+            'lastNotifications' => $lastNotifications
         ]);
     }
 
@@ -33,7 +39,7 @@ class NotificationController extends Controller
     {
         $notification->delete();
 
-        return back();
+        return redirect()->route('notifications');
     }
 
     public function toggleRead(NotificationModel $notification): \Illuminate\Http\RedirectResponse

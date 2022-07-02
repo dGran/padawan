@@ -12,13 +12,41 @@ class Notification extends Component
     use WithPagination;
 
     public $user;
-    public $filterUnread = false;
-    public $filterText;
+    public $unread = false;
+    public $search;
 
     protected $queryString = [
-        'filterText' => ['except' => ''],
-        'filterUnread' => ['except' => false],
+        'search' => ['except' => ''],
+        'unread' => ['except' => false],
     ];
+
+    public function setCurrentPage()
+    {
+        $this->gotoPage($this->page);
+    }
+
+    public function toPage($page)
+    {
+        $this->gotoPage($page);
+    }
+
+    public function nextPage($lastPage)
+    {
+        if (($this->page + 1) <= $lastPage) {
+            $this->setPage($this->page + 1);
+        } else {
+            $this->setPage(1);
+        }
+    }
+
+    public function previousPage($lastPage)
+    {
+        if ($this->page > 1) {
+            $this->setPage($this->page - 1);
+        } else {
+            $this->setPage($lastPage);
+        }
+    }
 
     public function getNotifications()
     {
@@ -26,10 +54,10 @@ class Notification extends Component
             leftJoin('users', 'users.id', 'notifications.from_user_id')
             ->select('notifications.*', 'users.name as from_user_name')
             ->where('user_id', auth()->user()->id)
-            ->text($this->filterText)
-            ->unread($this->filterUnread)
+            ->text($this->search)
+            ->unread($this->unread)
             ->orderBy('notifications.created_at', 'desc')
-            ->paginate(10)->onEachSide(2);
+            ->paginate(2);
     }
 
     public function countUnreadNotifications()
@@ -39,26 +67,26 @@ class Notification extends Component
             ->select('notifications.*', 'users.name as from_user_name')
             ->where('user_id', auth()->user()->id)
             ->where('read', false)
-            ->text($this->filterText)
+            ->text($this->search)
             ->orderBy('notifications.created_at', 'desc')
             ->count();
     }
 
-    public function toggleFilterUnread()
+    public function toggleUnread()
     {
         $this->resetPage();
-        $this->filterUnread = !$this->filterUnread;
+        $this->unread = !$this->unread;
     }
 
-    public function applyFilterText()
+    public function applySearch()
     {
         $this->resetPage();
     }
 
-    public function clearFilterText()
+    public function clearSearch()
     {
-        $this->reset('filterText');
-        $this->emit('focus-filter-text');
+        $this->reset('search');
+        $this->emit('focus-search');
     }
 
     public function mount(User $user)
