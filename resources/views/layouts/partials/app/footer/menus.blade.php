@@ -48,7 +48,7 @@
 		<div class="flex items-start justify-between gap-20 select-none | text-xs">
 			<div class="flex-initial">
 		        <h4 class="font-semibold text-left | text-title-color dark:text-edblue-400 | mb-3">Menu</h4>
-		        <ul class="flex flex-col | list-none | ml-1.5 pl-3 border-l border-text-color">
+		        <ul class="flex flex-col | list-none | ml-1.5 pl-3 border-l border-edgray-400 dark:border-edgray-700">
                     @foreach($navLayoutMenuLinks as $link)
                         <li class="py-0.5"><a href="{{ route($link['route-name']) }}" class="hover:text-title-color dark:hover:text-dt-text-color | focus:outline-none focus:text-title-color dark:focus:text-dt-text-color | transition duration-150 ease-in-out">{{ $link['text'] }}</a></li>
                     @endforeach
@@ -57,7 +57,7 @@
 
 			<div class="flex-initial">
 		        <h4 class="font-semibold text-left | text-title-color dark:text-edblue-400 | mb-3">Legal</h4>
-		        <ul class="flex flex-col | list-none | ml-1.5 pl-3 border-l border-text-color">
+		        <ul class="flex flex-col | list-none | ml-1.5 pl-3 border-l border-edgray-400 dark:border-edgray-700">
 		            <li class="py-0.5"><a href="{{ route('cookie-policy') }}" class="hover:text-title-color dark:hover:text-dt-text-color | focus:outline-none focus:text-title-color dark:focus:text-dt-text-color | transition duration-150 ease-in-out">Política de cookies</a></li>
 		            <li class="py-0.5"><a href="{{ route('privacity-policy') }}" class="hover:text-title-color dark:hover:text-dt-text-color | focus:outline-none focus:text-title-color dark:focus:text-dt-text-color | transition duration-150 ease-in-out">Política de privacidad</a></li>
 		        </ul>
