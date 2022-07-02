@@ -28,7 +28,6 @@ function storeNotification($data): void
 {
     Notification::create([
         'user_id' => $data['user_id'],
-        'from_user_id' => $data['from_user_id'],
         'title' => $data['title'],
         'content' => $data['content'],
         'link' => $data['link'],
@@ -72,7 +71,6 @@ function eteamCaptainsNotification(
     foreach ($eteam->getCaptains() as $captain) {
         $notification_data = [
             'user_id' => $captain->user_id,
-            'from_user_id' => $fromUserId,
             'title' => $title,
             'content' => $content,
             'link' => Route($link, $linkParams),

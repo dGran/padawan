@@ -39,7 +39,7 @@ class ETeam extends Component
                 'state' => 'pending',
                 'message' => 'Hola, quiero unirme a vuestro equipo, gracias.'
             ]);
-    
+
             foreach ($eteam->getCaptains() as $captain) {
                 //send notification with helper
                 $content = "$user->name ha enviado solicitud de ingreso en tu equipo";
@@ -49,10 +49,9 @@ class ETeam extends Component
                     $content .= ".";
                 }
                 $content .= "</br></br>Como capitán puedes aceptar y rechazar la solicitud de ingreso.";
-                
+
                 $notification_data = [
                     'user_id' => $captain->user_id,
-                    'from_user_id' => null,
                     'title' => "$user->name ha solicitado el ingreso en tu equipo '$eteam->name'",
                     'content' => $content,
                     'link' => Route('myteams'),
@@ -75,12 +74,11 @@ class ETeam extends Component
             foreach ($eteamRequests as $request) {
                 $request->delete();
             }
-               
+
             foreach ($eteam->getCaptains() as $captain) {
                 //send notification with helper
                 $notification_data = [
                     'user_id' => $captain->user_id,
-                    'from_user_id' => null,
                     'title' => "Retirada de solicitud de ingreso en tu equipo '$eteam->name'",
                     'content' => "$user->name ha retirado la solicitado de ingreso en tu equipo. </br> Puedes acceder desde el enlace",
                     'link' => Route('eteams.eteam', $eteam->slug),

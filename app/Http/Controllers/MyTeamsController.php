@@ -140,7 +140,6 @@ class MyTeamsController extends Controller
         foreach ($eteamRequest->eteam->getCaptains() as $captain) {
             $notification_data = [
                 'user_id' => $captain->user_id,
-                'from_user_id' => null,
                 'title' => "$userName, nuevo miembro de tu equipo '$eteamName'",
                 'content' => "$userAuthorized->name ha aceptado la solicitud de ingreso y $userName es nuevo miembro de tu equipo '$eteamName'.",
                 'link' => Route('eteams.eteam', $eteamRequest->eteam->slug),
@@ -153,7 +152,6 @@ class MyTeamsController extends Controller
         foreach ($eteamRequest->eteam->getCaptains() as $captain) {
             $notification_data = [
                 'user_id' => $eteamRequest->user_id,
-                'from_user_id' => $userAuthorized->id,
                 'title' => "Bienvenido a '$eteamName'!!",
                 'content' => "Eres nuevo miembro de nuestro equipo '$eteamName' de $gameName. Puedes configurar tus datos de jugador desde el menú del equipo.",
                 'link' => Route('eteams.eteam', $eteamRequest->eteam->slug),

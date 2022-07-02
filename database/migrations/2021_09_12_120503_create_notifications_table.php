@@ -18,10 +18,6 @@ class CreateNotificationsTable extends Migration
             $table->foreignId('user_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignId('from_user_id')
-                ->nullable()
-                ->constrained('users')
-                ->onDelete('cascade');
             $table->string('title')->nullable();
             $table->text('content')->nullable();
             $table->text('link')->nullable();

@@ -50,7 +50,6 @@ class EteamRequestManager
             // notify user
             $notification_data = [
                 'user_id' => $eteamRequest->user_id,
-                'from_user_id' => null,
                 'title' => "Aceptada tu solicitud al equipo '$eteamName'",
                 'content' => "Felicidades!, eres nuevo miembro del equipo $eteamName, $user->name ha aceptado tu solicitud de ingreso",
                 'link' => Route('eteams.eteam', $eteamSlug),
@@ -120,7 +119,6 @@ class EteamRequestManager
             // notify user
             $notification_data = [
                 'user_id' => $eteamRequest->user_id,
-                'from_user_id' => null,
                 'title' => "Rechazada la solicitud al equipo $eteamName",
                 'content' => "$user->name ha rechazado tu solicitud de ingreso al equipo a $eteamName",
                 'link' => Route('myteams'),

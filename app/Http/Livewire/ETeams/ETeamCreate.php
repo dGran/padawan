@@ -219,7 +219,6 @@ class ETeamCreate extends Component
 
         $notification_data = [
             'user_id' => $this->user->id,
-            'from_user_id' => null,
             'title' => "Equipo '$eteam->name' creado",
             'content' => 'Tu equipo se ha creado correctamente. Eres el propietario y único capitán del equipo pero puedes ascender a capitán a otros futuros miembros.',
             'link' => Route('eteams.eteam', $eteam->slug),

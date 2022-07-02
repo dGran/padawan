@@ -181,7 +181,6 @@ class EteamInvitationManager
         // notify user
         $notification_data = [
             'user_id' => $eteamInvitation->user_id,
-            'from_user_id' => null,
             'title' => "Retirada la invitación del equipo $eteamName",
             'content' => "$user->name ha retirado la invitación de ingreso al equipo $eteamName",
             'link' => Route('myteams'),

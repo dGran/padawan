@@ -16,17 +16,12 @@ class Notification extends Model
     protected $table = 'notifications';
 
     protected $fillable = [
-        'user_id', 'from_user_id', 'title', 'content', 'link', 'link_title', 'read', 'slug'
+        'user_id', 'title', 'content', 'link', 'link_title', 'read', 'slug'
     ];
 
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
-    }
-
-    public function fromUser()
-    {
-        return $this->belongsTo('App\Models\User', 'from_user_id', 'id');
     }
 
     public function scopeText($query, $value)

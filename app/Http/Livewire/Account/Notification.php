@@ -51,9 +51,7 @@ class Notification extends Component
     public function getNotifications()
     {
         return NotificationModel::
-            leftJoin('users', 'users.id', 'notifications.from_user_id')
-            ->select('notifications.*', 'users.name as from_user_name')
-            ->where('user_id', auth()->user()->id)
+            where('user_id', auth()->user()->id)
             ->text($this->search)
             ->unread($this->unread)
             ->orderBy('notifications.created_at', 'desc')
@@ -63,9 +61,7 @@ class Notification extends Component
     public function countUnreadNotifications()
     {
         return NotificationModel::
-            leftJoin('users', 'users.id', 'notifications.from_user_id')
-            ->select('notifications.*', 'users.name as from_user_name')
-            ->where('user_id', auth()->user()->id)
+            where('user_id', auth()->user()->id)
             ->where('read', false)
             ->text($this->search)
             ->orderBy('notifications.created_at', 'desc')
