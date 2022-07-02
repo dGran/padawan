@@ -70,7 +70,7 @@
                         <i class="flex-initial text-lg text-edblue-500 dark:text-edblue-400 fa-solid fa-person-circle-question w-5"></i>
                         <p class="flex-1 | flex flex-col | leading-5">
                             <span class="text-title-color dark:text-dt-title-color font-medium">Invitaciones enviadas</span>
-                            <span class="text-xxs | text-text-light-color">Listado de tus invitaciones enviadas para el ingreso en tus equipos donde eres capitán</span>
+                            <span class="text-xxs | text-text-light-color">Listado de invitaciones enviadas para el ingreso en tus equipos donde eres capitán</span>
                         </p>
                         @if ($user->countMyEteamsInvitations() > 0)
                             <span class="inline-block py-1 px-1.5 leading-none text-center whitespace-nowrap align-baseline font-bold bg-red-600 dark:bg-red-500 text-white rounded mr-1.5">{{ $user->countMyEteamsInvitations() }}</span>
