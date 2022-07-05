@@ -34,7 +34,7 @@ class Profile extends Component
         $this->notifications = $this->user->profile->notifications;
     }
 
-    public function updateGeneralData()
+    public function update()
     {
         $validatedData['name'] = $this->name ?: null;
         $validatedData['email'] = $this->email ?: null;
@@ -68,15 +68,15 @@ class Profile extends Component
         }
 
         if ($user_emit_state == "update" || $profile_emit_state == "update") {
-            $this->emit('updateGeneralData');
+            $this->emit('update');
             return false;
         }
         if ($user_emit_state == "error" || $profile_emit_state == "error") {
-            $this->emit('updateErrorGeneralData');
+            $this->emit('updateError');
             return false;
         }
         if ($user_emit_state == "noDirty" || $profile_emit_state == "noDirty") {
-            $this->emit('noDirtyGeneralData');
+            $this->emit('noDirty');
             return false;
         }
     }

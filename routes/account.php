@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\MyTeamsController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Livewire\Account\Profile;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']], function () {
-    Route::get('/perfil', Profile::class)->name('profile');
+    Route::get('/perfil', [ProfileController::class, 'index'])->name('profile');
 
     Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {
         Route::get('/', [NotificationController::class, 'index'])->name('notifications');
