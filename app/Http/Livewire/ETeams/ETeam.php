@@ -148,7 +148,7 @@ class ETeam extends Component
     public function loadAdminData($op)
     {
         switch ($this->op) {
-            case 'profile':
+            case 'social':
                 $this->loadAdminProfileData();
                 break;
             case 'posts':

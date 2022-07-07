@@ -42,7 +42,7 @@
             </div>
         </x-dropdown-link>
 
-        <x-dropdown-link :href="route('myteams')">
+        <x-dropdown-link :href="route('my-teams')">
             <div class="flex items-center space-x-2.5 relative">
                 <i class="fa solid fa-user-shield w-4 {{ !auth()->user()->countEteamsNotifications() ?: 'text-yellow-500 dark:text-yellow-400' }}"></i>
                 <div class="flex items-center space-x-1.5">

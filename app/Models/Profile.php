@@ -23,7 +23,6 @@ class Profile extends Model
         'discord',
         'xbox_id',
         'ps_id',
-        'origin_id',
         'steam_id',
         'notifications',
     ];

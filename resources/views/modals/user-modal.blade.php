@@ -68,7 +68,7 @@
 
     @if ($user->hasAnySocialNetwork())
         <div class="flex items-center justify-center space-x-0.5 px-6 py-4 border-t border-border-color dark:border-edgray-700">
-            <a class="{{ $user->profile->whatsapp ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{-- {{ $user->profile->getWhatsappUrl() }} --}}" target="_blank">
+            <a class="{{ $user->profile->whatsapp ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{-- {{ $user->social->getWhatsappUrl() }} --}}" target="_blank">
                 <i class="icon-whatsapp mr-3 rounded-full text-xl"></i>
             </a>
             <a class="{{ $user->profile->twitter ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{ $user->profile->getTwitterUrl() }}" target="_blank">
@@ -83,7 +83,7 @@
             <a class="{{ $user->profile->twitch ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{ $user->profile->getTwitchUrl() }}" target="_blank">
                 <i class="icon-twitch mr-3 rounded-full text-xl"></i>
             </a>
-            <a class="{{ $user->profile->discord ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{-- {{ $user->profile->getDiscordUrl() }} --}}" target="_blank">
+            <a class="{{ $user->profile->discord ?: 'hidden' }} opacity-70 hover:opacity-100 focus:outline-none focus:opacity-100" href="{{-- {{ $user->social->getDiscordUrl() }} --}}" target="_blank">
                 <i class="icon-discord mr-3 rounded-full text-xl"></i>
             </a>
         </div>

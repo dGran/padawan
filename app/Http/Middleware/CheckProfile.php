@@ -16,10 +16,10 @@ class CheckProfile
         }
 
         $this->user = auth()->user();
-        
-        //check if user has a profile
+
+        //check if user has a social
         if (!$this->user->profile) {
-            //create profile
+            //create social
             Profile::create([
                 'user_id' => $this->user->id,
             ]);

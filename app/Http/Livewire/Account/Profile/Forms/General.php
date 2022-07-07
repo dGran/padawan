@@ -21,7 +21,6 @@ class General extends Component
         return $this->avatar;
     }
 
-
     public function update()
     {
         $profile = $this->user->profile;
@@ -36,38 +35,26 @@ class General extends Component
 
         if ($profile->isDirty()) {
             if ($profile->update()) {
-                $emitState = "update";
+                $this->emit('update');
             } else {
-                $emitState = "error";
+                $this->emit('updateError');
             }
         } else {
-            $emitState = "noDirty";
-        }
-
-        if ($emitState == "update") {
-            $this->emit('update');
-            return false;
-        }
-        if ($emitState == "error") {
-            $this->emit('updateError');
-            return false;
-        }
-        if ($emitState == "noDirty") {
             $this->emit('noDirty');
-            return false;
         }
     }
 
     public function mount(User $user)
     {
         $this->user = $user;
+        $profile = $user->profile;
 
-        $this->avatar = $this->user->profile->avatar;
+        $this->avatar = $profile->avatar;
         $this->avatarUrl = $this->getAvatarUrl();
-        $this->birthdate = $this->user->profile->birthdate;
-        $this->country_id = $this->user->profile->country_id;
-        $this->location = $this->user->profile->location;
-        $this->notifications = $this->user->profile->notifications;
+        $this->birthdate = $profile->birthdate;
+        $this->country_id = $profile->country_id;
+        $this->location = $profile->location;
+        $this->notifications = $profile->notifications;
 
         $this->countries = Country::orderby('name')->get();
     }

@@ -33,7 +33,6 @@ class CreateProfilesTable extends Migration
             $table->string('discord')->nullable();
             $table->string('xbox_id')->nullable();
             $table->string('ps_id')->nullable();
-            $table->string('origin_id')->nullable();
             $table->string('steam_id')->nullable();
             $table->boolean('notifications')->default(true);
             $table->timestamps();
