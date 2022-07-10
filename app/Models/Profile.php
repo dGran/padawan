@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,17 +29,17 @@ class Profile extends Model
         'notifications',
     ];
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo('App\Models\User');
     }
 
-    public function country()
+    public function country(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
         return $this->hasOne('App\Models\Country', 'id', 'country_id');
     }
 
-    public function getAvatarUrl()
+    public function getAvatarUrl(): string
     {
         if (!$this->avatar) {
             return "https://eu.ui-avatars.com/api/?name=" . $this->user->name;
@@ -45,7 +47,7 @@ class Profile extends Model
         return $this->avatar;
     }
 
-    public function getCountryName()
+    public function getCountryName(): string
     {
         if ($this->country_id) {
             return $this->country->name;
@@ -53,7 +55,7 @@ class Profile extends Model
         return "N/D";
     }
 
-    public function getFlag()
+    public function getFlag(): string
     {
         if ($this->country_id) {
             return $this->country->getFlag24();
@@ -61,36 +63,36 @@ class Profile extends Model
         return asset('img/flags/no_flag.png');
     }
 
-    public function getFacebookUrl()
+    public function getFacebookUrl(): ?string
     {
         if ($this->facebook) {
             return "https://www.facebook.com/" . $this->facebook;
         }
-        return false;
+        return null;
     }
 
-    public function getTwitterUrl()
+    public function getTwitterUrl(): ?string
     {
         if ($this->twitter) {
             return "https://twitter.com/" . $this->twitter;
         }
-        return false;
+        return null;
     }
 
-    public function getInstagramUrl()
+    public function getInstagramUrl(): ?string
     {
         if ($this->instagram) {
             return "https://www.instagram.com/" . $this->instagram;
         }
-        return false;
+        return null;
     }
 
-    public function getTwitchUrl()
+    public function getTwitchUrl(): ?string
     {
         if ($this->twitch) {
             return "https://www.twitch.tv/" . $this->twitch;
         }
-        return false;
+        return null;
     }
 
 }

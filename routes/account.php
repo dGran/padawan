@@ -5,17 +5,17 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'checkProfile']], function () {
+Route::group(['prefix' => 'mi-cuenta', 'middleware' => ['auth', 'verified']], function () {
     Route::get('/perfil', [ProfileController::class, 'index'])->name('profile');
 
-    Route::group(['prefix' => 'notificaciones', 'middleware' => ['auth', 'checkProfile']], function () {
+    Route::group(['prefix' => 'notificaciones'], function () {
         Route::get('/', [NotificationController::class, 'index'])->name('notifications');
         Route::get('/{notification:slug}', [NotificationController::class, 'view'])->name('notifications.view');
         Route::get('/eliminar/{notification}', [NotificationController::class, 'delete'])->name('notifications.delete');
         Route::get('/toggle-read/{notification}', [NotificationController::class, 'toggleRead'])->name('notifications.toggleRead');
         Route::get('/marcar-todo-como-leido/{user}', [NotificationController::class, 'readAll'])->name('notifications.readAll');
     });
-    Route::group(['prefix' => 'mis-equipos', 'middleware' => ['auth', 'checkProfile']], function () {
+    Route::group(['prefix' => 'mis-equipos'], function () {
         Route::get('/', [MyTeamsController::class, 'index'])->name('my-teams');
         Route::get('/aceptar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'acceptInvitation'])->name('my-teams.acceptInvitation');
         Route::get('/rechazar-invitacion/{userId}/{eteamInvitationId}', [MyTeamsController::class, 'declineInvitation'])->name('my-teams.declineInvitation');
