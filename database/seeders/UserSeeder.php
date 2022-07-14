@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use Illuminate\Database\Seeder;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -34,6 +35,9 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
         $user->assignRole('super-admin');
+        Profile::create([
+            'user_id' => $user->id
+        ]);
 
         $user = User::create([
             'name' => 'pAdRoNe',
@@ -44,6 +48,9 @@ class UserSeeder extends Seeder
             'updated_at' => now(),
         ]);
         $user->assignRole('admin');
+        Profile::create([
+            'user_id' => $user->id
+        ]);
 
         for ($i=1; $i < 50; $i++) {
             $name = 'user_test_' . $i;
@@ -54,6 +61,9 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'created_at' => now()->addMinutes($i),
                 'updated_at' => now()->addMinutes($i),
+            ]);
+            Profile::create([
+                'user_id' => $user->id
             ]);
         }
     }
