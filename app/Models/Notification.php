@@ -29,8 +29,7 @@ class Notification extends Model
         if (trim($value) != "") {
             return $query->where(function($q) use ($value) {
                 $q->where('notifications.title', 'LIKE', "%{$value}%")
-                    ->orWhere('notifications.content', 'LIKE', "%{$value}%")
-                    ->orWhere('users.name', 'LIKE', "%{$value}%");
+                    ->orWhere('notifications.content', 'LIKE', "%{$value}%");
                 });
         }
     }
