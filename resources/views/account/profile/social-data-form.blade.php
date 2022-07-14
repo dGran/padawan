@@ -3,42 +3,54 @@
         @csrf
         <div class="px-6 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <div>
-                <x-label for="whatsapp" :value="__('whatsapp')" class="capitalize" />
+                <label for="whatsapp" class="capitalize text-sm font-medium">
+                    {{ __('whatsapp') }}
+                </label>
                 <div class="relative {{ $whatsapp ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-whatsapp"></span>
                     <x-input wire:model="whatsapp" id="whatsapp" class="text-sm mt-1.5 pl-11 w-full" type="text" name="whatsapp" :value="old('whatsapp')" placeholder="Escribe tu whatsapp" />
                 </div>
             </div>
             <div>
-                <x-label for="facebook" :value="__('facebook')" class="capitalize" />
+                <label for="facebook" class="capitalize text-sm font-medium">
+                    {{ __('facebook') }}
+                </label>
                 <div class="relative {{ $facebook ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-facebook"></span>
                     <x-input wire:model="facebook" id="facebook" class="text-sm mt-1.5 pl-11 w-full" type="text" name="facebook" :value="old('facebook')" placeholder="Escribe tu facebook" />
                 </div>
             </div>
             <div>
-                <x-label for="twitter" :value="__('twitter')" class="capitalize" />
+                <label for="twitter" class="capitalize text-sm font-medium">
+                    {{ __('twitter') }}
+                </label>
                 <div class="relative {{ $twitter ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-twitter"></span>
                     <x-input wire:model="twitter" id="twitter" class="text-sm mt-1.5 pl-11 w-full" type="text" name="twitter" :value="old('twitter')" placeholder="Escribe tu twitter" />
                 </div>
             </div>
             <div>
-                <x-label for="instagram" :value="__('instagram')" class="capitalize" />
+                <label for="instagram" class="capitalize text-sm font-medium">
+                    {{ __('instagram') }}
+                </label>
                 <div class="relative {{ $instagram ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-instagram"></span>
                     <x-input wire:model="instagram" id="instagram" class="text-sm mt-1.5 pl-11 w-full" type="text" name="instagram" :value="old('instagram')" placeholder="Escribe tu instagram" />
                 </div>
             </div>
             <div>
-                <x-label for="twitch" :value="__('twitch')" class="capitalize" />
+                <label for="twitch" class="capitalize text-sm font-medium">
+                    {{ __('twitch') }}
+                </label>
                 <div class="relative {{ $twitch ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-twitch"></span>
                     <x-input wire:model="twitch" id="twitch" class="text-sm mt-1.5 pl-11 w-full" type="text" name="twitch" :value="old('twitch')" placeholder="Escribe tu twitch" />
                 </div>
             </div>
             <div>
-                <x-label for="discord" :value="__('discord')" class="capitalize" />
+                <label for="discord" class="capitalize text-sm font-medium">
+                    {{ __('discord') }}
+                </label>
                 <div class="relative {{ $discord ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-discord"></span>
                     <x-input wire:model="discord" id="discord" class="text-sm mt-1.5 pl-11 w-full" type="text" name="discord" :value="old('discord')" placeholder="Escribe tu discord" />

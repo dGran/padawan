@@ -3,21 +3,27 @@
         @csrf
         <div class="px-6 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <div>
-                <x-label for="xbox_id" :value="__('xbox ID')" class="capitalize" />
+                <label for="xbox_id" class="capitalize text-sm font-medium">
+                    {{ __('xbox ID') }}
+                </label>
                 <div class="relative {{ $xbox_id ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-xbox"></span>
                     <x-input wire:model="xbox_id" id="xbox_id" class="text-sm mt-1.5 pl-11 w-full" type="text" name="xbox_id" :value="old('xbox_id')" placeholder="Escribe tu Xbox ID" />
                 </div>
             </div>
             <div>
-                <x-label for="ps_id" :value="__('playstation ID')" class="capitalize" />
+                <label for="ps_id" class="capitalize text-sm font-medium">
+                    {{ __('playstation ID') }}
+                </label>
                 <div class="relative {{ $ps_id ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-playstation"></span>
                     <x-input wire:model="ps_id" id="ps_id" class="text-sm mt-1.5 pl-11 w-full" type="text" name="ps_id" :value="old('ps_id')" placeholder="Escribe tu Playstation ID" />
                 </div>
             </div>
             <div>
-                <x-label for="steam_id" :value="__('steam ID')" class="capitalize" />
+                <label for="steam_id" class="capitalize text-sm font-medium">
+                    {{ __('steam ID') }}
+                </label>
                 <div class="relative {{ $steam_id ? 'text-text-color dark:text-dt-text-color' : 'text-text-light-color dark:text-dt-text-lighter-color focus-within:text-text-color dark:focus-within:text-dt-text-color' }}">
                     <span class="absolute inset-y-0 left-0 | flex items-center | pl-4 | text-lg | icon-steam"></span>
                     <x-input wire:model="steam_id" id="steam_id" class="text-sm mt-1.5 pl-11 w-full" type="text" name="steam_id" :value="old('steam_id')" placeholder="Escribe tu Steam ID" />

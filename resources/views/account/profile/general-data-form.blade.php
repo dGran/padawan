@@ -12,11 +12,15 @@
         </div>
         <div class="px-6 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <div>
-                <x-label for="birthdate" :value="__('fecha nacimiento')" class="capitalize text-sm" />
+                <label for="birthdate" class="capitalize text-sm font-medium">
+                    {{ __('fecha nacimiento') }}
+                </label>
                 <x-input wire:model="birthdate" id="birthdate" class="text-sm mt-1.5 w-full" type="date" placeholder="Escribe tu fecha de nacimiento" />
             </div>
             <div>
-                <x-label for="country_id" :value="__('Nacionalidad')" class="capitalize text-sm" />
+                <label for="country_id" class="capitalize text-sm font-medium">
+                    {{ __('nacionalidad') }}
+                </label>
                 <select wire:loading.attr="disabled" wire:model="country_id" id="country_id" class="text-sm mt-1.5 w-full | appearance-none | rounded | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 | placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-200 dark:hover:border-gray-600 | focus:outline-none focus:border-gray-300 dark:focus:border-gray-500"
                         placeholder="Selecciona tu nacionalidad" />
                     <option value="">N/D</option>
@@ -34,7 +38,9 @@
                 </select>
             </div>
             <div>
-                <x-label for="location" :value="__('Lugar residencia')" class="capitalize text-sm" />
+                <label for="location" class="capitalize text-sm font-medium">
+                    {{ __('Lugar de residencia') }}
+                </label>
                 <x-input wire:model="location" id="location" class="text-sm mt-1.5 w-full" type="text" placeholder="Escribe tu lugar de residencia" />
             </div>
         </div>
@@ -48,7 +54,7 @@
                     id="notifications"
                     wire:model="notifications"
                 >
-                <label class="form-check-label ml-1.5 mt-1.5 font-semibold" for="notifications">
+                <label class="form-check-label ml-1.5 text-sm font-medium" for="notifications">
                     Recibir notificaciones por e-mail
                 </label>
             </div>
