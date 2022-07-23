@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Profile extends Model
 {
@@ -44,7 +45,7 @@ class Profile extends Model
         if (!$this->avatar) {
             return "https://eu.ui-avatars.com/api/?name=" . $this->user->name;
         }
-        return $this->avatar;
+        return Storage::url($this->avatar);
     }
 
     public function getCountryName(): string

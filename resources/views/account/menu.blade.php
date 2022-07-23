@@ -1,7 +1,7 @@
 <x-container class="pt-4 lg:pt-8">
     <div class="flex flex-col lg:flex-row lg:justify-between">
         <figure class="flex items-center space-x-3">
-            <img src="{{ $user->getAvatarUrl() }}" alt="{{ $user->name . " avatar" }}" class="flex-none | rounded-full | w-16 h-16 | object-cover">
+            <img src="{{ $user->getAvatarUrl() }}" alt="{{ $user->name . " avatar" }}" class="flex-none | rounded-full | w-16 h-16 | object-cover | border border-border-color dark:border-dt-border-color">
             <div class="flex-none | flex flex-col justify-center">
                 <span class="text-xl lg:text-2xl | font-medium | text-title-color dark:text-dt-title-color">{{ $user->name }}</span>
                 <p class="flex items-center space-x-1 | text-xxs lg:text-xs">

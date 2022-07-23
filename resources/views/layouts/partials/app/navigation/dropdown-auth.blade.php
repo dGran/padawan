@@ -5,7 +5,7 @@
             <div
                 class="flex items-center text-sm | rounded-full | h-8 w-8 md:h-9 md:w-9 m-0.5 | bg-text-color dark:bg-dt-text-color">
                 <img src="{{ auth()->user()->getAvatarUrl() }}" alt="{{ auth()->user() . " avatar" }}"
-                     class="rounded-full | object-cover | w-full h-auto">
+                     class="rounded-full | object-cover | w-full h-full">
             </div>
         </button>
         @if (auth()->user()->countTotalNotifications())
