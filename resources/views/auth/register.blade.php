@@ -16,7 +16,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                     <div>
                         <x-label for="name" :value="__('Nombre')" />
-                        <x-input id="name" class="block sm:mt-1 w-full"
+                        <input id="name" class="block sm:mt-1 w-full | appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                                placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                                focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                                autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                                autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                                         type="text"
                                         name="name"
                                         :value="old('name')"
@@ -26,7 +30,11 @@
 
                     <div>
                         <x-label for="email" :value="__('Correo electrónico')" />
-                        <x-input id="email" class="block sm:mt-1 w-full"
+                        <input id="email" class="block sm:mt-1 w-full | appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                                 placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                                 focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                                 autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                                 autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                                         type="email"
                                         name="email"
                                         :value="old('email')"
@@ -39,7 +47,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-4">
                     <div>
                         <x-label for="password" :value="__('Contraseña')" />
-                        <x-input id="password" class="block sm:mt-1 w-full"
+                        <input id="password" class="block sm:mt-1 w-full | appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                                      placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                                      focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                                      autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                                      autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                                         type="password"
                                         name="password"
                                         placeholder="Contraseña"
@@ -50,7 +62,11 @@
                     <div>
                         <x-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
-                        <x-input id="password_confirmation" class="block sm:mt-1 w-full"
+                        <input id="password_confirmation" class="block sm:mt-1 w-full | appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                                                   placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                                                   focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                                                   autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                                                   autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                                         type="password"
                                         name="password_confirmation"
                                         placeholder="Repetir contraseña"

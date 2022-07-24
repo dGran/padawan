@@ -41,7 +41,11 @@
                 <div class="mt-4">
                     <x-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
-                    <x-input id="password_confirmation" class="block sm:mt-1 w-full"
+                    <input id="password_confirmation" class="block sm:mt-1 w-full | appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                                               placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                                               focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                                               autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                                               autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                              type="password"
                              name="password_confirmation"
                              placeholder="Repetir contraseña"

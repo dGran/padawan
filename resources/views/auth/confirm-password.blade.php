@@ -20,7 +20,12 @@
                     <x-label for="password" :value="__('Contraseña')" />
                     <div x-data="{ show: true }">
                         <div class="relative">
-                            <input placeholder="Escribe tu contraseña" :type="show ? 'password' : 'text'" name="password" class="block mt-1.5 w-full | appearance-none | rounded | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 | placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-200 dark:hover:border-gray-600 | focus:outline-none focus:border-gray-300 dark:focus:border-gray-500 | autofill:border-border-color dark:autofill:border-gray-700 | autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color | autofill:shadow-fill-white dark:autofill:shadow-fill-dt-dark"
+                            <input placeholder="Escribe tu contraseña" :type="show ? 'password' : 'text'" name="password"
+                                   class="block mt-1.5 w-full appearance-none | px-4 py-2 | bg-white dark:bg-dt-dark | border border-border-color dark:border-gray-700 |
+                                          placeholder-gray-400 dark:placeholder-gray-500 | hover:border-gray-300 dark:hover:border-gray-600 |
+                                          focus:outline-none focus:border-gray-300 dark:focus:border-gray-600 |
+                                          autofill:text-fill-text-color dark:autofill:text-fill-dt-text-color |
+                                          autofill:shadow-fill-edgray-300 dark:autofill:shadow-fill-dt-dark-accent"
                             required autocomplete="current-password">
                             <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                                 <i class="cursor-pointer text-lg" x-bind:class="{ 'icon-visible' : show, 'icon-invisible' : !show }" @click="show = !show"></i>
