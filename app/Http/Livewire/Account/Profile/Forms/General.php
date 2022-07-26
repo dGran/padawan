@@ -6,37 +6,12 @@ namespace App\Http\Livewire\Account\Profile\Forms;
 
 use App\Models\Country;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class General extends Component
 {
-    use WithFileUploads;
-
-    public $user, $profile, $avatar, $birthdate, $countryId, $location, $notifications;
-    public $avatarPreview;
+    public $user, $profile, $birthdate, $countryId, $location, $notifications;
     public $countries;
-
-    protected $rules = [
-        'avatar' => 'mimes:jpeg,png,jpg,gif,svg|max:1024'
-    ];
-
-    protected $messages = [
-        'avatar.mimes' => 'El avatar debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
-        'avatar.max' => 'El tamaño del avatar no puede ser mayor a 1024 bytes',
-    ];
-
-    public function uploadAvatar(): void
-    {
-        $validation = $this->validate();
-    }
-
-    public function initializeAvatar(): void {
-        $this->avatar = null;
-        $this->avatarPreview = $this->profile->getAvatarUrl();
-    }
 
     /**
      * @return \Illuminate\Http\RedirectResponse|void
@@ -44,17 +19,6 @@ class General extends Component
     public function update()
     {
         $profile = $this->user->profile;
-        $avatar = null;
-        if ($this->avatar) {
-            $this->validate();
-            Log::debug('avatar validado.');
-            $fileName = Str::slug($this->user->name, '-') . '.' . $this->avatar->extension();
-            $avatar = $this->avatar->storeAs('avatars', $fileName, 'public');
-        }
-
-        if ($this->avatar) {
-            $validatedData['avatar'] = $avatar;
-        }
         $validatedData['birthdate'] = $this->birthdate ?: null;
         $validatedData['country_id'] = $this->countryId ?: null;
         $validatedData['location'] = $this->location ?: null;
@@ -63,23 +27,12 @@ class General extends Component
 
         if ($profile->isDirty()) {
             if ($profile->update()) {
-                Log::debug('update!!.');
                 $this->emit('update');
             } else {
-                Log::debug('update error.');
                 $this->emit('updateError');
             }
         } else {
-            Log::debug('sin cambios.');
             $this->emit('noDirty');
-        }
-
-        if ($this->avatar) {
-            $this->profile = $profile;
-            $this->initializeAvatar();
-            Log::debug('avatar inicializado y reload');
-
-            return redirect()->route('profile');
         }
     }
 
@@ -92,7 +45,6 @@ class General extends Component
         $this->location = $this->profile->location;
         $this->notifications = $this->profile->notifications;
         $this->countries = Country::orderby('name')->get();
-        $this->initializeAvatar();
     }
 
     /**
@@ -102,5 +54,4 @@ class General extends Component
     {
         return view('account.profile.general-data-form');
     }
-
 }

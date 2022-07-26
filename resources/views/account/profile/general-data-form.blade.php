@@ -1,18 +1,6 @@
 <div>
     <form wire:submit.prevent="update">
         @csrf
-        <div class="px-6 mt-4">
-            <img src="{{ $avatar ? $avatar->temporaryUrl() : $avatarPreview }}" alt="{{ $user->name }}" class="rounded-full w-32 h-32 mx-auto object-cover border border-border-color dark:border-dt-border-color">
-
-            <label class="w-full | flex items-center justify-center space-x-3 | mt-1.5 px-4 py-2 | border border-border-color dark:border-dt-border-color | rounded-lg | uppercase | cursor-pointer | hover:bg-border-color dark:hover:bg-dt-border-color | hover:text-title-color dark:hover:text-dt-title-color">
-                <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
-                </svg>
-                <span class="">Selecciona archivo...</span>
-                <input type="file" class="hidden" accept=".jpeg, .png, .jpg, .gif, .svg" wire:model="avatar" wire:change="uploadAvatar"/>
-            </label>
-             @error('avatar') <p class="text-red-400 | mt-1 | text-xxs md:text-xs">{{ $message }}</p> @enderror
-        </div>
         <div class="px-6 py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             <div>
                 <label for="birthdate" class="capitalize text-sm font-medium">
