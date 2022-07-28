@@ -10,7 +10,6 @@ use App\Models\User;
 use App\Models\Game;
 use App\Models\Country;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class ETeamCreate extends Component
 {
@@ -153,7 +152,8 @@ class ETeamCreate extends Component
 
     public function store()
     {
-        if ($this->user->isMemberEteamGame($this->game_id))
+        $user = $this->user;
+        if ($user->isMemberEteamGame($this->game_id))
         {
             $gameName = Game::findOrFail($this->game_id)->name;
             return redirect()->route('eteams.index')->with("error", "Error al crear el equipo, ya eres miembro de otro equipo de '$gameName'.");
@@ -209,16 +209,20 @@ class ETeamCreate extends Component
             'updated_at' => now(),
         ]);
 
+        if (!$eteam) {
+            return redirect()->route('eteams.index')->with("error", "Error al crear el equipo");
+        }
+
         ETeamUser::create([
             'eteam_id' => $eteam->id,
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'owner' => true,
             'captain' => true,
             'active' => true,
         ]);
 
         $notification_data = [
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'title' => "Equipo '$eteam->name' creado",
             'content' => 'Tu equipo se ha creado correctamente. Eres el propietario y único capitán del equipo pero puedes ascender a capitán a otros futuros miembros.',
             'link' => Route('eteams.eteam', $eteam->slug),
@@ -234,9 +238,9 @@ class ETeamCreate extends Component
 
         storeEteamPost([
             'eteam_id' => $eteam->id,
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
             'title' => "Equipo creado",
-            'content' => "$this->user->name ha creado el equipo $eteam->name",
+            'content' => "$user->name ha creado el equipo $eteam->name",
             'public' => false
         ]);
 
