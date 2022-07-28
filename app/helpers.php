@@ -104,7 +104,7 @@ function storeEteamPost($data): void
         'user_id' => $data['user_id'],
         'title' => $data['title'],
         'content' => $data['content'],
-        'public' => $data['public'],
+        'public' => $data['public'] ?? true,
         'slug' => Str::slug($data['title'], '-')
     ]);
 }
