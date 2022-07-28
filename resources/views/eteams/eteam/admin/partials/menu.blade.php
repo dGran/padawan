@@ -5,14 +5,14 @@
 				Perfil
 			</button>
 		</li>
+        <li>
+            <button class="flex items-center justify-center w-24 px-4 py-2 | rounded-md | focus:outline-none | border border-transparent hover:border-border-color dark:hover:border-dt-border-color | focus:border-border-color dark:focus:border-dt-border-color {{ $admin_op == 'noticias' ? 'bg-border-color dark:bg-dt-border-color pointer-events-none' : '' }}" wire:click="changeAdminTab('noticias')">
+                Noticias
+            </button>
+        </li>
 		<li>
 			<button class="flex items-center justify-center w-24 px-4 py-2 | rounded-md | focus:outline-none | border border-transparent hover:border-border-color dark:hover:border-dt-border-color | focus:border-border-color dark:focus:border-dt-border-color {{ $admin_op == 'miembros' ? 'bg-border-color dark:bg-dt-border-color pointer-events-none' : '' }}" wire:click="changeAdminTab('miembros')">
 				Miembros
-			</button>
-		</li>
-		<li>
-			<button class="flex items-center justify-center w-24 px-4 py-2 | rounded-md | focus:outline-none | border border-transparent hover:border-border-color dark:hover:border-dt-border-color | focus:border-border-color dark:focus:border-dt-border-color {{ $admin_op == 'noticias' ? 'bg-border-color dark:bg-dt-border-color pointer-events-none' : '' }}" wire:click="changeAdminTab('noticias')">
-				Noticias
 			</button>
 		</li>
 		<li>
@@ -20,5 +20,10 @@
 				Multimedia
 			</button>
 		</li>
+        <li>
+            <button class="flex items-center justify-center w-24 px-4 py-2 | rounded-md | focus:outline-none | border border-transparent hover:border-border-color dark:hover:border-dt-border-color | focus:border-border-color dark:focus:border-dt-border-color {{ $admin_op == 'log' ? 'bg-border-color dark:bg-dt-border-color pointer-events-none' : '' }}" wire:click="changeAdminTab('log')">
+                Log
+            </button>
+        </li>
 	</ul>
 </div>

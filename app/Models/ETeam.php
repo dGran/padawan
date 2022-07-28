@@ -47,6 +47,11 @@ class ETeam extends Model
         return $this->hasMany('App\Models\ETeamPost', 'eteam_id', 'id');
     }
 
+    public function logs()
+    {
+        return $this->hasMany('App\Models\ETeamLog', 'eteam_id', 'id');
+    }
+
     public function scopeSearch($query, $value)
     {
         if (trim($value) != "") {

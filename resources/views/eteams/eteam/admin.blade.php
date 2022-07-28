@@ -13,4 +13,7 @@
     @case('multimedia')
         @include('eteams.eteam.admin.multimedia')
         @break
+    @case('log')
+        @include('eteams.eteam.admin.log')
+        @break
 @endswitch
