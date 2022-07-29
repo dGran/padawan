@@ -18,6 +18,11 @@ class CreateEteamsLogsTable extends Migration
             $table->foreignId('eteam_id')
                 ->constrained()
                 ->onDelete('cascade');
+            $table->foreignId('user_id')
+                ->constrained()
+                ->onDelete('cascade');
+            $table->string('context');
+            $table->string('type');
             $table->string('message');
             $table->timestamps();
         });

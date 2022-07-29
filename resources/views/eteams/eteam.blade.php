@@ -40,7 +40,8 @@
                     @include('eteams.eteam.fame')
                     @break
                 @case('admin')
-                    @include('eteams.eteam.admin')
+                    @livewire('eteam.admin.log', ['eteam' => $eteam])
+{{--                    @include('eteams.eteam.admin')--}}
                     @break
             @endswitch
         </x-card>

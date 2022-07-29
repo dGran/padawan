@@ -15,38 +15,23 @@ class Notification extends Component
     public $unread = false;
     public $search;
 
+    public function mount(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function render()
+    {
+        return view('account.notifications.list', [
+            'notifications' => $this->getNotifications(),
+            'countUnreadNotifications' => $this->countUnreadNotifications()
+        ]);
+    }
+
     protected $queryString = [
         'search' => ['except' => ''],
         'unread' => ['except' => false],
     ];
-
-    public function setCurrentPage()
-    {
-        $this->gotoPage($this->page);
-    }
-
-    public function toPage($page)
-    {
-        $this->gotoPage($page);
-    }
-
-    public function nextPage($lastPage)
-    {
-        if (($this->page + 1) <= $lastPage) {
-            $this->setPage($this->page + 1);
-        } else {
-            $this->setPage(1);
-        }
-    }
-
-    public function previousPage($lastPage)
-    {
-        if ($this->page > 1) {
-            $this->setPage($this->page - 1);
-        } else {
-            $this->setPage($lastPage);
-        }
-    }
 
     public function getNotifications()
     {
@@ -85,16 +70,31 @@ class Notification extends Component
         $this->emit('focus-search');
     }
 
-    public function mount(User $user)
+    public function setCurrentPage()
     {
-        $this->user = $user;
+        $this->gotoPage($this->page);
     }
 
-    public function render()
+    public function toPage($page)
     {
-        return view('account.notifications.list', [
-            'notifications' => $this->getNotifications(),
-            'countUnreadNotifications' => $this->countUnreadNotifications()
-        ]);
+        $this->gotoPage($page);
+    }
+
+    public function nextPage($lastPage)
+    {
+        if (($this->page + 1) <= $lastPage) {
+            $this->setPage($this->page + 1);
+        } else {
+            $this->setPage(1);
+        }
+    }
+
+    public function previousPage($lastPage)
+    {
+        if ($this->page > 1) {
+            $this->setPage($this->page - 1);
+        } else {
+            $this->setPage($lastPage);
+        }
     }
 }

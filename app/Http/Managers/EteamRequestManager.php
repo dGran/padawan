@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Managers;
 
+use App\Models\ETeamLog;
 use App\Models\ETeamRequest;
 use App\Models\ETeamUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class EteamRequestManager
 {
@@ -36,6 +38,30 @@ class EteamRequestManager
                 'active' => 1,
             ]);
 
+            storeEteamLog([
+                'eteam_id' => $eteamRequest->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_REQUESTS,
+                'type' => ETeamLog::TYPE_DELETE,
+                'message' => "$user->name ha aceptado la solicitud de $requestUserName"
+            ]);
+
+            storeEteamLog([
+                'eteam_id' => $eteamRequest->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_MEMBERS,
+                'type' => ETeamLog::TYPE_POST,
+                'message' => "$requestUserName se ha unido al equipo"
+            ]);
+
+            storeEteamPost([
+                'eteam_id' => $eteamRequest->eteam_id,
+                'user_id' => $user->id,
+                'title' => "$requestUserName nuevo miembro del equipo",
+                'content' => "$user->name ha aceptado la solicitud de ingreso",
+                'public' => true
+            ]);
+
             // notify the captains
             eteamCaptainsNotification(
                 $eteamRequest->eteam,
@@ -58,19 +84,6 @@ class EteamRequestManager
             ];
             storeNotification($notification_data);
 
-            storeEteamLog([
-                'eteam_id' => $eteamRequest->eteam_id,
-                'message' => "$requestUserName se ha unido al equipo"
-            ]);
-
-            storeEteamPost([
-                'eteam_id' => $eteamRequest->eteam_id,
-                'user_id' => $user->id,
-                'title' => "$requestUserName nuevo miembro del equipo",
-                'content' => "$user->name ha aceptado la solicitud de ingreso",
-                'public' => true
-            ]);
-
             // delete request
             $eteamRequest->delete();
 
@@ -79,6 +92,9 @@ class EteamRequestManager
 
         storeEteamLog([
             'eteam_id' => $eteamRequest->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_REQUESTS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Solicitud de $requestUserName eliminada al ser inválida"
         ]);
 
@@ -127,8 +143,12 @@ class EteamRequestManager
             ];
             storeNotification($notification_data);
 
+
             storeEteamLog([
                 'eteam_id' => $eteamRequest->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_REQUESTS,
+                'type' => ETeamLog::TYPE_UPDATE,
                 'message' => "$user->name rechaza la solicitud de ingreso de $requestUserName"
             ]);
 
@@ -149,6 +169,9 @@ class EteamRequestManager
 
         storeEteamLog([
             'eteam_id' => $eteamRequest->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_REQUESTS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Solicitud de $requestUserName eliminada al ser inválida"
         ]);
 
@@ -170,9 +193,14 @@ class EteamRequestManager
      */
     public function destroyRequest(ETeamRequest $eteamRequest): \Illuminate\Http\RedirectResponse
     {
+        $user = Auth::user();
         $requestUserName = $eteamRequest->user->name;
+
         storeEteamLog([
             'eteam_id' => $eteamRequest->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_REQUESTS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Solicitud de $requestUserName eliminada al ser inválida"
         ]);
 
@@ -204,6 +232,9 @@ class EteamRequestManager
 
         storeEteamLog([
             'eteam_id' => $eteamRequest->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_REQUESTS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Solicitud de $requestUserName retirada"
         ]);
 

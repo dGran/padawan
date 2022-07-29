@@ -89,7 +89,10 @@ function storeEteamLog($data): void
 {
     ETeamLog::create([
         'eteam_id' => $data['eteam_id'],
-        'message' => $data['message'],
+        'user_id' => $data['user_id'],
+        'context' => $data['context'],
+        'type' => $data['type'],
+        'message' => $data['message']
     ]);
 }
 
@@ -106,5 +109,13 @@ function storeEteamPost($data): void
         'content' => $data['content'],
         'public' => $data['public'] ?? true,
         'slug' => Str::slug($data['title'], '-')
+    ]);
+
+    storeEteamLog([
+        'eteam_id' => $data['eteam_id'],
+        'user_id' => $data['user_id'],
+        'context' => ETeamLog::CONTEXT_POSTS,
+        'type' => ETeamLog::TYPE_POST,
+        'message' => "Nueva noticia creada, '".$data['title']."'"
     ]);
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\ETeams;
 
+use App\Models\ETeamLog;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use App\Models\ETeam as Team_Esport;
@@ -209,6 +210,14 @@ class ETeamCreate extends Component
             'updated_at' => now(),
         ]);
 
+        storeEteamLog([
+            'eteam_id' => $eteam->id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_ETEAM,
+            'type' => ETeamLog::TYPE_POST,
+            'message' => "Equipo creado"
+        ]);
+
         if (!$eteam) {
             return redirect()->route('eteams.index')->with("error", "Error al crear el equipo");
         }
@@ -221,6 +230,14 @@ class ETeamCreate extends Component
             'active' => true,
         ]);
 
+        storeEteamLog([
+            'eteam_id' => $eteam->id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_MEMBERS,
+            'type' => ETeamLog::TYPE_POST,
+            'message' => "$user->name se ha unido al equipo como propietario y capitán"
+        ]);
+
         $notification_data = [
             'user_id' => $user->id,
             'title' => "Equipo '$eteam->name' creado",
@@ -230,19 +247,6 @@ class ETeamCreate extends Component
             'read' => 0
         ];
         storeNotification($notification_data);
-
-        storeEteamLog([
-            'eteam_id' => $eteam->id,
-            'message' => "Equipo creado"
-        ]);
-
-        storeEteamPost([
-            'eteam_id' => $eteam->id,
-            'user_id' => $user->id,
-            'title' => "Equipo creado",
-            'content' => "$user->name ha creado el equipo $eteam->name",
-            'public' => false
-        ]);
 
         return redirect()->route('eteams.eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
     }

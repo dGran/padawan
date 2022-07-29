@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Managers;
 
 use App\Models\ETeamInvitation;
+use App\Models\ETeamLog;
 use App\Models\ETeamUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class EteamInvitationManager
 {
@@ -35,19 +37,20 @@ class EteamInvitationManager
                 'contract_to' => $eteamInvitation->contract_to,
                 'active' => 1,
             ]);
-            // notify the captains
-            eteamCaptainsNotification(
-                $eteamInvitation->eteam,
-                null,
-                "$user->name, nuevo miembro de tu equipo $eteamName",
-                "$user->name ha aceptado la invitación y es nuevo miembro de tu equipo $eteamName",
-                'eteams.eteam',
-                [$eteamSlug],
-                $eteamName
-            );
 
             storeEteamLog([
                 'eteam_id' => $eteamInvitation->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_INVITATIONS,
+                'type' => ETeamLog::TYPE_UPDATE,
+                'message' => "$user->name ha aceptado la invitación"
+            ]);
+
+            storeEteamLog([
+                'eteam_id' => $eteamInvitation->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_MEMBERS,
+                'type' => ETeamLog::TYPE_POST,
                 'message' => "$user->name se ha unido al equipo"
             ]);
 
@@ -59,11 +62,25 @@ class EteamInvitationManager
                 'public' => true
             ]);
 
+            // notify the captains
+            eteamCaptainsNotification(
+                $eteamInvitation->eteam,
+                null,
+                "$user->name, nuevo miembro de tu equipo $eteamName",
+                "$user->name ha aceptado la invitación y es nuevo miembro de tu equipo $eteamName",
+                'eteams.eteam',
+                [$eteamSlug],
+                $eteamName
+            );
+
             return back()->with("success", "Felicidades!, eres nuevo miembro del equipo $eteamName");
         }
 
         storeEteamLog([
             'eteam_id' => $eteamInvitation->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_INVITATIONS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Invitación a $user->name eliminada al ser inválida"
         ]);
 
@@ -104,6 +121,9 @@ class EteamInvitationManager
 
             storeEteamLog([
                 'eteam_id' => $eteamInvitation->eteam_id,
+                'user_id' => $user->id,
+                'context' => ETeamLog::CONTEXT_INVITATIONS,
+                'type' => ETeamLog::TYPE_UPDATE,
                 'message' => "$user->name rechaza la invitación de ingreso"
             ]);
 
@@ -124,6 +144,9 @@ class EteamInvitationManager
 
         storeEteamLog([
             'eteam_id' => $eteamInvitation->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_INVITATIONS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Invitación a $user->name eliminada al ser inválida"
         ]);
 
@@ -139,16 +162,19 @@ class EteamInvitationManager
     }
 
     /**
-     * @param  User  $user
      * @param  ETeamInvitation  $eteamInvitation
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroyInvitation(ETeamInvitation $eteamInvitation): \Illuminate\Http\RedirectResponse
     {
+        $user = Auth::user();
         $invitedUserName = $eteamInvitation->user->name;
 
         storeEteamLog([
             'eteam_id' => $eteamInvitation->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_INVITATIONS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Invitación a $invitedUserName eliminada al ser inválida"
         ]);
 
@@ -187,10 +213,14 @@ class EteamInvitationManager
             'link_title' => 'Mis equipos',
             'read' => 0,
         ];
+
         storeNotification($notification_data);
 
         storeEteamLog([
             'eteam_id' => $eteamInvitation->eteam_id,
+            'user_id' => $user->id,
+            'context' => ETeamLog::CONTEXT_INVITATIONS,
+            'type' => ETeamLog::TYPE_DELETE,
             'message' => "Invitación a $invitedUserName retirada"
         ]);
 
