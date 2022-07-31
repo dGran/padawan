@@ -1,6 +1,6 @@
-@include('eteams.eteam.admin.partials.menu')
+@include('eteam.admin.menu')
 
-@switch($admin_op)
+@switch($adminTab)
     @case('perfil')
         @include('eteams.eteam.admin.profile')
         @break
@@ -14,6 +14,6 @@
         @include('eteams.eteam.admin.multimedia')
         @break
     @case('log')
-        @include('eteams.eteam.admin.log')
+        @livewire('eteam.admin.log', ['eteam' => $eteam])
         @break
 @endswitch

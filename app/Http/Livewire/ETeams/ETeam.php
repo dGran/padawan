@@ -15,15 +15,17 @@ class ETeam extends Component
 {
     use WithPagination;
 
-    public $op = "sede", $admin_op;
+    public $tab = "sede";
+    public $adminTab;
+    public $lastAdminTab;
 
     public $eteam;
     public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
     public $members, $membersFilter = 'all';
 
     protected $queryString = [
-        'op',
-        'admin_op' => ['except' => ''],
+        'tab' => ['except' => '', 'as' => 'op'],
+        'adminTab' => ['except' => '', 'as' => 'ad']
     ];
 
     public function RequestJoin($eteam_id): void
@@ -89,35 +91,45 @@ class ETeam extends Component
         }
     }
 
-    public function checkTabs($op, $admin_op)
+    public function checkTabs($tab, $adminTab)
     {
-        if (!$op) {
-            $op = 'sede';
+        if (!$tab) {
+            $tab = 'sede';
         } else {
-            if ($op == 'admin') {
+            if ($tab === 'admin') {
                 if (auth()->user() && auth()->user()->isAdminETeam($this->eteam->id)) {
-                    if (!$admin_op) {
-                        $this->admin_op = 'perfil';
+                    if (!$adminTab) {
+                        if ($this->lastAdminTab) {
+                            $this->adminTab = $this->lastAdminTab;
+                        } else {
+                            $this->adminTab = 'perfil';
+                        }
+                    } else {
+                        $this->adminTab = $adminTab;
                     }
+
+                    $this->lastAdminTab = $this->adminTab;
                 } else {
                     session()->flash('error', 'No estás autorizado.');
-                    $this->op = 'sede';
-                    $this->admin_op = null;
+                    $this->tab = 'sede';
+                    $this->adminTab = null;
                 }
             } else {
-                $this->admin_op = '';
+                $this->adminTab = null;
             }
         }
     }
 
     public function changeTab($tab)
     {
-        $this->op = $tab;
+        $this->tab = $tab;
+        $this->checkTabs($this->tab, $this->adminTab);
     }
 
     public function changeAdminTab($tab)
     {
-        $this->admin_op = $tab;
+        $this->adminTab = $tab;
+        $this->checkTabs($this->tab, $this->adminTab);
     }
 
     public function changeMembersFilter($filter)
@@ -147,7 +159,7 @@ class ETeam extends Component
 
     public function loadAdminData($op)
     {
-        switch ($this->op) {
+        switch ($this->tab) {
             case 'social':
                 $this->loadAdminProfileData();
                 break;
@@ -177,20 +189,18 @@ class ETeam extends Component
 
     public function mount()
     {
-        if (request()->op) { $this->op = request()->op; }
-        if (request()->admin_op) {
-            $this->op = 'admin';
-            $this->admin_op = request()->admin_op;
-        }
+//        if (request()->tab) { $this->tab = request()->tab; }
+//        if (request()->adminTab) {
+//            $this->tab = 'admin';
+//            $this->adminTab = request()->adminTab;
+//        }
         $this->eteam = Team_Esport::where('slug', request()->slug)->first();
     }
 
     public function render()
     {
-        $this->checkTabs($this->op, $this->admin_op);
-
         $posts = [];
-        switch ($this->op) {
+        switch ($this->tab) {
             case 'noticias':
                 $posts = $this->loadPostsData();
                 break;
@@ -201,10 +211,10 @@ class ETeam extends Component
                 $this->loadFameData();
                 break;
             case 'admin':
-                $this->loadAdminData($this->admin_op);
+                $this->loadAdminData($this->adminTab);
                 break;
             default:
-                $this->op = 'sede';
+                $this->tab = 'sede';
                 break;
         }
 

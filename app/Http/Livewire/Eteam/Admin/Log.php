@@ -14,29 +14,36 @@ class Log extends Component
     use WithPagination;
 
     public $eteam;
-    public $option = 'logs';
+    public $data = [];
+    public $order = "created_at_desc";
+
+    protected $queryString = [
+        'order' => ['except' => 'created_at_desc']
+    ];
 
     public function mount(Eteam $eteam)
     {
         $this->eteam = $eteam;
+        $this->data['name'] = 'logs';
     }
 
     public function render()
     {
+        $logs = $this->getLogs();
+        $this->data['class'] = $logs;
+
         return view('eteam.admin.logs.index', [
-            'logs' => $this->getLogs()
+            'logs' => $logs
         ]);
     }
 
-    protected $queryString = [
-        'option' => [],
-    ];
-
     protected function getLogs()
     {
-        return ETeamLog::
-        where('eteam_id', $this->eteam->id)
-            ->orderBy('created_at', 'desc')
+        return ETeamLog::select('eteams_logs.*', 'users.name as username')
+            ->join('users', 'users.id', 'eteams_logs.user_id')
+            ->where('eteam_id', $this->eteam->id)
+            ->orderBy('eteams_logs.created_at', 'desc')
+            ->orderBy($this->getOrder($this->order)['field'], $this->getOrder($this->order)['direction'])
             ->paginate(3);
     }
 
@@ -66,5 +73,58 @@ class Log extends Component
         } else {
             $this->setPage($lastPage);
         }
+    }
+
+    public function setOrder(string $value)
+    {
+        $this->order = $value;
+    }
+
+    protected function getOrder($order): array
+    {
+        (array) $orderValue = [
+            'user' => [
+                'field' => 'username',
+                'direction' => 'asc',
+            ],
+            'user_desc' => [
+                'field' => 'username',
+                'direction' => 'desc',
+            ],
+            'context' => [
+                'field' => 'context',
+                'direction' => 'asc',
+            ],
+            'context_desc' => [
+                'field' => 'context',
+                'direction' => 'desc',
+            ],
+            'type' => [
+                'field' => 'type',
+                'direction' => 'asc',
+            ],
+            'type_desc' => [
+                'field' => 'type',
+                'direction' => 'desc',
+            ],
+            'message' => [
+                'field' => 'message',
+                'direction' => 'asc',
+            ],
+            'message_desc' => [
+                'field' => 'message',
+                'direction' => 'desc',
+            ],
+            'created_at' => [
+                'field' => 'created_at',
+                'direction' => 'asc',
+            ],
+            'created_at_desc' => [
+                'field' => 'created_at',
+                'direction' => 'desc',
+            ]
+        ];
+
+        return $orderValue[$order];
     }
 }

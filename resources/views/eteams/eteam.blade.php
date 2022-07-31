@@ -26,7 +26,7 @@
                 @include('eteams.eteam.partials.actions')
             @endauth
 
-            @switch($op)
+            @switch($tab)
                 @case('sede')
                     @include('eteams.eteam.home')
                     @break
@@ -40,8 +40,7 @@
                     @include('eteams.eteam.fame')
                     @break
                 @case('admin')
-                    @livewire('eteam.admin.log', ['eteam' => $eteam])
-{{--                    @include('eteams.eteam.admin')--}}
+                    @include('eteams.eteam.admin')
                     @break
             @endswitch
         </x-card>
