@@ -218,9 +218,10 @@ class ETeam extends Component
                 break;
         }
 
-        return view('eteams.eteam', [
+        return view('eteam.index',
+            [
                 'posts' => $posts
-            ])
-            ->layout('layouts.app', ['title' => $this->eteam->name, 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
+            ]
+        )->layout('layouts.app', ['title' => $this->eteam->name, 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 }

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,5 +48,15 @@ class ETeamUser extends Model
     public function isRacing()
     {
         return $this->eteam->game->racing ? true : false;
+    }
+
+    public function getCreatedAtDate()
+    {
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("LL");
+    }
+
+    public function getCreatedAtTime()
+    {
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
     }
 }

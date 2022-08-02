@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Carbon\Carbon;
@@ -38,13 +40,11 @@ class ETeamLog extends Model
 
     public function getCreatedAtDate()
     {
-        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
-        return $date->isoFormat("LL");
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("LL");
     }
 
     public function getCreatedAtTime()
     {
-        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
-        return $date->isoFormat("H[:]mm");
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
     }
 }

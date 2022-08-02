@@ -45,14 +45,12 @@ class Notification extends Model
 
     public function getCreatedAtDate()
     {
-        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
-        return $date->isoFormat("LL");
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("LL");
     }
 
     public function getCreatedAtTime()
     {
-        $date = Carbon::parse($this->created_at)->locale(app()->getLocale());
-        return $date->isoFormat("H[:]mm");
+        return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
     }
 
     public function getDateFromNow()
