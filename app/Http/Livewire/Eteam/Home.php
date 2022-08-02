@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam\Admin;
+namespace App\Http\Livewire\Eteam;
 
 use App\Models\ETeam;
 use Livewire\Component;
 
-class Profile extends Component
+class Home extends Component
 {
     public $eteam;
 
@@ -18,6 +18,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('eteam.admin.profile.index');
+        return view('eteam.home.index');
     }
 }

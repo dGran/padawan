@@ -12,6 +12,7 @@ class Member extends Component
 {
     public $eteam;
     public $order = "created_at_desc";
+    public $membersFilter = 'all';
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc']
@@ -24,20 +25,25 @@ class Member extends Component
 
     public function render()
     {
-        $posts = $this->getData();
+        $members = $this->getData();
 
-        return view('eteam.posts.index', [
-            'posts' => $posts
+        return view('eteam.members.index', [
+            'members' => $members
         ]);
     }
 
     protected function getData()
     {
         return ETeamUser::select('eteams_users.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_logs.user_id')
+            ->join('users', 'users.id', 'eteams_users.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(15);
+    }
+
+    public function changeMembersFilter($filter)
+    {
+        $this->membersFilter = $filter;
     }
 
     public function setCurrentPage()

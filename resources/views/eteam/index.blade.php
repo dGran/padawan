@@ -31,19 +31,19 @@
 
             @switch($tab)
                 @case('sede')
-                    @include('eteam.home.index')
+                    @livewire('eteam.home', ['eteam' => $eteam])
                     @break
                 @case('noticias')
-                    @include('eteam.posts.index')
+                    @livewire('eteam.post', ['eteam' => $eteam])
                     @break
                 @case('miembros')
-                    @include('eteam.members.index')
+                    @livewire('eteam.member', ['eteam' => $eteam])
                     @break
                 @case('multimedia')
-                    @include('eteam.files.index')
+                    @livewire('eteam.file', ['eteam' => $eteam])
                     @break
                 @case('palmares')
-                    @include('eteam.fame.index')
+                    @livewire('eteam.fame', ['eteam' => $eteam])
                     @break
                 @case('admin')
                     @include('eteam.admin.index')

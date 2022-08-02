@@ -21,12 +21,27 @@ class ETeam extends Component
 
     public $eteam;
     public $game_id, $name, $short_name, $logo, $country_id, $location, $presentation, $presentation_video, $website, $whatsapp, $facebook, $instagram, $twitter, $twitch, $youtube;
-    public $members, $membersFilter = 'all';
+    public $members;
 
     protected $queryString = [
         'tab' => ['except' => '', 'as' => 'op'],
         'adminTab' => ['except' => '', 'as' => 'ad']
     ];
+
+    public function mount()
+    {
+//        if (request()->tab) { $this->tab = request()->tab; }
+//        if (request()->adminTab) {
+//            $this->tab = 'admin';
+//            $this->adminTab = request()->adminTab;
+//        }
+        $this->eteam = Team_Esport::where('slug', request()->slug)->first();
+    }
+
+    public function render()
+    {
+        return view('eteam.index')->layout('layouts.app', ['title' => $this->eteam->name, 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
+    }
 
     public function RequestJoin($eteam_id): void
     {
@@ -130,98 +145,5 @@ class ETeam extends Component
     {
         $this->adminTab = $tab;
         $this->checkTabs($this->tab, $this->adminTab);
-    }
-
-    public function changeMembersFilter($filter)
-    {
-        $this->membersFilter = $filter;
-    }
-
-    public function loadPostsData()
-    {
-        return $posts = ETeamPost::where('eteam_id', $this->eteam->id)->orderBy('created_at', 'desc')->paginate(5);
-    }
-
-    public function loadMembersData()
-    {
-        if ($this->membersFilter == 'all') {
-            $this->members = $this->eteam->users;
-        } else {
-            $this->members = ETeamUser::where('eteam_id', $this->eteam->id)->where('captain', true)->get();
-        }
-
-    }
-
-    public function loadFameData()
-    {
-
-    }
-
-    public function loadAdminData($op)
-    {
-        switch ($this->tab) {
-            case 'social':
-                $this->loadAdminProfileData();
-                break;
-            case 'posts':
-                $this->loadAdminPostsData();
-                break;
-            case 'members':
-                $this->loadAdminMembersData();
-                break;
-        }
-    }
-
-    public function loadAdminProfileData()
-    {
-
-    }
-
-    public function loadAdminPostsData()
-    {
-
-    }
-
-    public function loadAdminMembersData()
-    {
-
-    }
-
-    public function mount()
-    {
-//        if (request()->tab) { $this->tab = request()->tab; }
-//        if (request()->adminTab) {
-//            $this->tab = 'admin';
-//            $this->adminTab = request()->adminTab;
-//        }
-        $this->eteam = Team_Esport::where('slug', request()->slug)->first();
-    }
-
-    public function render()
-    {
-        $posts = [];
-        switch ($this->tab) {
-            case 'noticias':
-                $posts = $this->loadPostsData();
-                break;
-            case 'miembros':
-                $this->loadMembersData();
-                break;
-            case 'palmares':
-                $this->loadFameData();
-                break;
-            case 'admin':
-                $this->loadAdminData($this->adminTab);
-                break;
-            default:
-                $this->tab = 'sede';
-                break;
-        }
-
-        return view('eteam.index',
-            [
-                'posts' => $posts
-            ]
-        )->layout('layouts.app', ['title' => $this->eteam->name, 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 }

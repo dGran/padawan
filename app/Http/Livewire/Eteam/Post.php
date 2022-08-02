@@ -34,7 +34,7 @@ class Post extends Component
     protected function getData()
     {
         return ETeamPost::select('eteams_posts.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_logs.user_id')
+            ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(15);

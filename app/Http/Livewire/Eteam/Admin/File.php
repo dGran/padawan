@@ -39,8 +39,7 @@ class File extends Component
 
     protected function getData()
     {
-        return ETeamFile::select('eteams_multimedia.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_logs.user_id')
+        return ETeamFile::select('eteams_multimedia.*')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(3);
