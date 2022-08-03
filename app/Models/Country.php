@@ -27,6 +27,11 @@ class Country extends Model
         }
     }
 
+    public function getFlag(): string
+    {
+        return $this->getFlag24();
+    }
+
     public function getFlag16(): string
     {
         return asset('img/flags/16x16') . '/' . $this->alpha_2 . '.png';
