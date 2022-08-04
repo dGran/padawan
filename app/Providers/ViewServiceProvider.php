@@ -43,12 +43,12 @@ class ViewServiceProvider extends ServiceProvider
             ],
             [
                 'class' => '',
-                'route-name' => 'eteams.index',
+                'route-name' => 'eteams',
                 'text' => 'Equipos e-sports'
             ],
             [
                 'class' => '',
-                'route-name' => 'eteams.index',
+                'route-name' => 'eteams',
                 'text' => 'Mercado'
             ],
             [

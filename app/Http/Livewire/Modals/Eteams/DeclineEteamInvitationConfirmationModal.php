@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire\Modals\Eteams;
 
 use App\Models\ETeamInvitation;
 use App\Models\User;

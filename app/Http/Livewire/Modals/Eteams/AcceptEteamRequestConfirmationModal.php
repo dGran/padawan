@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire\Modals\Eteams;
 
 use App\Models\ETeamRequest;
 use LivewireUI\Modal\ModalComponent;

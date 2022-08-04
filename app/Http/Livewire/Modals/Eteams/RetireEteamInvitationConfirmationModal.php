@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire\Modals\Eteams;
 
 use App\Models\ETeamInvitation;
 use App\Models\User;
 use LivewireUI\Modal\ModalComponent;
 
-class AcceptEteamInvitationConfirmationModal extends ModalComponent
+class RetireEteamInvitationConfirmationModal extends ModalComponent
 {
     public $eteamInvitation;
     public $user;
@@ -19,6 +19,6 @@ class AcceptEteamInvitationConfirmationModal extends ModalComponent
 
     public function render()
     {
-        return view('modals.confirmations.accept-eteam-invitation-confirmation-modal');
+        return view('modals.confirmations.retire-eteam-invitation-confirmation-modal');
     }
 }

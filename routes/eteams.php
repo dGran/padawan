@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Livewire\ETeams\ETeam;
-use App\Http\Livewire\ETeams\ETeamCreate;
-use App\Http\Livewire\ETeams\ETeamList;
+use App\Http\Livewire\Eteam\Eteam;
+use App\Http\Livewire\ETeams\EteamCreate;
+use App\Http\Livewire\ETeams\EteamList;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'equipos-esports'], function () {
-    Route::get('/', ETeamList::class)->name('eteams.index');
-    Route::get('/nuevo-equipo', ETeamCreate::class)->name('eteams.create')->middleware('auth');
-    Route::get('/{slug}', ETeam::class)->name('eteams.eteam');
+    Route::get('/', EteamList::class)->name('eteams');
+    Route::get('/nuevo-equipo', EteamCreate::class)->name('eteams.create')->middleware('auth');
+    Route::get('/{slug}', Eteam::class)->name('eteam');
 });

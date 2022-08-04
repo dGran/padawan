@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam\Admin;
+namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
 use Livewire\Component;
 
-class Profile extends Component
+class EteamAdminProfile extends Component
 {
     public $eteam;
 

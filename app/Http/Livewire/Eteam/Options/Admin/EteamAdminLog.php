@@ -2,17 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam;
+namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
-use App\Models\ETeamUser;
+use App\Models\ETeamLog;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-class Member extends Component
+class EteamAdminLog extends Component
 {
+    use WithPagination;
+
     public $eteam;
+    public $data = [];
     public $order = "created_at_desc";
-    public $membersFilter = 'all';
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc']
@@ -21,29 +24,26 @@ class Member extends Component
     public function mount(Eteam $eteam)
     {
         $this->eteam = $eteam;
+        $this->data['name'] = 'logs';
     }
 
     public function render()
     {
-        $members = $this->getData();
+        $logs = $this->getData();
+        $this->data['class'] = $logs;
 
-        return view('eteam.members.index', [
-            'members' => $members
+        return view('eteam.admin.logs.index', [
+            'logs' => $logs
         ]);
     }
 
     protected function getData()
     {
-        return ETeamUser::select('eteams_users.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_users.user_id')
+        return ETeamLog::select('eteams_logs.*', 'users.name as username')
+            ->join('users', 'users.id', 'eteams_logs.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(15);
-    }
-
-    public function changeMembersFilter($filter)
-    {
-        $this->membersFilter = $filter;
+            ->paginate(3);
     }
 
     public function setCurrentPage()
@@ -88,6 +88,30 @@ class Member extends Component
             ],
             'user_desc' => [
                 'field' => 'username',
+                'direction' => 'desc',
+            ],
+            'context' => [
+                'field' => 'context',
+                'direction' => 'asc',
+            ],
+            'context_desc' => [
+                'field' => 'context',
+                'direction' => 'desc',
+            ],
+            'type' => [
+                'field' => 'type',
+                'direction' => 'asc',
+            ],
+            'type_desc' => [
+                'field' => 'type',
+                'direction' => 'desc',
+            ],
+            'message' => [
+                'field' => 'message',
+                'direction' => 'asc',
+            ],
+            'message_desc' => [
+                'field' => 'message',
                 'direction' => 'desc',
             ],
             'created_at' => [

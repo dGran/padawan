@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam;
+namespace App\Http\Livewire\Eteam\Options;
 
 use App\Models\ETeam;
 use Livewire\Component;
 
-class Home extends Component
+class EteamHome extends Component
 {
     public $eteam;
 

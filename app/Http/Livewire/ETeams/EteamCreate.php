@@ -12,7 +12,7 @@ use App\Models\Game;
 use App\Models\Country;
 use Livewire\WithFileUploads;
 
-class ETeamCreate extends Component
+class EteamCreate extends Component
 {
     use WithFileUploads;
 
@@ -26,7 +26,21 @@ class ETeamCreate extends Component
     public $name_available, $short_name_available;
     public $banner_preview, $logo_preview;
 
-    public $data;
+    public function mount(): void
+    {
+        $this->user = auth()->user();
+        $this->users = User::orderBy('name', 'asc')->get();
+        $this->games = Game::where('allow_eteams', true)->orderBy('name', 'asc')->get();
+        $this->countries = Country::orderBy('name', 'asc')->get();
+    }
+
+    public function render()
+    {
+        $this->checkSteps();
+
+        return view('eteams.create')
+            ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
+    }
 
     public function changeStep($current, $next)
     {
@@ -77,15 +91,20 @@ class ETeamCreate extends Component
 
     public function selectGame(Game $game)
     {
-        if ($game) {
-            $this->game_id = $game->id;
-            if (!$this->banner) {
-                $this->banner_preview = $game->getBanner();
+        try {
+            if ($game) {
+                $this->game_id = $game->id;
+                if (!$this->banner) {
+                    $this->banner_preview = $game->getBanner();
+                }
+                if (!$this->logo) {
+                    $this->logo_preview = $game->getLogo();
+                }
             }
-            if (!$this->logo) {
-                $this->logo_preview = $game->getLogo();
-            }
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
         }
+
     }
 
     public function checkName()
@@ -169,7 +188,7 @@ class ETeamCreate extends Component
                 'logo.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
                 'logo.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
             ]);
-            $fileName = Str::slug($this->name, '-') . '.' . $this->logo->extension();
+            $fileName = Str::slug($this->name, '-') . 'Eteam' . $this->logo->extension();
             $logo = $this->logo->storeAs('eteams/logos', $fileName, 'public');
         }
 
@@ -182,7 +201,7 @@ class ETeamCreate extends Component
                 'banner.mimes' => 'La imagen debe ser un archivo .jpeg, .png, .jpg, .gif o .svg',
                 'banner.max' => 'El tamaño de la imagen no puede ser mayor a 1024 bytes',
             ]);
-            $fileName = Str::slug($this->name, '-') . '.' . $this->banner->extension();
+            $fileName = Str::slug($this->name, '-') . 'Eteam' . $this->banner->extension();
             $banner = $this->banner->storeAs('eteams/banners', $fileName, 'public');
         }
 
@@ -249,21 +268,5 @@ class ETeamCreate extends Component
         storeNotification($notification_data);
 
         return redirect()->route('eteams.eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
-    }
-
-    public function mount(): void
-    {
-        $this->user = auth()->user();
-        $this->users = User::orderBy('name', 'asc')->get();
-        $this->games = Game::where('allow_eteams', true)->orderBy('name', 'asc')->get();
-        $this->countries = Country::orderBy('name', 'asc')->get();
-    }
-
-    public function render()
-    {
-        $this->checkSteps();
-
-        return view('eteams.create')
-            ->layout('layouts.app', ['title' => 'Nuevo equipo', 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
     }
 }

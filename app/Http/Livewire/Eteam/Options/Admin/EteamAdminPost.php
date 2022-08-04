@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam\Admin;
+namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
-use App\Models\ETeamLog;
+use App\Models\ETeamPost;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Log extends Component
+class EteamAdminPost extends Component
 {
     use WithPagination;
 
@@ -24,23 +24,23 @@ class Log extends Component
     public function mount(Eteam $eteam)
     {
         $this->eteam = $eteam;
-        $this->data['name'] = 'logs';
+        $this->data['name'] = 'noticias';
     }
 
     public function render()
     {
-        $logs = $this->getData();
-        $this->data['class'] = $logs;
+        $posts = $this->getData();
+        $this->data['class'] = $posts;
 
-        return view('eteam.admin.logs.index', [
-            'logs' => $logs
+        return view('eteam.admin.posts.index', [
+            'posts' => $posts
         ]);
     }
 
     protected function getData()
     {
-        return ETeamLog::select('eteams_logs.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_logs.user_id')
+        return ETeamPost::select('eteams_logs.*', 'users.name as username')
+            ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(3);

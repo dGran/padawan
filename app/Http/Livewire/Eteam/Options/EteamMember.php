@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam;
+namespace App\Http\Livewire\Eteam\Options;
 
 use App\Models\ETeam;
-use App\Models\ETeamFile;
+use App\Models\ETeamUser;
 use Livewire\Component;
 
-class File extends Component
+class EteamMember extends Component
 {
     public $eteam;
     public $order = "created_at_desc";
+    public $membersFilter = 'all';
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc']
@@ -24,19 +25,25 @@ class File extends Component
 
     public function render()
     {
-        $files = $this->getData();
+        $members = $this->getData();
 
-        return view('eteam.files.index', [
-            'files' => $files
+        return view('eteam.members.index', [
+            'members' => $members
         ]);
     }
 
     protected function getData()
     {
-        return ETeamFile::select('eteams_files.*')
+        return ETeamUser::select('eteams_users.*', 'users.name as username')
+            ->join('users', 'users.id', 'eteams_users.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(15);
+    }
+
+    public function changeMembersFilter($filter)
+    {
+        $this->membersFilter = $filter;
     }
 
     public function setCurrentPage()
@@ -75,6 +82,14 @@ class File extends Component
     protected function getOrder(): array
     {
         (array) $orderValue = [
+            'user' => [
+                'field' => 'username',
+                'direction' => 'asc',
+            ],
+            'user_desc' => [
+                'field' => 'username',
+                'direction' => 'desc',
+            ],
             'created_at' => [
                 'field' => 'created_at',
                 'direction' => 'asc',

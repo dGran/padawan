@@ -2,15 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam;
+namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
-use App\Models\ETeamPost;
+use App\Models\ETeamFile;
 use Livewire\Component;
+use Livewire\WithPagination;
 
-class Post extends Component
+class EteamAdminFile extends Component
 {
+    use WithPagination;
+
     public $eteam;
+    public $data = [];
     public $order = "created_at_desc";
 
     protected $queryString = [
@@ -20,24 +24,25 @@ class Post extends Component
     public function mount(Eteam $eteam)
     {
         $this->eteam = $eteam;
+        $this->data['name'] = 'archivos';
     }
 
     public function render()
     {
-        $posts = $this->getData();
+        $files = $this->getData();
+        $this->data['class'] = $files;
 
-        return view('eteam.posts.index', [
-            'posts' => $posts
+        return view('eteam.admin.files.index', [
+            'files' => $files
         ]);
     }
 
     protected function getData()
     {
-        return ETeamPost::select('eteams_posts.*', 'users.name as username')
-            ->join('users', 'users.id', 'eteams_posts.user_id')
+        return ETeamFile::select('eteams_multimedia.*')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(15);
+            ->paginate(3);
     }
 
     public function setCurrentPage()
@@ -82,6 +87,30 @@ class Post extends Component
             ],
             'user_desc' => [
                 'field' => 'username',
+                'direction' => 'desc',
+            ],
+            'context' => [
+                'field' => 'context',
+                'direction' => 'asc',
+            ],
+            'context_desc' => [
+                'field' => 'context',
+                'direction' => 'desc',
+            ],
+            'type' => [
+                'field' => 'type',
+                'direction' => 'asc',
+            ],
+            'type_desc' => [
+                'field' => 'type',
+                'direction' => 'desc',
+            ],
+            'message' => [
+                'field' => 'message',
+                'direction' => 'asc',
+            ],
+            'message_desc' => [
+                'field' => 'message',
                 'direction' => 'desc',
             ],
             'created_at' => [

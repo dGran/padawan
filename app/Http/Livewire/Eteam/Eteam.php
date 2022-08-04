@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\ETeams;
+namespace App\Http\Livewire\Eteam;
 
-use App\Models\User;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamRequest;
-use App\Models\ETeamPost;
-use App\Models\ETeamUser;
+use App\Models\User;
 use Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ETeam extends Component
+class Eteam extends Component
 {
     use WithPagination;
 
@@ -35,12 +33,26 @@ class ETeam extends Component
 //            $this->tab = 'admin';
 //            $this->adminTab = request()->adminTab;
 //        }
-        $this->eteam = Team_Esport::where('slug', request()->slug)->first();
+
+        $eteamSlug = request()->slug;
+        $this->eteam = Team_Esport::where('slug', $eteamSlug)->first();
+
+        if (empty($this->eteam)) {
+            return redirect()->route('eteams')->with('error', 'No existe el equipo '.$eteamSlug);
+        }
     }
 
     public function render()
     {
-        return view('eteam.index')->layout('layouts.app', ['title' => $this->eteam->name, 'breadcrumb' => 1, 'wfooter' => 0, 'wloader' => 0]);
+        return view('eteam.index')
+            ->layout('layouts.app',
+                [
+                    'title' => $this->eteam->name,
+                    'breadcrumb' => 1,
+                    'wfooter' => 0,
+                    'wloader' => 0
+                ]
+            );
     }
 
     public function RequestJoin($eteam_id): void

@@ -2,19 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam\Admin;
+namespace App\Http\Livewire\Eteam\Options;
 
 use App\Models\ETeam;
-use App\Models\ETeamFile;
+use App\Models\ETeamPost;
 use Livewire\Component;
-use Livewire\WithPagination;
 
-class File extends Component
+class EteamPost extends Component
 {
-    use WithPagination;
-
     public $eteam;
-    public $data = [];
     public $order = "created_at_desc";
 
     protected $queryString = [
@@ -24,25 +20,24 @@ class File extends Component
     public function mount(Eteam $eteam)
     {
         $this->eteam = $eteam;
-        $this->data['name'] = 'archivos';
     }
 
     public function render()
     {
-        $files = $this->getData();
-        $this->data['class'] = $files;
+        $posts = $this->getData();
 
-        return view('eteam.admin.files.index', [
-            'files' => $files
+        return view('eteam.posts.index', [
+            'posts' => $posts
         ]);
     }
 
     protected function getData()
     {
-        return ETeamFile::select('eteams_multimedia.*')
+        return ETeamPost::select('eteams_posts.*', 'users.name as username')
+            ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(3);
+            ->paginate(15);
     }
 
     public function setCurrentPage()
@@ -87,30 +82,6 @@ class File extends Component
             ],
             'user_desc' => [
                 'field' => 'username',
-                'direction' => 'desc',
-            ],
-            'context' => [
-                'field' => 'context',
-                'direction' => 'asc',
-            ],
-            'context_desc' => [
-                'field' => 'context',
-                'direction' => 'desc',
-            ],
-            'type' => [
-                'field' => 'type',
-                'direction' => 'asc',
-            ],
-            'type_desc' => [
-                'field' => 'type',
-                'direction' => 'desc',
-            ],
-            'message' => [
-                'field' => 'message',
-                'direction' => 'asc',
-            ],
-            'message_desc' => [
-                'field' => 'message',
                 'direction' => 'desc',
             ],
             'created_at' => [

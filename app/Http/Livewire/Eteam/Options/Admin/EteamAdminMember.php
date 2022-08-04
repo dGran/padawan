@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Eteam\Admin;
+namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
 use App\Models\ETeamUser;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Member extends Component
+class EteamAdminMember extends Component
 {
     use WithPagination;
 

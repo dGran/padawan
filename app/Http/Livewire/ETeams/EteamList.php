@@ -6,7 +6,7 @@ use App\Models\ETeam as Team_Esport;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ETeamList extends Component
+class EteamList extends Component
 {
     use WithPagination;
 
