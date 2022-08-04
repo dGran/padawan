@@ -176,7 +176,7 @@ class EteamCreate extends Component
         if ($user->isMemberEteamGame($this->game_id))
         {
             $gameName = Game::findOrFail($this->game_id)->name;
-            return redirect()->route('eteams.index')->with("error", "Error al crear el equipo, ya eres miembro de otro equipo de '$gameName'.");
+            return redirect()->route('eteams')->with("error", "Error al crear el equipo, ya eres miembro de otro equipo de '$gameName'.");
         }
 
         $logo = null;
@@ -238,7 +238,7 @@ class EteamCreate extends Component
         ]);
 
         if (!$eteam) {
-            return redirect()->route('eteams.index')->with("error", "Error al crear el equipo");
+            return redirect()->route('eteams')->with("error", "Error al crear el equipo");
         }
 
         ETeamUser::create([
@@ -261,12 +261,12 @@ class EteamCreate extends Component
             'user_id' => $user->id,
             'title' => "Equipo '$eteam->name' creado",
             'content' => 'Tu equipo se ha creado correctamente. Eres el propietario y único capitán del equipo pero puedes ascender a capitán a otros futuros miembros.',
-            'link' => Route('eteams.eteam', $eteam->slug),
+            'link' => Route('eteam', $eteam->slug),
             'link_title' => $eteam->name,
             'read' => 0
         ];
         storeNotification($notification_data);
 
-        return redirect()->route('eteams.eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
+        return redirect()->route('eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
     }
 }

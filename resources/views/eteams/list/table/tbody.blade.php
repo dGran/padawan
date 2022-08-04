@@ -10,7 +10,7 @@
                     class="flex justify-center rounded-lg bg-gray-200 dark:bg-gray-700 | w-10 px-2 py-1 | font-mono text-xxs font-medium uppercase | border border-transparent group-hover:border-gray-300 dark:group-hover:border-gray-600">
                     {{ $eteam->short_name }}
                 </span>
-                <a href="{{ route('eteams.eteam', $eteam->slug) }}" class="group-hover:underline | ml-2.5 truncate">
+                <a href="{{ route('eteam', $eteam->slug) }}" class="group-hover:underline | ml-2.5 truncate">
                     <span class="truncate">{{ $eteam->name }}</span>
                 </a>
             </div>

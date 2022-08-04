@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Eteam\Options;
 
 use App\Models\ETeam;
-use App\Models\ETeamPost;
+use App\Models\ETeamPost as ETeamPostModel;
 use Livewire\Component;
 
 class EteamPost extends Component
@@ -33,7 +33,7 @@ class EteamPost extends Component
 
     protected function getData()
     {
-        return ETeamPost::select('eteams_posts.*', 'users.name as username')
+        return ETeamPostModel::select('eteams_posts.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])

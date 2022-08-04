@@ -19,7 +19,7 @@
 
 <x-card class="my-1.5 p-4 md:p-6 | text-xs lg:text-sm">
 	@foreach ($games as $game)
-        <button class="w-full | flex items-center | space-x-3 | py-1.5 px-3 | rounded-md | border border-transparent {{ $user->isMemberEteamGame($game->id) ? 'opacity-50 | pointer-events-none' : 'hover:border-border-color dark:hover:border-dt-border-color focus:border-border-color dark:focus:border-dt-border-color' }} focus:outline-none | {{ $game_id == $game->id ? 'bg-border-color dark:bg-dt-border-color text-title-color dark:text-dt-title-color cursor-not-allowed pointer-events-none' : 'bg-white dark:bg-dt-dark' }}" wire:click="test({{ $game }})">
+        <button class="w-full | flex items-center | space-x-3 | py-1.5 px-3 | rounded-md | border border-transparent {{ $user->isMemberEteamGame($game->id) ? 'opacity-50 | pointer-events-none' : 'hover:border-border-color dark:hover:border-dt-border-color focus:border-border-color dark:focus:border-dt-border-color' }} focus:outline-none | {{ $game_id == $game->id ? 'bg-border-color dark:bg-dt-border-color text-title-color dark:text-dt-title-color cursor-not-allowed pointer-events-none' : 'bg-white dark:bg-dt-dark' }}" wire:click="selectGame({{ $game }})">
 			<img src="{{ $game->getLogo() }}" alt="" class="w-10 h-10 object-cover rounded-full">
             <p>{{ $game->name }}</p>
 		</button>

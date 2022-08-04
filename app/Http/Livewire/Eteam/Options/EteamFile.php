@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Eteam\Options;
 
 use App\Models\ETeam;
-use App\Models\ETeamFile;
+use App\Models\ETeamFile as ETeamMultimedia;
 use Livewire\Component;
 
 class EteamFile extends Component
@@ -33,7 +33,7 @@ class EteamFile extends Component
 
     protected function getData()
     {
-        return ETeamFile::select('eteams_files.*')
+        return ETeamMultimedia::select('eteams_files.*')
             ->where('eteam_id', $this->eteam->id)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(15);
