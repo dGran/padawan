@@ -38,6 +38,36 @@ class ETeamLog extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    public function scopeSearch($query, $value)
+    {
+        if (trim($value) != "") {
+            return $query->where(function($q) use ($value) {
+                $q->where('eteams_logs.message', 'LIKE', "%{$value}%")
+                    ->orWhere('eteams_logs.type', 'LIKE', "%{$value}%")
+                    ->orWhere('eteams_logs.context', 'LIKE', "%{$value}%")
+                    ->orWhere('users.name', 'LIKE', "%{$value}%");
+            });
+        }
+    }
+
+    public function scopeContext($query, $value)
+    {
+        if ($value) {
+            return $query->where(function($q) use ($value) {
+                $q->where('eteams_logs.context', $value);
+            });
+        }
+    }
+
+    public function scopeType($query, $value)
+    {
+        if ($value) {
+            return $query->where(function($q) use ($value) {
+                $q->where('eteams_logs.type', $value);
+            });
+        }
+    }
+
     public function getCreatedAtDate()
     {
         return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("LL");
