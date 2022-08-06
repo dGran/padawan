@@ -43,9 +43,7 @@ class EteamAdminLog extends Component
         $this->someFilterApplied = $this->someFilterApplied();
         $this->visiblePaginator = $this->visiblePaginator();
 
-        return view('eteam.admin.logs.index', [
-            'logs' => $logs
-        ]);
+        return view('eteam.admin.logs.index');
     }
 
     protected function getData()
@@ -62,7 +60,7 @@ class EteamAdminLog extends Component
 
     protected function someFilterApplied(): bool
     {
-        if (!empty($this->searchFilter) || !empty($this->contextFilter || !empty($this->typeFilter))) {
+        if (!empty($this->searchFilter) || !empty($this->contextFilter) || !empty($this->typeFilter)) {
             return true;
         }
 

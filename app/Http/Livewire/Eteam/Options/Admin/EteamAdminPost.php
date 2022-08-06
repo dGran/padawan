@@ -15,10 +15,16 @@ class EteamAdminPost extends Component
 
     public $eteam;
     public $data = [];
+    public $searchFilter = '';
+    public $visibilityFilter = 'all';
+    public $someFilterApplied = false;
+    public $visiblePaginator = false;
     public $order = "created_at_desc";
 
     protected $queryString = [
-        'order' => ['except' => 'created_at_desc']
+        'order' => ['except' => 'created_at_desc', 'as' => 'o'],
+        'searchFilter' => ['except' => '', 'as' => 's'],
+        'visibilityFilter' => ['except' => 'all', 'as' => 'p']
     ];
 
     public function mount(Eteam $eteam)
@@ -32,18 +38,52 @@ class EteamAdminPost extends Component
         $posts = $this->getData();
         $this->data['class'] = $posts;
 
-        return view('eteam.admin.posts.index', [
-            'posts' => $posts
-        ]);
+        $this->someFilterApplied = $this->someFilterApplied();
+        $this->visiblePaginator = $this->visiblePaginator();
+
+        return view('eteam.admin.posts.index');
     }
 
     protected function getData()
     {
-        return ETeamPost::select('eteams_logs.*', 'users.name as username')
+        return ETeamPost::select('eteams_posts.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
+            ->search($this->searchFilter)
+            ->visibility($this->visibilityFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(3);
+            ->paginate(15);
+    }
+
+    protected function someFilterApplied(): bool
+    {
+        if (!empty($this->searchFilter) || $this->visibilityFilter !== 'all') {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function visiblePaginator(): bool
+    {
+        if ($this->data['class']->lastPage() > 1) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function applySearchFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function clearFilter($filter) {
+        $this->reset($filter);
+
+        if ($filter === 'searchFilter') {
+            $this->emit('focus-search');
+        }
     }
 
     public function setCurrentPage()
@@ -90,28 +130,28 @@ class EteamAdminPost extends Component
                 'field' => 'username',
                 'direction' => 'desc',
             ],
-            'context' => [
-                'field' => 'context',
+            'visibility' => [
+                'field' => 'public',
                 'direction' => 'asc',
             ],
-            'context_desc' => [
-                'field' => 'context',
+            'visibility_desc' => [
+                'field' => 'public',
                 'direction' => 'desc',
             ],
-            'type' => [
-                'field' => 'type',
+            'title' => [
+                'field' => 'title',
                 'direction' => 'asc',
             ],
-            'type_desc' => [
-                'field' => 'type',
+            'title_desc' => [
+                'field' => 'title',
                 'direction' => 'desc',
             ],
-            'message' => [
-                'field' => 'message',
+            'content' => [
+                'field' => 'content',
                 'direction' => 'asc',
             ],
-            'message_desc' => [
-                'field' => 'message',
+            'content_desc' => [
+                'field' => 'content',
                 'direction' => 'desc',
             ],
             'created_at' => [

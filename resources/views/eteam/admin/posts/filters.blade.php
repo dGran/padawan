@@ -14,15 +14,9 @@
                 </li>
             @endif
 
-            @if (!empty($contextFilter))
+            @if ($visibilityFilter !== 'all')
                 <li>
-                    @include('eteam.admin.partials.filter-tag', ['title' => 'Contexto', 'value' => $contextFilter, 'filterName' => 'contextFilter'])
-                </li>
-            @endif
-
-            @if (!empty($typeFilter))
-                <li>
-                    @include('eteam.admin.partials.filter-tag', ['title' => 'Tipo', 'value' => $typeFilter, 'filterName' => 'typeFilter'])
+                    @include('eteam.admin.partials.filter-tag', ['title' => 'Visibilidad', 'value' => $visibilityFilter, 'filterName' => 'visibilityFilter'])
                 </li>
             @endif
         </ul>
