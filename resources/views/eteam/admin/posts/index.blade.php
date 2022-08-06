@@ -1,8 +1,9 @@
 <div>
     <div class="min-w-full">
+        @include('eteam.admin.posts.filters')
         <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
             <table class="min-w-full">
-                <thead class="select-none | border-b border-border-color dark:border-edgray-700">
+                <thead class="select-none">
                     @include('eteam.admin.posts.thead')
                 </thead>
                 <tbody>
@@ -11,7 +12,15 @@
             </table>
         </div>
     </div>
-    <div class="p-4">
+    @if ($visiblePaginator)
         @include('eteam.admin.partials.paginator', ['classes' => 'p-4'])
-    </div>
+    @endif
 </div>
+
+@push('custom-scripts')
+    <script>
+        window.livewire.on('focus-search', function () {
+            $("#search").focus();
+        });
+    </script>
+@endpush
