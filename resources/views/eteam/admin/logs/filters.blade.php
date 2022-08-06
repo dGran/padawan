@@ -7,7 +7,7 @@
     </ul>
 
     @if ($someFilterApplied)
-        <ul class="mt-4 flex items-center space-x-4">
+        <ul class="mt-4 flex items-center space-x-1.5">
             @if (!empty($searchFilter))
                 <li>
                     @include('eteam.admin.logs._filter-tag', ['title' => 'Buscador', 'value' => $searchFilter, 'filterName' => 'searchFilter'])

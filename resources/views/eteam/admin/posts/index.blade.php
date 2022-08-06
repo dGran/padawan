@@ -12,6 +12,6 @@
         </div>
     </div>
     <div class="p-4">
-        @include('eteam.admin.partials.paginator')
+        @include('eteam.admin.partials.paginator', ['classes' => 'p-4'])
     </div>
 </div>

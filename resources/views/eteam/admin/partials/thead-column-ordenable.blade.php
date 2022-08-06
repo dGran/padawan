@@ -1,4 +1,4 @@
-<th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
+<th scope="col" class="{{ $classes }} text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
     <x-link color="gray" class="group"
             wire:click="setOrder('{{ $order === $order_name ? $order_name_desc : $order_name }}')">
         <span>{{ $column_title }}</span>
