@@ -15,6 +15,8 @@ class EteamAdminPost extends Component
 {
     use WithPagination;
 
+    protected const PAGINATOR_DEFAULT = 15;
+
     public ETeam $eteam;
     public array $data = [];
     public string $searchFilter = '';
@@ -22,7 +24,6 @@ class EteamAdminPost extends Component
     public bool $someFilterApplied = false;
     public bool $visiblePaginator = false;
     public string $order = "created_at_desc";
-    protected int $paginator = 15;
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
@@ -54,25 +55,17 @@ class EteamAdminPost extends Component
             ->search($this->searchFilter)
             ->visibility($this->visibilityFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate($this->paginator);
+            ->paginate(self::PAGINATOR_DEFAULT);
     }
 
     protected function someFilterApplied(): bool
     {
-        if (!empty($this->searchFilter) || $this->visibilityFilter !== 'all') {
-            return true;
-        }
-
-        return false;
+        return !empty($this->searchFilter) || $this->visibilityFilter !== 'all';
     }
 
     protected function visiblePaginator(): bool
     {
-        if ($this->data['class']->lastPage() > 1) {
-            return true;
-        }
-
-        return false;
+        return $this->data['class']->lastPage() > 1;
     }
 
     public function applySearchFilter(): void
@@ -123,48 +116,49 @@ class EteamAdminPost extends Component
 
     protected function getOrder(): array
     {
-        (array) $orderValue = [
-            'user' => [
-                'field' => 'username',
-                'direction' => 'asc',
-            ],
-            'user_desc' => [
-                'field' => 'username',
-                'direction' => 'desc',
-            ],
-            'visibility' => [
-                'field' => 'public',
-                'direction' => 'asc',
-            ],
-            'visibility_desc' => [
-                'field' => 'public',
-                'direction' => 'desc',
-            ],
-            'title' => [
-                'field' => 'title',
-                'direction' => 'asc',
-            ],
-            'title_desc' => [
-                'field' => 'title',
-                'direction' => 'desc',
-            ],
-            'content' => [
-                'field' => 'content',
-                'direction' => 'asc',
-            ],
-            'content_desc' => [
-                'field' => 'content',
-                'direction' => 'desc',
-            ],
-            'created_at' => [
-                'field' => 'created_at',
-                'direction' => 'asc',
-            ],
-            'created_at_desc' => [
-                'field' => 'created_at',
-                'direction' => 'desc',
-            ]
-        ];
+        $orderValue =
+            [
+                'user' => [
+                    'field' => 'username',
+                    'direction' => 'asc',
+                ],
+                'user_desc' => [
+                    'field' => 'username',
+                    'direction' => 'desc',
+                ],
+                'visibility' => [
+                    'field' => 'public',
+                    'direction' => 'asc',
+                ],
+                'visibility_desc' => [
+                    'field' => 'public',
+                    'direction' => 'desc',
+                ],
+                'title' => [
+                    'field' => 'title',
+                    'direction' => 'asc',
+                ],
+                'title_desc' => [
+                    'field' => 'title',
+                    'direction' => 'desc',
+                ],
+                'content' => [
+                    'field' => 'content',
+                    'direction' => 'asc',
+                ],
+                'content_desc' => [
+                    'field' => 'content',
+                    'direction' => 'desc',
+                ],
+                'created_at' => [
+                    'field' => 'created_at',
+                    'direction' => 'asc',
+                ],
+                'created_at_desc' => [
+                    'field' => 'created_at',
+                    'direction' => 'desc',
+                ]
+            ];
 
         return $orderValue[$this->order];
     }
