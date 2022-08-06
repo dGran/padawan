@@ -11,14 +11,13 @@
                 </a>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                <button wire:click="$set('contextFilter', '{{ $reg->context }}')" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-edgray-600">
+                <button wire:click="$set('contextFilter', '{{ $reg->context }}')" class="text-xxxs uppercase w-24 py-1.5 px-2.5 leading-none bg-edgray-400 text-edgray-900 dark:bg-edgray-600 dark:text-white rounded">
                     {{ $reg->context }}
                 </button>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                 <button wire:click="$set('typeFilter', '{{ $reg->type }}')"
-                    class="text-xxxs uppercase inline-block w-16 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline
-                    font-medium text-white rounded
+                    class="text-xxxs uppercase inline-block w-16 py-1.5 px-2.5 leading-none text-white rounded
                     bg-{{ $reg->type === 'post' ? 'green-600' : '' }}
                     bg-{{ $reg->type === 'update' ? 'yellow-600' : '' }}
                     bg-{{ $reg->type === 'delete' ? 'red-600' : '' }}"

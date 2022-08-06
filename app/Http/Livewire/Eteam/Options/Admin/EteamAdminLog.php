@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Models\ETeam;
 use App\Models\ETeamLog;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,14 +15,15 @@ class EteamAdminLog extends Component
 {
     use WithPagination;
 
-    public $eteam;
-    public $data = [];
-    public $searchFilter = '';
-    public $contextFilter = '';
-    public $typeFilter = '';
-    public $someFilterApplied = false;
-    public $visiblePaginator = false;
-    public $order = "created_at_desc";
+    public ETeam $eteam;
+    public array $data = [];
+    public string $searchFilter = '';
+    public string $contextFilter = '';
+    public string $typeFilter = '';
+    public bool $someFilterApplied = false;
+    public bool $visiblePaginator = false;
+    public string $order = "created_at_desc";
+    protected int $paginator = 15;
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
@@ -29,24 +32,23 @@ class EteamAdminLog extends Component
         'typeFilter' => ['except' => '', 'as' => 't']
     ];
 
-    public function mount(Eteam $eteam)
+    public function mount(Eteam $eteam): void
     {
         $this->eteam = $eteam;
         $this->data['name'] = 'logs';
     }
 
-    public function render()
+    public function render(): View
     {
         $logs = $this->getData();
         $this->data['class'] = $logs;
-
         $this->someFilterApplied = $this->someFilterApplied();
         $this->visiblePaginator = $this->visiblePaginator();
 
         return view('eteam.admin.logs.index');
     }
 
-    protected function getData()
+    protected function getData(): LengthAwarePaginator
     {
         return ETeamLog::select('eteams_logs.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_logs.user_id')
@@ -55,7 +57,7 @@ class EteamAdminLog extends Component
             ->context($this->contextFilter)
             ->type($this->typeFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(15);
+            ->paginate($this->paginator);
     }
 
     protected function someFilterApplied(): bool
@@ -76,12 +78,12 @@ class EteamAdminLog extends Component
         return false;
     }
 
-    public function applySearchFilter()
+    public function applySearchFilter(): void
     {
         $this->resetPage();
     }
 
-    public function clearFilter($filter) {
+    public function clearFilter(string $filter): void {
         $this->reset($filter);
 
         if ($filter === 'searchFilter') {
@@ -89,7 +91,7 @@ class EteamAdminLog extends Component
         }
     }
 
-    public function setCurrentPage()
+    public function setCurrentPage(): void
     {
         $this->gotoPage($this->page);
     }
@@ -99,7 +101,7 @@ class EteamAdminLog extends Component
         $this->gotoPage($page);
     }
 
-    public function nextPage($lastPage)
+    public function nextPage(int $lastPage): void
     {
         if (($this->page + 1) <= $lastPage) {
             $this->setPage($this->page + 1);
@@ -108,7 +110,7 @@ class EteamAdminLog extends Component
         }
     }
 
-    public function previousPage($lastPage)
+    public function previousPage(int $lastPage): void
     {
         if ($this->page > 1) {
             $this->setPage($this->page - 1);
@@ -117,7 +119,7 @@ class EteamAdminLog extends Component
         }
     }
 
-    public function setOrder(string $value)
+    public function setOrder(string $value): void
     {
         $this->order = $value;
     }

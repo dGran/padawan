@@ -11,7 +11,7 @@
                 </a>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                <button wire:click="$set('visibilityFilter', '{{ $reg->public ? 'pública' : 'privada' }}')" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded {{ $reg->public ? '' : 'bg-edgray-600' }}">
+                <button wire:click="$set('visibilityFilter', '{{ $reg->public ? 'pública' : 'privada' }}')" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none font-medium rounded {{ $reg->public ? 'bg-edgray-400 text-edgray-900 dark:bg-edgray-600 dark:text-white' : 'bg-yellow-600 dark:bg-yellow-700 text-white' }}">
                     {{ $reg->public ? 'pública' : 'privada' }}
                 </button>
             </td>
@@ -21,13 +21,16 @@
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                 {{ $reg->content }}
             </td>
-            <td class="text-sm font-light px-4 py-2.5 flex items-center space-x-2">
-                <button wire:click="edit({{ $reg->id }})" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-edgray-600">
-                    Editar
-                </button>
-                <button wire:click="remove({{ $reg->id }})" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-red-600">
-                    Eliminar
-                </button>
+            <td class="font-light px-4 py-2.5 flex items-center space-x-1">
+                <x-button color="edgray" wire:click="show({{ $reg->id }})" class="w-9 py-1.5 px-2.5 leading-none rounded" title="Ver">
+                    <i class="fa-solid fa-eye"></i>
+                </x-button>
+                <x-button wire:click="edit({{ $reg->id }})" class="w-9 py-1.5 px-2.5 leading-none text-white rounded" title="Editar">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </x-button>
+                <x-button color='red' wire:click="remove({{ $reg->id }})" class="w-9 py-1.5 px-2.5 leading-none text-white rounded" title="Eliminar">
+                    <i class="fa-solid fa-xmark"></i>
+                </x-button>
             </td>
         </tr>
     @endforeach
