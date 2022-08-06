@@ -11,8 +11,8 @@
                 </a>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                <button wire:click="$set('visibilityFilter', '{{ $reg->public ? 'pública' : 'privada' }}')" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-edgray-600">
-                    {{ $reg->public }}
+                <button wire:click="$set('visibilityFilter', '{{ $reg->public ? 'pública' : 'privada' }}')" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded {{ $reg->public ? '' : 'bg-edgray-600' }}">
+                    {{ $reg->public ? 'pública' : 'privada' }}
                 </button>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
@@ -21,7 +21,13 @@
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                 {{ $reg->content }}
             </td>
-            <td>
+            <td class="text-sm font-light px-4 py-2.5 flex items-center space-x-2">
+                <button wire:click="edit({{ $reg->id }})" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-edgray-600">
+                    Editar
+                </button>
+                <button wire:click="remove({{ $reg->id }})" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium text-white rounded bg-red-600">
+                    Eliminar
+                </button>
             </td>
         </tr>
     @endforeach

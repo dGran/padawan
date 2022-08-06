@@ -42,7 +42,7 @@ class ETeamPost extends Model
     public function scopeVisibility($query, $value)
     {
         if ($value !== 'all') {
-            if ($value === 'public') {
+            if ($value === 'pública') {
                 return $query->where('eteams_posts.public', 1);
             }
 

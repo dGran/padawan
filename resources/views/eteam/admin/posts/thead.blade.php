@@ -4,7 +4,7 @@
     @include('eteam.admin.partials.thead-column-ordenable', ['order_name' => 'visibility', 'order_name_desc' => 'visibility_desc', 'column_title' => 'Visibilidad', 'classes' => 'w-28'])
     @include('eteam.admin.partials.thead-column-ordenable', ['order_name' => 'title', 'order_name_desc' => 'title_desc', 'column_title' => 'Título', 'classes' => ''])
     @include('eteam.admin.partials.thead-column-ordenable', ['order_name' => 'content', 'order_name_desc' => 'content_desc', 'column_title' => 'Contenido', 'classes' => ''])
-    <th scope="col" class="text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
+    <th scope="col" class="w-48 text-sm font-medium text-title-color dark:text-dt-title-color px-4 py-2.5 text-left whitespace-nowrap">
         Acciones
     </th>
 </tr>
