@@ -17,10 +17,4 @@
     @endif
 </div>
 
-@push('custom-scripts')
-    <script>
-        window.livewire.on('focus-search', function () {
-            $("#search").focus();
-        });
-    </script>
-@endpush
+@include('eteam.admin.partials.js.posts')

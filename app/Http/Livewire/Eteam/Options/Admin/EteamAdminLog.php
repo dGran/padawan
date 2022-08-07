@@ -76,6 +76,18 @@ class EteamAdminLog extends Component
         $this->resetPage();
     }
 
+    public function applyContextFilter(string $context): void
+    {
+        $this->resetPage();
+        $this->contextFilter = $context;
+    }
+
+    public function applyTypeFilter(string $type): void
+    {
+        $this->resetPage();
+        $this->typeFilter = $type;
+    }
+
     public function clearFilter(string $filter): void {
         $this->reset($filter);
 

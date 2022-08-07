@@ -77,7 +77,7 @@
 {{--            @livewireUIScripts--}}
             @livewireScripts
 
-            <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>
+{{--            <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>--}}
 
             @include('cookieConsent::index')
             @include('layouts.partials.toastr')
