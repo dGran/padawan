@@ -14,6 +14,20 @@ class EteamRequestManager
 {
     private User $user;
     private ETeamRequest $eteamRequest;
+    private EteamPostManager $eteamPostManager;
+    private EteamLogManager $eteamLogManager;
+    private NotificationManager $notificationManager;
+
+    public function __construct
+    (
+        EteamPostManager $eteamPostManager,
+        EteamLogManager $eteamLogManager,
+        NotificationManager $notificationManager
+    ) {
+        $this->eteamPostManager = $eteamPostManager;
+        $this->eteamLogManager = $eteamLogManager;
+        $this->notificationManager = $notificationManager;
+    }
 
     /**
      * @param  User  $user
@@ -38,7 +52,7 @@ class EteamRequestManager
                 'active' => 1,
             ]);
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamRequest->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -46,7 +60,7 @@ class EteamRequestManager
                 'message' => "$user->name ha aceptado la solicitud de $requestUserName"
             ]);
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamRequest->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_MEMBERS,
@@ -54,7 +68,7 @@ class EteamRequestManager
                 'message' => "$requestUserName se ha unido al equipo"
             ]);
 
-            storeEteamPost([
+            $this->eteamPostManager->create([
                 'eteam_id' => $eteamRequest->eteam_id,
                 'user_id' => $user->id,
                 'title' => "$requestUserName nuevo miembro del equipo",
@@ -82,7 +96,7 @@ class EteamRequestManager
                 'link_title' => $eteamName,
                 'read' => 0,
             ];
-            storeNotification($notification_data);
+            $this->notificationManager->create($notification_data);
 
             // delete request
             $eteamRequest->delete();
@@ -90,7 +104,7 @@ class EteamRequestManager
             return back()->with("success", "Felicidades!, $requestUserName es nuevo miembro de tu equipo '$eteamName'");
         }
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamRequest->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -141,10 +155,10 @@ class EteamRequestManager
                 'link_title' => 'Mis equipos',
                 'read' => 0,
             ];
-            storeNotification($notification_data);
+            $this->notificationManager->create($notification_data);
 
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamRequest->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -152,7 +166,7 @@ class EteamRequestManager
                 'message' => "$user->name rechaza la solicitud de ingreso de $requestUserName"
             ]);
 
-            storeEteamPost([
+            $this->eteamPostManager->create([
                 'eteam_id' => $eteamRequest->eteam_id,
                 'user_id' => $user->id,
                 'title' => "$user->name rechaza la solicitud",
@@ -167,7 +181,7 @@ class EteamRequestManager
             return back()->with("success", "Has rechazado la solicitud correctamente");
         }
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamRequest->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -196,7 +210,7 @@ class EteamRequestManager
         $user = Auth::user();
         $requestUserName = $eteamRequest->user->name;
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamRequest->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -230,7 +244,7 @@ class EteamRequestManager
             'Mis equipos'
         );
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamRequest->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_REQUESTS,
@@ -238,7 +252,7 @@ class EteamRequestManager
             'message' => "Solicitud de $requestUserName retirada"
         ]);
 
-        storeEteamPost([
+        $this->eteamPostManager->create([
             'eteam_id' => $eteamRequest->eteam_id,
             'user_id' => $user->id,
             'title' => "Solicitud de $requestUserName retirada",

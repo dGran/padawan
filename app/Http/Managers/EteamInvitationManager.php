@@ -14,6 +14,20 @@ class EteamInvitationManager
 {
     private User $user;
     private ETeamInvitation $eteamInvitation;
+    private EteamPostManager $eteamPostManager;
+    private EteamLogManager $eteamLogManager;
+    private NotificationManager $notificationManager;
+
+    public function __construct
+    (
+        EteamPostManager $eteamPostManager,
+        EteamLogManager $eteamLogManager,
+        NotificationManager $notificationManager
+    ) {
+        $this->eteamPostManager = $eteamPostManager;
+        $this->eteamLogManager = $eteamLogManager;
+        $this->notificationManager = $notificationManager;
+    }
 
     /**
      * @param  User  $user
@@ -38,7 +52,7 @@ class EteamInvitationManager
                 'active' => 1,
             ]);
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamInvitation->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -46,7 +60,7 @@ class EteamInvitationManager
                 'message' => "$user->name ha aceptado la invitación"
             ]);
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamInvitation->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_MEMBERS,
@@ -54,12 +68,12 @@ class EteamInvitationManager
                 'message' => "$user->name se ha unido al equipo"
             ]);
 
-            storeEteamPost([
-                'eteam_id' => $eteamInvitation->eteam_id,
-                'user_id' => $user->id,
-                'title' => "$user->name nuevo miembro del equipo",
-                'content' => "Ha aceptado la invitación de ingreso enviada por $captainName",
-                'public' => true
+            $this->eteamPostManager->create([
+                    'eteam_id' => $eteamInvitation->eteam_id,
+                    'user_id' => $user->id,
+                    'title' => "$user->name nuevo miembro del equipo",
+                    'content' => "Ha aceptado la invitación de ingreso enviada por $captainName",
+                    'public' => true
             ]);
 
             // notify the captains
@@ -76,7 +90,7 @@ class EteamInvitationManager
             return back()->with("success", "Felicidades!, eres nuevo miembro del equipo $eteamName");
         }
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamInvitation->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -119,7 +133,7 @@ class EteamInvitationManager
                 'Mis equipos'
             );
 
-            storeEteamLog([
+            $this->eteamLogManager->create([
                 'eteam_id' => $eteamInvitation->eteam_id,
                 'user_id' => $user->id,
                 'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -127,7 +141,7 @@ class EteamInvitationManager
                 'message' => "$user->name rechaza la invitación de ingreso"
             ]);
 
-            storeEteamPost([
+            $this->eteamPostManager->create([
                 'eteam_id' => $eteamInvitation->eteam_id,
                 'user_id' => $user->id,
                 'title' => "$user->name rechaza la invitación",
@@ -142,7 +156,7 @@ class EteamInvitationManager
             return back()->with("success", "Has rechazado la invitación correctamente");
         }
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamInvitation->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -170,7 +184,7 @@ class EteamInvitationManager
         $user = Auth::user();
         $invitedUserName = $eteamInvitation->user->name;
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamInvitation->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -213,10 +227,9 @@ class EteamInvitationManager
             'link_title' => 'Mis equipos',
             'read' => 0,
         ];
+        $this->notificationManager->create($notification_data);
 
-        storeNotification($notification_data);
-
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteamInvitation->eteam_id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_INVITATIONS,
@@ -224,7 +237,7 @@ class EteamInvitationManager
             'message' => "Invitación a $invitedUserName retirada"
         ]);
 
-        storeEteamPost([
+        $this->eteamPostManager->create([
             'eteam_id' => $eteamInvitation->eteam_id,
             'user_id' => $user->id,
             'title' => "Invitación retirada a $invitedUserName",

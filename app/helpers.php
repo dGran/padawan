@@ -5,7 +5,6 @@ declare(strict_types=1);
 use App\Mail\NotificationMail;
 use App\Models\ETeam;
 use App\Models\ETeamLog;
-use App\Models\ETeamPost;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
@@ -93,29 +92,5 @@ function storeEteamLog($data): void
         'context' => $data['context'],
         'type' => $data['type'],
         'message' => $data['message']
-    ]);
-}
-
-/**
- * @param $data
- * @return void
- */
-function storeEteamPost($data): void
-{
-    ETeamPost::create([
-        'eteam_id' => $data['eteam_id'],
-        'user_id' => $data['user_id'],
-        'title' => $data['title'],
-        'content' => $data['content'],
-        'public' => $data['public'] ?? true,
-        'slug' => Str::slug($data['title'], '-')
-    ]);
-
-    storeEteamLog([
-        'eteam_id' => $data['eteam_id'],
-        'user_id' => $data['user_id'],
-        'context' => ETeamLog::CONTEXT_POSTS,
-        'type' => ETeamLog::TYPE_POST,
-        'message' => "Nueva noticia creada, '".$data['title']."'"
     ]);
 }
