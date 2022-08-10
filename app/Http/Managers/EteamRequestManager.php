@@ -77,15 +77,13 @@ class EteamRequestManager
             ]);
 
             // notify the captains
-            eteamCaptainsNotification(
-                $eteamRequest->eteam,
-                $user->id,
-                "$requestUserName, nuevo miembro de tu equipo $eteamName",
-                "$user->name ha aceptado la solicitud de ingreso en tu equipo $eteamName a $requestUserName",
-                'eteams.eteam',
-                [$eteamSlug],
-                $eteamName
-            );
+            $this->notificationManager->createToEteamAdmins($eteamRequest->eteam, [
+                'title' => "$requestUserName, nuevo miembro de tu equipo $eteamName",
+                'content' => "$user->name ha aceptado la solicitud de ingreso en tu equipo $eteamName a $requestUserName",
+                'link' => 'eteam',
+                'linkParams' => [$eteamSlug],
+                'linkTitle' => $eteamName
+            ]);
 
             // notify user
             $notification_data = [
@@ -137,15 +135,14 @@ class EteamRequestManager
 
         if (!$userIsEteamMember && !$userIsMemberEteamGame) {
             // notify the captains
-            eteamCaptainsNotification(
-                $eteamRequest->eteam,
-                $user->id,
-                "Rechazada la solicitud a $requestUserName",
-                "$user->name ha rechazado la solicitud de ingreso en tu equipo '$eteamName' a $requestUserName",
-                'my-teams',
-                null,
-                'Mis equipos'
-            );
+            $this->notificationManager->createToEteamAdmins($eteamRequest->eteam, [
+                'title' => "Rechazada la solicitud a $requestUserName",
+                'content' => "$user->name ha rechazado la solicitud de ingreso en tu equipo '$eteamName' a $requestUserName",
+                'link' => 'my-teams',
+                'linkParams' => null,
+                'linkTitle' => 'Mis equipos'
+            ]);
+
             // notify user
             $notification_data = [
                 'user_id' => $eteamRequest->user_id,
@@ -234,15 +231,13 @@ class EteamRequestManager
         $requestUserName = $eteamRequest->user->name;
 
         // notify the captains
-        eteamCaptainsNotification(
-            $eteamRequest->eteam,
-            null,
-            "$user->name ha retirado la solicitud",
-            "$user->name ha retirado la solicitud de ingreso en tu equipo $eteamName",
-            'my-teams',
-            null,
-            'Mis equipos'
-        );
+        $this->notificationManager->createToEteamAdmins($eteamRequest->eteam, [
+            'title' => "$user->name ha retirado la solicitud",
+            'content' => "$user->name ha retirado la solicitud de ingreso en tu equipo $eteamName",
+            'link' => 'my-teams',
+            'linkParams' => null,
+            'linkTitle' => 'Mis equipos'
+        ]);
 
         $this->eteamLogManager->create([
             'eteam_id' => $eteamRequest->eteam_id,

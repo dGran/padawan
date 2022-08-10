@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\ETeams;
 
+use App\Http\Managers\EteamLogManager;
+use App\Http\Managers\NotificationManager;
 use App\Models\ETeamLog;
 use Livewire\Component;
 use Illuminate\Support\Str;
@@ -25,6 +27,18 @@ class EteamCreate extends Component
 
     public $name_available, $short_name_available;
     public $banner_preview, $logo_preview;
+
+    /** dependency injections */
+
+    public function getEteamLogManagerProperty(): EteamLogManager
+    {
+        return resolve(EteamLogManager::class);
+    }
+
+    public function getNotificationManagerProperty(): NotificationManager
+    {
+        return resolve(NotificationManager::class);
+    }
 
     public function mount(): void
     {
@@ -229,7 +243,8 @@ class EteamCreate extends Component
             'updated_at' => now(),
         ]);
 
-        storeEteamLog([
+
+        $this->eteamLogManager->create([
             'eteam_id' => $eteam->id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_ETEAM,
@@ -249,7 +264,7 @@ class EteamCreate extends Component
             'active' => true,
         ]);
 
-        storeEteamLog([
+        $this->eteamLogManager->create([
             'eteam_id' => $eteam->id,
             'user_id' => $user->id,
             'context' => ETeamLog::CONTEXT_MEMBERS,
@@ -257,15 +272,14 @@ class EteamCreate extends Component
             'message' => "$user->name se ha unido al equipo como propietario y capitán"
         ]);
 
-        $notification_data = [
+        $this->notificationManager->create([
             'user_id' => $user->id,
             'title' => "Equipo '$eteam->name' creado",
             'content' => 'Tu equipo se ha creado correctamente. Eres el propietario y único capitán del equipo pero puedes ascender a capitán a otros futuros miembros.',
             'link' => Route('eteam', $eteam->slug),
             'link_title' => $eteam->name,
             'read' => 0
-        ];
-        storeNotification($notification_data);
+        ]);
 
         return redirect()->route('eteam', $eteam->slug)->with("success", "Felicidades!, el equipo se ha creado correctamente.");
     }

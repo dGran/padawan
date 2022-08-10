@@ -77,15 +77,13 @@ class EteamInvitationManager
             ]);
 
             // notify the captains
-            eteamCaptainsNotification(
-                $eteamInvitation->eteam,
-                null,
-                "$user->name, nuevo miembro de tu equipo $eteamName",
-                "$user->name ha aceptado la invitación y es nuevo miembro de tu equipo $eteamName",
-                'eteams.eteam',
-                [$eteamSlug],
-                $eteamName
-            );
+            $this->notificationManager->createToEteamAdmins($eteamInvitation->eteam,[
+                'title' => "$user->name, nuevo miembro de tu equipo $eteamName",
+                'content' => "$user->name ha aceptado la invitación y es nuevo miembro de tu equipo $eteamName",
+                'link' => 'eteam',
+                'linkParams' => [$eteamSlug],
+                'linkTitle' => $eteamName
+            ]);
 
             return back()->with("success", "Felicidades!, eres nuevo miembro del equipo $eteamName");
         }
@@ -123,15 +121,13 @@ class EteamInvitationManager
 
         if (!$userIsEteamMember && !$userIsMemberEteamGame) {
             // notify the captains
-            eteamCaptainsNotification(
-                $eteamInvitation->eteam,
-                null,
-                "$user->name rechaza la invitación",
-                "$user->name ha rechazado la invitación de ingreso en tu equipo $eteamName",
-                'my-teams',
-                null,
-                'Mis equipos'
-            );
+            $this->notificationManager->createToEteamAdmins($eteamInvitation->eteam,[
+                'title' => "$user->name rechaza la invitación",
+                'content' => "$user->name ha rechazado la invitación de ingreso en tu equipo $eteamName",
+                'link' => 'my-teams',
+                'linkParams' => null,
+                'linkTitle' => 'Mis equipos'
+            ]);
 
             $this->eteamLogManager->create([
                 'eteam_id' => $eteamInvitation->eteam_id,
@@ -208,15 +204,13 @@ class EteamInvitationManager
         $invitedUserName = $eteamInvitation->user->name;
 
         // notify the captains
-        eteamCaptainsNotification(
-            $eteamInvitation->eteam,
-            null,
-            "Retirada la invitación de ingreso a $invitedUserName",
-            "$user->name ha retirado la invitación de ingreso en tu equipo $eteamName a $invitedUserName",
-            'my-teams',
-            null,
-            'Mis equipos'
-        );
+        $this->notificationManager->createToEteamAdmins($eteamInvitation->eteam,[
+            'title' => "Retirada la invitación de ingreso a $invitedUserName",
+            'content' => "$user->name ha retirado la invitación de ingreso en tu equipo $eteamName a $invitedUserName",
+            'link' => 'my-teams',
+            'linkParams' => null,
+            'linkTitle' => 'Mis equipos'
+        ]);
 
         // notify user
         $notification_data = [

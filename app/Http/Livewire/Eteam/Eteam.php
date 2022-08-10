@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Eteam;
 
+use App\Http\Managers\NotificationManager;
 use App\Models\ETeam as Team_Esport;
 use App\Models\ETeamRequest;
 use App\Models\User;
@@ -25,6 +26,13 @@ class Eteam extends Component
         'tab' => ['except' => '', 'as' => 'op'],
         'adminTab' => ['except' => '', 'as' => 'ad']
     ];
+
+    /** dependency injections */
+
+    public function getNotificationManagerProperty(): NotificationManager
+    {
+        return resolve(NotificationManager::class);
+    }
 
     public function mount()
     {
@@ -87,7 +95,7 @@ class Eteam extends Component
                     'link_title' => 'Mis equipos',
                     'read' => 0
                 ];
-                storeNotification($notification_data);
+                $this->notificationManager->create($notification_data);
             }
         }
     }
@@ -113,7 +121,7 @@ class Eteam extends Component
                     'link' => Route('eteams.eteam', $eteam->slug),
                     'read' => 0
                 ];
-                storeNotification($notification_data);
+                $this->notificationManager->create($notification_data);
             }
         }
     }

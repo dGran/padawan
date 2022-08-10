@@ -6,7 +6,7 @@ namespace App\Http\Managers;
 
 use App\Http\Services\MailService;
 use App\Http\Services\NotificationService;
-use App\Http\Services\UserService;
+use App\Models\ETeam;
 use App\Models\Notification;
 use App\Models\User;
 
@@ -34,5 +34,16 @@ class NotificationManager
         }
 
         $this->mailService->sendMailNotification($user, $data['title'], $data['content']);
+    }
+
+    function createToEteamAdmins(ETeam $eteam, array $data): void
+    {
+        if (empty($eteam->getCaptains())) {
+            return;
+        }
+
+        foreach ($eteam->getCaptains() as $admin) {
+            $this->create($this->notificationService->getCreateToEteamAdminsData($admin, $data));
+        }
     }
 }
