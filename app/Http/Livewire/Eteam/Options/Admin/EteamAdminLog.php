@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Eteam\Options\Admin;
 
+use App\Http\Managers\EteamLogManager;
 use App\Models\ETeam;
 use App\Models\ETeamLog;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -32,6 +33,12 @@ class EteamAdminLog extends Component
         'contextFilter' => ['except' => '', 'as' => 'c'],
         'typeFilter' => ['except' => '', 'as' => 't']
     ];
+
+    // dependency injections
+    public function getEteamLogManagerProperty(): EteamLogManager
+    {
+        return resolve(EteamLogManager::class);
+    }
 
     public function mount(Eteam $eteam): void
     {
@@ -131,50 +138,8 @@ class EteamAdminLog extends Component
 
     protected function getOrder(): array
     {
-        $orderValue =
-            [
-                'user' => [
-                    'field' => 'username',
-                    'direction' => 'asc',
-                ],
-                'user_desc' => [
-                    'field' => 'username',
-                    'direction' => 'desc',
-                ],
-                'context' => [
-                    'field' => 'context',
-                    'direction' => 'asc',
-                ],
-                'context_desc' => [
-                    'field' => 'context',
-                    'direction' => 'desc',
-                ],
-                'type' => [
-                    'field' => 'type',
-                    'direction' => 'asc',
-                ],
-                'type_desc' => [
-                    'field' => 'type',
-                    'direction' => 'desc',
-                ],
-                'message' => [
-                    'field' => 'message',
-                    'direction' => 'asc',
-                ],
-                'message_desc' => [
-                    'field' => 'message',
-                    'direction' => 'desc',
-                ],
-                'created_at' => [
-                    'field' => 'created_at',
-                    'direction' => 'asc',
-                ],
-                'created_at_desc' => [
-                    'field' => 'created_at',
-                    'direction' => 'desc',
-                ]
-            ];
+        $orderValues = EteamLogManager::ORDER_VALUES;
 
-        return $orderValue[$this->order];
+        return $orderValues[$this->order];
     }
 }

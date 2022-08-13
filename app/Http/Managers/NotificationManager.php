@@ -18,7 +18,7 @@ class NotificationManager
     public function __construct
     (
         NotificationService $notificationService,
-        MailService $mailService,
+        MailService $mailService
     ) {
         $this->notificationService = $notificationService;
         $this->mailService = $mailService;

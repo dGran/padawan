@@ -90,7 +90,7 @@ class EteamRequestManager
                 'user_id' => $eteamRequest->user_id,
                 'title' => "Aceptada tu solicitud al equipo '$eteamName'",
                 'content' => "Felicidades!, eres nuevo miembro del equipo $eteamName, $user->name ha aceptado tu solicitud de ingreso",
-                'link' => Route('eteams.eteam', $eteamSlug),
+                'link' => Route('eteam', $eteamSlug),
                 'link_title' => $eteamName,
                 'read' => 0,
             ];

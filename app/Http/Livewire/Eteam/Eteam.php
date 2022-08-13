@@ -118,7 +118,7 @@ class Eteam extends Component
                     'user_id' => $captain->user_id,
                     'title' => "Retirada de solicitud de ingreso en tu equipo '$eteam->name'",
                     'content' => "$user->name ha retirado la solicitado de ingreso en tu equipo. </br> Puedes acceder desde el enlace",
-                    'link' => Route('eteams.eteam', $eteam->slug),
+                    'link' => Route('eteam', $eteam->slug),
                     'read' => 0
                 ];
                 $this->notificationManager->create($notification_data);

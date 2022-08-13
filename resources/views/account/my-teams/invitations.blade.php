@@ -35,7 +35,7 @@
                                         class="flex justify-center rounded-lg bg-gray-200 dark:bg-gray-700 | w-10 px-2 py-1 | font-mono text-xxs font-medium uppercase | border border-transparent group-hover:border-gray-300 dark:group-hover:border-gray-600">
                                         {{ $invitation->eteam->short_name }}
                                     </span>
-                                    <x-link href="{{ route('eteams.eteam', $invitation->eteam->slug) }}" class="ml-2.5">
+                                    <x-link href="{{ route('eteam', $invitation->eteam->slug) }}" class="ml-2.5">
                                         {{ $invitation->eteam->name }}
                                     </x-link>
                                 </div>
@@ -62,11 +62,11 @@
                             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
                                 <div class="flex items-center space-x-1.5">
                                     @if (!$user->isEteamMember($invitation->eteam_id) && !$user->isMemberEteamGame($invitation->eteam->game_id))
-                                        <button type="button" onclick='Livewire.emit("openModal", "modals.accept-eteam-invitation-confirmation-modal", @json(['userId' => $user->id, 'eteamInvitationId' => $invitation->id]))'
+                                        <button type="button" onclick='Livewire.emit("openModal", "modals.eteams.accept-eteam-invitation-confirmation-modal", @json(['userId' => $user->id, 'eteamInvitationId' => $invitation->id]))'
                                                 class="w-24 inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out">
                                             Aceptar
                                         </button>
-                                        <button type="button" onclick='Livewire.emit("openModal", "modals.decline-eteam-invitation-confirmation-modal", @json(['userId' => $user->id, 'eteamInvitationId' => $invitation->id]))'
+                                        <button type="button" onclick='Livewire.emit("openModal", "modals.eteams.decline-eteam-invitation-confirmation-modal", @json(['userId' => $user->id, 'eteamInvitationId' => $invitation->id]))'
                                                 class="w-24 inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out">
                                             Rechazar
                                         </button>

@@ -10,7 +10,6 @@
             <p>
                 <span class="font-semibold">Recibido:</span> <span>{{ $notification->getCreatedAtDate() }}</span>, <span>{{ $notification->getCreatedAtTime() }}</span>
             </p>
-
         </div>
         <h3 class="my-4 text-base md:text-lg | font-semibold text-title-color dark:text-dt-title-color">
             {{ $notification->title }}
@@ -23,7 +22,6 @@
                 <x-link-button href="{{ $notification->link }}">
                     {{ $notification->link_title ? $notification->link_title : 'Enlace' }}
                 </x-link-button>
-
             </div>
         @endif
     </div>

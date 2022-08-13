@@ -18,9 +18,5 @@
 </div>
 
 @push('custom-scripts')
-    <script>
-        window.livewire.on('focus-search', function () {
-            $("#search").focus();
-        });
-    </script>
+    @include('eteam.admin.partials.js.focus-search')
 @endpush

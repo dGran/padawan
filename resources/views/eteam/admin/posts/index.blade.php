@@ -1,13 +1,14 @@
 <div>
     <div class="min-w-full">
         @include('eteam.admin.posts.filters')
-        <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
+        <div
+            class="overflow-x-auto scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
             <table class="min-w-full">
                 <thead class="select-none">
-                    @include('eteam.admin.posts.thead')
+                @include('eteam.admin.posts.thead')
                 </thead>
                 <tbody>
-                    @include('eteam.admin.posts.tbody')
+                @include('eteam.admin.posts.tbody')
                 </tbody>
             </table>
         </div>
@@ -17,4 +18,9 @@
     @endif
 </div>
 
-@include('eteam.admin.partials.js.posts')
+@push('custom-scripts')
+    @include('eteam.admin.partials.js.focus-search')
+    @include('eteam.admin.partials.js.listeners')
+@endpush
+
+

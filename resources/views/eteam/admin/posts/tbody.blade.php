@@ -20,23 +20,17 @@
             <td class="font-light px-4 py-2.5 flex items-center space-x-1">
                 <div x-cloak x-data="{ open: false }">
                     <x-button-link color="edblue" class="group" @click="open = true" title="Ver" wire:click="show({{ $reg->id }})">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" onclick='Livewire.emit("openModal", "eteam.options.admin.eteam-admin-post-view-modal", @json(['eteamPostId' => $reg->id]))'>
                             <i class="fa-solid fa-eye"></i>
                         </span>
                     </x-button-link>
-                    <x-modal>
-                        @include('eteam.admin.posts.modals.edit')
-                    </x-modal>
                 </div>
                 <div x-cloak x-data="{ open: false }">
-                    <x-button-link color="edblue" class="group" @click="open = true" title="Editar" wire:click="edit({{ $reg->id }})">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+                    <x-button-link color="edblue" class="group" @click="open = true" title="Ver" wire:click="show({{ $reg->id }})">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" onclick='Livewire.emit("openModal", "eteam.options.admin.eteam-admin-post-edit-modal", @json(['eteamPostId' => $reg->id]))'>
                             <i class="fa-solid fa-pen-to-square"></i>
                         </span>
                     </x-button-link>
-                    <x-modal width="xl">
-                        @include('eteam.admin.posts.modals.edit')
-                    </x-modal>
                 </div>
                 <div x-cloak x-data="{ open: false }">
                     <x-button-link color="rose" class="group" @click="open = true" title="Eliminar">

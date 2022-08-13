@@ -8,6 +8,7 @@ use App\Http\Managers\EteamPostManager;
 use App\Models\ETeam;
 use App\Models\ETeamPost;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,13 +20,8 @@ class EteamAdminPost extends Component
     protected const PAGINATOR_DEFAULT = 15;
     protected const POST_DELETED = 'Noticia eliminada correctamente';
     protected const POST_DELETE_FAILS = 'Se ha producido un error al eliminar la noticia';
-    protected const POST_UPDATED = 'Cambios guardados correctamente';
-    protected const POST_UPDATE_FAILS = 'Se ha producido un error al guardar la noticia';
-    protected const POST_UPDATE_NO_DIRTY = 'No se han detectado cambios';
-    protected const REG_NOT_EXISTS = 'El registro ya no existe';
 
     public ETeam $eteam;
-    public ETeamPost $eteamPost;
     public array $data = [];
     public string $searchFilter = '';
     public string $visibilityFilter = 'all';
@@ -33,18 +29,15 @@ class EteamAdminPost extends Component
     public bool $someFilterApplied = false;
     public bool $visiblePaginator = false;
 
+    protected $listeners = ['update'];
+
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
         'searchFilter' => ['except' => '', 'as' => 's'],
         'visibilityFilter' => ['except' => 'all', 'as' => 'v']
     ];
 
-    protected $rules = [
-        'eteamPost.title' => 'required|string',
-        'eteamPost.content' => 'required|string',
-        'eteamPost.public' => 'required|integer|digits_between:0,1',
-    ];
-
+    // dependency injections
     public function getEteamPostManagerProperty(): EteamPostManager
     {
         return resolve(EteamPostManager::class);
@@ -141,51 +134,9 @@ class EteamAdminPost extends Component
 
     protected function getOrder(): array
     {
-        $orderValue =
-            [
-                'user' => [
-                    'field' => 'username',
-                    'direction' => 'asc',
-                ],
-                'user_desc' => [
-                    'field' => 'username',
-                    'direction' => 'desc',
-                ],
-                'visibility' => [
-                    'field' => 'public',
-                    'direction' => 'asc',
-                ],
-                'visibility_desc' => [
-                    'field' => 'public',
-                    'direction' => 'desc',
-                ],
-                'title' => [
-                    'field' => 'title',
-                    'direction' => 'asc',
-                ],
-                'title_desc' => [
-                    'field' => 'title',
-                    'direction' => 'desc',
-                ],
-                'content' => [
-                    'field' => 'content',
-                    'direction' => 'asc',
-                ],
-                'content_desc' => [
-                    'field' => 'content',
-                    'direction' => 'desc',
-                ],
-                'created_at' => [
-                    'field' => 'created_at',
-                    'direction' => 'asc',
-                ],
-                'created_at_desc' => [
-                    'field' => 'created_at',
-                    'direction' => 'desc',
-                ]
-            ];
+        $orderValues = EteamPostManager::ORDER_VALUES;
 
-        return $orderValue[$this->order];
+        return $orderValues[$this->order];
     }
 
     public function edit(EteamPost $eteamPost): void
@@ -193,33 +144,10 @@ class EteamAdminPost extends Component
         try {
             $this->eteamPost = $eteamPost;
         } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => self::REG_NOT_EXISTS]);
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::REG_NOT_EXISTS]);
 
             return;
         }
-    }
-
-    public function update(): void
-    {
-        $isDirty = $this->eteamPost->isDirty();
-
-        try {
-            $this->validate();
-            $this->eteamPostManager->update($this->eteamPost);
-
-        } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => self::POST_UPDATE_FAILS]);
-
-            return;
-        }
-
-        if ($isDirty) {
-            $this->dispatchBrowserEvent('action-success', ['message' => self::POST_UPDATED]);
-
-            return;
-        }
-
-        $this->dispatchBrowserEvent('action-info', ['message' => self::POST_UPDATE_NO_DIRTY]);
     }
 
     public function show(int $eteamPostId): void
@@ -239,5 +167,33 @@ class EteamAdminPost extends Component
         }
 
         $this->dispatchBrowserEvent('action-success', ['message' => self::POST_DELETED]);
+    }
+
+    public function update(array $data, bool $hasChanges)
+    {
+        if (!$hasChanges) {
+            $this->dispatchBrowserEvent('action-info', ['message' => EteamPostManager::UPDATE_NO_DIRTY_MESSAGE]);
+
+            return;
+        }
+
+        $eteamPost = ETeamPost::find($data['id']);
+
+        if (!$eteamPost) {
+            $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::REG_NOT_EXISTS]);
+
+            return;
+        }
+
+        try {
+            $this->eteamPostManager->update($eteamPost, $data);
+
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::UPDATE_FAILS_MESSAGE]);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::UPDATED_MESSAGE]);
     }
 }

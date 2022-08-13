@@ -74,10 +74,8 @@
             @endif
 
             @livewire('livewire-ui-modal')
-{{--            @livewireUIScripts--}}
             @livewireScripts
-
-{{--            <script src="./TW-ELEMENTS-PATH/dist/js/index.min.js"></script>--}}
+{{--            @livewireUIScripts--}}
 
             @include('cookieConsent::index')
             @include('layouts.partials.toastr')

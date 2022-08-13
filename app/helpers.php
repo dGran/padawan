@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-/**
- * @param $value
- * @return string
- */
-function numberFormatInt($value): string
+function numberFormatInt(int $value): string
 {
     return number_format($value, 0, ',', '.');
+}
+
+function numberFormatFloat(float $value): string
+{
+    return number_format($value, 2, ',', '.');
 }

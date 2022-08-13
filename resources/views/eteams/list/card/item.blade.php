@@ -1,4 +1,4 @@
-<a class="group | bg-white dark:bg-dt-dark rounded-md p-3 | hover:bg-gray-100 dark:hover:bg-dt-light-accent | focus:bg-gray-100 dark:focus:bg-dt-light-accent | border border-border-color dark:border-gray-700" href="{{ route('eteams.eteam', $eteam->slug) }}">
+<a class="group | bg-white dark:bg-dt-dark rounded-md p-3 | hover:bg-gray-100 dark:hover:bg-dt-light-accent | focus:bg-gray-100 dark:focus:bg-dt-light-accent | border border-border-color dark:border-gray-700" href="{{ route('eteam', $eteam->slug) }}">
     <div class="flex items-start justify-between space-x-3">
         <img src="{{ $eteam->getLogo() }}" alt="" class="w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white dark:bg-dt-dark object-cover | border border-border-color dark:border-edgray-700">
         <div class="flex-1 flex flex-col ml-3 mt-3">
