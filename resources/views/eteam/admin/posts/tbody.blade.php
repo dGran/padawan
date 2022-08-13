@@ -2,6 +2,9 @@
     @foreach ($data['class'] as $index => $reg)
         <tr class="border-t border-border-color dark:border-edgray-700 hover:bg-gray-100 dark:hover:bg-dt-light-accent">
             <td class="text-xs font-light px-4 py-2.5 whitespace-nowrap">
+                {{ $reg->id }}
+            </td>
+            <td class="text-xs font-light px-4 py-2.5 whitespace-nowrap">
                 {{ $reg->getCreatedAtDate() }} - {{ $reg->getCreatedAtTime() }}
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">

@@ -5,7 +5,7 @@
         @livewire('eteam.options.admin.eteam-admin-profile', ['eteam' => $eteam])
         @break
     @case('noticias')
-        @livewire('eteam.options.admin.eteam-admin-post', ['eteam' => $eteam])
+        @livewire('eteam.options.admin.eteam-admin-post', ['eteam' => $eteam, 'user' => auth()->user()])
         @break
     @case('miembros')
         @livewire('eteam.options.admin.eteam-admin-member', ['eteam' => $eteam])

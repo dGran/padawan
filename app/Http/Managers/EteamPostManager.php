@@ -11,6 +11,14 @@ use Illuminate\Support\Str;
 class EteamPostManager
 {
     public const ORDER_VALUES = [
+        'id' => [
+            'field' => 'id',
+            'direction' => 'asc',
+        ],
+        'id_desc' => [
+            'field' => 'id',
+            'direction' => 'desc',
+        ],
         'user' => [
             'field' => 'username',
             'direction' => 'asc',
@@ -73,10 +81,10 @@ class EteamPostManager
     public function create(array $data): void
     {
         ETeamPost::create($this->eteamPostService->getCreateData($data));
-        $this->eteamLogManager->createEteamPostLog($data);
+        $this->eteamLogManager->createEteamPostCreateLog($data);
     }
 
-    public function update(array $data): void
+    public function update(array $data, array $logData): void
     {
         $eteamPost = ETeamPost::find($data['id']);
 
@@ -84,15 +92,17 @@ class EteamPostManager
             $eteamPost->fill($data);
             $eteamPost->slug = '#'.$data['id'].'-'.Str::slug($data['title'], '-');
             $eteamPost->update();
+            $this->eteamLogManager->createEteamPostUpdateLog($logData);
         }
     }
 
-    public function delete(int $eteamPostId): void
+    public function delete(int $eteamPostId, array $logData): void
     {
         $eteamPost = ETeamPost::find($eteamPostId);
 
         if ($eteamPost) {
             $eteamPost->delete();
+            $this->eteamLogManager->createEteamPostDeleteLog($logData);
         }
     }
 }

@@ -28,6 +28,6 @@ class EteamAdminPostRemoveModal extends ModalComponent
     public function delete(): void
     {
         $this->emit('closeModal');
-        $this->emit('delete', $this->eteamPost->id);
+        $this->emit('delete', $this->eteamPost->id, $this->eteamPost->title);
     }
 }

@@ -16,4 +16,10 @@
             {{ $eteamPost->content }}
         </p>
     </div>
+
+    @if ($eteamPost->isUpdated())
+        <p class="text-xxs">
+            Actualizada {{ $eteamPost->getUpdatedAtDate() }} - {{ $eteamPost->getUpdatedAtTime() }}
+        </p>
+    @endif
 </div>

@@ -29,4 +29,26 @@ class EteamLogService
             'message' => "Nueva noticia creada, '".$data['title']."'"
         ];
     }
+
+    public function getEteamPostUpdateData(array $data): array
+    {
+        return [
+            'eteam_id' => $data['eteam_id'],
+            'user_id' => $data['user_id'],
+            'context' => ETeamLog::CONTEXT_POSTS,
+            'type' => ETeamLog::TYPE_UPDATE,
+            'message' => "Noticia #".$data['eteam_post_id']." editada"
+        ];
+    }
+
+    public function getEteamPostDeleteData(array $data): array
+    {
+        return [
+            'eteam_id' => $data['eteam_id'],
+            'user_id' => $data['user_id'],
+            'context' => ETeamLog::CONTEXT_POSTS,
+            'type' => ETeamLog::TYPE_DELETE,
+            'message' => "Noticia #".$data['eteam_post_id']." eliminada, titulo: '".$data['title']."'"
+        ];
+    }
 }

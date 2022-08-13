@@ -64,8 +64,18 @@ class EteamLogManager
         ETeamLog::create($this->eteamLogService->getCreateData($data));
     }
 
-    public function createEteamPostLog(array $data): void
+    public function createEteamPostCreateLog(array $data): void
     {
         ETeamLog::create($this->eteamLogService->getEteamPostCreateData($data));
+    }
+
+    public function createEteamPostUpdateLog(array $data): void
+    {
+        ETeamLog::create($this->eteamLogService->getEteamPostUpdateData($data));
+    }
+
+    public function createEteamPostDeleteLog(array $data): void
+    {
+        ETeamLog::create($this->eteamLogService->getEteamPostDeleteData($data));
     }
 }

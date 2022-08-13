@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Eteam\Options\Admin;
 use App\Http\Managers\EteamPostManager;
 use App\Models\ETeam;
 use App\Models\ETeamPost;
+use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -21,6 +22,7 @@ class EteamAdminPost extends Component
     protected const POST_DELETE_FAILS = 'Se ha producido un error al eliminar la noticia';
 
     public ETeam $eteam;
+    public User $user;
     public array $data = [];
     public string $searchFilter = '';
     public string $visibilityFilter = 'all';
@@ -42,9 +44,10 @@ class EteamAdminPost extends Component
         return resolve(EteamPostManager::class);
     }
 
-    public function mount(Eteam $eteam): void
+    public function mount(Eteam $eteam, User $user): void
     {
         $this->eteam = $eteam;
+        $this->user = $user;
         $this->data['name'] = 'noticias';
     }
 
@@ -161,6 +164,12 @@ class EteamAdminPost extends Component
 
     public function update(array $data, bool $hasChanges)
     {
+        $logData = [
+            'eteam_id' => $this->eteam->id,
+            'user_id' => $this->user->id,
+            'eteam_post_id' => $data['id']
+        ];
+
         if (!$hasChanges) {
             $this->dispatchBrowserEvent('action-info', ['message' => EteamPostManager::UPDATE_NO_DIRTY_MESSAGE]);
 
@@ -168,7 +177,7 @@ class EteamAdminPost extends Component
         }
 
         try {
-            $this->eteamPostManager->update($data);
+            $this->eteamPostManager->update($data, $logData);
 
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::UPDATE_FAILS_MESSAGE]);
@@ -179,12 +188,19 @@ class EteamAdminPost extends Component
         $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::UPDATED_MESSAGE]);
     }
 
-    public function delete(int $eteamPostId): void
+    public function delete(int $eteamPostId, string $title): void
     {
+        $logData = [
+            'eteam_id' => $this->eteam->id,
+            'user_id' => $this->user->id,
+            'eteam_post_id' => $eteamPostId,
+            'title' => $title
+        ];
+
         try {
-            $this->eteamPostManager->delete($eteamPostId);
+            $this->eteamPostManager->delete($eteamPostId, $logData);
         } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => self::POST_DELETE_FAILS]);
+            $this->dispatchBrowserEvent('action-error', ['message' => $exception->getMessage()]);
 
             return;
         }

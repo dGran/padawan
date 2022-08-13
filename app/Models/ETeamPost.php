@@ -34,6 +34,7 @@ class ETeamPost extends Model
             return $query->where(function($q) use ($value) {
                 $q->where('eteams_posts.title', 'LIKE', "%{$value}%")
                     ->orWhere('eteams_posts.content', 'LIKE', "%{$value}%")
+                    ->orWhere('eteams_posts.id', 'LIKE', "%{$value}%")
                     ->orWhere('users.name', 'LIKE', "%{$value}%");
             });
         }
@@ -58,5 +59,20 @@ class ETeamPost extends Model
     public function getCreatedAtTime()
     {
         return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
+    }
+
+    public function getUpdatedAtDate()
+    {
+        return Carbon::parse($this->updated_at)->locale(app()->getLocale())->isoFormat("LL");
+    }
+
+    public function getUpdatedAtTime()
+    {
+        return Carbon::parse($this->updated_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
+    }
+
+    public function isUpdated(): bool
+    {
+        return $this->created_at < $this->updated_at;
     }
 }
