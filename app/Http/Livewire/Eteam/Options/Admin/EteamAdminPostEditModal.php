@@ -29,7 +29,7 @@ class EteamAdminPostEditModal extends ModalComponent
 
     public function render()
     {
-        return view('modals.eteams.edit-post-modal');
+        return view('modals.eteams.post-edit-modal');
     }
 
     public static function modalMaxWidth(): string

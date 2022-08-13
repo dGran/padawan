@@ -56,7 +56,7 @@ class EteamPostManager
     public const UPDATED_MESSAGE = 'Cambios guardados correctamente';
     public const UPDATE_FAILS_MESSAGE = 'Se ha producido un error al guardar la noticia';
     public const UPDATE_NO_DIRTY_MESSAGE = 'No se han detectado cambios';
-    public const REG_NOT_EXISTS = 'El registro ya no existe';
+    public const REG_NOT_EXISTS = 'La noticia ya no existe';
 
     private EteamPostService $eteamPostService;
     private EteamLogManager $eteamLogManager;
@@ -76,18 +76,23 @@ class EteamPostManager
         $this->eteamLogManager->createEteamPostLog($data);
     }
 
-    public function delete(EteamPost $eteamPost): void
+    public function update(array $data): void
     {
-        $eteamPost->delete();
+        $eteamPost = ETeamPost::find($data['id']);
+
+        if ($eteamPost) {
+            $eteamPost->fill($data);
+            $eteamPost->slug = '#'.$data['id'].'-'.Str::slug($data['title'], '-');
+            $eteamPost->update();
+        }
     }
 
-    public function update(EteamPost $eteamPost, array $data): void
+    public function delete(int $eteamPostId): void
     {
-        $eteamPost->title = $data['title'];
-        $eteamPost->content = $data['content'];
-        $eteamPost->public = $data['public'];
-        $eteamPost->slug = Str::slug($data['title'], '-');
+        $eteamPost = ETeamPost::find($eteamPostId);
 
-        $eteamPost->update();
+        if ($eteamPost) {
+            $eteamPost->delete();
+        }
     }
 }

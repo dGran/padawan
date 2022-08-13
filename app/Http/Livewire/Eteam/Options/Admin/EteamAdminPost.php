@@ -8,7 +8,6 @@ use App\Http\Managers\EteamPostManager;
 use App\Models\ETeam;
 use App\Models\ETeamPost;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -29,7 +28,7 @@ class EteamAdminPost extends Component
     public bool $someFilterApplied = false;
     public bool $visiblePaginator = false;
 
-    protected $listeners = ['update'];
+    protected $listeners = ['update', 'delete'];
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
@@ -139,34 +138,25 @@ class EteamAdminPost extends Component
         return $orderValues[$this->order];
     }
 
-    public function edit(EteamPost $eteamPost): void
+    public function view(int $eteamPostId): void
     {
-        try {
-            $this->eteamPost = $eteamPost;
-        } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::REG_NOT_EXISTS]);
-
-            return;
+        if ($this->eteamPostExists($eteamPostId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-post-view-modal", ['eteamPostId' => $eteamPostId]);
         }
     }
 
-    public function show(int $eteamPostId): void
+    public function edit(int $eteamPostId): void
     {
-        $this->eteamPost = EteamPost::find($eteamPostId);
+        if ($this->eteamPostExists($eteamPostId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-post-edit-modal", ['eteamPostId' => $eteamPostId]);
+        }
     }
 
-    public function delete(EteamPost $eteamPost): void
+    public function remove(int $eteamPostId): void
     {
-        try {
-            $this->eteamPost = $eteamPost;
-            $this->eteamPostManager->delete($eteamPost);
-        } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => self::POST_DELETE_FAILS]);
-
-            return;
+        if ($this->eteamPostExists($eteamPostId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-post-remove-modal", ['eteamPostId' => $eteamPostId]);
         }
-
-        $this->dispatchBrowserEvent('action-success', ['message' => self::POST_DELETED]);
     }
 
     public function update(array $data, bool $hasChanges)
@@ -177,16 +167,8 @@ class EteamAdminPost extends Component
             return;
         }
 
-        $eteamPost = ETeamPost::find($data['id']);
-
-        if (!$eteamPost) {
-            $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::REG_NOT_EXISTS]);
-
-            return;
-        }
-
         try {
-            $this->eteamPostManager->update($eteamPost, $data);
+            $this->eteamPostManager->update($data);
 
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::UPDATE_FAILS_MESSAGE]);
@@ -195,5 +177,30 @@ class EteamAdminPost extends Component
         }
 
         $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::UPDATED_MESSAGE]);
+    }
+
+    public function delete(int $eteamPostId): void
+    {
+        try {
+            $this->eteamPostManager->delete($eteamPostId);
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => self::POST_DELETE_FAILS]);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => self::POST_DELETED]);
+    }
+
+    protected function eteamPostExists(int $eteamPostId): bool {
+        $eteamPost = ETeamPost::find($eteamPostId);
+
+        if (!$eteamPost) {
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::REG_NOT_EXISTS]);
+
+            return false;
+        }
+
+        return true;
     }
 }
