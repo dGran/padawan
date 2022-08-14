@@ -14,14 +14,14 @@
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Buscador', 'value' => $searchFilter, 'filterName' => 'searchFilter'])
                 </li>
             @endif
-            @if ($visibilityFilter !== 'all')
-                <li>
-                    @include('eteam.admin.partials.filter-tag', ['title' => 'Visibilidad', 'value' => $visibilityFilter, 'filterName' => 'visibilityFilter'])
-                </li>
-            @endif
             @if ($userFilter !== 'all')
                 <li>
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Usuario', 'value' => $userFilter, 'filterName' => 'userFilter'])
+                </li>
+            @endif
+            @if ($visibilityFilter !== 'all')
+                <li>
+                    @include('eteam.admin.partials.filter-tag', ['title' => 'Visibilidad', 'value' => $visibilityFilter, 'filterName' => 'visibilityFilter'])
                 </li>
             @endif
         </ul>
