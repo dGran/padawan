@@ -16,10 +16,10 @@ class EteamAdminPostEditModal extends ModalComponent
     ];
 
     protected $messages = [
-        'eteamPost.title.required' => 'El título es obligatorio.',
-        'eteamPost.content.required' => 'El contenido es obligatorio.',
-        'eteamPost.public.required' => 'La visibilidad es obligatoria.',
-        'eteamPost.public.digits_between' => 'La visibilidad debe ser pública o privada.',
+        'eteamPost.title.required' => 'El título es obligatorio',
+        'eteamPost.content.required' => 'El contenido es obligatorio',
+        'eteamPost.public.required' => 'La visibilidad es obligatoria',
+        'eteamPost.public.digits_between' => 'La visibilidad debe ser pública o privada',
     ];
 
     public function mount(EteamPost $eteamPostId)

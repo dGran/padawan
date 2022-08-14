@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Eteam\Options\Admin;
 use App\Http\Managers\EteamLogManager;
 use App\Models\ETeam;
 use App\Models\ETeamLog;
+use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 use Livewire\Component;
@@ -19,6 +20,7 @@ class EteamAdminLog extends Component
     protected const PAGINATOR_DEFAULT = 15;
 
     public ETeam $eteam;
+    public User $user;
     public array $data = [];
     public string $searchFilter = '';
     public string $contextFilter = '';
@@ -42,9 +44,10 @@ class EteamAdminLog extends Component
         return resolve(EteamLogManager::class);
     }
 
-    public function mount(Eteam $eteam): void
+    public function mount(Eteam $eteam, User $user): void
     {
         $this->eteam = $eteam;
+        $this->usser = $user;
         $this->data['name'] = 'logs';
     }
 
