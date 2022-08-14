@@ -4,11 +4,11 @@
             <div class="pb-3 mb-3 border-b border-border-color dark:border-dt-border-color">
                 <div class="">
                     <p class="text-sm md:text-normal | text-title-color dark:text-dt-title-color">{{ $post->title }}</p>
-                    <p class="py-2.5 leading-5">{!! nl2br($post->content) !!}</p>
-                </div>
-                <div class="text-right | text-xxs md:text-xs | text-light-color dark:text-dt-text-light-color">
-                    por <x-link wire:click="$emit('openModal', 'modals.user-modal', {{ json_encode([$post->user]) }})">{{ $post->user->name }}</x-link>-
-                    {{ $post->getCreatedAtDate() }}, {{ $post->getCreatedAtTime() }}
+                    <div class="text-xxs md:text-xs | text-light-color dark:text-dt-text-light-color">
+                        por <x-link wire:click="$emit('openModal', 'modals.user-modal', {{ json_encode([$post->user]) }})">{{ $post->user->name }}</x-link>-
+                        {{ $post->getCreatedAtDate() }}, {{ $post->getCreatedAtTime() }}
+                    </div>
+                    <p class="p-4 leading-5">{!! nl2br($post->content) !!}</p>
                 </div>
             </div>
         @endforeach
