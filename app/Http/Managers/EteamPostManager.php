@@ -64,6 +64,8 @@ class EteamPostManager
     public const UPDATED_MESSAGE = 'Cambios guardados correctamente';
     public const UPDATE_FAILS_MESSAGE = 'Se ha producido un error al guardar la noticia';
     public const UPDATE_NO_DIRTY_MESSAGE = 'No se han detectado cambios';
+    public const STORED_MESSAGE = 'Noticia creada correctamente';
+    public const STORE_FAILS_MESSAGE = 'Se ha producido un error al crear la noticia';
     public const REG_NOT_EXISTS = 'La noticia ya no existe';
 
     private EteamPostService $eteamPostService;

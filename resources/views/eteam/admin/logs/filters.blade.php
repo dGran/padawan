@@ -13,16 +13,19 @@
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Buscador', 'value' => $searchFilter, 'filterName' => 'searchFilter'])
                 </li>
             @endif
-
             @if (!empty($contextFilter))
                 <li>
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Contexto', 'value' => $contextFilter, 'filterName' => 'contextFilter'])
                 </li>
             @endif
-
             @if (!empty($typeFilter))
                 <li>
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Tipo', 'value' => $typeFilter, 'filterName' => 'typeFilter'])
+                </li>
+            @endif
+            @if ($userFilter !== 'all')
+                <li>
+                    @include('eteam.admin.partials.filter-tag', ['title' => 'Usuario', 'value' => $userFilter, 'filterName' => 'userFilter'])
                 </li>
             @endif
         </ul>

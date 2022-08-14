@@ -26,16 +26,18 @@ class EteamAdminPost extends Component
     public array $data = [];
     public string $searchFilter = '';
     public string $visibilityFilter = 'all';
+    public string $userFilter = 'all';
     public string $order = "created_at_desc";
     public bool $someFilterApplied = false;
     public bool $visiblePaginator = false;
 
-    protected $listeners = ['update', 'delete'];
+    protected $listeners = ['store', 'update', 'delete'];
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
         'searchFilter' => ['except' => '', 'as' => 's'],
-        'visibilityFilter' => ['except' => 'all', 'as' => 'v']
+        'visibilityFilter' => ['except' => 'all', 'as' => 'v'],
+        'userFilter' => ['except' => 'all', 'as' => 'u']
     ];
 
     // dependency injections
@@ -67,6 +69,7 @@ class EteamAdminPost extends Component
             ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->search($this->searchFilter)
+            ->user($this->userFilter)
             ->visibility($this->visibilityFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(self::PAGINATOR_DEFAULT);
@@ -74,7 +77,7 @@ class EteamAdminPost extends Component
 
     protected function someFilterApplied(): bool
     {
-        return !empty($this->searchFilter) || $this->visibilityFilter !== 'all';
+        return !empty($this->searchFilter) || $this->visibilityFilter !== 'all' || $this->userFilter !== 'all';
     }
 
     protected function visiblePaginator(): bool
@@ -91,6 +94,12 @@ class EteamAdminPost extends Component
     {
         $this->resetPage();
         $this->visibilityFilter = $public ? 'pública' : 'privada';
+    }
+
+    public function applyUserFilter(string $userName): void
+    {
+        $this->resetPage();
+        $this->userFilter = $userName;
     }
 
     public function clearFilter(string $filter): void {
@@ -141,6 +150,11 @@ class EteamAdminPost extends Component
         return $orderValues[$this->order];
     }
 
+    public function create(): void
+    {
+        $this->emit("openModal", "eteam.options.admin.eteam-admin-post-create-modal", ['eteamId' => $this->eteam->id, 'userId' => $this->user->id]);
+    }
+
     public function view(int $eteamPostId): void
     {
         if ($this->eteamPostExists($eteamPostId)) {
@@ -160,6 +174,20 @@ class EteamAdminPost extends Component
         if ($this->eteamPostExists($eteamPostId)) {
             $this->emit("openModal", "eteam.options.admin.eteam-admin-post-remove-modal", ['eteamPostId' => $eteamPostId]);
         }
+    }
+
+    public function store(array $data)
+    {
+        try {
+            $this->eteamPostManager->create($data);
+
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::STORE_FAILS_MESSAGE]);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::STORED_MESSAGE]);
     }
 
     public function update(array $data, bool $hasChanges)

@@ -8,12 +8,12 @@
                 {{ $reg->getCreatedAtDate() }} - {{ $reg->getCreatedAtTime() }}
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                <a href="#" class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" wire:click='$emit("openModal", "modals.user-modal", @json(['user' => $reg->user]))'>
+                <x-link class="text-edblue-500 dark:text-edblue-400 | hover:text-edblue-600 dark:hover:text-edblue-300 | focus:outline-none focus:text-edblue-600 dark:focus:text-edblue-300 | transition ease-in-out duration-150 | cursor-pointer" wire:click="applyUserFilter('{{ $reg->user->name }}')">
                     {{ $reg->user->name }}
-                </a>
+                </x-link>
             </td>
             <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                <button wire:click="applyVisibilityFilter({{ $reg->public }})" class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none font-medium rounded {{ $reg->public ? 'bg-edgray-400 text-edgray-900 dark:bg-edgray-600 dark:text-white' : 'bg-yellow-600 dark:bg-yellow-700 text-white' }}">
+                <button class="text-xxxs uppercase inline-block w-24 py-1.5 px-2.5 leading-none font-medium rounded {{ $reg->public ? 'bg-edgray-400 text-edgray-900 dark:bg-edgray-600 dark:text-white' : 'bg-yellow-600 dark:bg-yellow-700 text-white' }}" wire:click="applyVisibilityFilter({{ $reg->public }})">
                     {{ $reg->public ? 'pública' : 'privada' }}
                 </button>
             </td>

@@ -51,6 +51,13 @@ class ETeamPost extends Model
         }
     }
 
+    public function scopeUser($query, $value)
+    {
+        if ($value !== 'all') {
+            return $query->where('users.name', $value);
+        }
+    }
+
     public function getCreatedAtDate()
     {
         return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("LL");

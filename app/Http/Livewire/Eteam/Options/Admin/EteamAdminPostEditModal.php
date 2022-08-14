@@ -7,7 +7,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class EteamAdminPostEditModal extends ModalComponent
 {
-    public $eteamPostId;
+    public $eteamPost;
 
     protected $rules = [
         'eteamPost.title' => 'required|string',

@@ -23,6 +23,7 @@ class EteamAdminLog extends Component
     public string $searchFilter = '';
     public string $contextFilter = '';
     public string $typeFilter = '';
+    public string $userFilter = 'all';
     public bool $someFilterApplied = false;
     public bool $visiblePaginator = false;
     public string $order = "created_at_desc";
@@ -31,7 +32,8 @@ class EteamAdminLog extends Component
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
         'searchFilter' => ['except' => '', 'as' => 's'],
         'contextFilter' => ['except' => '', 'as' => 'c'],
-        'typeFilter' => ['except' => '', 'as' => 't']
+        'typeFilter' => ['except' => '', 'as' => 't'],
+        'userFilter' => ['except' => 'all', 'as' => 'u']
     ];
 
     // dependency injections
@@ -62,6 +64,7 @@ class EteamAdminLog extends Component
             ->join('users', 'users.id', 'eteams_logs.user_id')
             ->where('eteam_id', $this->eteam->id)
             ->search($this->searchFilter)
+            ->user($this->userFilter)
             ->context($this->contextFilter)
             ->type($this->typeFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
@@ -70,7 +73,7 @@ class EteamAdminLog extends Component
 
     protected function someFilterApplied(): bool
     {
-        return !empty($this->searchFilter) || !empty($this->contextFilter) || !empty($this->typeFilter);
+        return !empty($this->searchFilter) || !empty($this->contextFilter) || !empty($this->typeFilter) || $this->userFilter !== 'all';
     }
 
     protected function visiblePaginator(): bool
@@ -95,12 +98,23 @@ class EteamAdminLog extends Component
         $this->typeFilter = $type;
     }
 
+    public function applyUserFilter(string $userName): void
+    {
+        $this->resetPage();
+        $this->userFilter = $userName;
+    }
+
     public function clearFilter(string $filter): void {
         $this->reset($filter);
 
         if ($filter === 'searchFilter') {
             $this->emit('focus-search');
         }
+    }
+
+    public function setOrder(string $value): void
+    {
+        $this->order = $value;
     }
 
     public function setCurrentPage(): void
@@ -129,11 +143,6 @@ class EteamAdminLog extends Component
         } else {
             $this->setPage($lastPage);
         }
-    }
-
-    public function setOrder(string $value): void
-    {
-        $this->order = $value;
     }
 
     protected function getOrder(): array

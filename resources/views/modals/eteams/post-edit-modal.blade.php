@@ -4,7 +4,7 @@
 
     {{--header--}}
     <div class="p-4 border-b border-border-color dark:border-edgray-700 | font-semibold text-title-color dark:text-dt-title-color">
-        Editar noticia
+        Editar noticia #{{ $eteamPost->id }}
     </div>
 
     <form wire:submit.prevent="update">

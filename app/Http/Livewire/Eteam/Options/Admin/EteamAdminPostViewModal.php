@@ -7,7 +7,7 @@ use LivewireUI\Modal\ModalComponent;
 
 class EteamAdminPostViewModal extends ModalComponent
 {
-    public $eteamPostId;
+    public $eteamPost;
 
     public function mount(EteamPost $eteamPostId)
     {

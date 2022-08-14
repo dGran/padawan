@@ -4,7 +4,7 @@
 
     {{--content--}}
     <div class="p-6 | flex flex-col items-center">
-        <p>¿Deseas eliminar la noticia?</p>
+        <p>¿Deseas eliminar la noticia #{{ $eteamPost->id }}?</p>
     </div>
 
     {{--footer--}}
