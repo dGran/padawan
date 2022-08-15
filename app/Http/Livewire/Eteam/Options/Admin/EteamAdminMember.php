@@ -4,126 +4,101 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Eteam\Options\Admin;
 
+use App\Http\Managers\EteamMemberManager;
 use App\Models\ETeam;
 use App\Models\ETeamUser;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\View\View;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class EteamAdminMember extends Component
 {
-    use WithPagination;
-
-    public $eteam;
-    public $data = [];
-    public $order = "created_at_desc";
+    public ETeam $eteam;
+    public User $user;
+    public array $data = [];
+    public string $searchFilter = '';
+    public string $rangeFilter = 'all';
+    public bool $someFilterApplied = false;
+    public string $order = "created_at_desc";
 
     protected $queryString = [
-        'order' => ['except' => 'created_at_desc']
+        'order' => ['except' => 'created_at_desc', 'as' => 'o'],
+        'searchFilter' => ['except' => '', 'as' => 's'],
+        'rangeFilter' => ['except' => 'all', 'as' => 'r']
     ];
 
-    public function mount(Eteam $eteam)
+    // dependency injections
+    public function getEteamMemberManagerProperty(): EteamMemberManager
+    {
+        return resolve(EteamMemberManager::class);
+    }
+
+    public function mount(Eteam $eteam, User $user): void
     {
         $this->eteam = $eteam;
+        $this->user = $user;
         $this->data['name'] = 'miembros';
     }
 
-    public function render()
+    public function render(): View
     {
-        $members = $this->getData();
-        $this->data['class'] = $members;
+        $logs = $this->getData();
+        $this->data['class'] = $logs;
+        $this->someFilterApplied = $this->someFilterApplied();
 
-        return view('eteam.admin.members.index', [
-            'members' => $members
-        ]);
+        return view('eteam.admin.members.index');
     }
 
+    /**
+     * @return array<EteamUser>
+     */
     protected function getData()
     {
-        return ETeamUser::select('eteams_users.*', 'users.name as username')
+        $query = ETeamUser::select('eteams_users.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_users.user_id')
             ->where('eteam_id', $this->eteam->id)
-            ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->paginate(3);
+            ->search($this->searchFilter)
+            ->range($this->rangeFilter);
+
+        if ($this->getOrder()['field'] === 'captain') {
+            $query = $query->orderBy('owner', $this->getOrder()['direction']);
+        }
+
+        $query = $query->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
+            ->get();
+
+        return $query;
     }
 
-    public function setCurrentPage()
+    protected function someFilterApplied(): bool
     {
-        $this->gotoPage($this->page);
+        return !empty($this->searchFilter) || ($this->rangeFilter !== 'all');
     }
 
-    public function toPage($page)
+    public function setRangeFilter(string $range): void
     {
-        $this->gotoPage($page);
+        $this->rangeFilter = $range;
     }
 
-    public function nextPage($lastPage)
-    {
-        if (($this->page + 1) <= $lastPage) {
-            $this->setPage($this->page + 1);
-        } else {
-            $this->setPage(1);
+    public function clearFilter(string $filter): void {
+        $this->reset($filter);
+
+        if ($filter === 'searchFilter') {
+            $this->emit('focus-search');
         }
     }
 
-    public function previousPage($lastPage)
-    {
-        if ($this->page > 1) {
-            $this->setPage($this->page - 1);
-        } else {
-            $this->setPage($lastPage);
-        }
-    }
-
-    public function setOrder(string $value)
+    public function setOrder(string $value): void
     {
         $this->order = $value;
     }
 
     protected function getOrder(): array
     {
-        (array) $orderValue = [
-            'user' => [
-                'field' => 'username',
-                'direction' => 'asc',
-            ],
-            'user_desc' => [
-                'field' => 'username',
-                'direction' => 'desc',
-            ],
-            'context' => [
-                'field' => 'context',
-                'direction' => 'asc',
-            ],
-            'context_desc' => [
-                'field' => 'context',
-                'direction' => 'desc',
-            ],
-            'type' => [
-                'field' => 'type',
-                'direction' => 'asc',
-            ],
-            'type_desc' => [
-                'field' => 'type',
-                'direction' => 'desc',
-            ],
-            'message' => [
-                'field' => 'message',
-                'direction' => 'asc',
-            ],
-            'message_desc' => [
-                'field' => 'message',
-                'direction' => 'desc',
-            ],
-            'created_at' => [
-                'field' => 'created_at',
-                'direction' => 'asc',
-            ],
-            'created_at_desc' => [
-                'field' => 'created_at',
-                'direction' => 'desc',
-            ]
-        ];
+        $orderValues = EteamMemberManager::ORDER_VALUES;
 
-        return $orderValue[$this->order];
+        return $orderValues[$this->order];
     }
 }
