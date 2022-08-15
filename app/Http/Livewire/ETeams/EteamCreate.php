@@ -243,6 +243,9 @@ class EteamCreate extends Component
             'updated_at' => now(),
         ]);
 
+        if (!$eteam) {
+            return redirect()->route('eteams')->with("error", "Error al crear el equipo");
+        }
 
         $this->eteamLogManager->create([
             'eteam_id' => $eteam->id,
@@ -251,10 +254,6 @@ class EteamCreate extends Component
             'type' => ETeamLog::TYPE_POST,
             'message' => "Equipo creado"
         ]);
-
-        if (!$eteam) {
-            return redirect()->route('eteams')->with("error", "Error al crear el equipo");
-        }
 
         ETeamUser::create([
             'eteam_id' => $eteam->id,

@@ -2,5 +2,7 @@
         style="text-decoration-color: white"
         wire:click="clearFilter('{{ $filterName }}')">
     <span class="text-xxxs text-edgray-600 dark:text-edgray-400 group-hover:text-white">{{ $title }}</span>
-    <span  class="ml-2 text-xxs text-edgray-800 dark:text-edgray-100 group-hover:text-white">{{ $value }}</span>
+    @if ($value)
+        <span  class="ml-2 text-xxs text-edgray-800 dark:text-edgray-100 group-hover:text-white">{{ $value }}</span>
+    @endif
 </button>

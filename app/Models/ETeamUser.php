@@ -18,6 +18,13 @@ class ETeamUser extends Model
         'eteam_id', 'user_id', 'owner', 'captain', 'active', 'name', 'img', 'game_position_id', 'contract_from', 'contract_to'
     ];
 
+    protected const RANGE_OWNER = 'propietario';
+    protected const RANGE_CAPTAIN = 'capitan';
+    protected const RANGE_MEMBER = 'miembro';
+    protected const RANGE_OWNER_COLOR = 'purple';
+    protected const RANGE_CAPTAIN_COLOR = 'rose';
+    protected const RANGE_MEMBER_COLOR = 'edgray';
+
     public function eteam()
     {
         return $this->belongsTo('App\Models\ETeam', 'eteam_id', 'id');
@@ -26,6 +33,34 @@ class ETeamUser extends Model
     public function user()
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        if (trim($value) !== "") {
+            return $query->where(function($q) use ($value) {
+                $q->where('users.name', 'LIKE', "%{$value}%");
+            });
+        }
+    }
+
+    public function scopeRange($query, $value)
+    {
+        if (trim($value) !== "all") {
+            if ($value === self::RANGE_OWNER) {
+                return $query->where('eteams_users.owner', true);
+            }
+
+            if ($value === self::RANGE_CAPTAIN) {
+                return $query->where('eteams_users.captain', true)
+                    ->orWhere('eteams_users.owner', true);
+            }
+
+            if ($value === self::RANGE_MEMBER) {
+                return $query->where('eteams_users.owner', false)
+                    ->where('eteams_users.captain', false);
+            }
+        }
     }
 
     public function getName()
@@ -45,6 +80,19 @@ class ETeamUser extends Model
         return $this->img;
     }
 
+    public function getRangeProps(): array
+    {
+        if ($this->owner) {
+            return ['text' => self::RANGE_OWNER, 'color' => self::RANGE_OWNER_COLOR];
+        }
+
+        if ($this->captain) {
+            return ['text' => self::RANGE_CAPTAIN, 'color' => self::RANGE_CAPTAIN_COLOR];
+        }
+
+        return ['text' => self::RANGE_MEMBER, 'color' => self::RANGE_MEMBER_COLOR];
+    }
+
     public function isRacing()
     {
         return $this->eteam->game->racing ? true : false;
@@ -58,5 +106,23 @@ class ETeamUser extends Model
     public function getCreatedAtTime()
     {
         return Carbon::parse($this->created_at)->locale(app()->getLocale())->isoFormat("H[:]mm");
+    }
+
+    public function getContractFromDate()
+    {
+        if (empty($this->contractFrom)) {
+            return null;
+        }
+
+        return Carbon::parse($this->contractFrom)->locale(app()->getLocale())->isoFormat("LL");
+    }
+
+    public function getContractToDate()
+    {
+        if (empty($this->contractTo)) {
+            return null;
+        }
+
+        return Carbon::parse($this->contractTo)->locale(app()->getLocale())->isoFormat("LL");
     }
 }

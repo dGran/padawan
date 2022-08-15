@@ -164,7 +164,7 @@ class MyTeamsController extends Controller
     public function leaveEteam(EteamUser $eteamUser)
     {
 //        TODO leaveEteam
-        return back()->with('error', 'Próximamente...');
+        return back()->with('info', 'Próximamente...');
 
 //        $eteam = $eteamUser->eteam;
 //        $captain = $eteamUser->captain;
@@ -185,7 +185,7 @@ class MyTeamsController extends Controller
     public function disolveEteam(Team_Esport $eteam)
     {
 //        TODO disolveEteam
-        return back()->with('error', 'Próximamente...');
+        return back()->with('info', 'Próximamente...');
         /**
          * check if it posible
          *

@@ -90,7 +90,7 @@ class Eteam extends Component
 
         if ($tab === 'admin') {
             if (!auth()->user()) {
-                session()->flash('error', 'Debes iniciar sesión. '.$tab);
+                session()->flash('error', 'Debes iniciar sesión.');
                 $this->setTabs('sede', (string) null);
 
                 return;

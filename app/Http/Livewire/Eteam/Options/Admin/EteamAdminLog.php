@@ -47,7 +47,7 @@ class EteamAdminLog extends Component
     public function mount(Eteam $eteam, User $user): void
     {
         $this->eteam = $eteam;
-        $this->usser = $user;
+        $this->user = $user;
         $this->data['name'] = 'logs';
     }
 

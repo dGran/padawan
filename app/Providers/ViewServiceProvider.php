@@ -48,12 +48,12 @@ class ViewServiceProvider extends ServiceProvider
             ],
             [
                 'class' => '',
-                'route-name' => 'eteams',
+                'route-name' => 'market',
                 'text' => 'Mercado'
             ],
             [
                 'class' => 'hidden xl:inline-block',
-                'route-name' => 'cookie-policy',
+                'route-name' => 'merchandising',
                 'text' => 'Merchandising'
             ],
         ];

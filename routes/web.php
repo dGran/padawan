@@ -22,5 +22,7 @@ Route::get('/gt-sport', function () {
 require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/account.php';
-require __DIR__.'/eteams.php';
 require __DIR__.'/tournaments.php';
+require __DIR__.'/eteams.php';
+require __DIR__.'/market.php';
+require __DIR__.'/merchandising.php';
