@@ -133,39 +133,43 @@ class User extends Authenticatable implements MustVerifyEmail
     public function isMemberEteamGame(int $gameId): bool
     {
         $userEteamsWithGameId = ETeamUser::
-        with([
-            "eteam" => function ($query) use ($gameId) {
-                $query->where('eteam.game_id', '=', $gameId);
-            },
-        ])
+            with([
+                "eteam" => function ($query) use ($gameId) {
+                    $query->where('eteam.game_id', '=', $gameId);
+                },
+            ])
             ->where('user_id', $this->id)
             ->count();
 
         return $userEteamsWithGameId > 0;
     }
 
-    /**
-     * @param $eteam_id
-     * @return bool
-     */
-    public function isAdminETeam($eteam_id): bool
+    public function isAdminETeam(int $eteam_id): bool
     {
-        $admin = ETeamUser::where('eteam_id', $eteam_id)
+        $query = ETeamUser::where('eteam_id', $eteam_id)
+            ->select('id')
             ->where('user_id', $this->id)
             ->where(function ($q) {
                 $q->where('owner', 1)
                     ->orWhere('captain', 1);
             })
-            ->get();
+            ->count();
 
-        return (bool) $admin->count() > 0 ? true : false;
+        return $query === 1;
     }
 
-    /**
-     * @param $eteam_id
-     * @return int
-     */
-    public function eteamInvitation($eteam_id): int
+    public function isOwnerETeam(int $eteam_id): bool
+    {
+        $query = ETeamUser::where('eteam_id', $eteam_id)
+            ->select('id')
+            ->where('user_id', $this->id)
+            ->where('owner', 1)
+            ->count();
+
+        return $query === 1;
+    }
+
+    public function eteamInvitation(int $eteam_id): int
     {
         return (int) ETeamInvitation::where('user_id', $this->id)
             ->where('eteam_id', $eteam_id)
@@ -173,10 +177,6 @@ class User extends Authenticatable implements MustVerifyEmail
             ->count();
     }
 
-    /**
-     * @param  int  $eteam_id
-     * @return int
-     */
     public function eteamRequest(int $eteam_id): int
     {
         return (int) (ETeamRequest::where('user_id', $this->id)
@@ -184,10 +184,6 @@ class User extends Authenticatable implements MustVerifyEmail
             ->count());
     }
 
-    /**
-     * @param  int  $eteam_id
-     * @return string
-     */
     public function eteamRequestState(int $eteam_id): string
     {
         $state = (ETeamRequest::where('user_id', $this->id)
@@ -237,34 +233,22 @@ class User extends Authenticatable implements MustVerifyEmail
         return $myTeamsWhereIamAdminIds;
     }
 
-    /**
-     * @return Collection
-     */
     public function getEteamsInvitations(): Collection
     {
         return ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->orderBy('created_at',
             'desc')->get();
     }
 
-    /**
-     * @return int|null
-     */
     public function countEteamsInvitations(): ?int
     {
         return (int) ETeamInvitation::where('user_id', $this->id)->where('state', 'pending')->count();
     }
 
-    /**
-     * @return Collection
-     */
     public function getEteamRequests(): Collection
     {
         return ETeamRequest::where('user_id', $this->id)->orderBy('created_at', 'desc')->get();
     }
 
-    /**
-     * @return Collection
-     */
     public function getMyEteamsInvitations(): Collection
     {
         $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
@@ -272,9 +256,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return ETeamInvitation::whereIn('eteam_id', [$myTeamsWhereIamAdminIds])->orderBy('created_at', 'desc')->get();
     }
 
-    /**
-     * @return int|null
-     */
     public function countMyEteamsInvitations(): ?int
     {
         $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
@@ -286,9 +267,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return null;
     }
 
-    /**
-     * @return Collection
-     */
     public function getMyEteamsRequests(): Collection
     {
         $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
@@ -297,9 +275,6 @@ class User extends Authenticatable implements MustVerifyEmail
             'pending')->orderBy('created_at', 'desc')->get();
     }
 
-    /**
-     * @return int|null
-     */
     public function countMyEteamsRequests(): ?int
     {
         $myTeamsWhereIamAdminIds = $this->getMyTeamsWhereIamAdminIds();
@@ -311,25 +286,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return null;
     }
 
-    /**
-     * @return int
-     */
     public function countEteamsNotifications(): int
     {
         return $this->countEteamsInvitations() + $this->countMyEteamsInvitations() + $this->countMyEteamsRequests();
     }
 
-    /**
-     * @return int|null
-     */
     public function countNotifications(): ?int
     {
         return (int) Notification::where('user_id', $this->id)->unread(true)->count();
     }
 
-    /**
-     * @return int
-     */
     public function countTotalNotifications(): int
     {
         return $this->countNotifications() + $this->countEteamsInvitations() + $this->countMyEteamsInvitations() + $this->countMyEteamsRequests();

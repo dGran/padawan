@@ -13,7 +13,7 @@
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Buscador', 'value' => $searchFilter, 'filterName' => 'searchFilter'])
                 </li>
             @endif
-            @if ($rangeFilter)
+            @if ($rangeFilter !== 'all')
                 <li>
                     @include('eteam.admin.partials.filter-tag', ['title' => 'Rango', 'value' => $rangeFilter, 'filterName' => 'rangeFilter'])
                 </li>

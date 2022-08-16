@@ -8,8 +8,6 @@ use App\Http\Managers\EteamMemberManager;
 use App\Models\ETeam;
 use App\Models\ETeamUser;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\View\View;
 use Livewire\Component;
 
@@ -44,8 +42,8 @@ class EteamAdminMember extends Component
 
     public function render(): View
     {
-        $logs = $this->getData();
-        $this->data['class'] = $logs;
+        $members = $this->getData();
+        $this->data['class'] = $members;
         $this->someFilterApplied = $this->someFilterApplied();
 
         return view('eteam.admin.members.index');
@@ -66,10 +64,8 @@ class EteamAdminMember extends Component
             $query = $query->orderBy('owner', $this->getOrder()['direction']);
         }
 
-        $query = $query->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
+        return $query->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->get();
-
-        return $query;
     }
 
     protected function someFilterApplied(): bool
@@ -100,5 +96,39 @@ class EteamAdminMember extends Component
         $orderValues = EteamMemberManager::ORDER_VALUES;
 
         return $orderValues[$this->order];
+    }
+
+    public function transferTeamOwnership(int $userId): void
+    {
+        $transferTeamOwnership = $this->eteamMemberManager->transferTeamOwnership($this->eteam->id, $this->user->id, $userId);
+
+        if ($transferTeamOwnership) {
+            // falta el modal de confirmación
+            // guardar en el log
+            // crear noticia privada
+            // enviar mails a todos los miembros
+            $this->dispatchBrowserEvent('action-success', ['message' => 'Has transferido la propiedad del equipo correctamente.']);
+
+            return;
+        }
+
+        session()->flash('error', 'Ha habido un problema durante el proceso.');
+    }
+
+    public function grantCaptainRange(int $userId): void
+    {
+        $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($this->eteam->id, $userId);
+
+        if ($grantCaptainRange) {
+            // falta el modal de confirmación
+            // guardar en el log
+            // crear noticia privada
+            // enviar mails a todos los miembros
+            $this->dispatchBrowserEvent('action-success', ['message' => 'Has otorgado capitanía correctamente.']);
+
+            return;
+        }
+
+        session()->flash('error', 'Ha habido un problema durante el proceso.');
     }
 }

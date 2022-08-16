@@ -18,9 +18,9 @@ class ETeamUser extends Model
         'eteam_id', 'user_id', 'owner', 'captain', 'active', 'name', 'img', 'game_position_id', 'contract_from', 'contract_to'
     ];
 
-    protected const RANGE_OWNER = 'propietario';
-    protected const RANGE_CAPTAIN = 'capitan';
-    protected const RANGE_MEMBER = 'miembro';
+    public const RANGE_OWNER = 'propietario';
+    public const RANGE_CAPTAIN = 'capitan';
+    public const RANGE_MEMBER = 'miembro';
     protected const RANGE_OWNER_COLOR = 'purple';
     protected const RANGE_CAPTAIN_COLOR = 'rose';
     protected const RANGE_MEMBER_COLOR = 'edgray';
@@ -48,7 +48,7 @@ class ETeamUser extends Model
     {
         if (trim($value) !== "all") {
             if ($value === self::RANGE_OWNER) {
-                return $query->where('eteams_users.owner', true);
+                return $query->where('eteams_users.owner', '=', true);
             }
 
             if ($value === self::RANGE_CAPTAIN) {
