@@ -72,4 +72,9 @@ class EteamMemberManager
     {
         return $this->eteamMemberRepository->grantCaptainRange($eteamId, $memberId);
     }
+
+    public function removeCaptainRange(int $eteamId, int $memberId): bool
+    {
+        return $this->eteamMemberRepository->removeCaptainRange($eteamId, $memberId);
+    }
 }

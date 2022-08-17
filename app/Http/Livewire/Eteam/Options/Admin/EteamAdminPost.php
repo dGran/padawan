@@ -18,8 +18,6 @@ class EteamAdminPost extends Component
     use WithPagination;
 
     protected const PAGINATOR_DEFAULT = 15;
-    protected const POST_DELETED = 'Noticia eliminada correctamente';
-    protected const POST_DELETE_FAILS = 'Se ha producido un error al eliminar la noticia';
 
     public ETeam $eteam;
     public User $user;
@@ -228,12 +226,12 @@ class EteamAdminPost extends Component
         try {
             $this->eteamPostManager->delete($eteamPostId, $logData);
         } catch (\Exception $exception) {
-            $this->dispatchBrowserEvent('action-error', ['message' => $exception->getMessage()]);
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::POST_DELETE_FAILS]);
 
             return;
         }
 
-        $this->dispatchBrowserEvent('action-success', ['message' => self::POST_DELETED]);
+        $this->dispatchBrowserEvent('action-success', ['message' => EteamPostManager::POST_DELETED]);
     }
 
     protected function eteamPostExists(int $eteamPostId): bool {

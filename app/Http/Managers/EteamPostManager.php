@@ -66,6 +66,8 @@ class EteamPostManager
     public const UPDATE_NO_DIRTY_MESSAGE = 'No se han detectado cambios';
     public const STORED_MESSAGE = 'Noticia creada correctamente';
     public const STORE_FAILS_MESSAGE = 'Se ha producido un error al crear la noticia';
+    public const POST_DELETED = 'Noticia eliminada correctamente';
+    public const POST_DELETE_FAILS = 'Se ha producido un error al eliminar la noticia';
     public const REG_NOT_EXISTS = 'La noticia ya no existe';
 
     private EteamPostService $eteamPostService;

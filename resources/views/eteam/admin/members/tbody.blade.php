@@ -32,7 +32,7 @@
                             </x-button-link>
                         @else
                             <x-button-link disabled color="edblue" class="group" title="Ascender a capitán">
-                                <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+                                <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color">
                                     <span>P</span>
                                 </span>
                             </x-button-link>
@@ -44,12 +44,24 @@
                                 <span>C</span>
                             </span>
                         </x-button-link>
+                        <x-button-link disabled color="edblue" class="group" title="Eliminar rango de capitán">
+                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color">
+                                <span>-C</span>
+                            </span>
+                        </x-button-link>
                     @else
                         <x-button-link disabled color="edblue" class="group" title="Ascender a capitán">
-                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
+                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color">
                                 <span>C</span>
                             </span>
                         </x-button-link>
+                        @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN && $reg->getRangeProps()['text'] !== App\Models\ETeamUser::RANGE_OWNER)
+                            <x-button-link color="edblue" class="group" title="Eliminar rango de capitán">
+                                <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" wire:click="removeCaptainRange({{ $reg->user->id }})">
+                                    <span>-C</span>
+                                </span>
+                            </x-button-link>
+                        @endif
                     @endif
                     <x-button-link color="rose" class="group" title="Eliminar / Desactivar">
                         <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400" wire:click="remove({{ $reg->id }})">

@@ -112,7 +112,7 @@ class EteamAdminMember extends Component
             return;
         }
 
-        session()->flash('error', 'Ha habido un problema durante el proceso.');
+        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
     }
 
     public function grantCaptainRange(int $userId): void
@@ -129,6 +129,23 @@ class EteamAdminMember extends Component
             return;
         }
 
-        session()->flash('error', 'Ha habido un problema durante el proceso.');
+        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+    }
+
+    public function removeCaptainRange(int $userId): void
+    {
+        $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($this->eteam->id, $userId);
+
+        if ($removeCaptainRange) {
+            // falta el modal de confirmación
+            // guardar en el log
+            // crear noticia privada
+            // enviar mails a todos los miembros
+            $this->dispatchBrowserEvent('action-success', ['message' => 'Has retirado capitanía correctamente.']);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
     }
 }
