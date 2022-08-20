@@ -1,4 +1,6 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/eteam/listeners.js": "/js/eteam/listeners.js",
+    "/js/eteam/focus-search.js": "/js/eteam/focus-search.js",
     "/css/app.css": "/css/app.css"
 }

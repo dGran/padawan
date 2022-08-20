@@ -51,4 +51,9 @@
             @endswitch
         </x-card>
     </x-container>
+
+    @push('custom-scripts')
+        <script src="{{ asset('js/eteam/listeners.js') }}" defer></script>
+        <script src="{{ asset('js/eteam/focus-search.js') }}" defer></script>
+    @endpush
 </div>
