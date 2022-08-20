@@ -33,9 +33,20 @@ class EteamPost extends Component
 
     protected function getData()
     {
+        $visibilityFilter = "pública";
+
+        if (auth()) {
+            $user = auth()->user();
+
+            if ($user && $user->isEteamMember($this->eteam->id)) {
+                $visibilityFilter = "all";
+            }
+        }
+
         return ETeamPostModel::select('eteams_posts.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_posts.user_id')
             ->where('eteam_id', $this->eteam->id)
+            ->visibility($visibilityFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
             ->paginate(15);
     }

@@ -30,6 +30,9 @@ class Eteam extends Component
         'multimedia',
         'log'
     ];
+    protected const ADMIN_NOT_LOGED_MESSAGE = "Debes inciar sesión";
+    protected const ADMIN_NOT_AUTHORIZED_MESSAGE = "No estás autorizado";
+    protected const ADMIN_NOT_AVAILABLE_MESSAGE = "Opción no disponible";
 
     public ?string $tab = "sede";
     public ?string $adminTab = null;
@@ -82,7 +85,7 @@ class Eteam extends Component
     public function checkTabs(?string $tab, ?string $adminTab): void
     {
         if (!in_array($tab, self::AVAILABLE_TABS, true)) {
-            session()->flash('warning', 'Opción no disponible.');
+            $this->dispatchBrowserEvent('action-warning', ['message' => self::ADMIN_NOT_AVAILABLE_MESSAGE]);
             $this->setTabs('sede', (string) null);
 
             return;
@@ -90,25 +93,25 @@ class Eteam extends Component
 
         if ($tab === 'admin') {
             if (!auth()->user()) {
-                session()->flash('error', 'Debes iniciar sesión.');
+                $this->dispatchBrowserEvent('action-error', ['message' => self::ADMIN_NOT_LOGED_MESSAGE]);
                 $this->setTabs('sede', (string) null);
 
                 return;
             }
 
             if (!auth()->user()->isAdminETeam($this->eteam->id)) {
-                session()->flash('error', 'No estás autorizado.');
+                $this->dispatchBrowserEvent('action-error', ['message' => self::ADMIN_NOT_AUTHORIZED_MESSAGE]);
                 $this->setTabs('sede', (string) null);
 
                 return;
             }
 
-            if ($adminTab === null) {
+            if ($adminTab === "") {
                 $adminTab = 'log';
             }
 
             if (!in_array($adminTab, self::AVAILABLE_ADMIN_TABS, true)) {
-                session()->flash('warning', 'Opción no disponible.');
+                $this->dispatchBrowserEvent('action-warning', ['message' => self::ADMIN_NOT_AVAILABLE_MESSAGE]);
                 $this->setTabs('admin', 'log');
 
                 return;

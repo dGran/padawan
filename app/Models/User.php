@@ -115,14 +115,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return Cache::has('user-is-online-'.$this->id);
     }
 
-    /**
-     * @param $eteam_id
-     * @return int
-     */
-    public function isEteamMember($eteam_id): bool
+    public function isEteamMember(int $eteamId): bool
     {
         return (bool) ETeamUser::where('user_id', $this->id)
-            ->where('eteam_id', $eteam_id)
+            ->where('eteam_id', $eteamId)
             ->count();
     }
 

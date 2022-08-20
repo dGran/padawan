@@ -3,7 +3,10 @@
         @foreach ($posts as $post)
             <div class="pb-3 mb-3 border-b border-border-color dark:border-dt-border-color">
                 <div class="">
-                    <p class="text-sm md:text-normal | text-title-color dark:text-dt-title-color">{{ $post->title }}</p>
+                    <p class="text-base md:text-lg | text-title-color dark:text-dt-title-color">
+                        @if(!$post->public)<span>(P)</span>@endif
+                        {{ $post->title }}
+                    </p>
                     <div class="text-xxs md:text-xs | text-light-color dark:text-dt-text-light-color">
                         por <x-link wire:click="$emit('openModal', 'modals.user-modal', {{ json_encode([$post->user]) }})">{{ $post->user->name }}</x-link>-
                         {{ $post->getCreatedAtDate() }}, {{ $post->getCreatedAtTime() }}
