@@ -21,6 +21,8 @@ class EteamAdminMember extends Component
     public bool $someFilterApplied = false;
     public string $order = "created_at_desc";
 
+    protected $listeners = ['updateRange'];
+
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
         'searchFilter' => ['except' => '', 'as' => 's'],
@@ -115,37 +117,63 @@ class EteamAdminMember extends Component
         $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
     }
 
-    public function grantCaptainRange(int $userId): void
+    public function grantCaptainRange(int $eteamMemberId): void
     {
-        $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($this->eteam->id, $userId);
-
-        if ($grantCaptainRange) {
-            // falta el modal de confirmación
-            // guardar en el log
-            // crear noticia privada
-            // enviar mails a todos los miembros
-            $this->dispatchBrowserEvent('action-success', ['message' => 'Has otorgado capitanía correctamente.']);
-
-            return;
+        if ($this->eteamMemberExists($eteamMemberId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-grant-captain-range-modal", ['eteamMemberId' => $eteamMemberId]);
         }
-
-        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
     }
 
-    public function removeCaptainRange(int $userId): void
+    public function removeCaptainRange(int $eteamMemberId): void
     {
-        $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($this->eteam->id, $userId);
+        if ($this->eteamMemberExists($eteamMemberId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-remove-captain-range-modal", ['eteamMemberId' => $eteamMemberId]);
+        }
+    }
 
-        if ($removeCaptainRange) {
-            // falta el modal de confirmación
-            // guardar en el log
-            // crear noticia privada
-            // enviar mails a todos los miembros
-            $this->dispatchBrowserEvent('action-success', ['message' => 'Has retirado capitanía correctamente.']);
+    public function updateRange($range)
+    {
+        if ($range === 'captain') {
+            $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($this->eteam->id, $userId);
 
-            return;
+            if ($grantCaptainRange) {
+                // guardar en el log
+                // crear noticia privada
+                // enviar mails a todos los miembros
+                $this->dispatchBrowserEvent('action-success', ['message' => 'Has otorgado capitanía correctamente.']);
+
+                return;
+            }
+
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
         }
 
-        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+        if ($range === 'member') {
+            $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($this->eteam->id, $userId);
+
+            if ($removeCaptainRange) {
+                // guardar en el log
+                // crear noticia privada
+                // enviar mails a todos los miembros
+                $this->dispatchBrowserEvent('action-success', ['message' => 'Has retirado capitanía correctamente.']);
+
+                return;
+            }
+
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+        }
+
+    }
+
+    protected function eteamMemberExists(int $eteamMemberId): bool {
+        $eteamPost = ETeamUser::find($eteamMemberId);
+
+        if (!$eteamPost) {
+            $this->dispatchBrowserEvent('action-error', ['message' => EteamMemberManager::REG_NOT_EXISTS]);
+
+            return false;
+        }
+
+        return true;
     }
 }

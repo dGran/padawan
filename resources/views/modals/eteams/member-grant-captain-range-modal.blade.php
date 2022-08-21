@@ -4,7 +4,7 @@
 
     {{--content--}}
     <div class="p-6 | flex flex-col items-center">
-        <p>¿Deseas eliminar la noticia #{{ $eteamPost->id }}?</p>
+        <p>¿Deseas asecender a capitán al usuario <strong>{{ $eteamMember->user->name }}</strong>?</p>
     </div>
 
     {{--footer--}}
@@ -12,8 +12,8 @@
         <button type="button" class="inline-block px-4 py-1.5 text-xxs leading-tight rounded hover:text-title-color dark:hover:text-dt-title-color focus:text-title-color dark:focus:text-dt-title-color focus:outline-none transition duration-150 ease-in-out" wire:click="$emit('closeModal')">
             {{ __('No, cancelar') }}
         </button>
-        <button type="submit" class="inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out" wire:click="delete()">
-            {{ __('Sí, eliminar') }}
+        <button type="submit" class="inline-block px-4 py-1.5 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out" wire:click="update()">
+            {{ __('Sí, ascender') }}
         </button>
     </div>
 </div>

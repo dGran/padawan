@@ -52,6 +52,8 @@ class EteamMemberManager
         ],
     ];
 
+    public const REG_NOT_EXISTS = 'El usuario ya no pertenece al equipo';
+
     private EteamMemberService $eteamMemberService;
     private EteamMemberRepository $eteamMemberRepository;
 
