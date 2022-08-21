@@ -131,10 +131,13 @@ class EteamAdminMember extends Component
         }
     }
 
-    public function updateRange($range)
+    public function updateRange(EteamUser $eteamMember, string $range): void
     {
+        $eteamId = $this->eteam->id;
+        $userId = $eteamMember->user_id;
+
         if ($range === 'captain') {
-            $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($this->eteam->id, $userId);
+            $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($eteamId, $userId);
 
             if ($grantCaptainRange) {
                 // guardar en el log
@@ -149,7 +152,7 @@ class EteamAdminMember extends Component
         }
 
         if ($range === 'member') {
-            $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($this->eteam->id, $userId);
+            $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($eteamId, $userId);
 
             if ($removeCaptainRange) {
                 // guardar en el log
@@ -166,9 +169,9 @@ class EteamAdminMember extends Component
     }
 
     protected function eteamMemberExists(int $eteamMemberId): bool {
-        $eteamPost = ETeamUser::find($eteamMemberId);
+        $eteamMember = ETeamUser::find($eteamMemberId);
 
-        if (!$eteamPost) {
+        if (!$eteamMember) {
             $this->dispatchBrowserEvent('action-error', ['message' => EteamMemberManager::REG_NOT_EXISTS]);
 
             return false;

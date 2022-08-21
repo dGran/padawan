@@ -27,6 +27,6 @@ class EteamAdminMemberRemoveCaptainRangeModal extends ModalComponent
     public function update(): void
     {
         $this->emit('closeModal');
-        $this->emit('updateRange', 'member');
+        $this->emit('updateRange', $this->eteamMember, 'member');
     }
 }
