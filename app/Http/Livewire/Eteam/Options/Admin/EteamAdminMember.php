@@ -59,6 +59,7 @@ class EteamAdminMember extends Component
         $query = ETeamUser::select('eteams_users.*', 'users.name as username')
             ->join('users', 'users.id', 'eteams_users.user_id')
             ->where('eteam_id', $this->eteam->id)
+            ->where('active', true)
             ->search($this->searchFilter)
             ->range($this->rangeFilter);
 
@@ -117,17 +118,10 @@ class EteamAdminMember extends Component
         $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
     }
 
-    public function grantCaptainRange(int $eteamMemberId): void
+    public function updateCaptainRange(int $eteamMemberId, string $action): void
     {
         if ($this->eteamMemberExists($eteamMemberId)) {
-            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-grant-captain-range-modal", ['eteamMemberId' => $eteamMemberId]);
-        }
-    }
-
-    public function removeCaptainRange(int $eteamMemberId): void
-    {
-        if ($this->eteamMemberExists($eteamMemberId)) {
-            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-remove-captain-range-modal", ['eteamMemberId' => $eteamMemberId]);
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-update-captain-range-modal", ['eteamMemberId' => $eteamMemberId, 'action' => $action]);
         }
     }
 

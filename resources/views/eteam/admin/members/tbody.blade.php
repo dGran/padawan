@@ -38,20 +38,23 @@
                 @endif
                 @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_MEMBER)
                     <x-button-link color="edblue" class="group" title="Ascender a capitán">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" wire:click="grantCaptainRange({{ $reg->id }})">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
+                              wire:click="updateCaptainRange({{ $reg->id }}, 'grant')">
                             <span>C</span>
                         </span>
                     </x-button-link>
                 @endif
                 @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN && $reg->getRangeProps()['text'] !== App\Models\ETeamUser::RANGE_OWNER)
                     <x-button-link color="edblue" class="group" title="Eliminar rango de capitán">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" wire:click="removeCaptainRange({{ $reg->id }})">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
+                              wire:click="updateCaptainRange({{ $reg->id }}, 'remove')">
                             <span>-C</span>
                         </span>
                     </x-button-link>
                 @endif
                 <x-button-link color="rose" class="group" title="Eliminar / Desactivar">
-                    <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400" wire:click="remove({{ $reg->id }})">
+                    <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400"
+                          wire:click="remove({{ $reg->id }})">
                         <i class="fa-solid fa-xmark"></i>
                     </span>
                 </x-button-link>

@@ -14,6 +14,6 @@ class UserService
             return false;
         }
 
-        return $user->profile->notifications;
+        return (bool) $user->profile->notifications;
     }
 }
