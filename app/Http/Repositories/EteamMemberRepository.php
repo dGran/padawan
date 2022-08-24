@@ -33,39 +33,27 @@ class EteamMemberRepository
         return $processResult;
     }
 
-    public function grantCaptainRange(int $eteamId, int $memberId): bool
+    public function grantCaptainRange(int $eteamId, int $memberId): void
     {
-        $processResult = false;
         $member = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $memberId)->first();
 
         if (empty($member)) {
-            return false;
+            return;
         }
 
         $member->captain = true;
-
-        if ($member->update()) {
-            $processResult = true;
-        }
-
-        return $processResult;
+        $member->update();
     }
 
-    public function removeCaptainRange(int $eteamId, int $memberId): bool
+    public function removeCaptainRange(int $eteamId, int $memberId): void
     {
-        $processResult = false;
         $member = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $memberId)->first();
 
         if (empty($member)) {
-            return false;
+            return;
         }
 
         $member->captain = false;
-
-        if ($member->update()) {
-            $processResult = true;
-        }
-
-        return $processResult;
+        $member->update();
     }
 }

@@ -204,7 +204,6 @@ class EteamAdminPost extends Component
 
         try {
             $this->eteamPostManager->update($data, $logData);
-
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('action-error', ['message' => EteamPostManager::UPDATE_FAILS_MESSAGE]);
 

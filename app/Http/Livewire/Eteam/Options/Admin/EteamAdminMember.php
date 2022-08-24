@@ -136,36 +136,21 @@ class EteamAdminMember extends Component
         $eteamId = $this->eteam->id;
         $userId = $eteamMember->user_id;
 
+        try {
+            $this->eteamMemberManager->updateCaptainRange($eteamId, $userId, $range);
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+
+            return;
+        }
+
         if ($range === 'captain') {
-            $grantCaptainRange = $this->eteamMemberManager->grantCaptainRange($eteamId, $userId);
-
-            if ($grantCaptainRange) {
-                // guardar en el log
-                // crear noticia privada
-                // enviar mails a todos los miembros
-                $this->dispatchBrowserEvent('action-success', ['message' => 'Has otorgado capitanía correctamente.']);
-
-                return;
-            }
-
-            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+            $message = "Has otorgado el rango de capitán correctamente.";
+        } else {
+            $message = "Has retirado el rango de capitán correctamente.";
         }
 
-        if ($range === 'member') {
-            $removeCaptainRange = $this->eteamMemberManager->removeCaptainRange($eteamId, $userId);
-
-            if ($removeCaptainRange) {
-                // guardar en el log
-                // crear noticia privada
-                // enviar mails a todos los miembros
-                $this->dispatchBrowserEvent('action-success', ['message' => 'Has retirado capitanía correctamente.']);
-
-                return;
-            }
-
-            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
-        }
-
+        $this->dispatchBrowserEvent('action-success', ['message' => $message]);
     }
 
     protected function eteamMemberExists(int $eteamMemberId): bool {
