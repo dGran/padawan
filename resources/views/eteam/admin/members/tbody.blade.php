@@ -9,7 +9,8 @@
             </a>
         </td>
         <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-            <button class="text-xxxs uppercase w-24 py-1.5 px-2.5 leading-none bg-{{ $reg->getRangeProps()['color'] }}-400 text-{{ $reg->getRangeProps()['color'] }}-900 dark:bg-{{ $reg->getRangeProps()['color'] }}-600 dark:text-white rounded" wire:click="setRangeFilter('{{ $reg->getRangeProps()['text'] }}')">
+            <button class="text-xxxs uppercase w-24 py-1.5 px-2.5 leading-none bg-{{ $reg->getRangeProps()['color'] }}-400 text-{{ $reg->getRangeProps()['color'] }}-900 dark:bg-{{ $reg->getRangeProps()['color'] }}-600 dark:text-white rounded"
+                    wire:click="setRangeFilter('{{ $reg->getRangeProps()['text'] }}')">
                 {{ $reg->getRangeProps()['text'] }}
             </button>
         </td>
@@ -24,7 +25,8 @@
                 @if ($user->isOwnerETeam($eteam->id))
                     @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN && $reg->getRangeProps()['text'] !== App\Models\ETeamUser::RANGE_OWNER)
                         <x-button-link color="edblue" class="group" title="Transferir propiedad">
-                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400" wire:click="transferTeamOwnership({{ $reg->user->id }})">
+                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
+                                  wire:click="transferTeamOwnershipConfirmation({{ $reg->id }})">
                                 <span>P</span>
                             </span>
                         </x-button-link>
@@ -39,7 +41,7 @@
                 @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_MEMBER)
                     <x-button-link color="edblue" class="group" title="Ascender a capitán">
                         <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
-                              wire:click="updateCaptainRange({{ $reg->id }}, 'grant')">
+                              wire:click="updateRangeConfirmation({{ $reg->id }}, 'grant')">
                             <span>C</span>
                         </span>
                     </x-button-link>
@@ -47,7 +49,7 @@
                 @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN && $reg->getRangeProps()['text'] !== App\Models\ETeamUser::RANGE_OWNER)
                     <x-button-link color="edblue" class="group" title="Eliminar rango de capitán">
                         <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
-                              wire:click="updateCaptainRange({{ $reg->id }}, 'remove')">
+                              wire:click="updateRangeConfirmation({{ $reg->id }}, 'remove')">
                             <span>-C</span>
                         </span>
                     </x-button-link>

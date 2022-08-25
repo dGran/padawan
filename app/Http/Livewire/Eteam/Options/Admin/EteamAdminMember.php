@@ -21,7 +21,7 @@ class EteamAdminMember extends Component
     public bool $someFilterApplied = false;
     public string $order = "created_at_desc";
 
-    protected $listeners = ['updateRange'];
+    protected $listeners = ['updateRange', 'transferTeamOwnership'];
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
@@ -101,27 +101,17 @@ class EteamAdminMember extends Component
         return $orderValues[$this->order];
     }
 
-    public function transferTeamOwnership(int $userId): void
-    {
-        $transferTeamOwnership = $this->eteamMemberManager->transferTeamOwnership($this->eteam->id, $this->user->id, $userId);
-
-        if ($transferTeamOwnership) {
-            // falta el modal de confirmación
-            // guardar en el log
-            // crear noticia privada
-            // enviar mails a todos los miembros
-            $this->dispatchBrowserEvent('action-success', ['message' => 'Has transferido la propiedad del equipo correctamente.']);
-
-            return;
-        }
-
-        $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
-    }
-
-    public function updateCaptainRange(int $eteamMemberId, string $action): void
+    public function updateRangeConfirmation(int $eteamMemberId, string $action): void
     {
         if ($this->eteamMemberExists($eteamMemberId)) {
             $this->emit("openModal", "eteam.options.admin.eteam-admin-member-update-captain-range-modal", ['eteamMemberId' => $eteamMemberId, 'action' => $action]);
+        }
+    }
+
+    public function transferTeamOwnershipConfirmation(int $eteamMemberId): void
+    {
+        if ($this->eteamMemberExists($eteamMemberId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-transfer-team-ownership-modal", ['eteamMemberId' => $eteamMemberId]);
         }
     }
 
@@ -146,6 +136,23 @@ class EteamAdminMember extends Component
         }
 
         $this->dispatchBrowserEvent('action-success', ['message' => $message]);
+    }
+
+    public function transferTeamOwnership(EteamUser $eteamMember): void
+    {
+        $eteamId = $this->eteam->id;
+        $newOwnerId = $eteamMember->user_id;
+        $oldOwnerId = $this->user->id;
+
+        try {
+            $this->eteamMemberManager->transferTeamOwnership($eteamId, $oldOwnerId, $newOwnerId);
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => 'Has transferido la propiedad del equipo correctamente.']);
     }
 
     protected function eteamMemberExists(int $eteamMemberId): bool {

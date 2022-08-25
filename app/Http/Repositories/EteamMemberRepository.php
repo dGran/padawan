@@ -9,29 +9,19 @@ use App\Models\ETeamUser;
 
 class EteamMemberRepository
 {
-    public function transferTeamOwnership(int $eteamId, int $oldOwnerId, int $newOwnerId): bool
+    public function transferTeamOwnership(int $eteamId, int $oldOwnerId, int $newOwnerId): void
     {
-        $processResult = false;
         $oldOwner = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $oldOwnerId)->first();
         $newOwner = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $newOwnerId)->first();
 
         if (empty($oldOwner) || empty($newOwner)) {
-            return false;
+            return;
         }
 
         $oldOwner->owner = false;
-
-        if ($oldOwner->update()) {
-            $processResult = true;
-        }
-
+        $oldOwner->update();
         $newOwner->owner = true;
-
-        if ($newOwner->update()) {
-            $processResult = true;
-        }
-
-        return $processResult;
+        $newOwner->update();
     }
 
     public function updateCaptainRange(int $eteamId, int $memberId, string $range): void

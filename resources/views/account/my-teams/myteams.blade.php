@@ -71,10 +71,14 @@
                                     <div class="flex items-center space-x-2 5">
                                         @if ($myTeam->owner || $myTeam->captain)
                                             @if ($myTeam->owner)
-                                                <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium bg-edgray-600 text-white rounded">Propietario</span>
+                                                <span class="text-xxxs text-center uppercase w-24 py-1.5 px-2.5 leading-none bg-purple-400 text-purple-900 dark:bg-purple-600 dark:text-white rounded">
+                                                    Propietario
+                                                </span>
                                             @endif
                                             @if ($myTeam->captain)
-                                                <span class="text-xs inline-block py-1 px-2.5 leading-none text-center whitespace-nowrap align-baseline font-medium bg-indigo-600 text-white rounded">Capitán</span>
+                                                <span class="text-xxxs text-center uppercase w-24 py-1.5 px-2.5 leading-none bg-rose-400 text-rose-900 dark:bg-rose-600 dark:text-white rounded">
+                                                    Capitán
+                                                </span>
                                             @endif
                                         @else
                                             <span>Miembro</span>

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Services;
 
-use App\Mail\NotificationMail;
 use App\Models\User;
-use Illuminate\Support\Facades\Mail;
 use App\Jobs\SendEmailJob;
 
 class MailService

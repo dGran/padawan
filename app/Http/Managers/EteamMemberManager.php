@@ -76,11 +76,6 @@ class EteamMemberManager
         $this->notificationManager = $notificationManager;
     }
 
-    public function transferTeamOwnership(int $eteamId, int $oldOwnerId, int $newOwnerId): bool
-    {
-        return $this->eteamMemberRepository->transferTeamOwnership($eteamId, $oldOwnerId, $newOwnerId);
-    }
-
     public function updateCaptainRange(int $eteamId, int $memberId, int $adminId, string $range): void
     {
         $admin = User::find($adminId);
@@ -116,7 +111,7 @@ class EteamMemberManager
 //        create log
         $logData = [
             'eteam_id' => $eteamId,
-            'user_id' => $memberId,
+            'user_id' => $adminId,
             'context' => ETeamLog::CONTEXT_MEMBERS,
             'type' => ETeamLog::TYPE_UPDATE,
             'message' => $logMessage
@@ -126,7 +121,7 @@ class EteamMemberManager
 //        create post
         $postData = [
             'eteam_id' => $eteamId,
-            'user_id' => $memberId,
+            'user_id' => $adminId,
             'title' => $postTitle,
             'content' => $postContent,
             'public' => false,
@@ -136,7 +131,7 @@ class EteamMemberManager
 
 //        user mail notification
         $this->notificationManager->create([
-            'user_id' => $user->id,
+            'user_id' => $memberId,
             'title' => $userNotificationTitle,
             'content' => $userNotificationContent,
             'link' => Route('eteam', $eteam->slug),
@@ -152,7 +147,75 @@ class EteamMemberManager
             'link_title' => $eteam->name,
             'read' => 0
         ];
-        $excludeIds = [$user->id, $admin->id];
+        $excludeIds = [$memberId, $adminId];
+        $this->notificationManager->createToEteamMembers($eteam, $membersNotificationData, $excludeIds);
+    }
+
+    public function transferTeamOwnership(int $eteamId, int $oldOwnerId, int $newOwnerId): void
+    {
+        $oldOwner = User::find($oldOwnerId);
+        $newOwner = User::find($newOwnerId);
+        $eteam = ETeam::find($eteamId);
+
+        $this->eteamMemberRepository->transferTeamOwnership($eteamId, $oldOwnerId, $newOwnerId);
+        $logMessage = $oldOwner->name.' cambia su rango en el equipo, propietario -> admin';
+        $logMessage2 = $newOwner->name.' cambia su rango en el equipo, capitán -> propietario';
+        $postTitle = $newOwner->name.' nuevo propietario del equipo';
+        $postContent = $oldOwner->name.' transfiere la propiedad del equipo a '.$newOwner->name;
+        $userNotificationTitle = "Te han transferido la propiedad del equipo $eteam->name";
+        $userNotificationContent = "Felicidades, $oldOwner->name te ha transferido la propiedad del equipo $eteam->name. A partir de ahora eres el máximo responsable";
+        $membersNotificationTitle = "$newOwner->name nuevo propietario del equipo $eteam->name";
+        $membersNotificationContent = "$oldOwner->name ha transferido la propiedad del equipo $eteam->name a $newOwner->name";
+
+//        create logs
+        $logData = [
+            'eteam_id' => $eteamId,
+            'user_id' => $oldOwnerId,
+            'context' => ETeamLog::CONTEXT_MEMBERS,
+            'type' => ETeamLog::TYPE_UPDATE,
+            'message' => $logMessage
+        ];
+        $this->eteamLogManager->create($logData);
+
+        $logData = [
+            'eteam_id' => $eteamId,
+            'user_id' => $oldOwnerId,
+            'context' => ETeamLog::CONTEXT_MEMBERS,
+            'type' => ETeamLog::TYPE_UPDATE,
+            'message' => $logMessage2
+        ];
+        $this->eteamLogManager->create($logData);
+
+//        create post
+        $postData = [
+            'eteam_id' => $eteamId,
+            'user_id' => $oldOwnerId,
+            'title' => $postTitle,
+            'content' => $postContent,
+            'public' => false,
+            'slug' => Str::slug($postTitle, '-')
+        ];
+        $this->eteamPostManager->create($postData);
+
+//        user mail notification
+        $this->notificationManager->create([
+            'user_id' => $newOwnerId,
+            'title' => $userNotificationTitle,
+            'content' => $userNotificationContent,
+            'link' => Route('eteam', $eteam->slug),
+            'link_title' => $eteam->name,
+            'read' => 0
+        ]);
+
+//        members mail notifications
+        $membersNotificationData = [
+            'title' => $membersNotificationTitle,
+            'content' => $membersNotificationContent,
+            'link' => Route('eteam', $eteam->slug),
+            'link_title' => $eteam->name,
+            'read' => 0
+        ];
+        $excludeIds = [$oldOwnerId, $newOwnerId];
         $this->notificationManager->createToEteamMembers($eteam, $membersNotificationData, $excludeIds);
     }
 }

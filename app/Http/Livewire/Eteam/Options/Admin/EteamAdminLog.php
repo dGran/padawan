@@ -71,6 +71,7 @@ class EteamAdminLog extends Component
             ->context($this->contextFilter)
             ->type($this->typeFilter)
             ->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
+            ->orderBy('id', $this->getOrder()['direction'])
             ->paginate(self::PAGINATOR_DEFAULT);
     }
 
