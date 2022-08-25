@@ -18,19 +18,19 @@ class NotificationService
             'link' => $data['link'],
             'link_title' => $data['link_title'],
             'read' => $data['read'],
-            'slug' => Str::slug($data['title'], '-'),
+            'slug' => Str::slug($data['title'], '-')
         ];
     }
 
-    public function getCreateToEteamAdminsData(User $admin, array $data): array
+    public function getCreateMultipleMembersData(int $userId, array $data): array
     {
         return [
-            'user_id' => $admin->user_id,
+            'user_id' => $userId,
             'title' => $data['title'],
             'content' => $data['content'],
-            'link' => Route($data['link'], $data['linkParams']),
-            'link_title' => $data['linkTitle'],
-            'read' => 0,
+            'link' => $data['link'],
+            'link_title' => $data['link_title'],
+            'read' => 0
         ];
     }
 }

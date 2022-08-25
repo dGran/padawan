@@ -38,12 +38,27 @@ class NotificationManager
 
     function createToEteamAdmins(ETeam $eteam, array $data): void
     {
-        if (empty($eteam->getCaptains())) {
+        $admins = $eteam->getCaptains();
+
+        if (empty($admins)) {
             return;
         }
 
-        foreach ($eteam->getCaptains() as $admin) {
-            $this->create($this->notificationService->getCreateToEteamAdminsData($admin, $data));
+        foreach ($admins as $admin) {
+            $this->create($this->notificationService->getCreateMultipleMembersData($admin->user_id, $data));
+        }
+    }
+
+    function createToEteamMembers(ETeam $eteam, array $membersNotificationData, ?array $excludeIds): void
+    {
+        $members = $eteam->getMembers($excludeIds);
+
+        if (empty($members)) {
+            return;
+        }
+
+        foreach ($members as $member) {
+            $this->create($this->notificationService->getCreateMultipleMembersData($member->user_id, $membersNotificationData));
         }
     }
 }

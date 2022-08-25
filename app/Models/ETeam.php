@@ -111,4 +111,16 @@ class ETeam extends Model
             })
             ->get();
     }
+
+    public function getMembers(?array $excludeIds)
+    {
+        $members = ETeamUser::where('eteam_id', $this->id)
+            ->where('active', 1);
+
+        if (!empty($excludeIds)) {
+            $members = $members->whereNotIn('user_id', $excludeIds);
+        }
+
+        return $members->get();
+    }
 }

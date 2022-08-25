@@ -7,6 +7,7 @@ namespace App\Http\Services;
 use App\Mail\NotificationMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use App\Jobs\SendEmailJob;
 
 class MailService
 {
@@ -31,6 +32,6 @@ class MailService
             'body' => $content
         ];
 
-        Mail::to($user->email)->send(new NotificationMail($subject, $details));
+        dispatch(new SendEmailJob($user->email, $subject, $details));
     }
 }

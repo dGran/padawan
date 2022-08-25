@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Repositories;
 
+use App\Http\Managers\EteamMemberManager;
 use App\Models\ETeamUser;
 
 class EteamMemberRepository
@@ -33,7 +34,7 @@ class EteamMemberRepository
         return $processResult;
     }
 
-    public function grantCaptainRange(int $eteamId, int $memberId): void
+    public function updateCaptainRange(int $eteamId, int $memberId, string $range): void
     {
         $member = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $memberId)->first();
 
@@ -41,19 +42,7 @@ class EteamMemberRepository
             return;
         }
 
-        $member->captain = true;
-        $member->update();
-    }
-
-    public function removeCaptainRange(int $eteamId, int $memberId): void
-    {
-        $member = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $memberId)->first();
-
-        if (empty($member)) {
-            return;
-        }
-
-        $member->captain = false;
+        $member->captain = $range === EteamMemberManager::CAPTAIN_RANGE;
         $member->update();
     }
 }

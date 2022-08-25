@@ -129,9 +129,10 @@ class EteamAdminMember extends Component
     {
         $eteamId = $this->eteam->id;
         $userId = $eteamMember->user_id;
+        $adminId = $this->user->id;
 
         try {
-            $this->eteamMemberManager->updateCaptainRange($eteamId, $userId, $range);
+            $this->eteamMemberManager->updateCaptainRange($eteamId, $userId, $adminId, $range);
         } catch (\Exception $exception) {
             $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
 
