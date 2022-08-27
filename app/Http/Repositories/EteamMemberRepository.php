@@ -35,4 +35,27 @@ class EteamMemberRepository
         $member->captain = $range === EteamMemberManager::CAPTAIN_RANGE;
         $member->update();
     }
+
+    public function remove(int $eteamId, int $memberId): void
+    {
+        $member = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $memberId)->first();
+
+        if (empty($member)) {
+            return;
+        }
+
+        if (!$member->canDestroy()) {
+            $this->desactivate($member);
+
+            return;
+        }
+
+        $member->delete();
+    }
+
+    public function desactivate(ETeamUser $member): void
+    {
+        $member->active = 0;
+        $member->update();
+    }
 }

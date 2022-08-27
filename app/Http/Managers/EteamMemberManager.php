@@ -218,4 +218,62 @@ class EteamMemberManager
         $excludeIds = [$oldOwnerId, $newOwnerId];
         $this->notificationManager->createToEteamMembers($eteam, $membersNotificationData, $excludeIds);
     }
+
+    public function remove(int $eteamId, int $memberId, int $adminId): void
+    {
+        $admin = User::find($adminId);
+        $user = User::find($memberId);
+        $eteam = ETeam::find($eteamId);
+
+        $this->eteamMemberRepository->remove($eteamId, $memberId);
+        $logMessage = "$user->name expulsado del equipo";
+        $postTitle = "$user->name expulsado del equipo";
+        $postContent = "$admin->name expulsa del equipo a $user->name";
+        $userNotificationTitle = "Te han expulsado del equipo $eteam->name";
+        $userNotificationContent = "$admin->name te ha expulsado del equipo $eteam->name";
+        $membersNotificationTitle = "$user->name expulsado del equipo $eteam->name";
+        $membersNotificationContent = "$admin->name ha expulsado del equipo $eteam->name a $user->name";
+
+//        create logs
+        $logData = [
+            'eteam_id' => $eteamId,
+            'user_id' => $adminId,
+            'context' => ETeamLog::CONTEXT_MEMBERS,
+            'type' => ETeamLog::TYPE_DELETE,
+            'message' => $logMessage
+        ];
+        $this->eteamLogManager->create($logData);
+
+//        create post
+        $postData = [
+            'eteam_id' => $eteamId,
+            'user_id' => $adminId,
+            'title' => $postTitle,
+            'content' => $postContent,
+            'public' => false,
+            'slug' => Str::slug($postTitle, '-')
+        ];
+        $this->eteamPostManager->create($postData);
+
+//        user mail notification
+        $this->notificationManager->create([
+            'user_id' => $memberId,
+            'title' => $userNotificationTitle,
+            'content' => $userNotificationContent,
+            'link' => Route('eteam', $eteam->slug),
+            'link_title' => $eteam->name,
+            'read' => 0
+        ]);
+
+//        members mail notifications
+        $membersNotificationData = [
+            'title' => $membersNotificationTitle,
+            'content' => $membersNotificationContent,
+            'link' => Route('eteam', $eteam->slug),
+            'link_title' => $eteam->name,
+            'read' => 0
+        ];
+        $excludeIds = [$memberId, $adminId];
+        $this->notificationManager->createToEteamMembers($eteam, $membersNotificationData, $excludeIds);
+    }
 }

@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <h4 class="pt-3 text-title-color dark:text-dt-title-color">Invitaciones & solcitudes de ingreso</h4>
+        <h4 class="pt-3 text-title-color dark:text-dt-title-color">Invitaciones & solicitudes de ingreso</h4>
         <div class="relative my-2.5 bg-white dark:bg-dt-dark border border-border-color dark:border-transparent rounded-md shadow-md" x-data="{{$invitations->count() > 0 ? '{selected:1}' : '{selected:null}'}}">
             <button type="button" class="group | w-full px-4 py-2.5 text-left focus:outline-none" @click="selected !== 1 ? selected = 1 : selected = null">
                 <div class="flex items-center justify-between space-x-4">

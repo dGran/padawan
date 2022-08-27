@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Http\Managers\EteamMemberManager;
 use App\Models\ETeam;
+use App\Models\ETeamInvitation;
+use App\Models\ETeamRequest;
 use App\Models\ETeamUser;
 use App\Models\User;
 use Illuminate\View\View;
@@ -21,7 +23,7 @@ class EteamAdminMember extends Component
     public bool $someFilterApplied = false;
     public string $order = "created_at_desc";
 
-    protected $listeners = ['updateRange', 'transferTeamOwnership'];
+    protected $listeners = ['updateRange', 'transferTeamOwnership', 'remove'];
 
     protected $queryString = [
         'order' => ['except' => 'created_at_desc', 'as' => 'o'],
@@ -45,10 +47,15 @@ class EteamAdminMember extends Component
     public function render(): View
     {
         $members = $this->getData();
+        $invitations = $this->getInvitations();
+        $requests = $this->getRequests();
         $this->data['class'] = $members;
         $this->someFilterApplied = $this->someFilterApplied();
 
-        return view('eteam.admin.members.index');
+        return view('eteam.admin.members.index', [
+            'invitations' => $invitations,
+            'requests' => $requests
+        ]);
     }
 
     /**
@@ -68,6 +75,30 @@ class EteamAdminMember extends Component
         }
 
         return $query->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
+            ->get();
+    }
+
+    /**
+     * @return array<ETeamInvitation>
+     */
+    protected function getInvitations()
+    {
+        return ETeamInvitation::select('eteams_invitations.*')
+            ->where('eteam_id', $this->eteam->id)
+            ->where('state', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->get();
+    }
+
+    /**
+     * @return array<ETeamRequest>
+     */
+    protected function getRequests()
+    {
+        return ETeamRequest::select('eteams_requests.*')
+            ->where('eteam_id', $this->eteam->id)
+            ->where('state', 'pending')
+            ->orderBy('created_at', 'desc')
             ->get();
     }
 
@@ -115,6 +146,13 @@ class EteamAdminMember extends Component
         }
     }
 
+    public function removeConfirmation(int $eteamMemberId): void
+    {
+        if ($this->eteamMemberExists($eteamMemberId)) {
+            $this->emit("openModal", "eteam.options.admin.eteam-admin-member-remove-modal", ['eteamMemberId' => $eteamMemberId]);
+        }
+    }
+
     public function updateRange(EteamUser $eteamMember, string $range): void
     {
         $eteamId = $this->eteam->id;
@@ -153,6 +191,29 @@ class EteamAdminMember extends Component
         }
 
         $this->dispatchBrowserEvent('action-success', ['message' => 'Has transferido la propiedad del equipo correctamente.']);
+    }
+
+    public function remove(ETeamUser $eteamMember): void
+    {
+        $eteamId = $this->eteam->id;
+        $userId = $eteamMember->user_id;
+        $adminId = $this->user->id;
+
+        if ($eteamMember->owner || $eteamMember->captain) {
+            $this->dispatchBrowserEvent('action-error', ['message' => 'No puedes expulsar a un capitán del equipo.']);
+
+            return;
+        }
+
+        try {
+            $this->eteamMemberManager->remove($eteamId, $userId, $adminId);
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => 'Has expulsado al usuario correctamente.']);
     }
 
     protected function eteamMemberExists(int $eteamMemberId): bool {

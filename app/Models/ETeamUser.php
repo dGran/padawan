@@ -125,4 +125,10 @@ class ETeamUser extends Model
 
         return Carbon::parse($this->contractTo)->locale(app()->getLocale())->isoFormat("LL");
     }
+
+    public function canDestroy(): bool
+    {
+//        TODO: check all possibilities
+        return false;
+    }
 }
