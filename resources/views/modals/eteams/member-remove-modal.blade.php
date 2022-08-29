@@ -4,7 +4,7 @@
 
     {{--content--}}
     <div class="p-6 | flex flex-col items-center">
-        <p>¿Deseas eliminar al usuario <strong>{{ $eteamMember->user->name }}</strong> del equipo?</p>
+        <p>¿Deseas expulsar al usuario <strong>{{ $eteamMember->user->name }}</strong> del equipo?</p>
     </div>
 
     {{--footer--}}
@@ -13,7 +13,7 @@
             {{ __('No, cancelar') }}
         </button>
         <button type="submit" class="inline-block px-4 py-1.5 bg-rose-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out" wire:click="remove()">
-            {{ __('Sí, eliminar') }}
+            {{ __('Sí, expulsar') }}
         </button>
     </div>
 </div>

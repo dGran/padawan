@@ -6,8 +6,6 @@ namespace App\Http\Livewire\Eteam\Options\Admin;
 
 use App\Http\Managers\EteamMemberManager;
 use App\Models\ETeam;
-use App\Models\ETeamInvitation;
-use App\Models\ETeamRequest;
 use App\Models\ETeamUser;
 use App\Models\User;
 use Illuminate\View\View;
@@ -47,15 +45,10 @@ class EteamAdminMember extends Component
     public function render(): View
     {
         $members = $this->getData();
-        $invitations = $this->getInvitations();
-        $requests = $this->getRequests();
         $this->data['class'] = $members;
         $this->someFilterApplied = $this->someFilterApplied();
 
-        return view('eteam.admin.members.index', [
-            'invitations' => $invitations,
-            'requests' => $requests
-        ]);
+        return view('eteam.admin.members.index');
     }
 
     /**
@@ -75,30 +68,6 @@ class EteamAdminMember extends Component
         }
 
         return $query->orderBy($this->getOrder()['field'], $this->getOrder()['direction'])
-            ->get();
-    }
-
-    /**
-     * @return array<ETeamInvitation>
-     */
-    protected function getInvitations()
-    {
-        return ETeamInvitation::select('eteams_invitations.*')
-            ->where('eteam_id', $this->eteam->id)
-            ->where('state', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->get();
-    }
-
-    /**
-     * @return array<ETeamRequest>
-     */
-    protected function getRequests()
-    {
-        return ETeamRequest::select('eteams_requests.*')
-            ->where('eteam_id', $this->eteam->id)
-            ->where('state', 'pending')
-            ->orderBy('created_at', 'desc')
             ->get();
     }
 

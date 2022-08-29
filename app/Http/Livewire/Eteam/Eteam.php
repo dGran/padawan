@@ -27,9 +27,11 @@ class Eteam extends Component
         'perfil',
         'noticias',
         'miembros',
+        'gestion',
         'multimedia',
         'log'
     ];
+
     protected const ADMIN_NOT_LOGED_MESSAGE = "Debes inciar sesión";
     protected const ADMIN_NOT_AUTHORIZED_MESSAGE = "No estás autorizado";
     protected const ADMIN_NOT_AVAILABLE_MESSAGE = "Opción no disponible";

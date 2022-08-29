@@ -10,6 +10,9 @@
     @case('miembros')
         @livewire('eteam.options.admin.eteam-admin-member', ['eteam' => $eteam, 'user' => auth()->user()])
         @break
+    @case('gestion')
+        @livewire('eteam.options.admin.eteam-admin-management', ['eteam' => $eteam, 'user' => auth()->user()])
+        @break
     @case('multimedia')
         @livewire('eteam.options.admin.eteam-admin-file', ['eteam' => $eteam, 'user' => auth()->user()])
         @break
