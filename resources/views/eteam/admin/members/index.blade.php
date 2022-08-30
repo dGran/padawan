@@ -1,6 +1,7 @@
 <div>
     <div class="min-w-full">
         <p>filtro de usuarios inactivos, ver como tratar si se quiere reincorporar al usuario, habrá que comprobar que no esté en otro equipo del mismo juego</p>
+        <p>fallo al ascender a admin no permite transferir propiedad del equipo sin recargar la pagina, al recargar ya funciona</p>
         @include('eteam.admin.members.filters')
         <div class="overflow-x-auto scrollbar-thin scrollbar-thumb-sb-thumb-color scrollbar-track-sb-track-color hover:scrollbar-thumb-sb-thumb-color-hover dark:scrollbar-thumb-sb-thumb-dt-color dark:scrollbar-track-sb-track-dt-color dark:hover:scrollbar-thumb-sb-thumb-dt-color-hover scrollbar-thumb-rounded-full">
             <table class="min-w-full">

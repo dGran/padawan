@@ -74,8 +74,8 @@
                 </tr>
             @empty
                 <tr>
-                    <td>
-                        No tienes invitaciones enviadas a los equipos que administras
+                    <td colspan="6" class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
+                        No existen invitaciones
                     </td>
                 </tr>
             @endforelse
