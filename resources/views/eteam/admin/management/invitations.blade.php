@@ -23,10 +23,16 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($invitations as $invitation)
+            @foreach($invitations as $invitation)
                 <tr class="border-b border-border-color dark:border-edgray-700">
                     <td class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                        <div class="flex items-center w-24 bg-{{ $invitation->state === 'pending' ? 'yellow' : 'rose' }}-100 rounded py-0.5 px-1 text-xxs text-{{ $invitation->state === 'pending' ? 'yellow' : 'rose' }}-700 inline-flex items-center" role="alert">
+                        <div role="alert" @class([
+                                'flex items-center w-24 rounded py-0.5 px-1 text-xxs inline-flex items-center',
+                                'bg-yellow-100 dark:bg-yellow-200' => $invitation->state === 'pending',
+                                'bg-rose-100' => $invitation->state !== 'pending',
+                                'text-yellow-700 dark:text-yellow-900' => $invitation->state === 'pending',
+                                'text-rose-700' => $invitation->state !== 'pending'
+                            ])>
                             <i class="w-5 fa-solid {{ $invitation->state === 'pending' ? 'fa-triangle-exclamation' : 'fa-ban' }}"></i>
                             <span>{{ $invitation->state === 'pending' ? 'Pendiente' : 'Rechazada' }}</span>
                         </div>
@@ -72,13 +78,7 @@
                         </div>
                     </td>
                 </tr>
-            @empty
-                <tr>
-                    <td colspan="6" class="text-sm font-light px-4 py-2.5 whitespace-nowrap">
-                        No existen invitaciones
-                    </td>
-                </tr>
-            @endforelse
+            @endforeach
         </tbody>
     </table>
 </div>
