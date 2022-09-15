@@ -23,40 +23,30 @@
         <td class="font-light px-4 py-2.5 flex items-center space-x-1">
             @if ($user->id !== $reg->user->id && $reg->getRangeProps()['text'] !== App\Models\ETeamUser::RANGE_OWNER)
                 @if ($user->isOwnerETeam($eteam->id))
-                    @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN)
-                        <x-button-link color="purple" class="group" title="Transferir propiedad">
-                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-purple-500 dark:group-hover:border-purple-400 | group-focus:border-purple-500 dark:group-focus:border-purple-400"
-                                  wire:click="transferTeamOwnershipConfirmation({{ $reg->id }})">
-                                <i class="fa-solid fa-chess-king"></i>
-                            </span>
-                        </x-button-link>
-                    @else
-                        <x-button-link disabled color="purple" class="group" title="Ascender a capitán">
-                            <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color">
-                                <i class="fa-solid fa-chess-king"></i>
-                            </span>
-                        </x-button-link>
-                    @endif
+                    <x-button-link
+                        disabled="{{ $reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_CAPTAIN ? '0' : '1' }}"
+                        color="purple" class="group" title="Transferir propiedad" wire:click="transferTeamOwnershipConfirmation({{ $reg->id }})">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-purple-500 dark:group-hover:border-purple-400 | group-focus:border-purple-500 dark:group-focus:border-purple-400">
+                            <i class="fa-solid fa-chess-king"></i>
+                        </span>
+                    </x-button-link>
                 @endif
                 @if ($reg->getRangeProps()['text'] === App\Models\ETeamUser::RANGE_MEMBER)
-                    <x-button-link color="edblue" class="group" title="Ascender a capitán">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400"
-                              wire:click="updateRangeConfirmation({{ $reg->id }}, 'grant')">
+                    <x-button-link color="edblue" class="group" title="Ascender a capitán" wire:click="updateRangeConfirmation({{ $reg->id }}, 'grant')">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-edblue-500 dark:group-hover:border-edblue-400 | group-focus:border-edblue-500 dark:group-focus:border-edblue-400">
                             <i class="fa-solid fa-user-gear"></i>
                         </span>
                     </x-button-link>
                 @else
-                    <x-button-link color="rose" class="group" title="Eliminar rango de capitán">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400"
-                              wire:click="updateRangeConfirmation({{ $reg->id }}, 'remove')">
+                    <x-button-link color="rose" class="group" title="Eliminar rango de capitán" wire:click="updateRangeConfirmation({{ $reg->id }}, 'remove')">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400">
                             <i class="fa-solid fa-user-slash"></i>
                         </span>
                     </x-button-link>
                 @endif
                 @if (!$reg->captain)
-                    <x-button-link color="rose" class="group" title="Expulsar">
-                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400"
-                              wire:click="removeConfirmation({{ $reg->id }})">
+                    <x-button-link color="rose" class="group" title="Expulsar" wire:click="removeConfirmation({{ $reg->id }})">
+                        <span class="flex items-center justify-center rounded-full w-7 h-7 border | border-border-color dark:border-dt-border-color | group-hover:border-rose-500 dark:group-hover:border-rose-400 | group-focus:border-rose-500 dark:group-focus:border-rose-400">
                             <i class="fa-solid fa-user-minus"></i>
                         </span>
                     </x-button-link>
