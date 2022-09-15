@@ -1,5 +1,5 @@
 <div class="p-4 border-b border-border-color dark:border-edgray-700 ">
-    <button type="submit" class="px-4 py-2.5 mb-3 bg-green-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out" wire:click="create()">
+    <button type="submit" class="px-4 py-2.5 mb-3 bg-edblue-600 text-white text-xxs leading-tight rounded shadow-md hover:bg-edblue-700 hover:shadow-lg focus:bg-edblue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-edblue-800 active:shadow-lg transition duration-150 ease-in-out" wire:click="create()">
         <span>{{ __('Nueva noticia') }}</span>
     </button>
     <div class="relative w-full">

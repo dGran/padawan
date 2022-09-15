@@ -15,7 +15,7 @@
                 <label for="title" class="capitalize text-sm font-medium">
                     {{ __('Título') }}
                 </label>
-                <x-input wire:model="title" id="title" class="text-sm mt-1.5 w-full" type="text" placeholder="Escribe el título de la noticia"></x-input>
+                <x-input wire:model="title" id="title" class="text-sm mt-1.5 w-full" type="text" placeholder="Escribe el título de la noticia" autofocus></x-input>
                 @error('title')<span class="text-xs text-red-500">{{ $message }}</span> @enderror
             </div>
             <div>
