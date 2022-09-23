@@ -9,6 +9,16 @@ use App\Models\ETeamUser;
 
 class EteamMemberRepository
 {
+    public function getIdByEteamIdAndUserId(int $eteamId, int $userId): int
+    {
+        return ETeamUser::select('id')
+            ->where('eteam_id', $eteamId)
+            ->where('user_id', $userId)
+            ->where('captain', 1)
+            ->first()
+            ->id;
+    }
+
     public function transferTeamOwnership(int $eteamId, int $oldOwnerId, int $newOwnerId): void
     {
         $oldOwner = ETeamUser::where('eteam_id', $eteamId)->where('user_id', $oldOwnerId)->first();

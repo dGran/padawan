@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Eteam\Options\Admin;
 
-use App\Http\Managers\EteamMemberManager;
+use App\Http\Managers\EteamManagementManager;
 use App\Models\ETeam;
 use App\Models\ETeamInvitation;
 use App\Models\ETeamRequest;
@@ -17,12 +17,12 @@ class EteamAdminManagement extends Component
     public ETeam $eteam;
     public User $user;
 
-    protected $listeners = [];
+    protected $listeners = ['sendInvitation'];
 
     // dependency injections
-    public function getEteamMemberManagerProperty(): EteamMemberManager
+    public function getEteamManagemetManagerProperty(): EteamManagementManager
     {
-        return resolve(EteamMemberManager::class);
+        return resolve(EteamManagementManager::class);
     }
 
     public function mount(Eteam $eteam, User $user): void
@@ -64,5 +64,23 @@ class EteamAdminManagement extends Component
             ->where('state', 'pending')
             ->orderBy('created_at', 'desc')
             ->get();
+    }
+
+    public function openInvitationModal(): void
+    {
+        $this->emit("openModal", "eteam.options.admin.eteam-admin-management-new-invitation-modal", ['eteam' => $this->eteam]);
+    }
+
+    public function sendInvitation(User $user): void
+    {
+        try {
+            $this->eteamManagemetManager->sendInvitation($this->eteam, $this->user, $user);
+        } catch (\Exception $exception) {
+            $this->dispatchBrowserEvent('action-error', ['message' => 'Ha habido un problema durante el proceso.']);
+
+            return;
+        }
+
+        $this->dispatchBrowserEvent('action-success', ['message' => 'Has enviado la invitación correctamente.']);
     }
 }

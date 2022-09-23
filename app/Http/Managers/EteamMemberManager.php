@@ -76,6 +76,11 @@ class EteamMemberManager
         $this->notificationManager = $notificationManager;
     }
 
+    public function getIdByEteamIdAndUserId(int $eteamId, int $userId): int
+    {
+        return $this->eteamMemberRepository->getIdByEteamIdAndUserId($eteamId, $userId);
+    }
+
     public function updateCaptainRange(int $eteamId, int $memberId, int $adminId, string $range): void
     {
         $admin = User::find($adminId);

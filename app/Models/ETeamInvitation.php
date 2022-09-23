@@ -15,6 +15,8 @@ class ETeamInvitation extends Model
         'eteam_id', 'captain_id', 'user_id', 'state', 'contract_from', 'contract_to', 'message'
     ];
 
+    public const STATE_PENDING = 'pending';
+
     public function eteam()
     {
         return $this->belongsTo('App\Models\ETeam', 'eteam_id', 'id');
