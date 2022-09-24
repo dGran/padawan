@@ -38,12 +38,10 @@ class EteamManagementManager
         $this->eteamManagementRepository->sendInvitation($eteam->id, $adminId, $user->id);
 
         $logMessage = 'Invitación de ingreso enviada al usuario '.$user->name;
-        $postTitle = $user->name.' invitado para ingresar en el equipo';
-        $postContent = $admin->name.' ha invitado a '.$user->name.' para ingresar en el equipo';
         $userNotificationTitle = "Has recibido una invitación del equipo $eteam->name";
         $userNotificationContent = "$admin->name te ha invitado para ingresar en el equipo $eteam->name";
-        $membersNotificationTitle = $logMessage;
-        $membersNotificationContent = $postContent;
+        $adminsNotificationTitle = $logMessage;
+        $adminsNotificationContent = $admin->name.' ha invitado a '.$user->name.' para ingresar en el equipo';;
 
 //        create log
         $logData = [
@@ -55,18 +53,7 @@ class EteamManagementManager
         ];
         $this->eteamLogManager->create($logData);
 
-//        create post
-        $postData = [
-            'eteam_id' => $eteam->id,
-            'user_id' => $admin->id,
-            'title' => $postTitle,
-            'content' => $postContent,
-            'public' => false,
-            'slug' => Str::slug($postTitle, '-')
-        ];
-        $this->eteamPostManager->create($postData);
-
-//        user mail notification
+//        user notification
         $this->notificationManager->create([
             'user_id' => $user->id,
             'title' => $userNotificationTitle,
@@ -76,16 +63,16 @@ class EteamManagementManager
             'read' => 0
         ]);
 
-//        members mail notifications
-        $membersNotificationData = [
-            'title' => $membersNotificationTitle,
-            'content' => $membersNotificationContent,
+//        admins notifications
+        $adminsNotificationData = [
+            'title' => $adminsNotificationTitle,
+            'content' => $adminsNotificationContent,
             'link' => Route('notifications'),
             'link_title' => 'Notificaciones',
             'read' => 0
         ];
 
         $excludeIds = [$admin->id];
-        $this->notificationManager->createToEteamMembers($eteam, $membersNotificationData, $excludeIds);
+        $this->notificationManager->createToEteamAdmins($eteam, $adminsNotificationData, $excludeIds);
     }
 }

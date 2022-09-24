@@ -36,9 +36,9 @@ class NotificationManager
         $this->mailService->sendMailNotification($user, $data['title'], $data['content']);
     }
 
-    function createToEteamAdmins(ETeam $eteam, array $data): void
+    function createToEteamAdmins(ETeam $eteam, array $data, ?array $excludeIds): void
     {
-        $admins = $eteam->getCaptains();
+        $admins = $eteam->getCaptains($excludeIds);
 
         if (empty($admins)) {
             return;

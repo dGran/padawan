@@ -101,15 +101,20 @@ class ETeam extends Model
         return Carbon::parse($this->created_at)->formatLocalized("%d %b '%y");
     }
 
-    public function getCaptains()
+    public function getCaptains(?array $excludeIds)
     {
-        return ETeamUser::where('eteam_id', $this->id)
+        $admins = ETeamUser::where('eteam_id', $this->id)
             ->where('active', 1)
             ->where(function($q) {
                 $q->where('owner', 1)
-                ->orWhere('captain', 1);
-            })
-            ->get();
+                    ->orWhere('captain', 1);
+            });
+
+        if (!empty($excludeIds)) {
+            $admins = $admins->whereNotIn('user_id', $excludeIds);
+        }
+
+        return $admins->get();
     }
 
     public function getMembers(?array $excludeIds)
