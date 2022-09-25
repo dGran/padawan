@@ -1,5 +1,4 @@
 <x-app-layout>
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium alias autem consequatur delectus dolore ex explicabo inventore, laudantium libero molestiae natus nemo non pariatur quaerat quibusdam quos temporibus. Officiis, quam?
     <!-- Background image -->
     <div class="index-banner relative overflow-hidden bg-no-repeat bg-cover h-96" style="
           background-position: 50%;
